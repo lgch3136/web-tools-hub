@@ -1,8 +1,18 @@
 // === 实时汇率换算工具模块 ===
 import { t } from '../i18n.js';
-// 数据来源: frankfurter.app (欧洲央行汇率, 免费无需API Key)
+// 数据来源（多源fallback）
+const API_SOURCES = [
+  'https://api.frankfurter.app',
+  'https://open.er-api.com/v6',
+];
 
-const BASE_URL = 'https://api.frankfurter.app';
+// 离线备用汇率（2024基准，相对美元）
+const FALLBACK_RATES = {
+  USD:1, CNY:7.24, EUR:0.92, JPY:155.8, GBP:0.79, HKD:7.82, KRW:1370, AUD:1.53, CAD:1.37,
+  CHF:0.89, SGD:1.34, TWD:32.1, INR:83.5, RUB:90.2, BRL:5.12, MXN:17.2,
+  THB:36.5, MYR:4.68, PHP:57.2, IDR:16100, VND:24800, NZD:1.64, SEK:10.5,
+  NOK:10.7, DKK:6.88, TRY:32.5, ZAR:18.3, AED:3.67
+};
 
 // 常用货币列表
 const CURRENCIES = [
@@ -116,7 +126,7 @@ export function render(container) {
   fromSelect.value = 'CNY';
   toSelect.value = 'USD';
 
-  // ---- 获取汇率 ----
+  // ---- 获取汇率（多源fallback） ----
   async function getRate(from, to) {
     if (from === to) return 1;
 
@@ -125,25 +135,52 @@ export function render(container) {
       return rateCache.rate;
     }
 
-    try {
-      const resp = await fetch(`${BASE_URL}/latest?from=${from}&to=${to}`);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const data = await resp.json();
-      const rate = data.rates[to];
-      if (!rate) throw new Error('汇率不可用');
+    let lastErr = null;
 
-      // 更新缓存
-      rateCache = { from, to, rate, timestamp: Date.now() };
-      rateUpdated.textContent = t('rate.updated') + data.date + t('rate.updated_src');
-      return rate;
-    } catch (err) {
-      console.error('汇率获取失败:', err);
-      if (rateCache.rate && rateCache.from === from && rateCache.to === to) {
-        rateUpdated.textContent = t('rate.cached');
-        return rateCache.rate;
+    // 尝试多个 API 源
+    for (const baseUrl of API_SOURCES) {
+      try {
+        let url;
+        if (baseUrl.includes('frankfurter')) {
+          url = `${baseUrl}/latest?from=${from}&to=${to}`;
+        } else {
+          // open.er-api.com 格式不同
+          url = `${baseUrl}/latest/${from}`;
+        }
+
+        const resp = await fetch(url, { signal: AbortSignal.timeout(5000) });
+        if (!resp.ok) continue;
+        const data = await resp.json();
+
+        let rate;
+        if (data.rates) {
+          rate = data.rates[to];
+        }
+        if (!rate) continue;
+
+        rateCache = { from, to, rate, timestamp: Date.now() };
+        rateUpdated.textContent = t('rate.updated') + (data.date || new Date().toISOString().slice(0,10)) + t('rate.updated_src');
+        return rate;
+      } catch (err) {
+        lastErr = err;
+        continue;
       }
-      throw err;
     }
+
+    // 所有API都失败 → 使用离线备用数据
+    if (FALLBACK_RATES[from] && FALLBACK_RATES[to]) {
+      const rate = FALLBACK_RATES[to] / FALLBACK_RATES[from];
+      rateCache = { from, to, rate, timestamp: Date.now() };
+      rateUpdated.textContent = t('rate.cached');
+      return rate;
+    }
+
+    // 彻底失败
+    if (rateCache.rate && rateCache.from === from && rateCache.to === to) {
+      rateUpdated.textContent = t('rate.cached');
+      return rateCache.rate;
+    }
+    throw lastErr || new Error('所有数据源不可用');
   }
 
   // ---- 执行换算 ----

@@ -136,6 +136,11 @@ body{display:flex;flex-direction:column;background:#0d1117;color:#c9d1d9;overflo
   display:flex;flex:1;overflow:hidden;min-height:0;
 }
 
+/* 工具页面通用容器：确保填满视口 */
+main.page-tool{
+  display:flex;flex-direction:column;min-height:0;
+}
+
 /* Pane */
 .mdhtml-pane{display:flex;flex-direction:column;flex:1;min-width:0;overflow:hidden}
 .mdhtml-pane-header{

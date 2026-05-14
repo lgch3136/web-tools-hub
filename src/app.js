@@ -78,9 +78,11 @@ onLangChange((lang) => {
   langSwitch.textContent = t('lang.switch');
 
   if (currentTool) {
-    // 重新渲染当前工具
-    const tool = tools[currentTool];
-    if (tool) showTool(currentTool, tool);
+    // 重新渲染当前工具（先重置 currentTool 以绕过 showTool 的去重检查）
+    const name = currentTool;
+    currentTool = null;
+    const tool = tools[name];
+    if (tool) showTool(name, tool);
   } else {
     // 首页 - 翻译静态文本
     translateDOM();

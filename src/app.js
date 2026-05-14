@@ -1,5 +1,7 @@
 // === 在线工具集 - 路由器（多语言支持）===
 import { t, getLang, setLang, onLangChange, translateDOM } from './i18n.js';
+import { render as renderMdHtml } from './tools/md-html.js';
+import { render as renderExchangeRate } from './tools/exchange-rate.js';
 
 const pageHome      = document.getElementById('pageHome');
 const toolContainer = document.getElementById('toolContainer');
@@ -8,10 +10,10 @@ const topbarBack    = document.getElementById('topbarBack');
 const topbarHome    = document.getElementById('topbarHome');
 const langSwitch    = document.getElementById('langSwitch');
 
-// 工具注册表
+// 工具注册表（静态导入，无动态import问题）
 const tools = {
-  'md-html':        { titleKey: 'tool.mdhtml.title',    module: () => import('./tools/md-html.js') },
-  'exchange-rate':  { titleKey: 'tool.exchange.title',  module: () => import('./tools/exchange-rate.js') },
+  'md-html':        { titleKey: 'tool.mdhtml.title',    render: renderMdHtml },
+  'exchange-rate':  { titleKey: 'tool.exchange.title',  render: renderExchangeRate },
 };
 
 let currentTool = null;
@@ -52,10 +54,9 @@ async function showTool(name, tool) {
   toolContainer.innerHTML = `<div style="text-align:center;padding:60px;color:#484f58;font-size:.9rem;">${t('loading')}</div>`;
 
   try {
-    const mod = await tool.module();
     toolContainer.innerHTML = '';
-    if (mod.render) {
-      mod.render(toolContainer);
+    if (tool.render) {
+      tool.render(toolContainer);
     }
   } catch (err) {
     console.error(err);

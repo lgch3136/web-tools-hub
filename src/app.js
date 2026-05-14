@@ -1,7 +1,11 @@
 // === 在线工具集 - 路由器（多语言支持）===
+// 调试：先用简单文本替代工具模块
 import { t, getLang, setLang, onLangChange, translateDOM } from './i18n.js';
-import { render as renderMdHtml } from './tools/md-html.js';
-import { render as renderExchangeRate } from './tools/exchange-rate.js';
+
+// 临时简单渲染函数
+function renderSimple(container) {
+  container.innerHTML = '<div style="padding:40px;text-align:center;"><h2 style="color:#58a6ff;">✅ 工具加载成功</h2><p style="color:#8b949e;">路由和渲染管道正常</p></div>';
+}
 
 const pageHome      = document.getElementById('pageHome');
 const toolContainer = document.getElementById('toolContainer');
@@ -10,11 +14,15 @@ const topbarBack    = document.getElementById('topbarBack');
 const topbarHome    = document.getElementById('topbarHome');
 const langSwitch    = document.getElementById('langSwitch');
 
-// 工具注册表（静态导入，无动态import问题）
+// 工具注册表（调试版）
 const tools = {
-  'md-html':        { titleKey: 'tool.mdhtml.title',    render: renderMdHtml },
-  'exchange-rate':  { titleKey: 'tool.exchange.title',  render: renderExchangeRate },
+  'md-html':        { titleKey: 'tool.mdhtml.title',    render: renderSimple },
+  'exchange-rate':  { titleKey: 'tool.exchange.title',  render: renderSimple },
 };
+
+// 暴露调试
+window.__tools = tools;
+window.__renderSimple = renderSimple;
 
 let currentTool = null;
 

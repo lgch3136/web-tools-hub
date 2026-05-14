@@ -111,12 +111,18 @@ export function render(container) {
 
   container.innerHTML = html;
 
-  // ---- DOM refs ----
+  // ---- DOM refs (带空值保护) ----
   const $ = (id) => document.getElementById(id);
   const mdRender = $('mdRender'), mdSource = $('mdSource'), htmlRender = $('htmlRender'), htmlSource = $('htmlSource');
   const mdFmtBar = $('mdFmtBar'), htmlFmtBar = $('htmlFmtBar');
   const btnImport = $('btnImport'), importMenu = $('importMenu'), importInput = $('importInput');
   const btnExport = $('btnExport'), exportMenu = $('exportMenu');
+
+  // 快速失败检查：如果核心元素缺失，直接显示错误
+  if (!mdRender || !htmlRender) {
+    container.innerHTML = '<div style="text-align:center;padding:60px;color:#f85149;">⚠️ 编辑器加载失败，请刷新页面</div>';
+    return;
+  }
 
   const paneModes = { md: 'render', html: 'render' };
   let pendingTarget = null;
@@ -429,4 +435,16 @@ export function render(container) {
       if ([mdRender,mdSource,htmlRender,htmlSource].includes(active)) { e.preventDefault(); $('btnMdToHtml').click(); }
     }
   });
+}
+
+// 自动初始化：如果页面有 #app 容器则自动渲染
+const appEl = document.getElementById('app');
+if (appEl) {
+  render(appEl);
+  // 广告初始化
+  setTimeout(() => {
+    if (window.adsbygoogle && typeof window.adsbygoogle.push === 'function') {
+      window.adsbygoogle.push({});
+    }
+  }, 200);
 }

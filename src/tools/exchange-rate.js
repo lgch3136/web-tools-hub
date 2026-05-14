@@ -220,12 +220,15 @@ export function render(container) {
 
   // 初始加载
   convert();
+}
 
-  // 导出全局 toast
-  window._rateToast = function(msg) {
-    const e = document.createElement('div');
-    e.className = 'toast'; e.textContent = msg;
-    document.body.appendChild(e);
-    setTimeout(() => e.remove(), 2000);
-  };
+// 自动初始化：如果页面有 #app 容器则自动渲染
+const appEl = document.getElementById('app');
+if (appEl) {
+  render(appEl);
+  setTimeout(() => {
+    if (window.adsbygoogle && typeof window.adsbygoogle.push === 'function') {
+      window.adsbygoogle.push({});
+    }
+  }, 200);
 }

@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "在线工具集 - Markdown转换、汇率换算等实用工具",
-  "source": "src/index.html",
   "scripts": {
-    "start": "parcel src/index.html --port 3000 --open",
-    "build": "parcel build src/index.html --dist-dir dist --public-url ./"
+    "start": "parcel src/index.html src/md-html.html src/exchange-rate.html --port 3000 --open",
+    "build": "parcel build src/index.html src/md-html.html src/exchange-rate.html --dist-dir dist --public-url ./"
   },
   "dependencies": {
     "docx": "^8.5.0",
@@ -18,5 +17,10 @@
     "buffer": "^6.0.3",
     "parcel": "^2.12.0",
     "process": "^0.11.10"
+  },
+  "targets": {
+    "default": {
+      "distDir": "./dist"
+    }
   }
 }

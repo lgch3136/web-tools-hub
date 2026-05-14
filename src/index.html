@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>在线工具集 - Markdown转换 | 汇率换算 | 实用工具</title>
+  <title data-i18n="site.title">在线工具集 - Markdown转换 | 汇率换算</title>
   <meta name="description" content="免费在线工具集：Markdown ↔ HTML 双向转换、实时汇率换算、PDF/Word 导出。简洁高效，无需安装。" />
-  <meta name="keywords" content="在线工具, Markdown转HTML, HTML转Markdown, 汇率换算, 汇率转换, 货币转换, 格式转换, PDF导出, Word导出" />
+  <meta name="keywords" content="在线工具, Markdown转HTML, HTML转Markdown, 汇率换算, 汇率转换, 货币转换, 格式转换, PDF导出, Word导出, online tools, markdown converter, exchange rate, currency converter" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://web-tools-hub.vercel.app" />
 
   <meta property="og:title" content="在线工具集 - 实用开发与办公工具" />
   <meta property="og:description" content="免费在线工具集：Markdown ↔ HTML 双向转换、实时汇率换算、PDF/Word 导出。" />
@@ -15,7 +14,7 @@
   <meta property="og:locale" content="zh_CN" />
 
   <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="./style.css" />
 </head>
@@ -23,20 +22,21 @@
 
   <!-- ===== 顶部导航 ===== -->
   <header class="topbar">
-    <a href="#home" class="topbar-home" id="topbarHome">🔧 在线工具集</a>
+    <a href="#home" class="topbar-home" data-i18n="site.name">🔧 在线工具集</a>
     <span class="topbar-title" id="topbarTitle"></span>
-    <a href="#home" class="topbar-back hidden" id="topbarBack">← 返回首页</a>
+    <button class="lang-switch" id="langSwitch" data-i18n="lang.switch" title="Switch Language">EN</button>
+    <a href="#home" class="topbar-back hidden" id="topbarBack" data-i18n="back.home">← 返回首页</a>
   </header>
 
   <!-- ===== 首页 ===== -->
   <main id="pageHome" class="page page-home">
     <section class="hero">
-      <h1>🛠️ 在线工具集</h1>
-      <p class="hero-desc">实用开发与办公工具 · 免费 · 无需安装 · 即开即用</p>
+      <h1 data-i18n="hero.title">🛠️ 在线工具集</h1>
+      <p class="hero-desc" data-i18n="hero.desc">实用开发与办公工具 · 免费 · 无需安装 · 即开即用</p>
       <div class="hero-stats">
-        <span>🔒 数据本地处理</span>
-        <span>⚡ 实时响应</span>
-        <span>📱 移动端适配</span>
+        <span data-i18n="hero.stat1">🔒 数据本地处理</span>
+        <span data-i18n="hero.stat2">⚡ 实时响应</span>
+        <span data-i18n="hero.stat3">📱 移动端适配</span>
       </div>
     </section>
 
@@ -44,43 +44,43 @@
       <!-- MD-HTML -->
       <a href="#md-html" class="tool-card">
         <div class="tool-icon">📄</div>
-        <h3>MD ↔ HTML 转换器</h3>
-        <p>Markdown 与 HTML 双向转换，支持富媒体编辑、图片粘贴、表格插入。导出 PDF / Word / HTML / MD / TXT。</p>
-        <span class="tool-tag">编辑器</span>
-        <span class="tool-tag">格式转换</span>
+        <h3 data-i18n="tool.mdhtml.title">MD ↔ HTML 转换器</h3>
+        <p data-i18n="tool.mdhtml.desc">Markdown 与 HTML 双向转换，支持富媒体编辑、图片粘贴、表格插入。导出 PDF / Word / HTML / MD / TXT。</p>
+        <span class="tool-tag" data-i18n="tool.mdhtml.tag1">编辑器</span>
+        <span class="tool-tag" data-i18n="tool.mdhtml.tag2">格式转换</span>
         <span class="tool-arrow">→</span>
       </a>
 
       <!-- 汇率 -->
       <a href="#exchange-rate" class="tool-card">
         <div class="tool-icon">💱</div>
-        <h3>实时汇率换算</h3>
-        <p>全球 30+ 主流货币实时汇率转换，数据来源欧洲央行，支持快捷金额计算。</p>
-        <span class="tool-tag">金融</span>
-        <span class="tool-tag">实时数据</span>
+        <h3 data-i18n="tool.exchange.title">实时汇率换算</h3>
+        <p data-i18n="tool.exchange.desc">全球 30+ 主流货币实时汇率转换，数据来源欧洲央行，支持快捷金额计算。</p>
+        <span class="tool-tag" data-i18n="tool.exchange.tag1">金融</span>
+        <span class="tool-tag" data-i18n="tool.exchange.tag2">实时数据</span>
         <span class="tool-arrow">→</span>
       </a>
 
-      <!-- 更多工具占位 -->
+      <!-- 更多工具 -->
       <div class="tool-card tool-card-coming">
         <div class="tool-icon">🔜</div>
-        <h3>更多工具即将上线</h3>
-        <p>时间戳转换、JSON 格式化、Base64 编解码、颜色转换、二维码生成…</p>
-        <span class="tool-tag">敬请期待</span>
+        <h3 data-i18n="tool.coming.title">更多工具即将上线</h3>
+        <p data-i18n="tool.coming.desc">时间戳转换、JSON 格式化、Base64 编解码、颜色转换、二维码生成…</p>
+        <span class="tool-tag" data-i18n="tool.coming.tag">敬请期待</span>
       </div>
     </section>
 
     <!-- 首页广告 -->
     <div class="ad-container ad-home">
       <ins class="adsbygoogle" style="display:block"
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-client="ca-pub-7632558285398569"
         data-ad-slot="1111111111"
         data-ad-format="auto"
         data-full-width-responsive="true"></ins>
     </div>
 
     <footer class="footer">
-      <p>© 2026 在线工具集 · 数据仅本地处理，不上传服务器</p>
+      <p data-i18n="footer.text">© 2026 在线工具集 · 数据仅本地处理，不上传服务器</p>
     </footer>
   </main>
 

@@ -1,36 +1,29 @@
-// === 在线工具集 - 路由器 ===
+// === 在线工具集 - 路由器（多语言支持）===
+import { t, getLang, setLang, onLangChange, translateDOM } from './i18n.js';
 
-const pageHome     = document.getElementById('pageHome');
+const pageHome      = document.getElementById('pageHome');
 const toolContainer = document.getElementById('toolContainer');
-const topbarTitle  = document.getElementById('topbarTitle');
-const topbarBack   = document.getElementById('topbarBack');
-const topbarHome   = document.getElementById('topbarHome');
+const topbarTitle   = document.getElementById('topbarTitle');
+const topbarBack    = document.getElementById('topbarBack');
+const topbarHome    = document.getElementById('topbarHome');
+const langSwitch    = document.getElementById('langSwitch');
 
 // 工具注册表
 const tools = {
-  'md-html': { title: '📄 MD ↔ HTML 转换器', module: () => import('./tools/md-html.js') },
-  'exchange-rate': { title: '💱 实时汇率换算', module: () => import('./tools/exchange-rate.js') },
+  'md-html':        { titleKey: 'tool.mdhtml.title',    module: () => import('./tools/md-html.js') },
+  'exchange-rate':  { titleKey: 'tool.exchange.title',  module: () => import('./tools/exchange-rate.js') },
 };
 
-// 当前加载的工具名（避免重复加载）
 let currentTool = null;
 
 // ===== 路由 =====
 function route() {
   const hash = window.location.hash.replace('#', '') || 'home';
-
-  if (hash === 'home') {
-    showHome();
-    return;
-  }
+  if (hash === 'home') { showHome(); return; }
 
   const tool = tools[hash];
-  if (tool) {
-    showTool(hash, tool);
-  } else {
-    // 未知路由 → 回首页
-    window.location.hash = 'home';
-  }
+  if (tool) { showTool(hash, tool); }
+  else { window.location.hash = 'home'; }
 }
 
 function showHome() {
@@ -40,58 +33,79 @@ function showHome() {
   topbarTitle.textContent = '';
   topbarBack.classList.add('hidden');
   topbarHome.classList.remove('hidden');
+  langSwitch.classList.remove('hidden');
   currentTool = null;
-  document.title = '在线工具集 - Markdown转换 | 汇率换算';
+  translateDOM(); // 翻译首页静态文本
 }
 
 async function showTool(name, tool) {
-  if (currentTool === name) return; // 已加载
+  if (currentTool === name) return;
   currentTool = name;
 
   pageHome.classList.add('hidden');
   toolContainer.classList.remove('hidden');
-  topbarTitle.textContent = tool.title;
+  topbarTitle.textContent = t(tool.titleKey);
   topbarBack.classList.remove('hidden');
   topbarHome.classList.add('hidden');
-  document.title = tool.title + ' - 在线工具集';
+  document.title = t(tool.titleKey) + ' - ' + t('site.name').replace('🔧 ', '');
 
-  // 显示加载状态
-  toolContainer.innerHTML = '<div style="text-align:center;padding:60px;color:#484f58;font-size:.9rem;">加载中...</div>';
+  toolContainer.innerHTML = `<div style="text-align:center;padding:60px;color:#484f58;font-size:.9rem;">${t('loading')}</div>`;
 
   try {
     const mod = await tool.module();
-    // 工具模块导出 render(container) 函数
     toolContainer.innerHTML = '';
     if (mod.render) {
       mod.render(toolContainer);
     }
   } catch (err) {
-    console.error('加载工具失败:', err);
-    toolContainer.innerHTML = `<div style="text-align:center;padding:60px;color:#f85149;">加载失败: ${err.message}</div>`;
+    console.error(err);
+    toolContainer.innerHTML = `<div style="text-align:center;padding:60px;color:#f85149;">${t('load.error')}${err.message}</div>`;
   }
 }
 
 // 监听 hash 变化
 window.addEventListener('hashchange', route);
 
-// 初始路由
+// ===== 语言切换 =====
+langSwitch.addEventListener('click', () => {
+  const newLang = getLang() === 'zh' ? 'en' : 'zh';
+  setLang(newLang);
+});
+
+// 语言变化时重新渲染当前页面
+onLangChange((lang) => {
+  // 更新语言按钮文字
+  langSwitch.textContent = t('lang.switch');
+
+  if (currentTool) {
+    // 重新渲染当前工具
+    const tool = tools[currentTool];
+    if (tool) showTool(currentTool, tool);
+  } else {
+    // 首页 - 翻译静态文本
+    translateDOM();
+    document.title = t('site.title');
+  }
+
+  // 刷新 AdSense
+  setTimeout(() => {
+    if (window.adsbygoogle && typeof window.adsbygoogle.push === 'function') {
+      window.adsbygoogle.push({});
+    }
+  }, 200);
+});
+
+// ===== 初始加载 =====
+// 同步语言按钮
+langSwitch.textContent = t('lang.switch');
+translateDOM();
 route();
 
-// ===== 首页广告刷新 =====
-// 路由切换后重新初始化 AdSense
+// ===== AdSense 路由切换时刷新 =====
 window.addEventListener('hashchange', () => {
   setTimeout(() => {
     if (window.adsbygoogle && typeof window.adsbygoogle.push === 'function') {
       window.adsbygoogle.push({});
     }
-  }, 100);
+  }, 200);
 });
-
-// Toast
-function toast(msg, dur = 2000) {
-  const el = document.createElement('div');
-  el.className = 'toast';
-  el.textContent = msg;
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), dur);
-}

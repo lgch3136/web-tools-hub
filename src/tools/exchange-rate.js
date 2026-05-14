@@ -1,4 +1,5 @@
 // === 实时汇率换算工具模块 ===
+import { t } from '../i18n.js';
 // 数据来源: frankfurter.app (欧洲央行汇率, 免费无需API Key)
 
 const BASE_URL = 'https://api.frankfurter.app';
@@ -49,18 +50,18 @@ export function render(container) {
   const html = `
     <div class="rate-container">
       <div class="rate-card">
-        <h2>💱 实时汇率换算</h2>
-        <div class="rate-updated" id="rateUpdated">数据来源: 欧洲央行</div>
+        <h2>${t('rate.title')}</h2>
+        <div class="rate-updated" id="rateUpdated">${t('rate.source')}</div>
 
         <!-- 输入金额 -->
         <div class="rate-input-group">
-          <input type="number" id="rateAmount" class="rate-amount" value="1" min="0" step="any" placeholder="输入金额" />
+          <input type="number" id="rateAmount" class="rate-amount" value="1" min="0" step="any" placeholder="${t('rate.amount_ph')}" />
           <select id="rateFrom" class="rate-select">${currencyOptions}</select>
         </div>
 
         <!-- 交换按钮 -->
         <div class="rate-swap-row">
-          <button id="rateSwap" class="rate-swap-btn">⇅ 交换货币</button>
+          <button id="rateSwap" class="rate-swap-btn">${t('rate.swap')}</button>
         </div>
 
         <!-- 目标货币 -->
@@ -71,7 +72,7 @@ export function render(container) {
 
         <!-- 转换结果 -->
         <div class="rate-result">
-          <div class="rate-result-label">转换结果</div>
+          <div class="rate-result-label">${t('rate.result_label')}</div>
           <div class="rate-result-value" id="rateResult">—</div>
           <div class="rate-result-rate" id="rateInfo"></div>
         </div>
@@ -89,13 +90,13 @@ export function render(container) {
 
       <!-- 底部信息 -->
       <div style="text-align:center;padding:16px;color:#484f58;font-size:.75rem;">
-        <p>汇率数据每日更新，仅供参考，实际交易以银行柜台为准</p>
-        <p style="margin-top:4px;">Data by <a href="https://www.frankfurter.app" target="_blank" style="color:#58a6ff;">frankfurter.app</a> (European Central Bank)</p>
+        <p>${t('rate.disclaimer')}</p>
+        <p style="margin-top:4px;">${t('rate.credit')}</p>
       </div>
     </div>
 
     <div class="ad-container ad-tool-bottom" style="margin-top:20px;">
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="3333333333" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="3333333333" data-ad-format="auto" data-full-width-responsive="true"></ins>
     </div>
   `;
 
@@ -133,12 +134,12 @@ export function render(container) {
 
       // 更新缓存
       rateCache = { from, to, rate, timestamp: Date.now() };
-      rateUpdated.textContent = `数据更新: ${data.date} · 来源: 欧洲央行`;
+      rateUpdated.textContent = t('rate.updated') + data.date + t('rate.updated_src');
       return rate;
     } catch (err) {
       console.error('汇率获取失败:', err);
       if (rateCache.rate && rateCache.from === from && rateCache.to === to) {
-        rateUpdated.textContent = '⚠️ 使用缓存数据 (网络异常)';
+        rateUpdated.textContent = t('rate.cached');
         return rateCache.rate;
       }
       throw err;
@@ -158,8 +159,8 @@ export function render(container) {
       return;
     }
 
-    resultValue.textContent = '计算中…';
-    outputDisplay.textContent = '计算中…';
+    resultValue.textContent = t('rate.calculating');
+    outputDisplay.textContent = t('rate.calculating');
 
     try {
       const rate = await getRate(from, to);
@@ -175,9 +176,9 @@ export function render(container) {
       const toLabel = toCur ? `${toCur.flag} ${toCur.code}` : to;
       rateInfo.textContent = `1 ${fromLabel} = ${formatNumber(rate)} ${toLabel}`;
     } catch (err) {
-      resultValue.textContent = '获取失败';
+      resultValue.textContent = t('rate.error');
       outputDisplay.textContent = '⚠️';
-      rateInfo.textContent = '网络异常，请稍后重试';
+      rateInfo.textContent = t('rate.network_err');
       resultValue.style.color = '#f85149';
       setTimeout(() => { resultValue.style.color = ''; }, 3000);
     }

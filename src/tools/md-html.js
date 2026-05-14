@@ -1,4 +1,5 @@
 // === MD ↔ HTML 转换器工具模块 ===
+import { t } from '../i18n.js';
 import { marked } from 'marked';
 import TurndownService from 'turndown';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, ExternalHyperlink } from 'docx';
@@ -14,36 +15,36 @@ export function render(container) {
   const html = `
     <div class="mdhtml-toolbar">
       <div class="mdhtml-dropdown">
-        <button class="btn" id="btnImport">📥 导入</button>
+        <button class="btn" id="btnImport">${t('mdhtml.import')}</button>
         <div class="mdhtml-dropdown-menu hidden" id="importMenu">
-          <button class="menu-item" data-fmt="md">📝 Markdown</button>
-          <button class="menu-item" data-fmt="html">🌐 HTML</button>
-          <button class="menu-item" data-fmt="txt">📃 纯文本</button>
-          <button class="menu-item" data-fmt="word">📘 Word</button>
+          <button class="menu-item" data-fmt="md">${t('mdhtml.import.fmt_md')}</button>
+          <button class="menu-item" data-fmt="html">${t('mdhtml.import.fmt_html')}</button>
+          <button class="menu-item" data-fmt="txt">${t('mdhtml.import.fmt_txt')}</button>
+          <button class="menu-item" data-fmt="word">${t('mdhtml.import.fmt_word')}</button>
         </div>
       </div>
       <input type="file" id="importInput" hidden />
       <div class="mdhtml-dropdown">
-        <button class="btn btn-success" id="btnExport">📤 导出</button>
+        <button class="btn btn-success" id="btnExport">${t('mdhtml.export')}</button>
         <div class="mdhtml-dropdown-menu hidden" id="exportMenu">
-          <button class="menu-item" data-fmt="pdf">📄 PDF</button>
-          <button class="menu-item" data-fmt="word">📘 Word</button>
-          <button class="menu-item" data-fmt="html">🌐 HTML</button>
-          <button class="menu-item" data-fmt="md">📝 Markdown</button>
-          <button class="menu-item" data-fmt="txt">📃 纯文本</button>
+          <button class="menu-item" data-fmt="pdf">${t('mdhtml.export.fmt_pdf')}</button>
+          <button class="menu-item" data-fmt="word">${t('mdhtml.export.fmt_word')}</button>
+          <button class="menu-item" data-fmt="html">${t('mdhtml.export.fmt_html')}</button>
+          <button class="menu-item" data-fmt="md">${t('mdhtml.export.fmt_md')}</button>
+          <button class="menu-item" data-fmt="txt">${t('mdhtml.export.fmt_txt')}</button>
         </div>
       </div>
       <span class="sep"></span>
-      <button class="btn btn-danger" id="btnClear">🗑️ 清空</button>
+      <button class="btn btn-danger" id="btnClear">${t('mdhtml.clear')}</button>
     </div>
     <div class="mdhtml-editor">
       <!-- MD Pane -->
       <div class="mdhtml-pane">
         <div class="mdhtml-pane-header">
-          <span>📝 Markdown</span>
+          <span>${t('mdhtml.md_label')}</span>
           <div class="mdhtml-mode-btns">
-            <button class="mdhtml-mode-btn active" data-pane="md" data-mode="render">阅读</button>
-            <button class="mdhtml-mode-btn" data-pane="md" data-mode="source">源码</button>
+            <button class="mdhtml-mode-btn active" data-pane="md" data-mode="render">${t('mdhtml.view')}</button>
+            <button class="mdhtml-mode-btn" data-pane="md" data-mode="source">${t('mdhtml.source')}</button>
           </div>
         </div>
         <div class="mdhtml-fmt-bar" id="mdFmtBar">
@@ -60,22 +61,22 @@ export function render(container) {
           <button class="mdhtml-fmt-btn" data-fmt="image">🖼️</button>
           <button class="mdhtml-fmt-btn" data-fmt="table">📊</button>
         </div>
-        <div id="mdRender" class="mdhtml-render" contenteditable spellcheck="false" data-placeholder="输入 Markdown，或粘贴图片…"></div>
-        <textarea id="mdSource" class="mdhtml-source hidden" spellcheck="false" placeholder="# 输入 Markdown 源码…"></textarea>
+        <div id="mdRender" class="mdhtml-render" contenteditable spellcheck="false" data-placeholder="${t('mdhtml.md_render_ph')}"></div>
+        <textarea id="mdSource" class="mdhtml-source hidden" spellcheck="false" placeholder="${t('mdhtml.md_placeholder')}"></textarea>
       </div>
       <!-- Center -->
       <div class="mdhtml-center">
-        <button id="btnMdToHtml" class="mdhtml-sync-btn"><span class="mdhtml-sync-arrow">→</span>转HTML</button>
+        <button id="btnMdToHtml" class="mdhtml-sync-btn"><span class="mdhtml-sync-arrow">→</span>${t('mdhtml.to_html')}</button>
         <div class="mdhtml-sync-divider"></div>
-        <button id="btnHtmlToMd" class="mdhtml-sync-btn"><span class="mdhtml-sync-arrow">←</span>转MD</button>
+        <button id="btnHtmlToMd" class="mdhtml-sync-btn"><span class="mdhtml-sync-arrow">←</span>${t('mdhtml.to_md')}</button>
       </div>
       <!-- HTML Pane -->
       <div class="mdhtml-pane">
         <div class="mdhtml-pane-header">
-          <span>🌐 HTML</span>
+          <span>${t('mdhtml.html_label')}</span>
           <div class="mdhtml-mode-btns">
-            <button class="mdhtml-mode-btn active" data-pane="html" data-mode="render">阅读</button>
-            <button class="mdhtml-mode-btn" data-pane="html" data-mode="source">源码</button>
+            <button class="mdhtml-mode-btn active" data-pane="html" data-mode="render">${t('mdhtml.view')}</button>
+            <button class="mdhtml-mode-btn" data-pane="html" data-mode="source">${t('mdhtml.source')}</button>
           </div>
         </div>
         <div class="mdhtml-fmt-bar hidden" id="htmlFmtBar">
@@ -90,19 +91,19 @@ export function render(container) {
           <button class="mdhtml-fmt-btn" data-fmt="link">🔗</button>
           <button class="mdhtml-fmt-btn" data-fmt="image">🖼️</button>
         </div>
-        <div id="htmlRender" class="mdhtml-render" contenteditable spellcheck="false" data-placeholder="右侧显示 HTML 渲染结果…"></div>
-        <textarea id="htmlSource" class="mdhtml-source hidden" spellcheck="false" placeholder="<h1>输入 HTML 源码…</h1>"></textarea>
+        <div id="htmlRender" class="mdhtml-render" contenteditable spellcheck="false" data-placeholder="${t('mdhtml.html_render_ph')}"></div>
+        <textarea id="htmlSource" class="mdhtml-source hidden" spellcheck="false" placeholder="${t('mdhtml.html_placeholder')}"></textarea>
       </div>
     </div>
-    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="2222222222" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="2222222222" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
     <!-- Modals -->
     <div class="mdhtml-modal-overlay hidden" id="mdhtmlModal">
       <div class="mdhtml-modal">
-        <h3 id="mdhtmlModalTitle">弹窗</h3>
+        <h3 id="mdhtmlModalTitle">${t('mdhtml.modal.title')}</h3>
         <div id="mdhtmlModalBody"></div>
         <div class="mdhtml-modal-btns">
-          <button class="btn btn-primary" id="mdhtmlModalOk">确定</button>
-          <button class="btn" id="mdhtmlModalCancel">取消</button>
+          <button class="btn btn-primary" id="mdhtmlModalOk">${t('mdhtml.modal.ok')}</button>
+          <button class="btn" id="mdhtmlModalCancel">${t('mdhtml.modal.cancel')}</button>
         </div>
       </div>
     </div>
@@ -162,24 +163,24 @@ export function render(container) {
   // ---- Convert ----
   $('btnMdToHtml').addEventListener('click', () => {
     let md = paneModes.md==='render' ? renderToMd(mdRender) : mdSource.value;
-    if (!md.trim()) { toast('⚠️ 请先输入 Markdown'); return; }
+    if (!md.trim()) { toast(t('mdhtml.toast.no_md')); return; }
     mdSource.value = md;
     const html = marked.parse(md);
     htmlSource.value = html;
     setPaneMode('md','render',true); mdRender.innerHTML = html;
     setPaneMode('html','render',true); htmlRender.innerHTML = html;
-    toast('MD → HTML ✅');
+    toast(t('mdhtml.toast.md2html'));
   });
 
   $('btnHtmlToMd').addEventListener('click', () => {
     let html = paneModes.html==='render' ? htmlRender.innerHTML : htmlSource.value;
-    if (!html.trim()) { toast('⚠️ 请先输入 HTML'); return; }
+    if (!html.trim()) { toast(t('mdhtml.toast.no_html')); return; }
     htmlSource.value = html;
     const md = turndown.turndown(html);
     mdSource.value = md;
     setPaneMode('md','render',true); mdRender.innerHTML = html;
     setPaneMode('html','render',true); htmlRender.innerHTML = html;
-    toast('HTML → MD ✅');
+    toast(t('mdhtml.toast.html2md'));
   });
 
   // ---- Format ----
@@ -231,15 +232,15 @@ export function render(container) {
   modal.addEventListener('click', e => { if (e.target===modal) closeModal(); });
 
   function promptLink(el) {
-    openModal('🔗 插入链接', '<input id="linkText" class="mdhtml-modal-input" placeholder="链接文字" /><input id="linkUrl" class="mdhtml-modal-input" placeholder="https://…" />', () => {
-      const text = $('linkText').value.trim()||'链接', url = $('linkUrl').value.trim();
+    openModal(t('mdhtml.modal.link'), `<input id="linkText" class="mdhtml-modal-input" placeholder="${t('mdhtml.modal.link_text')}" /><input id="linkUrl" class="mdhtml-modal-input" placeholder="${t('mdhtml.modal.link_url')}" />`, () => {
+      const text = $('linkText').value.trim() || t('mdhtml.modal.link_text'); const url = $('linkUrl').value.trim();
       if (!url) return;
       el.focus(); document.execCommand('insertHTML', false, `<a href="${url}" target="_blank" rel="noopener" style="color:#79c0ff;">${text}</a>`);
     });
   }
 
   function promptCode(el) {
-    openModal('💻 插入代码块', '<input id="codeLang" class="mdhtml-modal-input" placeholder="语言 (js/python/…)" /><textarea id="codeCode" class="mdhtml-modal-textarea" placeholder="输入代码…"></textarea>', () => {
+    openModal(t('mdhtml.modal.code'), `<input id="codeLang" class="mdhtml-modal-input" placeholder="${t('mdhtml.modal.code_lang')}" /><textarea id="codeCode" class="mdhtml-modal-textarea" placeholder="${t('mdhtml.modal.code_ph')}"></textarea>`, () => {
       const lang = $('codeLang').value.trim(), code = $('codeCode').value;
       el.focus();
       if (el===mdRender) { const f = lang?`\`\`\`${lang}\n${code}\n\`\`\``:`\`\`\`\n${code}\n\`\`\``; document.execCommand('insertHTML',false,marked.parse(f)); }
@@ -248,7 +249,7 @@ export function render(container) {
   }
 
   function promptImage(el) {
-    openModal('🖼️ 插入图片', '<input type="file" id="imgFile" accept="image/*" style="padding:4px;" />', async () => {
+    openModal(t('mdhtml.modal.image'), '<input type="file" id="imgFile" accept="image/*" style="padding:4px;" />', async () => {
       const f = $('imgFile').files[0]; if (!f) return;
       const dataUrl = await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(f);});
       const alt = f.name.replace(/\.[^.]+$/,'');
@@ -259,11 +260,11 @@ export function render(container) {
   }
 
   function promptTable(el) {
-    openModal('📊 插入表格', '<div style="display:flex;gap:10px;margin-bottom:10px;"><label style="font-size:.8rem;color:#8b949e;">行数</label><input type="number" id="tRows" value="3" min="2" max="20" style="width:60px;" /></div><div style="display:flex;gap:10px;"><label style="font-size:.8rem;color:#8b949e;">列数</label><input type="number" id="tCols" value="3" min="1" max="10" style="width:60px;" /></div>', () => {
+    openModal(t('mdhtml.modal.table'), `<div style="display:flex;gap:10px;margin-bottom:10px;"><label style="font-size:.8rem;color:#8b949e;">${t('mdhtml.modal.rows')}</label><input type="number" id="tRows" value="3" min="2" max="20" style="width:60px;" /></div><div style="display:flex;gap:10px;"><label style="font-size:.8rem;color:#8b949e;">${t('mdhtml.modal.cols')}</label><input type="number" id="tCols" value="3" min="1" max="10" style="width:60px;" /></div>`, () => {
       const rows=parseInt($('tRows').value)||3, cols=parseInt($('tCols').value)||3;
       el.focus();
-      if (el===mdRender) { let md='\n|'; for(let c=0;c<cols;c++) md+=` 列${c+1} |`; md+='\n|'; for(let c=0;c<cols;c++) md+=' --- |'; md+='\n'; for(let r=0;r<rows-1;r++){md+='|';for(let c=0;c<cols;c++)md+=' 内容 |';md+='\n';} document.execCommand('insertHTML',false,marked.parse(md)); }
-      else { let t='<table style="width:100%;border-collapse:collapse;margin:8px 0;">'; t+='<thead><tr>'; for(let c=0;c<cols;c++) t+=`<th style="border:1px solid #21262d;padding:6px 10px;">列${c+1}</th>`; t+='</tr></thead><tbody>'; for(let r=0;r<rows-1;r++){t+='<tr>';for(let c=0;c<cols;c++)t+='<td style="border:1px solid #21262d;padding:6px 10px;">内容</td>';t+='</tr>';} document.execCommand('insertHTML',false,t+'</tbody></table>'); }
+      if (el===mdRender) { let md='\n|'; for(let c=0;c<cols;c++) md+=` ${t('mdhtml.modal.col_label')}${c+1} |`; md+='\n|'; for(let c=0;c<cols;c++) md+=' --- |'; md+='\n'; for(let r=0;r<rows-1;r++){md+='|';for(let c=0;c<cols;c++)md+=` ${t('mdhtml.modal.cell')} |`;md+='\n';} document.execCommand('insertHTML',false,marked.parse(md)); }
+      else { let t='<table style="width:100%;border-collapse:collapse;margin:8px 0;">'; t+='<thead><tr>'; for(let c=0;c<cols;c++) t+=`<th style="border:1px solid #21262d;padding:6px 10px;">${t('mdhtml.modal.col_label')}${c+1}</th>`; t+='</tr></thead><tbody>'; for(let r=0;r<rows-1;r++){t+='<tr>';for(let c=0;c<cols;c++)t+=`<td style="border:1px solid #21262d;padding:6px 10px;">${t('mdhtml.modal.cell')}</td>`;t+='</tr>';} document.execCommand('insertHTML',false,t+'</tbody></table>'); }
     });
   }
 
@@ -283,7 +284,7 @@ export function render(container) {
   importInput.addEventListener('change', async e => {
     const file = e.target.files[0]; if (!file) return;
     const fmt = importInput.dataset.importFmt;
-    toast('正在导入…');
+    toast(t('mdhtml.toast.importing'));
     try {
       if (fmt==='word'||file.name.match(/\.docx?$/i)) {
         const buf = await file.arrayBuffer(), result = await mammoth.convertToHtml({arrayBuffer:buf});
@@ -302,8 +303,8 @@ export function render(container) {
           mdRender.innerHTML=h; htmlRender.innerHTML=h;
         }
       }
-      toast(`📥 已导入: ${file.name}`);
-    } catch(err) { console.error(err); toast('导入失败 ❌'); }
+      toast(t('mdhtml.toast.imported') + file.name);
+    } catch(err) { console.error(err); toast(t('mdhtml.toast.import_err')); }
     importInput.value='';
   });
 
@@ -312,21 +313,21 @@ export function render(container) {
   exportMenu.querySelectorAll('.menu-item').forEach(item => {
     item.addEventListener('click', async e => {
       e.stopPropagation(); exportMenu.classList.add('hidden');
-      const md = mdSource.value.trim(); if (!md) { toast('⚠️ 没有内容'); return; }
+      const md = mdSource.value.trim(); if (!md) { toast(t('mdhtml.toast.no_export')); return; }
       const htmlBody = marked.parse(md);
       const fmt = item.dataset.fmt;
       try {
         if (fmt==='pdf') { await exportPdf(htmlBody); }
         else if (fmt==='word') { await exportWord(htmlBody); }
         else if (fmt==='html') { exportHtml(htmlBody); }
-        else if (fmt==='md') { downloadBlob(md,'document.md','text/markdown;charset=utf-8'); toast('MD 已导出 📝'); }
-        else if (fmt==='txt') { const d=document.createElement('div');d.innerHTML=htmlBody;downloadBlob(d.textContent||'','document.txt','text/plain;charset=utf-8');toast('TXT 已导出 📃'); }
-      } catch(err) { console.error(err); toast(`导出 ${fmt.toUpperCase()} 失败 ❌`); }
+        else if (fmt==='md') { downloadBlob(md,'document.md','text/markdown;charset=utf-8'); toast(t('mdhtml.toast.md')); }
+        else if (fmt==='txt') { const d=document.createElement('div');d.innerHTML=htmlBody;downloadBlob(d.textContent||'','document.txt','text/plain;charset=utf-8');toast(t('mdhtml.toast.txt')); }
+      } catch(err) { console.error(err); toast(t('mdhtml.toast.export_err') + fmt.toUpperCase() + t('mdhtml.toast.export_err2')); }
     });
   });
 
   async function exportPdf(body) {
-    toast('正在生成 PDF…');
+    toast(t('mdhtml.toast.pdf_gen'));
     await loadHtml2Pdf();
     const full = buildFullHtml(body);
     const iframe = document.createElement('iframe');
@@ -336,7 +337,7 @@ export function render(container) {
     await new Promise(r=>setTimeout(r,600));
     await window.html2pdf().set({margin:[8,8,8,8],filename:'document.pdf',image:{type:'jpeg',quality:.95},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(iframe.contentDocument.body).save();
     document.body.removeChild(iframe);
-    toast('PDF 已导出 📄');
+    toast(t('mdhtml.toast.pdf'));
   }
 
   function loadHtml2Pdf() {
@@ -350,13 +351,13 @@ export function render(container) {
   }
 
   async function exportWord(body) {
-    toast('正在生成 Word…');
+    toast(t('mdhtml.toast.word_gen'));
     const doc = new Document({sections:[{properties:{},children:htmlToDocx(body)}]});
     downloadBlob(await Packer.toBlob(doc),'document.docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-    toast('Word 已导出 📤');
+    toast(t('mdhtml.toast.word'));
   }
 
-  function exportHtml(body) { downloadBlob(buildFullHtml(body),'document.html'); toast('HTML 已导出 🌐'); }
+  function exportHtml(body) { downloadBlob(buildFullHtml(body),'document.html'); toast(t('mdhtml.toast.html')); }
 
   function buildFullHtml(body) {
     return `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>导出文档</title><style>body{font-family:-apple-system,sans-serif;max-width:860px;margin:2rem auto;padding:0 1.5rem;line-height:1.8;color:#1a1b26;background:#fff}pre{background:#1b1d29;color:#c0caf5;padding:16px;border-radius:8px;overflow-x:auto}code{background:#eee;padding:2px 6px;border-radius:4px}pre code{background:none;color:#c0caf5}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccc;padding:8px 12px}th{background:#f5f5f5}blockquote{border-left:4px solid #7aa2f7;padding-left:16px;color:#555}img,video{max-width:100%;border-radius:8px}a{color:#7aa2f7}@media(prefers-color-scheme:dark){body{background:#1a1b26;color:#c0caf5}}</style></head><body>${body}</body></html>`;
@@ -389,7 +390,7 @@ export function render(container) {
 
   // ---- Clear ----
   $('btnClear').addEventListener('click', () => {
-    if (!confirm('确定清空？')) return;
+    if (!confirm(t('mdhtml.confirm_clear'))) return;
     mdSource.value='';htmlSource.value='';mdRender.innerHTML='';htmlRender.innerHTML='';
   });
 
@@ -414,7 +415,7 @@ export function render(container) {
   });
 
   // ---- Init ----
-  const defaultMd = '# 欢迎使用 MD ↔ HTML 转换器\n\n输入 Markdown 后点击 **→转HTML** 即可在右侧看到预览效果！\n\n> 支持富媒体编辑 · 粘贴图片 · 导入导出多种格式';
+  const defaultMd = t('mdhtml.intro');
   mdSource.value = defaultMd;
   const defaultHtml = marked.parse(defaultMd);
   htmlSource.value = defaultHtml;

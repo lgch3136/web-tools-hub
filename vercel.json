@@ -1,5 +1,19 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "parcel"
+  "framework": "parcel",
+  "rewrites": [
+    { "source": "^/index(?:\\.html)?/?$", "destination": "/index.html" },
+    { "source": "/image-compressor", "destination": "/image-compressor.html" },
+    { "source": "/json-formatter", "destination": "/json-formatter.html" },
+    { "source": "/md-html", "destination": "/md-html.html" },
+    { "source": "/exchange-rate", "destination": "/exchange-rate.html" },
+    { "source": "/password-generator", "destination": "/password-generator.html" },
+    { "source": "/timestamp-converter", "destination": "/timestamp-converter.html" },
+    { "source": "/base64-encoder", "destination": "/base64-encoder.html" },
+    { "source": "/qr-generator", "destination": "/qr-generator.html" },
+    { "source": "/color-converter", "destination": "/color-converter.html" },
+    { "source": "/text-diff", "destination": "/text-diff.html" },
+    { "source": "/agent-commands", "destination": "/agent-commands.html" }
+  ]
 }

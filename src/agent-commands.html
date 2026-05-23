@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Coding 命令集 - 在线工具集</title>
+  <meta name="description" content="Vibe Coding 常用 AI Agent 工具命令参考：Hermes Agent、Claude Code、Codex CLI、Git、Vercel、OpenCLI、Playwright 等安装、更新和常用命令速查。">
+  <meta name="keywords" content="Vibe Coding,Hermes,Claude Code,Codex CLI,Git命令,Vercel命令,OpenCLI,Playwright,命令行速查,cheatsheet,AI编程">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .cmd-container{max-width:900px;margin:20px auto;padding:0 20px;width:100%}
+    .cmd-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:28px}
+    .cmd-card h2{font-size:1.3rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .cmd-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:16px}
+    .cmd-search{display:flex;gap:8px;margin-bottom:16px}
+    .cmd-search-input{flex:1;padding:10px 14px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c9d1d9;font-size:.85rem;outline:none;font-family:inherit;min-width:0}
+    .cmd-search-input:focus{border-color:#58a6ff}
+    .cmd-search-input::placeholder{color:#484f58}
+    .cmd-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px}
+    .cmd-tab{padding:6px 14px;background:#21262d;border:1px solid #30363d;border-radius:6px;font-size:.75rem;color:#8b949e;cursor:pointer;transition:all .12s}
+    .cmd-tab:hover{background:#30363d;color:#c9d1d9}
+    .cmd-tab.active{background:#58a6ff;color:#0d1117;font-weight:600;border-color:#58a6ff}
+    .cmd-section{margin-bottom:20px;display:none}
+    .cmd-section.show{display:block}
+    .cmd-category{margin-bottom:8px}
+    .cmd-cat-header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#0d1117;border:1px solid #30363d;border-radius:8px;font-size:.85rem;color:#58a6ff;font-weight:600;cursor:pointer;transition:all .12s;user-select:none}
+    .cmd-cat-header:hover{background:#161b22;border-color:#58a6ff}
+    .cmd-cat-header .arrow{transition:transform .2s;font-size:.7rem;color:#484f58;margin-left:auto}
+    .cmd-cat-header.open .arrow{transform:rotate(90deg)}
+    .cmd-cat-body{padding:8px 0 0 0;display:none}
+    .cmd-cat-body.open{display:block}
+    .cmd-item{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-radius:6px;transition:background .1s}
+    .cmd-item:hover{background:#1c2333}
+    .cmd-item.hidden{display:none}
+    .cmd-desc-text{flex:1;font-size:.78rem;color:#8b949e;padding-top:4px;min-width:0;line-height:1.5}
+    .cmd-code-wrap{flex:0 1 auto;max-width:65%;position:relative}
+    .cmd-code{display:block;padding:6px 32px 6px 10px;background:#0d1117;border:1px solid #30363d;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#ffa657;white-space:nowrap;overflow-x:auto;line-height:1.5;min-width:0}
+    .cmd-code::-webkit-scrollbar{height:3px}
+    .cmd-code::-webkit-scrollbar-thumb{background:#30363d;border-radius:2px}
+    .cmd-copy-btn{position:absolute;right:2px;top:2px;padding:4px 6px;background:transparent;border:none;color:#484f58;font-size:.7rem;cursor:pointer;border-radius:3px;transition:all .1s;line-height:1}
+    .cmd-copy-btn:hover{color:#58a6ff;background:#21262d}
+    .cmd-copy-btn.copied{color:#3fb950}
+    .cmd-empty{text-align:center;padding:40px;color:#484f58;font-size:.85rem}
+    @media(max-width:600px){.cmd-card{padding:16px}.cmd-item{flex-direction:column}.cmd-code-wrap{max-width:100%;width:100%}.cmd-code{white-space:pre-wrap;word-break:break-all;padding-right:10px}}
+  </style>
+
+  <meta property="og:title" content="Vibe Coding 命令集 - 在线工具集">
+  <meta property="og:description" content="Vibe Coding 常用 AI Agent 工具命令参考：Hermes Agent、Claude Code、Codex CLI、Git、Vercel、OpenCLI、Playwright 等命令速查。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/agent-commands.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Vibe Coding 命令集",
+    "url": "https://web-tools-hub-three.vercel.app/agent-commands.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "description": "Vibe Coding 常用 AI Agent 工具命令参考：Hermes Agent、Claude Code、Codex CLI、Git、Vercel 等安装、更新和常用命令速查。"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index.html" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">🎯 Vibe Coding 命令集</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="cmd-container">
+      <div class="cmd-card">
+        <h2>🎯 常用 Vibe Coding 命令集</h2>
+        <p class="cmd-desc">AI Agent 工具 · 安装 · 更新 · 常用命令 一键复制速查</p>
+        <div class="cmd-search"><input type="text" class="cmd-search-input" id="cmdSearch" placeholder="🔍 搜索命令… (例如: deploy, install, git)"></div>
+        <div class="cmd-tabs" id="cmdTabs"></div>
+        <div id="cmdSections"></div>
+      </div>
+    </div>
+    
+  
+</main>
+  <section class="tool-about">
+    <div class="about-wrap">
+      <h3>📖 关于此工具</h3>
+      <p><strong>Vibe Coding 命令集</strong> 汇集了 Vibe Coding 和 AI 编程中常用的 <strong>AI Agent 工具</strong>和<strong>命令行工具</strong>的安装、更新和常用命令速查。涵盖 Hermes Agent（配置/工具/技能/网关）、Claude Code / Codex CLI（AI 编程助手）、Git/GitHub CLI（分支/PR/Issue）、Vercel（部署/环境变量/域名）、OpenCLI（浏览器操作/搜索/适配器）、Playwright（测试/录制/报告）和 npm/pip/Parcel 包管理。支持关键词搜索和一键复制命令。</p>
+    </div>
+  </section>
+  <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  
+  
+  <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    const DATA = [
+      { tab: 'Hermes Agent', sections: [
+        { name: '🔧 安装与配置', items: [
+          { cmd: 'pip install hermes-agent', desc: 'pip 安装（macOS / Linux / WSL）' },
+          { cmd: 'pipx install hermes-agent', desc: 'pipx 安装（推荐，避免全局 pip 冲突）' },
+          { cmd: 'hermes setup', desc: '首次安装引导（配置 API Key、模型等）' },
+          { cmd: 'hermes config get <key>', desc: '查看配置项 (如 providers.openai.api_key)' },
+          { cmd: 'hermes config set <key> <value>', desc: '修改配置项' },
+          { cmd: 'hermes config list', desc: '列出所有当前配置' },
+        ]},
+        { name: '🔌 工具 & 插件管理', items: [
+          { cmd: 'hermes tools', desc: '列出已注册工具集' },
+          { cmd: 'hermes plugins', desc: '列出已安装插件' },
+          { cmd: 'hermes plugins install <name>', desc: '安装插件' },
+          { cmd: 'hermes plugins uninstall <name>', desc: '卸载插件' },
+        ]},
+        { name: '🧠 技能管理', items: [
+          { cmd: 'hermes skills list', desc: '列出已安装技能' },
+          { cmd: 'hermes skills install <name>', desc: '安装技能' },
+          { cmd: 'hermes skills remove <name>', desc: '移除技能' },
+          { cmd: 'hermes skills create <name>', desc: '创建新技能' },
+        ]},
+        { name: '⚡ 运行 & 网关', items: [
+          { cmd: 'hermes', desc: '启动 Hermes TUI 交互界面' },
+          { cmd: 'hermes gateway', desc: '启动网关模式（消息平台接入）' },
+          { cmd: 'hermes serve', desc: '启动 API 服务模式' },
+          { cmd: 'hermes --model <model>', desc: '指定模型启动' },
+        ]},
+        { name: '📋 其他', items: [
+          { cmd: 'hermes --help', desc: '查看全部命令帮助' },
+          { cmd: 'hermes --version', desc: '查看当前版本' },
+          { cmd: 'hermes update', desc: '更新 Hermes Agent 到最新版' },
+        ]},
+      ]},
+      { tab: '🔗 官网链接', sections: [
+        { name: '🤖 AI Agent 工具', items: [
+          { cmd: 'https://hermes-agent.nousresearch.com', desc: 'Hermes Agent 官网（文档/安装/配置）' },
+          { cmd: 'https://docs.anthropic.com/en/docs/claude-code/overview', desc: 'Claude Code 官方文档' },
+          { cmd: 'https://github.com/openai/codex', desc: 'Codex CLI GitHub 仓库' },
+          { cmd: 'https://github.com/features/copilot', desc: 'GitHub Copilot 官网' },
+          { cmd: 'https://openai.com', desc: 'OpenAI 官网（GPT / API）' },
+          { cmd: 'https://anthropic.com', desc: 'Anthropic 官网（Claude）' },
+        ]},
+        { name: '💻 开发平台', items: [
+          { cmd: 'https://github.com', desc: 'GitHub（代码托管/PR/CI）' },
+          { cmd: 'https://vercel.com', desc: 'Vercel（前端部署/Serverless）' },
+          { cmd: 'https://www.npmjs.com', desc: 'npm 包管理器' },
+          { cmd: 'https://pypi.org', desc: 'PyPI Python 包索引' },
+          { cmd: 'https://nodejs.org', desc: 'Node.js 官网' },
+          { cmd: 'https://www.python.org', desc: 'Python 官网' },
+        ]},
+        { name: '🌐 浏览器 & 测试', items: [
+          { cmd: 'https://playwright.dev', desc: 'Playwright 官网（浏览器自动化）' },
+          { cmd: 'https://github.com/openclia/opencli', desc: 'OpenCLI GitHub 仓库' },
+          { cmd: 'https://parceljs.org', desc: 'Parcel 官网（前端构建工具）' },
+          { cmd: 'https://developer.chrome.com/docs/extensions', desc: 'Chrome 扩展开发文档' },
+        ]},
+        { name: '📊 站长 & SEO', items: [
+          { cmd: 'https://search.google.com/search-console', desc: 'Google Search Console' },
+          { cmd: 'https://analytics.google.com', desc: 'Google Analytics' },
+          { cmd: 'https://ads.google.com', desc: 'Google Ads / AdSense' },
+          { cmd: 'https://developers.google.com/search/docs', desc: 'Google SEO 官方指南' },
+        ]},
+      ]},
+      { tab: 'Claude Code / Codex', sections: [
+        { name: '🤖 Claude Code', items: [
+          { cmd: 'npm install -g @anthropic-ai/claude-code', desc: '全局安装 Claude Code CLI' },
+          { cmd: 'claude', desc: '启动 Claude Code 交互模式' },
+          { cmd: 'claude <prompt>', desc: '直接传入 prompt 执行' },
+          { cmd: 'claude code', desc: '进入代码模式（编辑/审查/生成代码）' },
+          { cmd: 'claude --model <model>', desc: '指定模型（如 claude-sonnet-4）' },
+          { cmd: 'claude --help', desc: '查看帮助' },
+        ]},
+        { name: '💻 Codex CLI', items: [
+          { cmd: 'npm install -g @openai/codex-cli', desc: '全局安装 Codex CLI' },
+          { cmd: 'codex', desc: '启动 Codex 交互模式' },
+          { cmd: 'codex --model o4-mini', desc: '指定模型启动' },
+          { cmd: 'codex <task>', desc: '直接指定任务执行' },
+          { cmd: 'codex --help', desc: '查看帮助' },
+        ]},
+        { name: '🛠️ Claude Dev / Cline', items: [
+          { cmd: 'npx @anthropic-ai/claude-code --help', desc: '无需安装直接运行（npx 方式）' },
+          { cmd: 'codex --acp --stdio', desc: 'Codex ACP 模式（用于 subagent 调用）' },
+          { cmd: 'copilot --acp --stdio', desc: 'GitHub Copilot CLI (ACP 模式)' },
+        ]},
+      ]},
+      { tab: 'Git / GitHub', sections: [
+        { name: '📦 基础操作', items: [
+          { cmd: 'git clone <url>', desc: '克隆远程仓库' }, { cmd: 'git pull', desc: '拉取远程最新代码' },
+          { cmd: 'git push', desc: '推送本地提交到远程' }, { cmd: 'git add .', desc: '暂存所有更改' },
+          { cmd: 'git commit -m "msg"', desc: '提交暂存内容' },
+        ]},
+        { name: '🌿 分支管理', items: [
+          { cmd: 'git branch', desc: '查看分支列表' }, { cmd: 'git checkout -b <name>', desc: '创建并切换到新分支' },
+          { cmd: 'git merge <branch>', desc: '将分支合并到当前分支' }, { cmd: 'git rebase <branch>', desc: '变基' },
+          { cmd: 'git branch -d <name>', desc: '删除本地分支' },
+        ]},
+        { name: '🐙 GitHub CLI (gh)', items: [
+          { cmd: 'gh auth login', desc: 'GitHub 登录认证' }, { cmd: 'gh pr create', desc: '创建 Pull Request' },
+          { cmd: 'gh pr checkout <number>', desc: '切换到 PR 的本地分支' }, { cmd: 'gh pr view', desc: '查看当前 PR' },
+          { cmd: 'gh issue list', desc: '列出仓库 issues' }, { cmd: 'gh issue create', desc: '创建新 issue' },
+          { cmd: 'gh repo view', desc: '查看仓库信息' }, { cmd: 'gh release create <tag>', desc: '创建新 Release' },
+        ]},
+        { name: '🔄 标签 & 日志', items: [
+          { cmd: 'git tag <name>', desc: '创建标签' }, { cmd: 'git log --oneline', desc: '简洁提交历史' },
+          { cmd: 'git stash', desc: '暂存未提交的更改' }, { cmd: 'git stash pop', desc: '恢复暂存' },
+        ]},
+      ]},
+      { tab: 'Vercel', sections: [
+        { name: '🚀 部署', items: [
+          { cmd: 'vercel', desc: '部署到预览环境' }, { cmd: 'vercel --prod', desc: '部署到生产环境' },
+          { cmd: 'vercel deploy --prod --yes', desc: '一键部署生产' }, { cmd: 'vercel deploy --prod --yes --force', desc: '强制部署（跳过缓存）' },
+        ]},
+        { name: '📋 项目管理', items: [
+          { cmd: 'vercel list', desc: '列出所有项目' }, { cmd: 'vercel ls', desc: '列出所有部署' },
+          { cmd: 'vercel inspect <url>', desc: '查看部署详情' }, { cmd: 'vercel logs <url>', desc: '查看部署日志' },
+          { cmd: 'vercel env pull', desc: '拉取环境变量到 .env' },
+        ]},
+        { name: '⚙️ 配置', items: [
+          { cmd: 'vercel link', desc: '关联已有 Vercel 项目' }, { cmd: 'vercel env add', desc: '添加环境变量' },
+          { cmd: 'vercel domains', desc: '管理自定义域名' }, { cmd: 'vercel alias set <url> <domain>', desc: '设置域名别名' },
+        ]},
+      ]},
+      { tab: 'OpenCLI', sections: [
+        { name: '🛠️ 安装与设置', items: [
+          { cmd: 'npm install -g @openclia/opencli', desc: '全局安装 OpenCLI' },
+          { cmd: 'opencli setup', desc: '首次安装引导' }, { cmd: 'opencli update', desc: '更新 OpenCLI' },
+        ]},
+        { name: '🌐 浏览器操作', items: [
+          { cmd: 'opencli browser open <url>', desc: '打开 URL' }, { cmd: 'opencli browser screenshot', desc: '截取页面截图' },
+          { cmd: 'opencli browser click <sel>', desc: '点击元素' }, { cmd: 'opencli browser type <sel> <text>', desc: '输入文字' },
+          { cmd: 'opencli browser extract <sel>', desc: '提取元素内容' },
+        ]},
+        { name: '🔍 搜索', items: [
+          { cmd: 'opencli search <query>', desc: '搜索网络信息' }, { cmd: 'opencli search news <query>', desc: '搜索新闻' },
+          { cmd: 'opencli search image <query>', desc: '搜索图片' },
+        ]},
+        { name: '📎 适配器管理', items: [
+          { cmd: 'opencli adapters list', desc: '列出适配器' }, { cmd: 'opencli adapters install <name>', desc: '安装适配器' },
+          { cmd: 'opencli adapters remove <name>', desc: '移除适配器' },
+        ]},
+      ]},
+      { tab: 'Playwright', sections: [
+        { name: '📦 安装', items: [
+          { cmd: 'npm init playwright@latest', desc: '初始化 Playwright 项目' }, { cmd: 'npx playwright install', desc: '安装浏览器驱动' },
+          { cmd: 'npx playwright install chromium', desc: '仅安装 Chromium' }, { cmd: 'npx playwright install-deps', desc: '安装系统依赖' },
+        ]},
+        { name: '▶️ 运行测试', items: [
+          { cmd: 'npx playwright test', desc: '运行所有测试' }, { cmd: 'npx playwright test --headed', desc: '有界面模式' },
+          { cmd: 'npx playwright test --debug', desc: '调试模式' }, { cmd: 'npx playwright test --ui', desc: 'UI 模式' },
+          { cmd: 'npx playwright test <file>', desc: '运行指定文件' },
+        ]},
+        { name: '📊 报告与工具', items: [
+          { cmd: 'npx playwright show-report', desc: '查看报告' }, { cmd: 'npx playwright show-trace <trace.zip>', desc: 'Trace Viewer' },
+          { cmd: 'npx playwright codegen <url>', desc: '录制生成测试代码' },
+        ]},
+      ]},
+      { tab: 'npm / Python', sections: [
+        { name: '📦 npm 包管理', items: [
+          { cmd: 'npm install <pkg>', desc: '安装依赖' }, { cmd: 'npm install -g <pkg>', desc: '全局安装' },
+          { cmd: 'npm install -D <pkg>', desc: '安装 dev 依赖' }, { cmd: 'npm uninstall <pkg>', desc: '卸载包' },
+          { cmd: 'npm update', desc: '更新所有依赖' }, { cmd: 'npm outdated', desc: '查看可更新依赖' },
+        ]},
+        { name: '🐍 Python / pip', items: [
+          { cmd: 'pip install <pkg>', desc: '安装 Python 包' }, { cmd: 'pip install -r requirements.txt', desc: '批量安装' },
+          { cmd: 'pip install -e .', desc: '可编辑模式安装' }, { cmd: 'pip uninstall <pkg>', desc: '卸载包' },
+          { cmd: 'pip list --outdated', desc: '查看可更新包' }, { cmd: 'pip freeze > requirements.txt', desc: '导出依赖' },
+        ]},
+        { name: '🔧 Parcel 构建', items: [
+          { cmd: 'npm run start', desc: '启动开发服务器' }, { cmd: 'npm run build', desc: '生产构建' },
+          { cmd: 'npx parcel build src/*.html --dist-dir dist', desc: '手动构建指定页面' }, { cmd: 'npx parcel src/index.html --port 3000', desc: '指定端口启动' },
+        ]},
+      ]},
+    ];
+    const tabsEl = document.getElementById('cmdTabs');
+    const sectionsEl = document.getElementById('cmdSections');
+    let activeTab = 0;
+    function render() {
+      tabsEl.innerHTML = ''; sectionsEl.innerHTML = '';
+      DATA.forEach((tab, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'cmd-tab' + (idx === activeTab ? ' active' : '');
+        btn.textContent = tab.tab;
+        btn.onclick = () => switchTab(idx);
+        tabsEl.appendChild(btn);
+        const sec = document.createElement('div');
+        sec.className = 'cmd-section' + (idx === activeTab ? ' show' : '');
+        sec.id = 'section-' + idx;
+        tab.sections.forEach(cat => {
+          const catEl = document.createElement('div');
+          catEl.className = 'cmd-category';
+          catEl.innerHTML = '<div class="cmd-cat-header open">' + cat.name + ' <span class="arrow">▶</span></div><div class="cmd-cat-body open"></div>';
+          const body = catEl.querySelector('.cmd-cat-body');
+          cat.items.forEach(item => { const el = document.createElement('div'); el.className = 'cmd-item'; el.dataset.keywords = (item.cmd + ' ' + item.desc).toLowerCase(); el.innerHTML = '<div class="cmd-desc-text">' + item.desc + '</div><div class="cmd-code-wrap"><code class="cmd-code">' + item.cmd.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</code><button class="cmd-copy-btn" onclick="this.textContent=\'✅\';this.classList.add(\'copied\');navigator.clipboard.writeText(this.parentElement.querySelector(\'.cmd-code\').textContent);setTimeout(()=>{this.textContent=\'📋\';this.classList.remove(\'copied\')},2000)">📋</button></div>'; body.appendChild(el); });
+          catEl.querySelector('.cmd-cat-header').onclick = function() { this.classList.toggle('open'); body.classList.toggle('open'); };
+          sec.appendChild(catEl);
+        });
+        sectionsEl.appendChild(sec);
+      });
+    }
+    function switchTab(idx) {
+      activeTab = idx;
+      document.querySelectorAll('.cmd-tab').forEach((t,i) => t.classList.toggle('active',i===idx));
+      document.querySelectorAll('.cmd-section').forEach((s,i) => s.classList.toggle('show',i===idx));
+      document.getElementById('cmdSearch').value = '';
+      filterItems('');
+    }
+    function filterItems(q) {
+      q = q.toLowerCase().trim();
+      document.querySelectorAll('.cmd-item').forEach(it => it.classList.toggle('hidden', !(!q || it.dataset.keywords.includes(q))));
+      document.querySelectorAll('.cmd-category').forEach(cat => { const b = cat.querySelector('.cmd-cat-body'); cat.style.display = [...b.querySelectorAll('.cmd-item')].some(it => !it.classList.contains('hidden')) || !q ? '' : 'none'; if (q) { cat.querySelector('.cmd-cat-header').classList.add('open'); b.classList.add('open'); } });
+      const e = document.getElementById('cmdEmpty'); const vis = document.querySelectorAll('.cmd-item:not(.hidden)').length;
+      if (q && vis === 0) { if(!e){const ne=document.createElement('div');ne.id='cmdEmpty';ne.className='cmd-empty';ne.textContent='😕 未找到匹配的命令，试试其他关键词';sectionsEl.appendChild(ne)} } else if(e){e.remove()}
+    }
+    document.getElementById('cmdSearch').addEventListener('input', e => filterItems(e.target.value));
+    render();
+  </script>
+</body>
+</html>

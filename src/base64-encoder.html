@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base64 编解码器 - 在线工具集</title>
+  <meta name="description" content="免费在线 Base64 编解码工具，文本/图片 Base64 互转，支持拖拽文件，一键复制。">
+  <meta name="keywords" content="Base64,Base64编码,Base64解码,图片转Base64,在线工具">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .b64-container{max-width:750px;margin:20px auto;padding:0 20px;width:100%;flex:1;display:flex;flex-direction:column;min-height:0}
+    .b64-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px;flex:1;display:flex;flex-direction:column;min-height:0}
+    .b64-card h2{font-size:1.3rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .b64-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:16px}
+    .b64-tabs{display:flex;gap:0;margin-bottom:12px}
+    .b64-tab{padding:8px 20px;background:#21262d;border:1px solid #30363d;border-radius:6px 6px 0 0;font-size:.82rem;color:#8b949e;cursor:pointer;transition:all .12s;margin-bottom:-1px}
+    .b64-tab.active{background:#0d1117;border-bottom-color:#0d1117;color:#58a6ff;font-weight:600}
+    .b64-tab:hover:not(.active){color:#c9d1d9}
+    .b64-pane{display:none;flex:1;flex-direction:column;min-height:0}
+    .b64-pane.active{display:flex}
+    .b64-mode-switch{display:flex;gap:4px;margin-bottom:10px;background:#21262d;border:1px solid #30363d;border-radius:6px;padding:3px;width:fit-content}
+    .b64-mode{padding:5px 14px;border-radius:4px;font-size:.78rem;background:transparent;color:#8b949e;border:none;cursor:pointer;transition:all .12s}
+    .b64-mode.active{background:#58a6ff;color:#0d1117;font-weight:600}
+    .b64-mode:hover:not(.active){color:#c9d1d9}
+    .b64-textarea{flex:1;width:100%;padding:12px 14px;background:#0d1117;color:#c9d1d9;border:1px solid #30363d;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.6;outline:none;resize:none;min-height:120px;tab-size:2}
+    .b64-textarea:focus{border-color:#58a6ff}
+    .b64-textarea.result{color:#3fb950}
+    .b64-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0}
+    .b64-btn{padding:8px 16px;background:#21262d;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-size:.78rem;cursor:pointer;transition:all .12s;white-space:nowrap}
+    .b64-btn:hover{background:#30363d;border-color:#58a6ff;color:#58a6ff}
+    .b64-btn:active{transform:scale(.96)}
+    .b64-btn.primary{background:#238636;color:#fff;border-color:#238636}
+    .b64-btn.primary:hover{background:#2ea043}
+    .b64-btn.danger{color:#f85149;border-color:#f85149}
+    .b64-btn.danger:hover{background:#f8514922}
+    .b64-dropzone{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;border:2px dashed #30363d;border-radius:8px;color:#484f58;font-size:.82rem;cursor:pointer;transition:all .2s;margin-bottom:10px;text-align:center}
+    .b64-dropzone:hover{border-color:#58a6ff;color:#58a6ff;background:#58a6ff08}
+    .b64-dropzone.dragover{border-color:#3fb950;color:#3fb950;background:#23863612}
+    .b64-dropzone-icon{font-size:2rem;margin-bottom:6px}
+    .b64-file-info{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#21262d;border:1px solid #30363d;border-radius:6px;font-size:.78rem;color:#c9d1d9;margin-bottom:10px}
+    .b64-img-preview{max-width:200px;max-height:200px;border-radius:6px;margin-bottom:10px;border:1px solid #30363d}
+    .b64-status{padding:6px 12px;font-size:.75rem;margin-top:6px;text-align:center}
+    .b64-status.ok{color:#3fb950}
+    .b64-status.err{color:#f85149}
+    @media(max-width:480px){
+      .b64-card{padding:16px}
+      .b64-tab{padding:6px 12px;font-size:.75rem}
+    }
+  </style>
+
+  <meta property="og:title" content="Base64 编解码器 - 在线工具集">
+  <meta property="og:description" content="免费在线 Base64 编解码工具，文本/图片 Base64 互转，支持拖拽文件，一键复制。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/base64-encoder.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Base64 编解码器",
+    "url": "https://web-tools-hub-three.vercel.app/base64-encoder.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "description": "免费在线 Base64 编解码工具，文本/图片 Base64 互转，支持拖拽文件。"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index.html" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">🔤 Base64 编解码器</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="b64-container">
+      <div class="b64-card">
+        <h2>🔤 Base64 编解码器</h2>
+        <p class="b64-desc">文本 Base64 编码/解码，图片转 Base64</p>
+        <div class="b64-tabs">
+          <span class="b64-tab active" data-tab="text">📝 文本</span>
+          <span class="b64-tab" data-tab="image">🖼️ 图片</span>
+        </div>
+        <div class="b64-pane active" id="paneText">
+          <div class="b64-mode-switch">
+            <button class="b64-mode active" data-mode="encode" onclick="setTextMode('encode')">📤 编码</button>
+            <button class="b64-mode" data-mode="decode" onclick="setTextMode('decode')">📥 解码</button>
+          </div>
+          <textarea class="b64-textarea" id="b64Input" placeholder="输入要编码的文本…" spellcheck="false">Hello, 在线工具集!</textarea>
+          <div class="b64-toolbar">
+            <button class="b64-btn primary" onclick="runText()">🔄 转换</button>
+            <button class="b64-btn" onclick="copyResult()">📋 复制结果</button>
+            <button class="b64-btn danger" onclick="clearText()">🗑️ 清空</button>
+            <button class="b64-btn" onclick="swapInput()">⇅ 互换</button>
+          </div>
+          <textarea class="b64-textarea result" id="b64Output" placeholder="结果…" readonly></textarea>
+          <div class="b64-status" id="b64Status"></div>
+        </div>
+        <div class="b64-pane" id="paneImage">
+          <div class="b64-dropzone" id="b64Dropzone">
+            <div class="b64-dropzone-icon">📁</div>
+            <div>拖拽图片到此处，或点击选择文件</div>
+            <div style="font-size:.72rem;color:#484f58;margin-top:4px">支持 JPG / PNG / GIF / WebP / SVG</div>
+          </div>
+          <input type="file" id="b64FileInput" accept="image/*" style="display:none">
+          <div id="b64FileInfo" class="b64-file-info" style="display:none"><span class="name"></span><span class="size"></span><button class="b64-btn danger" style="padding:3px 8px" onclick="clearFile()">✕</button></div>
+          <img id="b64ImagePreview" class="b64-img-preview" style="display:none">
+          <div class="b64-toolbar">
+            <button class="b64-btn primary" onclick="copyResult()">📋 复制 Base64</button>
+            <button class="b64-btn" onclick="downloadFromBase64()">💾 下载图片</button>
+          </div>
+          <textarea class="b64-textarea" id="b64ImgOutput" placeholder="图片 Base64 数据…" readonly style="min-height:100px"></textarea>
+        </div>
+      </div>
+    </div>
+    
+  
+</main>
+  <section class="tool-about">
+    <div class="about-wrap">
+      <h3>📖 关于此工具</h3>
+      <p><strong>Base64 编解码器</strong> 支持<strong>文本</strong>和<strong>图片</strong>的 Base64 编码与解码。文本模式支持编码和解码双向操作，并可在编码/解码结果间互换。图片模式支持拖拽或点击选择图片文件，自动生成 Base64 Data URL。所有操作在浏览器本地完成，文件不会上传到服务器。常用于数据传输、图片内嵌和 API 调试。</p>
+    </div>
+  </section>
+  <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  
+  
+  <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    let encodeMode = true;
+    document.querySelectorAll('.b64-tab').forEach(tab => { tab.addEventListener('click', () => { document.querySelectorAll('.b64-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.b64-pane').forEach(p => p.classList.remove('active')); tab.classList.add('active'); document.getElementById('pane' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1)).classList.add('active'); }); });
+    function setTextMode(mode) { encodeMode = mode === 'encode'; document.querySelectorAll('.b64-mode').forEach(m => m.classList.remove('active')); document.querySelector('.b64-mode[data-mode="' + mode + '"]').classList.add('active'); document.getElementById('b64Input').placeholder = encodeMode ? '输入要编码的文本…' : '输入 Base64 字符串…'; document.getElementById('b64Input').value = ''; document.getElementById('b64Output').value = ''; document.getElementById('b64Status').textContent = ''; }
+    function runText() { const input = document.getElementById('b64Input').value; const status = document.getElementById('b64Status'); if (!input) { status.textContent = '⚠️ 请输入内容'; status.className = 'b64-status err'; return; } try { if (encodeMode) { document.getElementById('b64Output').value = btoa(unescape(encodeURIComponent(input))); status.textContent = '✅ 编码成功'; status.className = 'b64-status ok'; } else { document.getElementById('b64Output').value = decodeURIComponent(escape(atob(input))); status.textContent = '✅ 解码成功'; status.className = 'b64-status ok'; } } catch(e) { status.textContent = '❌ ' + e.message; status.className = 'b64-status err'; } }
+    function copyResult() { const out = document.getElementById('b64Output').value || document.getElementById('b64ImgOutput').value; if (!out) return; navigator.clipboard.writeText(out).then(() => { const s = document.getElementById('b64Status'); s.textContent = '✅ 已复制到剪贴板'; s.className = 'b64-status ok'; setTimeout(() => s.textContent = '', 2000); }); }
+    function swapInput() { const input = document.getElementById('b64Input'); const output = document.getElementById('b64Output'); if (!output.value) return; input.value = output.value; encodeMode = !encodeMode; document.querySelectorAll('.b64-mode').forEach(m => m.classList.remove('active')); document.querySelector('.b64-mode[data-mode="' + (encodeMode ? 'encode' : 'decode') + '"]').classList.add('active'); document.getElementById('b64Input').placeholder = encodeMode ? '输入要编码的文本…' : '输入 Base64 字符串…'; runText(); }
+    function clearText() { document.getElementById('b64Input').value = ''; document.getElementById('b64Output').value = ''; document.getElementById('b64Status').textContent = ''; }
+    const dropzone = document.getElementById('b64Dropzone'); const fileInput = document.getElementById('b64FileInput');
+    dropzone.addEventListener('click', () => fileInput.click());
+    dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('dragover'); if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+    fileInput.addEventListener('change', () => { if (fileInput.files.length) handleFile(fileInput.files[0]); });
+    function handleFile(file) { if (!file.type.startsWith('image/')) { alert('请选择图片文件'); return; } const reader = new FileReader(); reader.onload = function(e) { const b64 = e.target.result; document.getElementById('b64ImgOutput').value = b64; const info = document.getElementById('b64FileInfo'); info.style.display = 'flex'; info.querySelector('.name').textContent = file.name; info.querySelector('.size').textContent = (file.size / 1024).toFixed(1) + ' KB'; const img = document.getElementById('b64ImagePreview'); img.src = b64; img.style.display = 'block'; }; reader.readAsDataURL(file); }
+    function clearFile() { document.getElementById('b64ImgOutput').value = ''; document.getElementById('b64FileInfo').style.display = 'none'; document.getElementById('b64ImagePreview').style.display = 'none'; fileInput.value = ''; }
+    function downloadFromBase64() { const b64 = document.getElementById('b64ImgOutput').value; if (!b64 || !b64.startsWith('data:')) return; const a = document.createElement('a'); a.href = b64; const ext = b64.split(';')[0].split('/')[1] || 'png'; a.download = 'image.' + ext; a.click(); }
+    document.getElementById('b64Input').addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runText(); } });
+    runText();
+  </script>
+</body>
+</html>

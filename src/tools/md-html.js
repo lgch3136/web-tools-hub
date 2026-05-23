@@ -4,6 +4,7 @@ import { marked } from 'marked';
 import TurndownService from 'turndown';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, ExternalHyperlink } from 'docx';
 import mammoth from 'mammoth';
+import { TEMPLATES, wrapTemplate, groupBlocks, addIds } from './mdhtml-templates.js';
 
 const turndown = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced', hr: '---', bulletListMarker: '-', emDelimiter: '*', strongDelimiter: '**' });
 marked.setOptions({ breaks: true, gfm: true, headerIds: false, mangle: false });
@@ -363,7 +364,28 @@ export function render(container) {
     toast(t('mdhtml.toast.word'));
   }
 
-  function exportHtml(body) { downloadBlob(buildFullHtml(body),'document.html'); toast(t('mdhtml.toast.html')); }
+  function exportHtml(body) {
+    // 显示模板选择弹窗
+    const opts = TEMPLATES.map((t, i) =>
+      `<label style="display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer;border-bottom:1px solid #eee">
+        <input type="radio" name="tmpl" value="${t.id}" ${i===0?'checked':''} style="accent-color:#7aa2f7">
+        <span><strong>${t.name}</strong><br><span style="font-size:11px;color:#888">${t.desc}</span></span>
+       </label>`
+    ).join('');
+    openModal('选择导出模板', `<div style="max-height:320px;overflow-y:auto">${opts}</div>`, () => {
+      const sel = document.querySelector('input[name="tmpl"]:checked');
+      const tmplId = sel ? sel.value : TEMPLATES[0].id;
+      // 解析 MD
+      const md = mdSource.value.trim();
+      let html = marked.parse(md);
+      html = addIds(html);
+      html = groupBlocks(html);
+      const title = (md.match(/^#\s+(.+)/m) || [,'文档'])[1];
+      const fullHtml = wrapTemplate(html, tmplId, title);
+      downloadBlob(fullHtml, `${title.replace(/[\\/:"*?<>|]/g,'_')}.html`);
+      toast('✅ ' + t('mdhtml.toast.html') + ' (' + TEMPLATES.find(t=>t.id===tmplId).name + ')');
+    });
+  }
 
   function buildFullHtml(body) {
     return `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>导出文档</title><style>body{font-family:-apple-system,sans-serif;max-width:860px;margin:2rem auto;padding:0 1.5rem;line-height:1.8;color:#1a1b26;background:#fff}pre{background:#1b1d29;color:#c0caf5;padding:16px;border-radius:8px;overflow-x:auto}code{background:#eee;padding:2px 6px;border-radius:4px}pre code{background:none;color:#c0caf5}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccc;padding:8px 12px}th{background:#f5f5f5}blockquote{border-left:4px solid #7aa2f7;padding-left:16px;color:#555}img,video{max-width:100%;border-radius:8px}a{color:#7aa2f7}@media(prefers-color-scheme:dark){body{background:#1a1b26;color:#c0caf5}}</style></head><body>${body}</body></html>`;

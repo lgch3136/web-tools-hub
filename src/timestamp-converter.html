@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>时间戳转换 - 在线工具集</title>
+  <meta name="description" content="免费在线时间戳转换工具，Unix时间戳与日期时间互转，支持毫秒/秒，多种格式输出。">
+  <meta name="keywords" content="时间戳转换,Unix时间戳,Timestamp,日期转换,时间工具">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .ts-container{max-width:600px;margin:30px auto;padding:0 20px;width:100%}
+    .ts-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:32px 28px}
+    .ts-card h2{font-size:1.3rem;color:#f0f6fc;margin-bottom:6px;text-align:center}
+    .ts-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:24px}
+    .ts-section{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #21262d}
+    .ts-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+    .ts-section-title{font-size:.85rem;color:#58a6ff;font-weight:600;margin-bottom:12px}
+    .ts-row{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+    .ts-label{font-size:.78rem;color:#8b949e;min-width:70px;flex-shrink:0}
+    .ts-input{flex:1;padding:10px 14px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-size:.88rem;outline:none;font-family:'JetBrains Mono',monospace;min-width:0}
+    .ts-input:focus{border-color:#58a6ff}
+    .ts-input.result{color:#3fb950;font-weight:600}
+    .ts-btn{padding:10px 16px;background:#21262d;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-size:.78rem;cursor:pointer;transition:all .12s;white-space:nowrap}
+    .ts-btn:hover{background:#30363d;border-color:#58a6ff;color:#58a6ff}
+    .ts-btn.primary{background:#238636;color:#fff;border-color:#238636}
+    .ts-btn.primary:hover{background:#2ea043}
+    .ts-copy-btn{padding:6px 12px;background:transparent;border:1px solid #30363d;border-radius:5px;color:#8b949e;font-size:.72rem;cursor:pointer;transition:all .12s}
+    .ts-copy-btn:hover{color:#58a6ff;border-color:#58a6ff}
+    .ts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .ts-fmt{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#0d1117;border:1px solid #21262d;border-radius:6px;font-size:.78rem;cursor:pointer;transition:all .12s}
+    .ts-fmt:hover{border-color:#30363d;background:#161b22}
+    .ts-fmt-val{flex:1;color:#8b949e;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .ts-fmt-label{color:#58a6ff;font-weight:600;flex-shrink:0}
+    @media(max-width:480px){
+      .ts-card{padding:20px 16px}
+      .ts-grid{grid-template-columns:1fr}
+    }
+  </style>
+
+  <meta property="og:title" content="时间戳转换 - 在线工具集">
+  <meta property="og:description" content="免费在线时间戳转换工具，Unix时间戳与日期时间互转，支持秒/毫秒，多种格式输出。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/timestamp-converter.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "时间戳转换",
+    "url": "https://web-tools-hub-three.vercel.app/timestamp-converter.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "description": "免费在线时间戳转换工具，Unix时间戳与日期时间互转，支持毫秒/秒，多种格式输出。"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index.html" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">🕐 时间戳转换</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="ts-container">
+      <div class="ts-card">
+        <h2>🕐 时间戳转换</h2>
+        <p class="ts-desc">Unix 时间戳与日期时间互转，支持秒/毫秒</p>
+        <div class="ts-section">
+          <div class="ts-section-title">📡 当前时间</div>
+          <div class="ts-row"><span class="ts-label">日期时间</span><input type="text" class="ts-input result" id="tsNowDate" readonly><button class="ts-copy-btn" onclick="copyVal('tsNowDate')">复制</button></div>
+          <div class="ts-row"><span class="ts-label">Unix 秒</span><input type="text" class="ts-input result" id="tsNowSec" readonly><button class="ts-copy-btn" onclick="copyVal('tsNowSec')">复制</button></div>
+          <div class="ts-row"><span class="ts-label">Unix 毫秒</span><input type="text" class="ts-input result" id="tsNowMs" readonly><button class="ts-copy-btn" onclick="copyVal('tsNowMs')">复制</button></div>
+        </div>
+        <div class="ts-section">
+          <div class="ts-section-title">⏩ 时间戳 → 日期</div>
+          <div class="ts-row"><span class="ts-label">时间戳</span><input type="text" class="ts-input" id="tsToDate" placeholder="输入 Unix 时间戳（秒或毫秒）" value="1747392000"><button class="ts-btn primary" onclick="tsToDate()">转换</button></div>
+          <div class="ts-row"><span class="ts-label">日期结果</span><input type="text" class="ts-input result" id="tsDateResult" readonly><button class="ts-copy-btn" onclick="copyVal('tsDateResult')">复制</button></div>
+          <div class="ts-fmts" id="tsFmtList"></div>
+        </div>
+        <div class="ts-section">
+          <div class="ts-section-title">⏪ 日期 → 时间戳</div>
+          <div class="ts-row"><span class="ts-label">日期时间</span><input type="datetime-local" class="ts-input" id="tsToTs"></div>
+          <div class="ts-row"><span class="ts-label">Unix 秒</span><input type="text" class="ts-input result" id="tsResultSec" readonly><button class="ts-copy-btn" onclick="copyVal('tsResultSec')">复制</button></div>
+          <div class="ts-row"><span class="ts-label">Unix 毫秒</span><input type="text" class="ts-input result" id="tsResultMs" readonly><button class="ts-copy-btn" onclick="copyVal('tsResultMs')">复制</button></div>
+        </div>
+      </div>
+    </div>
+    
+  
+</main>
+  <section class="tool-about">
+    <div class="about-wrap">
+      <h3>📖 关于此工具</h3>
+      <p><strong>时间戳转换</strong> 支持 Unix 时间戳与日期时间之间的<strong>双向转换</strong>，同时兼容<strong>秒级（10位）</strong>和<strong>毫秒级（13位）</strong>时间戳。提供 ISO 8601、GMT、RFC 2822、本地时间等多种格式输出，点击即可复制。页面顶部实时显示当前时间及对应的 Unix 时间戳（秒/毫秒），方便开发调试和日志分析。</p>
+    </div>
+  </section>
+  <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  
+  
+  <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    const FMT_ITEMS = [
+      { label: 'ISO 8601', fmt: d => d.toISOString() },
+      { label: 'GMT',      fmt: d => d.toUTCString() },
+      { label: '本地',     fmt: d => d.toLocaleString('zh-CN', {hour12: false}) },
+      { label: '日期',     fmt: d => d.toLocaleDateString('zh-CN') },
+      { label: '时间',     fmt: d => d.toLocaleTimeString('zh-CN', {hour12: false}) },
+      { label: 'YYYY-MM-DD', fmt: d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0') },
+      { label: 'RFC 2822', fmt: d => d.toString() },
+    ];
+    function copyVal(id) { const el = document.getElementById(id); if (!el || !el.value) return; navigator.clipboard.writeText(el.value).then(() => { const btn = el.nextElementSibling; const orig = btn.textContent; btn.textContent = '✅'; setTimeout(() => btn.textContent = orig, 1500); }); }
+    function updateNow() { const now = new Date(); document.getElementById('tsNowDate').value = now.toLocaleString('zh-CN', {hour12: false}); document.getElementById('tsNowSec').value = Math.floor(now.getTime() / 1000); document.getElementById('tsNowMs').value = now.getTime(); }
+    function renderFormats(d) { const container = document.getElementById('tsFmtList'); container.innerHTML = ''; const grid = document.createElement('div'); grid.className = 'ts-grid'; for (const item of FMT_ITEMS) { const val = item.fmt(d); const el = document.createElement('div'); el.className = 'ts-fmt'; el.innerHTML = '<span class="ts-fmt-label">' + item.label + '</span><span class="ts-fmt-val" title="' + val + '">' + val + '</span>'; el.addEventListener('click', () => navigator.clipboard.writeText(val).then(() => { el.style.borderColor = '#3fb950'; setTimeout(() => el.style.borderColor = '', 800); })); grid.appendChild(el); } container.appendChild(grid); }
+    function tsToDate() { const input = document.getElementById('tsToDate').value.trim(); if (!input) return; let ts = parseFloat(input); if (isNaN(ts)) { document.getElementById('tsDateResult').value = '❌ 无效时间戳'; return; } if (ts < 1e12) ts *= 1000; const d = new Date(ts); if (isNaN(d.getTime())) { document.getElementById('tsDateResult').value = '❌ 无效时间戳'; return; } document.getElementById('tsDateResult').value = d.toLocaleString('zh-CN', {hour12: false}); renderFormats(d); }
+    function dateToTs() { const val = document.getElementById('tsToTs').value; if (!val) return; const d = new Date(val); if (isNaN(d.getTime())) { document.getElementById('tsResultSec').value = '❌ 无效日期'; document.getElementById('tsResultMs').value = ''; return; } document.getElementById('tsResultSec').value = Math.floor(d.getTime() / 1000); document.getElementById('tsResultMs').value = d.getTime(); }
+    const now = new Date(); document.getElementById('tsToTs').value = now.toISOString().slice(0, 16); updateNow(); setInterval(updateNow, 1000); tsToDate(); dateToTs();
+    document.getElementById('tsToDate').addEventListener('keydown', e => { if (e.key === 'Enter') tsToDate(); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二维码生成器 - 在线工具集</title>
+  <meta name="description" content="免费在线二维码生成器，输入文本/链接生成二维码，支持下载 PNG 图片。">
+  <meta name="keywords" content="二维码生成器,QR码,二维码生成,QR code generator,免费二维码">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .qr-container{max-width:600px;margin:30px auto;padding:0 20px;width:100%}
+    .qr-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:32px 28px}
+    .qr-card h2{font-size:1.3rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .qr-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:20px}
+    .qr-input-row{display:flex;gap:10px;margin-bottom:16px}
+    .qr-input{flex:1;padding:12px 16px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c9d1d9;font-size:.9rem;outline:none;font-family:inherit;min-width:0}
+    .qr-input:focus{border-color:#58a6ff}
+    .qr-btn{padding:12px 20px;background:#238636;border:none;border-radius:8px;color:#fff;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .12s;white-space:nowrap}
+    .qr-btn:hover{background:#2ea043}
+    .qr-btn:active{transform:scale(.96)}
+    .qr-btn.secondary{padding:8px 16px;background:#21262d;border:1px solid #30363d;color:#c9d1d9;font-size:.78rem}
+    .qr-btn.secondary:hover{background:#30363d;border-color:#58a6ff;color:#58a6ff}
+    .qr-options{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+    .qr-opt{display:flex;align-items:center;gap:6px;font-size:.78rem;color:#8b949e}
+    .qr-opt select{padding:5px 10px;background:#0d1117;border:1px solid #30363d;border-radius:5px;color:#c9d1d9;font-size:.78rem;outline:none;cursor:pointer}
+    .qr-opt select:focus{border-color:#58a6ff}
+    .qr-opt input[type="color"]{width:32px;height:32px;border:1px solid #30363d;border-radius:5px;background:transparent;cursor:pointer;padding:2px}
+    .qr-canvas-wrap{display:flex;justify-content:center;align-items:center;padding:24px;background:#0d1117;border:1px solid #30363d;border-radius:12px;margin-bottom:16px;min-height:260px}
+    .qr-canvas-wrap canvas{max-width:100%;image-rendering:pixelated}
+    .qr-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+    .qr-presets{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+    .qr-preset{padding:5px 12px;background:#21262d;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-size:.75rem;cursor:pointer;transition:all .12s}
+    .qr-preset:hover{background:#30363d;color:#c9d1d9;border-color:#58a6ff}
+    .qr-status{text-align:center;font-size:.75rem;color:#484f58;margin-top:10px}
+    @media(max-width:480px){.qr-card{padding:20px 16px}.qr-input-row{flex-direction:column}}
+  </style>
+
+  <meta property="og:title" content="二维码生成器 - 在线工具集">
+  <meta property="og:description" content="免费在线二维码生成器，输入文本/链接生成二维码，支持自定义颜色、大小、纠错级别，下载 PNG/SVG。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/qr-generator.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "二维码生成器",
+    "url": "https://web-tools-hub-three.vercel.app/qr-generator.html",
+    "applicationCategory": "Multimedia",
+    "operatingSystem": "All",
+    "description": "免费在线二维码生成器，输入文本/链接生成二维码，支持下载 PNG/SVG。"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index.html" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">📱 二维码生成器</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="qr-container">
+      <div class="qr-card">
+        <h2>📱 二维码生成器</h2>
+        <p class="qr-desc">输入文本或链接，一键生成二维码</p>
+        <div class="qr-input-row"><input type="text" class="qr-input" id="qrInput" placeholder="输入文本或 URL…" value="https://web-tools-hub-three.vercel.app"><button class="qr-btn" onclick="generateQR()">生成</button></div>
+        <div class="qr-presets">
+          <span class="qr-preset" onclick="setPreset('https://web-tools-hub-three.vercel.app')">🌐 本站</span>
+          <span class="qr-preset" onclick="setPreset('https://github.com/lgch3136')">🐙 GitHub</span>
+          <span class="qr-preset" onclick="setPreset('WIFI:S:MyWiFi;T:WPA;P:password123;;')">📶 WiFi</span>
+          <span class="qr-preset" onclick="setPreset('tel:+8613800138000')">📞 电话</span>
+          <span class="qr-preset" onclick="setPreset('mailto:hello@example.com')">📧 邮件</span>
+        </div>
+        <div class="qr-options">
+          <label class="qr-opt">大小 <select id="qrSize"><option value="200">200px</option><option value="256" selected>256px</option><option value="300">300px</option><option value="400">400px</option><option value="500">500px</option></select></label>
+          <label class="qr-opt">前景色 <input type="color" id="qrFg" value="#58a6ff"></label>
+          <label class="qr-opt">背景色 <input type="color" id="qrBg" value="#0d1117"></label>
+          <label class="qr-opt">纠错 <select id="qrLevel"><option value="L">L (7%)</option><option value="M" selected>M (15%)</option><option value="Q">Q (25%)</option><option value="H">H (30%)</option></select></label>
+        </div>
+        <div class="qr-canvas-wrap" id="qrWrap"><canvas id="qrCanvas"></canvas></div>
+        <div class="qr-actions">
+          <button class="qr-btn secondary" onclick="downloadQR()">💾 下载 PNG</button>
+          <button class="qr-btn secondary" onclick="downloadSVG()">📄 下载 SVG</button>
+        </div>
+        <div class="qr-status" id="qrStatus">输入内容后点击生成</div>
+      </div>
+    </div>
+    
+  
+</main>
+  <section class="tool-about">
+    <div class="about-wrap">
+      <h3>📖 关于此工具</h3>
+      <p><strong>二维码生成器</strong> 将文本或链接快速生成<strong>二维码</strong>。支持自定义二维码大小（200-500px）、前景色/背景色和纠错级别（L/M/Q/H，最高可恢复 30% 数据）。提供本站、GitHub、WiFi 连接、电话号码、邮件地址等预设模板，一键切换。生成结果可下载为 <strong>PNG</strong> 或 <strong>SVG</strong> 格式，满足印刷和网页使用场景。</p>
+    </div>
+  </section>
+  <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  
+  
+  <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    let currentCanvas = null;
+    function getLevel() { const map = {L:QRCode.CorrectLevel.L,M:QRCode.CorrectLevel.M,Q:QRCode.CorrectLevel.Q,H:QRCode.CorrectLevel.H}; return map[document.getElementById('qrLevel').value] || QRCode.CorrectLevel.M; }
+    function generateQR() {
+      const text = document.getElementById('qrInput').value.trim();
+      if (!text) { document.getElementById('qrStatus').textContent = '⚠️ 请输入内容'; return; }
+      const size = parseInt(document.getElementById('qrSize').value);
+      const fg = document.getElementById('qrFg').value;
+      const bg = document.getElementById('qrBg').value;
+      const canvas = document.getElementById('qrCanvas');
+      canvas.width = size; canvas.height = size;
+      try {
+        QRCode.toCanvas(canvas, text, { width: size, margin: 2, color: { dark: fg, light: bg }, errorCorrectionLevel: getLevel() }, function(err) {
+          if (err) { document.getElementById('qrStatus').textContent = '❌ 生成失败: ' + err.message; return; }
+          currentCanvas = canvas;
+          document.getElementById('qrStatus').textContent = '✅ 二维码生成成功 · 内容: ' + text.substring(0, 50) + (text.length > 50 ? '…' : '');
+        });
+      } catch(e) { document.getElementById('qrStatus').textContent = '❌ ' + e.message; }
+    }
+    function downloadQR() { if (!currentCanvas) return; const a = document.createElement('a'); a.download = 'qrcode.png'; a.href = currentCanvas.toDataURL('image/png'); a.click(); document.getElementById('qrStatus').textContent = '✅ 已下载 PNG'; }
+    function downloadSVG() {
+      const text = document.getElementById('qrInput').value.trim(); if (!text) return;
+      const fg = document.getElementById('qrFg').value; const bg = document.getElementById('qrBg').value;
+      const qr = QRCode.create(text, { errorCorrectionLevel: getLevel() });
+      const cellSize = 6; const margin = 2; const size = (qr.modules.length + margin * 2) * cellSize;
+      let svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">';
+      svg += '<rect width="' + size + '" height="' + size + '" fill="' + bg + '" rx="4"/>';
+      for (let r = 0; r < qr.modules.length; r++) for (let c = 0; c < qr.modules.length; c++) if (qr.modules[r][c]) svg += '<rect x="' + ((c + margin) * cellSize) + '" y="' + ((r + margin) * cellSize) + '" width="' + cellSize + '" height="' + cellSize + '" fill="' + fg + '"/>';
+      svg += '</svg>';
+      const blob = new Blob([svg], { type: 'image/svg+xml' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.download = 'qrcode.svg'; a.href = url; a.click(); URL.revokeObjectURL(url);
+      document.getElementById('qrStatus').textContent = '✅ 已下载 SVG';
+    }
+    function setPreset(val) { document.getElementById('qrInput').value = val; generateQR(); }
+    document.getElementById('qrInput').addEventListener('keydown', e => { if (e.key === 'Enter') generateQR(); });
+    ['qrSize','qrFg','qrBg','qrLevel'].forEach(id => { document.getElementById(id).addEventListener('change', generateQR); });
+    generateQR();
+  </script>
+</body>
+</html>

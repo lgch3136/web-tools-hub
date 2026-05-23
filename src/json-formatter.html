@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON 格式化/校验器 - 在线工具集</title>
+  <meta name="description" content="免费在线 JSON 格式化工具，格式化、压缩、校验 JSON，语法高亮，错误定位。">
+  <meta name="keywords" content="JSON格式化,JSON校验,JSON压缩,JSON美化,JSON validator,JSON formatter">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .json-container{max-width:800px;margin:20px auto;padding:0 20px;width:100%;flex:1;display:flex;flex-direction:column;min-height:0}
+    .json-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px;flex:1;display:flex;flex-direction:column;min-height:0}
+    .json-card h2{font-size:1.3rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .json-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:16px}
+    .json-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .json-btn{padding:8px 14px;background:#21262d;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-size:.78rem;cursor:pointer;transition:all .12s;white-space:nowrap}
+    .json-btn:hover{background:#30363d;border-color:#58a6ff;color:#58a6ff}
+    .json-btn:active{transform:scale(.96)}
+    .json-btn.primary{background:#238636;color:#fff;border-color:#238636}
+    .json-btn.primary:hover{background:#2ea043}
+    .json-btn.danger{color:#f85149;border-color:#f85149}
+    .json-btn.danger:hover{background:#f8514922}
+    .json-btn.success{color:#3fb950;border-color:#3fb950}
+    .json-btn.success:hover{background:#23863622}
+    .json-sep{width:1px;height:20px;background:#30363d}
+    .json-status{margin-left:auto;font-size:.75rem;color:#484f58;display:flex;align-items:center;gap:6px}
+    .json-status.ok{color:#3fb950}
+    .json-status.err{color:#f85149}
+    .json-editor-area{flex:1;display:flex;flex-direction:column;min-height:0;gap:0;position:relative}
+    .json-textarea{flex:1;width:100%;padding:14px 16px;background:#0d1117;color:#c9d1d9;border:1px solid #30363d;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.6;outline:none;resize:none;tab-size:2;min-height:200px}
+    .json-textarea:focus{border-color:#58a6ff}
+    .json-textarea.error{border-color:#f85149}
+    .json-preview{flex:1;width:100%;padding:14px 16px;background:#0d1117;color:#c9d1d9;border:1px solid #30363d;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.6;overflow:auto;white-space:pre-wrap;word-break:break-all;min-height:200px}
+    .json-preview .key{color:#79c0ff}
+    .json-preview .string{color:#a5d6ff}
+    .json-preview .number{color:#79c0ff}
+    .json-preview .boolean{color:#ffa657}
+    .json-preview .null{color:#8b949e}
+    .json-preview .bracket{color:#f0f6fc}
+    .json-preview .comma{color:#30363d}
+    .json-preview .colon{color:#8b949e}
+    .json-tabs{display:flex;gap:0;margin-bottom:8px}
+    .json-tab{padding:6px 16px;background:#21262d;border:1px solid #30363d;border-radius:6px 6px 0 0;font-size:.78rem;color:#8b949e;cursor:pointer;transition:all .12s;margin-bottom:-1px}
+    .json-tab.active{background:#0d1117;border-bottom-color:#0d1117;color:#58a6ff;font-weight:600}
+    .json-tab:hover:not(.active){color:#c9d1d9}
+    .json-err-msg{padding:8px 12px;background:#f8514912;border:1px solid #f8514944;border-radius:6px;color:#f85149;font-size:.78rem;margin-top:8px;display:none}
+    .json-stats{text-align:center;font-size:.72rem;color:#484f58;margin-top:8px}
+    @media(max-width:480px){
+      .json-card{padding:16px}
+      .json-toolbar{gap:4px}
+      .json-btn{padding:6px 10px;font-size:.72rem}
+    }
+  </style>
+
+  <meta property="og:title" content="JSON 格式化/校验器 - 在线工具集">
+  <meta property="og:description" content="免费在线 JSON 格式化工具，格式化、压缩、校验 JSON，语法高亮，错误定位。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/json-formatter.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JSON 格式化/校验器",
+    "url": "https://web-tools-hub-three.vercel.app/json-formatter.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "description": "免费在线 JSON 格式化工具，格式化、压缩、校验 JSON，语法高亮，错误定位。"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index.html" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">{ } JSON 格式化</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="json-container">
+      <div class="json-card">
+        <h2>{ } JSON 格式化 / 校验器</h2>
+        <p class="json-desc">格式化、压缩、校验 JSON 数据</p>
+        <div class="json-toolbar">
+          <button class="json-btn primary" onclick="formatJSON()">✨ 格式化</button>
+          <button class="json-btn" onclick="minifyJSON()">🗜️ 压缩</button>
+          <button class="json-btn" onclick="escapeJSON()">🔤 转义</button>
+          <button class="json-btn success" onclick="unescapeJSON()">🔓 反转义</button>
+          <div class="json-sep"></div>
+          <button class="json-btn danger" onclick="clearJSON()">🗑️ 清空</button>
+          <button class="json-btn" onclick="loadSample()">📄 示例</button>
+          <span class="json-status" id="jsonStatus">就绪</span>
+        </div>
+        <div class="json-tabs">
+          <span class="json-tab active" id="tabEditor" onclick="switchTab('editor')">✏️ 编辑器</span>
+          <span class="json-tab" id="tabPreview" onclick="switchTab('preview')">👁️ 预览</span>
+        </div>
+        <div class="json-editor-area">
+          <textarea class="json-textarea" id="jsonInput" placeholder="在此粘贴 JSON 数据…" spellcheck="false">{"name":"在线工具集","tools":[{"name":"JSON格式化","type":"developer"},{"name":"密码生成器","type":"utility"}],"version":"1.0.0"}</textarea>
+          <div class="json-preview" id="jsonPreview" style="display:none"></div>
+          <div class="json-err-msg" id="jsonError"></div>
+        </div>
+        <div class="json-stats" id="jsonStats"></div>
+      </div>
+    </div>
+    
+  
+</main>
+  <section class="tool-about">
+    <div class="about-wrap">
+      <h3>📖 关于此工具</h3>
+      <p><strong>JSON 格式化 / 校验器</strong> 用于<strong>格式化、压缩、校验</strong> JSON 数据。支持语法高亮预览、错误定位和自动修复（如单引号转双引号）。提供转义/反转义功能，方便在代码中嵌入 JSON 字符串。支持 Ctrl+Enter 快捷键快速格式化。内置示例数据，适合 API 调试、配置文件编辑和数据交换场景。</p>
+    </div>
+  </section>
+  <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  
+  
+  <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    const input = document.getElementById('jsonInput');
+    const preview = document.getElementById('jsonPreview');
+    const errMsg = document.getElementById('jsonError');
+    const status = document.getElementById('jsonStatus');
+    const stats = document.getElementById('jsonStats');
+    function syntaxHighlight(json) {
+      json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      return json.replace(/("(?:[^"\\]|\\.)*")\s*:/g, '<span class="key">$1</span><span class="colon">:</span>')
+        .replace(/("(?:[^"\\]|\\.)*")/g, (m, p1) => m.includes('class="key"') ? m : '<span class="string">' + p1 + '</span>')
+        .replace(/\b(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/g, '<span class="number">$1</span>')
+        .replace(/\b(true|false)\b/g, '<span class="boolean">$1</span>')
+        .replace(/\bnull\b/g, '<span class="null">null</span>')
+        .replace(/([\[\]{}])/g, '<span class="bracket">$1</span>')
+        .replace(/,/g, '<span class="comma">,</span>');
+    }
+    function countKeys(obj) { if (typeof obj !== 'object' || obj === null) return 0; let c = 0; for (const k in obj) { c++; if (typeof obj[k] === 'object' && obj[k] !== null) c += countKeys(obj[k]); } return c; }
+    function showResult(valid, formatted, errorText) {
+      if (valid) { input.value = formatted; preview.innerHTML = syntaxHighlight(formatted); preview.style.display = 'block'; errMsg.style.display = 'none'; input.classList.remove('error'); status.textContent = '✅ JSON 有效'; status.className = 'json-status ok'; try { const o = JSON.parse(formatted); const bytes = new TextEncoder().encode(formatted).length; stats.textContent = formatted.split('\n').length + ' 行 · ' + bytes.toLocaleString() + ' 字节 · ' + countKeys(o) + ' 个键'; } catch(e) { stats.textContent = ''; } }
+      else { preview.style.display = 'none'; errMsg.textContent = '❌ ' + errorText; errMsg.style.display = 'block'; input.classList.add('error'); status.textContent = '❌ JSON 无效'; status.className = 'json-status err'; stats.textContent = ''; }
+    }
+    function formatJSON() { const raw = input.value.trim(); if (!raw) { showResult(false, raw, '请输入 JSON 数据'); return; } try { const obj = JSON.parse(raw); showResult(true, JSON.stringify(obj, null, 2), ''); } catch (e) { try { const fixed = raw.replace(/'/g, '"'); const obj = JSON.parse(fixed); showResult(true, JSON.stringify(obj, null, 2), ''); return; } catch(e2) {} showResult(false, raw, e.message); } }
+    function minifyJSON() { const raw = input.value.trim(); if (!raw) return; try { const obj = JSON.parse(raw); input.value = JSON.stringify(obj); preview.innerHTML = syntaxHighlight(input.value); preview.style.display = 'block'; errMsg.style.display = 'none'; input.classList.remove('error'); status.textContent = '✅ 已压缩'; status.className = 'json-status ok'; const bytes = new TextEncoder().encode(input.value).length; stats.textContent = '1 行 · ' + bytes.toLocaleString() + ' 字节'; } catch (e) { showResult(false, raw, e.message); } }
+    function escapeJSON() { input.value = JSON.stringify(input.value).slice(1, -1); formatJSON(); }
+    function unescapeJSON() { try { const unescaped = JSON.parse('"' + input.value.replace(/"/g, '\\"') + '"'); input.value = unescaped; formatJSON(); } catch(e) { showResult(false, input.value, '反转义失败: ' + e.message); } }
+    function clearJSON() { input.value = ''; preview.style.display = 'none'; errMsg.style.display = 'none'; input.classList.remove('error'); status.textContent = '就绪'; status.className = 'json-status'; stats.textContent = ''; }
+    function loadSample() { input.value = JSON.stringify({ website: '在线工具集', url: 'https://web-tools-hub-three.vercel.app', tools: [{ name: 'MD ↔ HTML 转换器', category: 'format' }, { name: '汇率换算', category: 'finance' }, { name: '密码生成器', category: 'security' }, { name: '时间戳转换', category: 'developer' }, { name: 'JSON 格式化', category: 'developer' }], version: '1.0.0', features: { free: true, localProcessing: true, adsSupported: true } }, null, 2); formatJSON(); }
+    function switchTab(tab) { document.getElementById('tabEditor').classList.toggle('active', tab === 'editor'); document.getElementById('tabPreview').classList.toggle('active', tab === 'preview'); input.style.display = tab === 'editor' ? '' : 'none'; preview.style.display = tab === 'preview' ? '' : 'none'; if (tab === 'preview') formatJSON(); }
+    input.addEventListener('input', () => { input.classList.remove('error'); errMsg.style.display = 'none'; status.textContent = '已修改'; status.className = 'json-status'; });
+    input.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); formatJSON(); } });
+    formatJSON();
+  </script>
+</body>
+</html>

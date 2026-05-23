@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文本差异对比器 - 在线工具集</title>
+  <meta name="description" content="免费在线文本差异对比工具，左右对比两段文本，高亮显示新增/删除/修改内容，支持行级对比。">
+  <meta name="keywords" content="文本差异对比,文本比较,Diff checker,文本对比,文件比较,在线对比">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .diff-container{max-width:900px;margin:20px auto;padding:0 20px;width:100%;flex:1;display:flex;flex-direction:column;min-height:0}
+    .diff-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px;flex:1;display:flex;flex-direction:column;min-height:0}
+    .diff-card h2{font-size:1.3rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .diff-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:16px}
+    .diff-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .diff-btn{padding:8px 16px;background:#21262d;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-size:.78rem;cursor:pointer;transition:all .12s;white-space:nowrap}
+    .diff-btn:hover{background:#30363d;border-color:#58a6ff;color:#58a6ff}
+    .diff-btn:active{transform:scale(.96)}
+    .diff-btn.primary{background:#238636;color:#fff;border-color:#238636}
+    .diff-btn.primary:hover{background:#2ea043}
+    .diff-btn.danger{color:#f85149;border-color:#f85149}
+    .diff-btn.danger:hover{background:#f8514922}
+    .diff-opt{display:flex;align-items:center;gap:4px;margin-left:auto;font-size:.75rem;color:#8b949e}
+    .diff-opt input[type="checkbox"]{accent-color:#58a6ff;width:13px;height:13px;cursor:pointer}
+    .diff-panels{flex:1;display:flex;gap:0;min-height:0;border:1px solid #30363d;border-radius:8px;overflow:hidden}
+    .diff-panel{flex:1;display:flex;flex-direction:column;min-width:0}
+    .diff-panel-header{padding:6px 10px;background:#21262d;border-bottom:1px solid #30363d;font-size:.75rem;color:#58a6ff;font-weight:600;flex-shrink:0}
+    .diff-panel+.diff-panel{border-left:1px solid #30363d}
+    .diff-textarea{flex:1;padding:10px 12px;background:#0d1117;color:#c9d1d9;border:none;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.6;outline:none;resize:none;min-height:200px;tab-size:2}
+    .diff-textarea:focus{background:#0d1117;box-shadow:inset 0 0 0 1px #58a6ff33}
+    .diff-status{margin-top:10px;font-size:.78rem;color:#484f58;text-align:center}
+    .diff-result{flex:1;display:flex;gap:0;min-height:0;border:1px solid #30363d;border-radius:8px;overflow:hidden;display:none}
+    .diff-result.show{display:flex}
+    .diff-col{flex:1;overflow:auto;min-width:0}
+    .diff-col-header{padding:6px 10px;background:#21262d;border-bottom:1px solid #30363d;font-size:.75rem;color:#8b949e;font-weight:600;display:flex;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:1}
+    .diff-col+.diff-col{border-left:1px solid #30363d}
+    .diff-line{display:flex;font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1.6;min-height:24px;align-items:center}
+    .diff-line-num{width:36px;flex-shrink:0;text-align:right;padding:0 6px;color:#484f58;font-size:.7rem;user-select:none;background:#161b22}
+    .diff-line-content{flex:1;padding:0 8px;white-space:pre-wrap;word-break:break-all;min-width:0}
+    .diff-line-equal{background:transparent;color:#8b949e}
+    .diff-line-added{background:#23863622}.diff-line-added .diff-line-num{background:#23863633;color:#3fb950}
+    .diff-line-removed{background:#f8514912}.diff-line-removed .diff-line-num{background:#f8514922;color:#f85149}
+    .diff-stats{display:flex;gap:12px}
+    .diff-stat{font-size:.7rem}
+    .diff-stat.add{color:#3fb950}.diff-stat.del{color:#f85149}.diff-stat.eq{color:#484f58}
+    @media(max-width:600px){.diff-card{padding:16px}.diff-panels,.diff-result{flex-direction:column}.diff-panel+.diff-panel,.diff-col+.diff-col{border-left:none;border-top:1px solid #30363d}}
+  </style>
+
+  <meta property="og:title" content="文本差异对比器 - 在线工具集">
+  <meta property="og:description" content="免费在线文本差异对比工具，左右对比两段文本，高亮显示新增/删除行，支持行级对比。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/text-diff.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "文本差异对比器",
+    "url": "https://web-tools-hub-three.vercel.app/text-diff.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "description": "免费在线文本差异对比工具，左右对比两段文本，高亮显示新增/删除内容。"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index.html" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">📊 文本差异对比</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="diff-container">
+      <div class="diff-card">
+        <h2>📊 文本差异对比器</h2>
+        <p class="diff-desc">左右对比两段文本，高亮显示差异</p>
+        <div class="diff-toolbar">
+          <button class="diff-btn primary" onclick="runDiff()">🔍 对比</button>
+          <button class="diff-btn danger" onclick="clearDiff()">🗑️ 清空</button>
+          <button class="diff-btn" onclick="loadSamples()">📄 示例</button>
+          <div class="diff-opt"><input type="checkbox" id="diffCaseSensitive" checked> 区分大小写</div>
+          <div class="diff-opt"><input type="checkbox" id="diffTrim"> 忽略首尾空格</div>
+        </div>
+        <div class="diff-panels" id="diffPanels">
+          <div class="diff-panel"><div class="diff-panel-header">原文 (A)</div><textarea class="diff-textarea" id="diffA" placeholder="粘贴原文…" spellcheck="false"></textarea></div>
+          <div class="diff-panel"><div class="diff-panel-header">修改版 (B)</div><textarea class="diff-textarea" id="diffB" placeholder="粘贴修改版…" spellcheck="false"></textarea></div>
+        </div>
+        <div class="diff-status" id="diffStatus"></div>
+        <div class="diff-result" id="diffResult">
+          <div class="diff-col"><div class="diff-col-header"><span>原文 A</span><span class="diff-stats" id="diffStatsA"></span></div><div id="diffResultA"></div></div>
+          <div class="diff-col"><div class="diff-col-header"><span>修改版 B</span><span class="diff-stats" id="diffStatsB"></span></div><div id="diffResultB"></div></div>
+        </div>
+      </div>
+    </div>
+    
+  
+</main>
+  <section class="tool-about">
+    <div class="about-wrap">
+      <h3>📖 关于此工具</h3>
+      <p><strong>文本差异对比器</strong> 使用 <strong>Myers Diff 算法</strong>对两段文本进行<strong>行级对比</strong>，以左右双面板形式高亮显示新增（绿色）和删除（红色）的内容。支持区分大小写和忽略首尾空格选项。内置示例代码对比，适合代码审查、版本比对、文档校对和配置差异分析等场景。所有对比在浏览器本地完成。</p>
+    </div>
+  </section>
+  <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  
+  
+  <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    function myersDiff(a,b){const n=a.length,m=b.length;const max=n+m;const V=new Array(2*max+1);const trace=[];for(let d=0;d<=max;d++){trace.push([...V]);for(let k=-d;k<=d;k+=2){const idx=k+max;let x;if(k===-d||(k!==d&&V[idx-1]<V[idx+1]))x=V[idx+1];else x=V[idx-1]+1;let y=x-k;while(x<n&&y<m&&a[x]===b[y]){x++;y++}V[idx]=x;if(x>=n&&y>=m){trace.push([...V]);return backtrack(trace,n,m,max)}}}return backtrack(trace,n,m,max)}
+    function backtrack(trace,n,m,max){const ops=[];let x=n,y=m;for(let d=trace.length-1;d>=0;d--){const V=trace[d];if(!V)continue;const k=x-y;const idx=k+max;let prevK;if(k===-d||(k!==d&&V[idx-1]<V[idx+1]))prevK=k+1;else prevK=k-1;const prevX=V[prevK+max];const prevY=prevX-prevK;while(x>prevX&&y>prevY){ops.push({type:'equal',aIndex:x-1,bIndex:y-1});x--;y--}if(x>prevX){ops.push({type:'delete',aIndex:x-1});x--}else if(y>prevY){ops.push({type:'insert',bIndex:y-1});y--}}return ops.reverse()}
+    function runDiff(){let a=document.getElementById('diffA').value;let b=document.getElementById('diffB').value;const s=document.getElementById('diffStatus');const r=document.getElementById('diffResult');if(!a&&!b){s.textContent='⚠️ 请在两侧输入要对比的文本';r.classList.remove('show');return}const cs=document.getElementById('diffCaseSensitive').checked;const tr=document.getElementById('diffTrim').checked;let la=a.split('\n'),lb=b.split('\n');if(!cs){la=la.map(l=>l.toLowerCase());lb=lb.map(l=>l.toLowerCase())}if(tr){la=la.map(l=>l.trim());lb=lb.map(l=>l.trim())}const ra=a.split('\n'),rb=b.split('\n');const ops=myersDiff(la,lb);const rA=document.getElementById('diffResultA'),rB=document.getElementById('diffResultB');rA.innerHTML='';rB.innerHTML='';let aL=0,bL=0,add=0,del=0,eq=0;const ml=(t,type,num)=>{const d=document.createElement('div');d.className='diff-line diff-line-'+type;const n=document.createElement('span');n.className='diff-line-num';n.textContent=num!==null?num:'';const c=document.createElement('span');c.className='diff-line-content';c.textContent=t||' ';d.appendChild(n);d.appendChild(c);return d};for(const op of ops){if(op.type==='equal'){eq++;rA.appendChild(ml(ra[op.aIndex],'equal',++aL));rB.appendChild(ml(rb[op.bIndex],'equal',++bL))}else if(op.type==='delete'){del++;rA.appendChild(ml(ra[op.aIndex],'removed',++aL));rB.appendChild(ml('','empty',null))}else{add++;rA.appendChild(ml('','empty',null));rB.appendChild(ml(rb[op.bIndex],'added',++bL))}}document.getElementById('diffStatsA').textContent='+'+add+' -'+del+' '+eq+'行相同';document.getElementById('diffStatsB').textContent='+'+add+' -'+del+' '+eq+'行相同';r.classList.add('show');if(add===0&&del===0)s.textContent='✅ 两段文本完全相同 ('+eq+' 行)';else s.textContent='✅ 发现 '+del+' 处删除, '+add+' 处新增 ('+eq+' 行相同)'}
+    function clearDiff(){document.getElementById('diffA').value='';document.getElementById('diffB').value='';document.getElementById('diffResult').classList.remove('show');document.getElementById('diffResultA').innerHTML='';document.getElementById('diffResultB').innerHTML='';document.getElementById('diffStatus').textContent=''}
+    function loadSamples(){document.getElementById('diffA').value='function hello(name) {\n  console.log("Hello, " + name);\n  return true;\n}\n\nconst user = "Alice";\nhello(user);';document.getElementById('diffB').value='function greet(name) {\n  console.log(`Hello, ${name}!`);\n  return true;\n}\n\nconst user = "Bob";\ngreet(user);\nconsole.log("Done");';runDiff()}
+    document.getElementById('diffA').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runDiff()}});
+    document.getElementById('diffB').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runDiff()}});
+  </script>
+</body>
+</html>

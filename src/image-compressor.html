@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片压缩器 - 在线工具集</title>
+  <meta name="description" content="免费在线图片压缩工具，设定目标分辨率和文件大小，支持 JPEG/PNG/WebP 格式，纯浏览器本地处理，不上传服务器。">
+  <meta name="keywords" content="图片压缩,图片缩小,压缩图片,image compressor,图片压缩到指定大小,在线压缩图片,减小图片体积">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    /* ── Image Compressor Styles ──────────────── */
+    .comp-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 20px 20px 0;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .comp-card {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 14px;
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .comp-card h2 {
+      font-size: 1.2rem;
+      color: #f0f6fc;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+    .comp-desc {
+      text-align: center;
+      font-size: .82rem;
+      color: #8b949e;
+      margin-bottom: 20px;
+    }
+
+    /* Drop Zone */
+    .comp-drop {
+      border: 2px dashed #30363d;
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 20px;
+    }
+    .comp-drop:hover,
+    .comp-drop.dragover {
+      border-color: #58a6ff;
+      background: rgba(88, 166, 255, 0.04);
+    }
+    .comp-drop-icon { font-size: 2.4rem; margin-bottom: 8px; }
+    .comp-drop-text { color: #c9d1d9; font-size: .9rem; margin-bottom: 4px; }
+    .comp-drop-hint { color: #484f58; font-size: .75rem; }
+    .comp-drop-file { color: #3fb950; font-size: .8rem; font-weight: 600; margin-top: 8px; word-break: break-all; }
+
+    /* Settings Grid */
+    .comp-settings { margin-bottom: 20px; }
+    .comp-section-label {
+      font-size: .72rem;
+      color: #58a6ff;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 12px;
+    }
+    .comp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .comp-field { display: flex; flex-direction: column; gap: 6px; }
+    .comp-field label { font-size: .75rem; color: #8b949e; font-weight: 500; }
+    .comp-field input[type="number"],
+    .comp-field input[type="text"],
+    .comp-field select {
+      width: 100%;
+      padding: 9px 12px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      color: #c9d1d9;
+      font-size: .85rem;
+      outline: none;
+      transition: border-color .15s;
+      font-family: inherit;
+      -webkit-appearance: auto;
+    }
+    .comp-field select {
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 32px;
+      cursor: pointer;
+    }
+    .comp-field input:focus,
+    .comp-field select:focus { border-color: #58a6ff; }
+
+    /* Size input with unit */
+    .comp-size-wrap { display: flex; gap: 8px; align-items: center; }
+    .comp-size-wrap input { flex: 1; min-width: 0; }
+    .comp-size-wrap select { flex: 0 0 76px; text-align: center; }
+
+    /* Format radios */
+    .comp-format-group { display: flex; gap: 8px; }
+    .comp-format-opt {
+      flex: 1;
+      padding: 9px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      color: #8b949e;
+      font-size: .82rem;
+      text-align: center;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .15s;
+    }
+    .comp-format-opt:has(input:checked) {
+      border-color: #58a6ff;
+      color: #58a6ff;
+      background: rgba(88, 166, 255, 0.08);
+      font-weight: 600;
+    }
+    .comp-format-opt input { display: none; }
+
+    /* Checkbox row */
+    .comp-check-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .82rem;
+      color: #8b949e;
+      margin-top: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .comp-check-row input[type="checkbox"] {
+      accent-color: #58a6ff;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    /* Compress button */
+    .comp-btn {
+      width: 100%;
+      padding: 13px;
+      background: #238636;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .15s;
+      margin-bottom: 20px;
+    }
+    .comp-btn:hover { background: #2ea043; }
+    .comp-btn:disabled {
+      background: #30363d;
+      color: #484f58;
+      cursor: not-allowed;
+    }
+
+    /* Progress */
+    .comp-progress { margin-bottom: 20px; display: none; }
+    .comp-progress.visible { display: block; }
+    .comp-progress-bg {
+      width: 100%;
+      height: 6px;
+      background: #21262d;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .comp-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #58a6ff, #3fb950);
+      border-radius: 3px;
+      transition: width .3s ease;
+      width: 0%;
+    }
+    .comp-progress-text { font-size: .75rem; color: #8b949e; margin-top: 6px; text-align: center; }
+
+    /* Results */
+    .comp-results { display: none; margin-bottom: 20px; }
+    .comp-results.visible { display: block; }
+    .comp-result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .comp-stat {
+      background: #0d1117;
+      border: 1px solid #21262d;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+    .comp-stat-label { font-size: .68rem; color: #484f58; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+    .comp-stat-value { font-size: 1.5rem; font-weight: 800; color: #f0f6fc; }
+    .comp-stat-sub { font-size: .68rem; color: #484f58; margin-top: 4px; }
+    .comp-stat.green .comp-stat-value { color: #3fb950; }
+    .comp-stat.orange .comp-stat-value { color: #d29922; }
+    .comp-stat.blue .comp-stat-value { color: #58a6ff; }
+
+    /* Preview */
+    .comp-preview-label {
+      font-size: .72rem;
+      color: #58a6ff;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 10px;
+    }
+    .comp-preview-toggle {
+      display: flex;
+      gap: 0;
+      margin-bottom: 10px;
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 2px;
+    }
+    .comp-preview-btn {
+      flex: 1;
+      padding: 7px;
+      background: none;
+      border: none;
+      color: #8b949e;
+      font-size: .78rem;
+      cursor: pointer;
+      border-radius: 6px;
+      font-family: inherit;
+      transition: all .12s;
+    }
+    .comp-preview-btn.active {
+      background: #58a6ff;
+      color: #0d1117;
+      font-weight: 600;
+    }
+    .comp-preview-images {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+    .comp-preview-wrap {
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .comp-preview-wrap img {
+      max-width: 240px;
+      max-height: 200px;
+      border-radius: 8px;
+      border: 1px solid #21262d;
+      object-fit: contain;
+      background: #0d1117;
+    }
+    .comp-preview-wrap-label {
+      font-size: .7rem;
+      color: #484f58;
+      margin-top: 5px;
+    }
+
+    /* Action buttons */
+    .comp-actions { display: flex; gap: 10px; margin-bottom: 8px; }
+    .comp-download-btn {
+      flex: 1;
+      padding: 13px;
+      background: #238636;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: .9rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .comp-download-btn:hover { background: #2ea043; }
+    .comp-download-btn:disabled {
+      background: #30363d;
+      color: #484f58;
+      cursor: not-allowed;
+    }
+    .comp-reset-btn {
+      padding: 13px 20px;
+      background: transparent;
+      color: #484f58;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      font-size: .85rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .15s;
+    }
+    .comp-reset-btn:hover { border-color: #8b949e; color: #c9d1d9; }
+
+    /* Error */
+    .comp-error {
+      background: rgba(248, 81, 73, 0.08);
+      border: 1px solid rgba(248, 81, 73, 0.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #f85149;
+      font-size: .8rem;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .comp-error.visible { display: block; }
+
+    @media(max-width: 480px) {
+      .comp-card { padding: 16px; }
+      .comp-grid { grid-template-columns: 1fr; }
+      .comp-result-grid { grid-template-columns: 1fr 1fr; }
+      .comp-stat-value { font-size: 1.2rem; }
+    }
+  </style>
+
+  <meta property="og:title" content="图片压缩器 - 在线工具集">
+  <meta property="og:description" content="免费在线图片压缩工具，设定目标分辨率和文件大小，支持 JPEG/PNG/WebP 格式，纯浏览器本地处理。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/image-compressor.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "图片压缩器",
+  "url": "https://web-tools-hub-three.vercel.app/image-compressor.html",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "All",
+  "description": "免费在线图片压缩工具，设定目标分辨率和文件大小，支持 JPEG/PNG/WebP 格式，纯浏览器本地处理。"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index.html" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">🖼️ 图片压缩器</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+
+  <main class="page page-tool">
+    <div class="comp-container">
+      <div class="comp-card">
+        <h2>🖼️ 图片压缩器</h2>
+        <p class="comp-desc">设定目标分辨率与文件大小，自动优化压缩比率。纯浏览器本地处理，不上传服务器。</p>
+
+        <!-- Drop Zone -->
+        <div id="comp-drop" class="comp-drop">
+          <div class="comp-drop-icon">📁</div>
+          <div class="comp-drop-text">拖拽图片到这里，或点击选择</div>
+          <div class="comp-drop-hint">支持 JPG / PNG / WebP / BMP / GIF</div>
+          <div id="comp-file-name" class="comp-drop-file" style="display:none"></div>
+        </div>
+        <input type="file" id="comp-file-input" accept="image/*" style="display:none">
+
+        <!-- Error -->
+        <div id="comp-error" class="comp-error"></div>
+
+        <!-- Settings -->
+        <div class="comp-settings">
+          <div class="comp-section-label">⚙️ 压缩设置</div>
+          <div class="comp-grid">
+            <div class="comp-field">
+              <label>目标宽度 (px)</label>
+              <input type="number" id="comp-target-width" placeholder="如 1920" min="1" max="10000">
+            </div>
+            <div class="comp-field">
+              <label>目标高度 (px)</label>
+              <input type="number" id="comp-target-height" placeholder="如 1080" min="1" max="10000">
+            </div>
+            <div class="comp-field">
+              <label>目标文件大小</label>
+              <div class="comp-size-wrap">
+                <input type="number" id="comp-target-size" placeholder="如 200" min="1" step="1">
+                <select id="comp-target-unit">
+                  <option value="KB">KB</option>
+                  <option value="MB">MB</option>
+                </select>
+              </div>
+            </div>
+            <div class="comp-field">
+              <label>输出格式</label>
+              <div class="comp-format-group">
+                <label class="comp-format-opt">
+                  <input type="radio" name="comp-format" value="jpeg" checked> JPEG
+                </label>
+                <label class="comp-format-opt">
+                  <input type="radio" name="comp-format" value="png"> PNG
+                </label>
+                <label class="comp-format-opt">
+                  <input type="radio" name="comp-format" value="webp"> WebP
+                </label>
+              </div>
+            </div>
+          </div>
+          <label class="comp-check-row">
+            <input type="checkbox" id="comp-lock-ratio" checked>
+            锁定宽高比（输入宽度自动算高度，反之亦然）
+          </label>
+        </div>
+
+        <!-- Compress button -->
+        <button id="comp-compress-btn" class="comp-btn" disabled>🗜️ 开始压缩</button>
+
+        <!-- Progress -->
+        <div id="comp-progress" class="comp-progress">
+          <div class="comp-progress-bg">
+            <div id="comp-progress-fill" class="comp-progress-fill"></div>
+          </div>
+          <div id="comp-progress-text" class="comp-progress-text">准备中...</div>
+        </div>
+
+        <!-- Results -->
+        <div id="comp-results" class="comp-results">
+          <div class="comp-section-label">📊 压缩结果</div>
+          <div class="comp-result-grid">
+            <div class="comp-stat">
+              <div class="comp-stat-label">原始大小</div>
+              <div class="comp-stat-value" id="comp-orig-size">—</div>
+              <div class="comp-stat-sub" id="comp-orig-dims">—</div>
+            </div>
+            <div class="comp-stat green">
+              <div class="comp-stat-label">压缩后</div>
+              <div class="comp-stat-value" id="comp-final-size">—</div>
+              <div class="comp-stat-sub" id="comp-final-dims">—</div>
+            </div>
+            <div class="comp-stat orange">
+              <div class="comp-stat-label">体积减少</div>
+              <div class="comp-stat-value" id="comp-savings">—</div>
+              <div class="comp-stat-sub" id="comp-quality-info">—</div>
+            </div>
+            <div class="comp-stat blue">
+              <div class="comp-stat-label">压缩倍率</div>
+              <div class="comp-stat-value" id="comp-ratio">—</div>
+              <div class="comp-stat-sub" id="comp-format-info">—</div>
+            </div>
+          </div>
+
+          <!-- Preview -->
+          <div class="comp-preview-label">👁️ 效果预览</div>
+          <div class="comp-preview-toggle">
+            <button class="comp-preview-btn active" data-preview="compressed" onclick="compSwitchPreview('compressed')">压缩后</button>
+            <button class="comp-preview-btn" data-preview="original" onclick="compSwitchPreview('original')">原图</button>
+            <button class="comp-preview-btn" data-preview="sidebyside" onclick="compSwitchPreview('sidebyside')">并排对比</button>
+          </div>
+          <div id="comp-preview-images" class="comp-preview-images"></div>
+
+          <!-- Actions -->
+          <div class="comp-actions">
+            <button id="comp-download-btn" class="comp-download-btn" disabled>
+              ⬇️ <span id="comp-download-text">下载压缩图片</span>
+            </button>
+            <button id="comp-reset-btn" class="comp-reset-btn">🔄 重新压缩</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <section class="tool-about">
+    <div class="about-wrap">
+      <h3>📖 关于此工具</h3>
+      <p><strong>图片压缩器</strong> 用于<strong>将图片压缩到指定分辨率和文件大小</strong>。支持 <strong>JPEG、PNG、WebP</strong> 三种输出格式。所有计算均在浏览器本地完成，<strong>不会上传任何图片到服务器</strong>，保护你的隐私安全。</p>
+      <p style="margin-top:6px">采用二分法自动搜索最佳压缩质量参数，在视觉质量和文件大小之间取得最佳平衡。支持拖拽上传、宽高比锁定、实时预览对比，适合网页图片优化、邮件附件压缩、社交平台图片处理等场景。</p>
+    </div>
+  </section>
+  <div class="ad-container ad-tool-bottom">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+  <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+
+    // ── State ─────────────────────────────────
+    let originalFile = null;
+    let originalImage = null;
+    let originalWidth = 0;
+    let originalHeight = 0;
+    let compressedBlob = null;
+    let compressedDataUrl = null;
+
+    // ── DOM ───────────────────────────────────
+    const dropEl = document.getElementById('comp-drop');
+    const fileInputEl = document.getElementById('comp-file-input');
+    const fileNameEl = document.getElementById('comp-file-name');
+    const twEl = document.getElementById('comp-target-width');
+    const thEl = document.getElementById('comp-target-height');
+    const tsEl = document.getElementById('comp-target-size');
+    const tuEl = document.getElementById('comp-target-unit');
+    const lockRatioEl = document.getElementById('comp-lock-ratio');
+    const compressBtn = document.getElementById('comp-compress-btn');
+    const progressEl = document.getElementById('comp-progress');
+    const progressFill = document.getElementById('comp-progress-fill');
+    const progressText = document.getElementById('comp-progress-text');
+    const resultsEl = document.getElementById('comp-results');
+    const errorEl = document.getElementById('comp-error');
+    const downloadBtn = document.getElementById('comp-download-btn');
+    const resetBtn = document.getElementById('comp-reset-btn');
+
+    // ── Drop Zone ─────────────────────────────
+    dropEl.addEventListener('click', () => fileInputEl.click());
+    dropEl.addEventListener('dragover', (e) => { e.preventDefault(); dropEl.classList.add('dragover'); });
+    dropEl.addEventListener('dragleave', () => dropEl.classList.remove('dragover'));
+    dropEl.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropEl.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) handleFile(file);
+    });
+    fileInputEl.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) handleFile(file);
+    });
+
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) {
+        showError('请选择图片文件（JPG/PNG/WebP/GIF 等）');
+        return;
+      }
+      originalFile = file;
+      fileNameEl.textContent = '✅ ' + file.name + ' (' + formatSize(file.size) + ')';
+      fileNameEl.style.display = 'block';
+      hideError();
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          originalImage = img;
+          originalWidth = img.naturalWidth;
+          originalHeight = img.naturalHeight;
+          if (!twEl.value) twEl.value = originalWidth;
+          if (!thEl.value) thEl.value = originalHeight;
+          compressBtn.disabled = false;
+          dropEl.querySelector('.comp-drop-text').textContent = '✅ 已加载，可调整参数';
+        };
+        img.onerror = () => showError('无法读取图片，文件可能已损坏');
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ── Lock ratio auto-calc ──────────────────
+    twEl.addEventListener('input', () => {
+      if (lockRatioEl.checked && originalHeight > 0) {
+        const w = parseInt(twEl.value);
+        if (w > 0) thEl.value = Math.round(w * originalHeight / originalWidth);
+      }
+    });
+    thEl.addEventListener('input', () => {
+      if (lockRatioEl.checked && originalWidth > 0) {
+        const h = parseInt(thEl.value);
+        if (h > 0) twEl.value = Math.round(h * originalWidth / originalHeight);
+      }
+    });
+
+    // ── Compress ──────────────────────────────
+    compressBtn.addEventListener('click', startCompression);
+    function startCompression() {
+      const tw = parseInt(twEl.value);
+      const th = parseInt(thEl.value);
+      const tsVal = parseFloat(tsEl.value);
+      const tsUnit = tuEl.value;
+
+      if (!tw || tw <= 0 || !th || th <= 0) { showError('请输入有效的目标宽度和高度'); return; }
+      if (!tsVal || tsVal <= 0) { showError('请输入有效的目标文件大小'); return; }
+
+      let targetBytes = tsUnit === 'MB' ? tsVal * 1024 * 1024 : tsVal * 1024;
+      const format = document.querySelector('input[name="comp-format"]:checked').value;
+      const mimeType = 'image/' + format;
+
+      compressBtn.disabled = true;
+      compressBtn.textContent = '⏳ 压缩中...';
+      progressEl.classList.add('visible');
+      progressFill.style.width = '0%';
+      resultsEl.classList.remove('visible');
+      hideError();
+
+      setTimeout(async () => {
+        try {
+          const result = await compressImage(originalImage, tw, th, targetBytes, mimeType, format);
+          compressedBlob = result.blob;
+          compressedDataUrl = result.dataUrl;
+          showResults(result, targetBytes);
+        } catch (err) {
+          showError('压缩失败：' + err.message);
+          compressBtn.disabled = false;
+          compressBtn.textContent = '🗜️ 开始压缩';
+        } finally {
+          progressEl.classList.remove('visible');
+        }
+      }, 50);
+    }
+
+    async function compressImage(img, targetW, targetH, targetBytes, mimeType, format) {
+      const origBytes = originalFile.size;
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = targetW;
+      canvas.height = targetH;
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, targetW, targetH);
+
+      // PNG: no quality param
+      if (format === 'png') {
+        updateProgress(40, '正在缩放图片...');
+        await sleep(30);
+        const blob = await canvasToBlob(canvas, mimeType);
+        updateProgress(100, '完成');
+        await sleep(150);
+        return {
+          blob, dataUrl: canvas.toDataURL(mimeType),
+          width: targetW, height: targetH, bytes: blob.size,
+          quality: null, originalBytes: origBytes, format: 'PNG',
+          hitTarget: blob.size <= targetBytes
+        };
+      }
+
+      // JPEG/WebP: binary search quality
+      let lo = 0.01, hi = 0.95, bestBlob = null, bestDataUrl = null, bestQuality = 0;
+
+      updateProgress(10, '正在分析图片...');
+      await sleep(30);
+
+      const minBlob = await encodeQuality(canvas, mimeType, lo);
+      if (minBlob.size > targetBytes) {
+        bestBlob = minBlob;
+        bestQuality = lo;
+        updateProgress(60, '当前分辨率下无法达到目标大小，使用最低质量');
+      } else {
+        const maxBlob = await encodeQuality(canvas, mimeType, hi);
+        if (maxBlob.size <= targetBytes) {
+          bestBlob = maxBlob;
+          bestQuality = hi;
+          updateProgress(60, '高质量已满足目标大小');
+        } else {
+          for (let i = 0; i < 12; i++) {
+            const mid = (lo + hi) / 2;
+            const blob = await encodeQuality(canvas, mimeType, mid);
+            const pct = 10 + Math.round((i / 12) * 80);
+            updateProgress(pct, '正在尝试质量 ' + Math.round(mid * 100) + '%（第 ' + (i + 1) + ' 轮）...');
+            await sleep(20);
+            if (blob.size <= targetBytes) { bestBlob = blob; bestQuality = mid; lo = mid; }
+            else { hi = mid; }
+            if (hi - lo < 0.005) break;
+          }
+        }
+      }
+
+      updateProgress(95, '正在生成预览...');
+      await sleep(30);
+      bestDataUrl = canvas.toDataURL(mimeType, bestQuality);
+      updateProgress(100, '完成');
+      await sleep(150);
+
+      return {
+        blob: bestBlob, dataUrl: bestDataUrl,
+        width: targetW, height: targetH, bytes: bestBlob.size,
+        quality: bestQuality, originalBytes: origBytes,
+        format: format.toUpperCase(), hitTarget: bestBlob.size <= targetBytes
+      };
+    }
+
+    function encodeQuality(canvas, mimeType, quality) {
+      return new Promise(resolve => canvas.toBlob(blob => resolve(blob), mimeType, quality));
+    }
+    function canvasToBlob(canvas, mimeType) {
+      return new Promise(resolve => canvas.toBlob(blob => resolve(blob), mimeType));
+    }
+
+    // ── Results ───────────────────────────────
+    function showResults(r, targetBytes) {
+      resultsEl.classList.add('visible');
+      resultsEl.scrollIntoView({ behavior: 'smooth' });
+
+      document.getElementById('comp-orig-size').textContent = formatSize(r.originalBytes);
+      document.getElementById('comp-orig-dims').textContent = originalWidth + ' × ' + originalHeight;
+      document.getElementById('comp-final-size').textContent = formatSize(r.bytes);
+      document.getElementById('comp-final-dims').textContent = r.width + ' × ' + r.height;
+
+      const saved = r.originalBytes - r.bytes;
+      const pct = saved > 0 ? Math.round(saved / r.originalBytes * 100) : 0;
+      document.getElementById('comp-savings').textContent = pct > 0 ? '-' + pct + '%' : '0%';
+      document.getElementById('comp-quality-info').textContent = r.quality !== null ? '质量 ' + Math.round(r.quality * 100) + '%' : 'PNG 无损';
+      document.getElementById('comp-ratio').textContent = (r.originalBytes / r.bytes).toFixed(1) + 'x';
+      document.getElementById('comp-format-info').textContent = r.format;
+
+      if (!r.hitTarget) {
+        showError('⚠️ 已使用最低质量，但压缩后（' + formatSize(r.bytes) + '）仍大于目标（' + formatSize(targetBytes) + '），请尝试更小的分辨率。');
+      }
+
+      renderPreview(originalImage, r);
+      downloadBtn.disabled = false;
+      compressBtn.disabled = false;
+      compressBtn.textContent = '🗜️ 开始压缩';
+    }
+
+    // ── Preview ───────────────────────────────
+    function renderPreview(origImg, result) {
+      const wrap = document.getElementById('comp-preview-images');
+      wrap.innerHTML = '';
+      wrap.appendChild(makePreviewCard(origImg.src, originalWidth + '×' + originalHeight, '原图'));
+    }
+
+    function makePreviewCard(src, dims, label) {
+      const div = document.createElement('div');
+      div.className = 'comp-preview-wrap';
+      div.innerHTML = '<img src="' + src + '" alt="' + label + '"><div class="comp-preview-wrap-label">' + label + '（' + dims + '）</div>';
+      return div;
+    }
+
+    function compSwitchPreview(mode) {
+      document.querySelectorAll('.comp-preview-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('[data-preview="' + mode + '"]')?.classList.add('active');
+      const wrap = document.getElementById('comp-preview-images');
+      wrap.innerHTML = '';
+      if (mode === 'original' || mode === 'sidebyside') {
+        wrap.appendChild(makePreviewCard(originalImage.src, originalWidth + '×' + originalHeight, '原图'));
+      }
+      if (mode === 'compressed' || mode === 'sidebyside') {
+        wrap.appendChild(makePreviewCard(compressedDataUrl, '', '压缩后'));
+      }
+    }
+
+    // ── Download ──────────────────────────────
+    downloadBtn.addEventListener('click', () => {
+      if (!compressedBlob) return;
+      const baseName = originalFile.name.replace(/\.[^.]+$/, '');
+      const format = document.querySelector('input[name="comp-format"]:checked').value;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(compressedBlob);
+      a.download = baseName + '_compressed.' + format;
+      a.click();
+    });
+
+    // ── Reset ─────────────────────────────────
+    resetBtn.addEventListener('click', () => {
+      resultsEl.classList.remove('visible');
+      compressedBlob = null;
+      compressedDataUrl = null;
+      downloadBtn.disabled = true;
+      compressBtn.disabled = false;
+      compressBtn.textContent = '🗜️ 开始压缩';
+      hideError();
+      document.getElementById('comp-preview-images').innerHTML = '';
+    });
+
+    // ── Helpers ───────────────────────────────
+    function showError(msg) { errorEl.textContent = msg; errorEl.classList.add('visible'); }
+    function hideError() { errorEl.classList.remove('visible'); }
+    function updateProgress(pct, text) { progressFill.style.width = pct + '%'; progressText.textContent = text; }
+    function formatSize(b) {
+      return b >= 1048576 ? (b / 1048576).toFixed(2) + ' MB' : (b / 1024).toFixed(1) + ' KB';
+    }
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+  </script>
+</body>
+</html>

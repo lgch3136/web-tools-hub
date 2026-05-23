@@ -4,8 +4,8 @@
   "private": true,
   "description": "在线工具集 - Markdown转换、汇率换算等实用工具",
   "scripts": {
-    "start": "parcel src/index.html src/md-html.html src/exchange-rate.html --port 3000 --open",
-    "build": "parcel build src/index.html src/md-html.html src/exchange-rate.html --dist-dir dist --public-url ./"
+    "start": "parcel src/index.html src/md-html.html src/exchange-rate.html src/password-generator.html src/timestamp-converter.html src/json-formatter.html src/base64-encoder.html src/qr-generator.html src/color-converter.html src/text-diff.html src/agent-commands.html src/image-compressor.html --port 3000 --open",
+    "build": "parcel build src/index.html src/md-html.html src/exchange-rate.html src/password-generator.html src/timestamp-converter.html src/json-formatter.html src/base64-encoder.html src/qr-generator.html src/color-converter.html src/text-diff.html src/agent-commands.html src/image-compressor.html --dist-dir dist --public-url ./ && cp src/sitemap.xml src/robots.txt src/google6b3f4d8534bf7a70.html dist/"
   },
   "dependencies": {
     "docx": "^8.5.0",
@@ -14,6 +14,8 @@
     "turndown": "^7.2.0"
   },
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.16.4",
+    "@parcel/transformer-jsonld": "^2.16.4",
     "buffer": "^6.0.3",
     "parcel": "^2.12.0",
     "process": "^0.11.10"

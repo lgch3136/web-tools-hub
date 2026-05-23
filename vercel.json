@@ -3,7 +3,6 @@
   "outputDirectory": "dist",
   "framework": "parcel",
   "rewrites": [
-    { "source": "^/index(?:\\.html)?/?$", "destination": "/index.html" },
     { "source": "/image-compressor", "destination": "/image-compressor.html" },
     { "source": "/json-formatter", "destination": "/json-formatter.html" },
     { "source": "/md-html", "destination": "/md-html.html" },

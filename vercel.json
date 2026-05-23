@@ -13,6 +13,8 @@
     { "source": "/qr-generator", "destination": "/qr-generator.html" },
     { "source": "/color-converter", "destination": "/color-converter.html" },
     { "source": "/text-diff", "destination": "/text-diff.html" },
-    { "source": "/agent-commands", "destination": "/agent-commands.html" }
+    { "source": "/agent-commands", "destination": "/agent-commands.html" },
+    { "source": "/dev-commands", "destination": "/dev-commands.html" },
+    { "source": "/dev-links", "destination": "/dev-links.html" }
   ]
 }

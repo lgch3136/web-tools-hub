@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>开发命令速查 - 在线工具集</title>
+  <meta name="description" content="开发常用命令速查表：npm/pip/Node.js/Git/GitHub CLI/Vercel/Docker/Linux/macOS/Homebrew/SSH/curl/jq 等 15+ 类别，一键复制。">
+  <meta name="keywords" content="命令速查,cheatsheet,npm命令,git命令,docker命令,linux命令,macos命令,homebrew,ssh,curl,jq,vercel,vibe coding">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .cmd-container{max-width:900px;margin:20px auto;padding:0 20px;width:100%}
+    .cmd-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:28px}
+    .cmd-card h2{font-size:1.2rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .cmd-desc{text-align:center;font-size:.8rem;color:#8b949e;margin-bottom:16px}
+    .cmd-search{display:flex;gap:8px;margin-bottom:14px}
+    .cmd-search-input{flex:1;padding:10px 14px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c9d1d9;font-size:.85rem;outline:none;font-family:inherit;min-width:0}
+    .cmd-search-input:focus{border-color:#58a6ff}
+    .cmd-search-input::placeholder{color:#484f58}
+    .cmd-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px;max-height:120px;overflow-y:auto;padding-right:4px}
+    .cmd-tabs::-webkit-scrollbar{width:4px}
+    .cmd-tabs::-webkit-scrollbar-thumb{background:#30363d;border-radius:2px}
+    .cmd-tab{padding:5px 12px;background:#21262d;border:1px solid #30363d;border-radius:6px;font-size:.72rem;color:#8b949e;cursor:pointer;transition:all .12s;white-space:nowrap}
+    .cmd-tab:hover{background:#30363d;color:#c9d1d9}
+    .cmd-tab.active{background:#58a6ff;color:#0d1117;font-weight:600;border-color:#58a6ff}
+    .cmd-section{margin-bottom:16px;display:none}
+    .cmd-section.show{display:block}
+    .cmd-category{margin-bottom:6px}
+    .cmd-cat-header{display:flex;align-items:center;gap:8px;padding:9px 12px;background:#0d1117;border:1px solid #30363d;border-radius:8px;font-size:.82rem;color:#58a6ff;font-weight:600;cursor:pointer;transition:all .12s;user-select:none}
+    .cmd-cat-header:hover{background:#161b22;border-color:#58a6ff}
+    .cmd-cat-header .arrow{transition:transform .2s;font-size:.65rem;color:#484f58;margin-left:auto}
+    .cmd-cat-header.open .arrow{transform:rotate(90deg)}
+    .cmd-cat-body{padding:6px 0 0 0;display:none}
+    .cmd-cat-body.open{display:block}
+    .cmd-item{display:flex;align-items:flex-start;gap:8px;padding:7px 12px;border-radius:6px;transition:background .1s}
+    .cmd-item:hover{background:#1c2333}
+    .cmd-item.hidden{display:none}
+    .cmd-desc-text{flex:1;font-size:.75rem;color:#8b949e;padding-top:3px;min-width:0;line-height:1.5}
+    .cmd-code-wrap{flex:0 1 auto;max-width:65%;position:relative}
+    .cmd-code{display:block;padding:5px 30px 5px 10px;background:#0d1117;border:1px solid #30363d;border-radius:5px;font-family:'JetBrains Mono',Consolas,monospace;font-size:.75rem;color:#ffa657;white-space:nowrap;overflow-x:auto;line-height:1.5;min-width:0}
+    .cmd-code::-webkit-scrollbar{height:3px}
+    .cmd-code::-webkit-scrollbar-thumb{background:#30363d;border-radius:2px}
+    .cmd-copy-btn{position:absolute;right:2px;top:2px;padding:3px 5px;background:transparent;border:none;color:#484f58;font-size:.65rem;cursor:pointer;border-radius:3px;transition:all .1s;line-height:1}
+    .cmd-copy-btn:hover{color:#58a6ff;background:#21262d}
+    .cmd-copy-btn.copied{color:#3fb950}
+    .cmd-empty{text-align:center;padding:40px;color:#484f58;font-size:.85rem}
+    @media(max-width:600px){.cmd-card{padding:16px}.cmd-item{flex-direction:column}.cmd-code-wrap{max-width:100%;width:100%}.cmd-code{white-space:pre-wrap;word-break:break-all;padding-right:10px}}
+  </style>
+  <meta property="og:title" content="开发命令速查 - 在线工具集">
+  <meta property="og:description" content="开发常用命令速查表：npm/pip/Git/Docker/Linux/macOS/Homebrew/SSH/curl 等 15+ 类别，一键复制。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/dev-commands.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "开发命令速查",
+  "url": "https://web-tools-hub-three.vercel.app/dev-commands.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "All",
+  "description": "开发常用命令速查表：npm/pip/Git/GitHub CLI/Vercel/Docker/Linux/macOS/Homebrew/SSH/curl/jq 等 15+ 类别。"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">⌨️ 开发命令速查</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="cmd-container">
+      <div class="cmd-card">
+        <h2>⌨️ 开发命令速查表</h2>
+        <p class="cmd-desc">15+ 类别 · 一键复制 · 关键词搜索</p>
+        <div class="cmd-search"><input type="text" class="cmd-search-input" id="cmdSearch" placeholder="🔍 搜索命令… (例如: deploy, install, merge, push)"></div>
+        <div class="cmd-tabs" id="cmdTabs"></div>
+        <div id="cmdSections"></div>
+      </div>
+    </div>
+  </main>
+  <section class="tool-about">
+    <div class="about-wrap">
+      <h3>📖 关于此工具</h3>
+      <p><strong>开发命令速查表</strong> 收录了日常开发中最常用的命令行操作，涵盖 <strong>npm/pip 包管理</strong>、<strong>Git/GitHub CLI</strong>、<strong>Vercel 部署</strong>、<strong>Docker 容器</strong>、<strong>Linux/macOS 系统</strong>、<strong>Homebrew</strong>、<strong>SSH 远程</strong>、<strong>curl/jq HTTP 工具</strong>、<strong>Python 虚拟环境</strong>、<strong>Node.js</strong>、<strong>PM2 进程管理</strong>、<strong>Nginx</strong>、<strong>Playwright 测试</strong>、<strong>Parcel/Vite 构建</strong>、<strong>AI Agent 工具</strong> 等 15+ 类别。支持关键词搜索过滤和一键复制命令。</p>
+    </div>
+  </section>
+  <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    const DATA = [
+      { tab: "npm / pip", icon: "📦", sections: [
+        { name: "npm 包管理", items: [
+          { cmd: "npm install", desc: "安装 package.json 中的所有依赖" },
+          { cmd: "npm install <pkg>", desc: "安装指定包（dependencies）" },
+          { cmd: "npm install -g <pkg>", desc: "全局安装包" },
+          { cmd: "npm install -D <pkg>", desc: "安装为 devDependency" },
+          { cmd: "npm uninstall <pkg>", desc: "卸载包" },
+          { cmd: "npm update", desc: "更新所有依赖" },
+          { cmd: "npm update <pkg>", desc: "更新指定包" },
+          { cmd: "npm outdated", desc: "查看有更新的包列表" },
+          { cmd: "npm list", desc: "查看已安装的包（树形结构）" },
+          { cmd: "npm list -g --depth=0", desc: "查看全局已安装包" },
+          { cmd: "npm audit", desc: "安全审计依赖" },
+          { cmd: "npm audit fix", desc: "自动修复安全漏洞" },
+          { cmd: "npm run <script>", desc: "执行 package.json 中的脚本" },
+          { cmd: "npm start", desc: "启动项目（npm run start）" },
+          { cmd: "npm run build", desc: "构建生产版本" },
+          { cmd: "npm run dev", desc: "启动开发服务器" },
+          { cmd: "npx <pkg>", desc: "临时执行包（不安装）" },
+          {.cmd: "npm cache clean --force", desc: "清除 npm 缓存" },
+        ]},
+        { name: "pip / Python", items: [
+          { cmd: "pip install <pkg>", desc: "安装 Python 包" },
+          { cmd: "pip install -r requirements.txt", desc: "批量安装依赖" },
+          { cmd: "pip install -e .", desc: "可编辑模式安装（开发用）" },
+          { cmd: "pip uninstall <pkg>", desc: "卸载包" },
+          { cmd: "pip list --outdated", desc: "查看可更新包" },
+          { cmd: "pip freeze > requirements.txt", desc: "导出依赖列表" },
+          { cmd: "pip show <pkg>", desc: "查看包详细信息" },
+          { cmd: "pip search <query>", desc: "搜索 PyPI 包" },
+          { cmd: "python -m pip install --upgrade pip", desc: "升级 pip 本身" },
+          { cmd: "pipx install <pkg>", desc: "pipx 安装（隔离环境，推荐）" },
+          { cmd: "pipx list", desc: "查看 pipx 安装的包" },
+          { cmd: "pipx uninstall <pkg>", desc: "pipx 卸载" },
+        ]},
+      ]},
+      { tab: "Git", icon: "🌿", sections: [
+        { name: "基础操作", items: [
+          { cmd: "git init", desc: "初始化仓库" },
+          { cmd: "git clone <url>", desc: "克隆远程仓库" },
+          { cmd: "git status", desc: "查看工作区状态" },
+          { cmd: "git add .", desc: "暂存所有更改" },
+          { cmd: "git add <file>", desc: "暂存指定文件" },
+          { cmd: "git commit -m \"msg\"", desc: "提交暂存内容" },
+          { cmd: "git commit -am \"msg\"", desc: "跳过暂存直接提交已跟踪文件" },
+          { cmd: "git push", desc: "推送到远程" },
+          { cmd: "git push -u origin <branch>", desc: "首次推送并设置上游" },
+          { cmd: "git pull", desc: "拉取并合并远程更新" },
+          { cmd: "git fetch", desc: "拉取但不合并" },
+        ]},
+        { name: "分支管理", items: [
+          { cmd: "git branch", desc: "查看本地分支列表" },
+          { cmd: "git branch -a", desc: "查看所有分支（含远程）" },
+          { cmd: "git checkout -b <name>", desc: "创建并切换到新分支" },
+          { cmd: "git checkout <branch>", desc: "切换到指定分支" },
+          { cmd: "git switch <branch>", desc: "新版切换分支" },
+          { cmd: "git switch -c <name>", desc: "新版创建并切换分支" },
+          { cmd: "git merge <branch>", desc: "将指定分支合并到当前" },
+          { cmd: "git rebase <branch>", desc: "变基" },
+          { cmd: "git branch -d <name>", desc: "删除本地分支" },
+          { cmd: "git branch -D <name>", desc: "强制删除分支" },
+        ]},
+        { name: "查看 & 日志", items: [
+          { cmd: "git log --oneline -20", desc: "简洁查看最近 20 条提交" },
+          { cmd: "git log --graph --oneline --all", desc: "分支图形式查看历史" },
+          { cmd: "git diff", desc: "查看工作区与暂存区差异" },
+          { cmd: "git diff --staged", desc: "查看暂存区与 HEAD 差异" },
+          { cmd: "git blame <file>", desc: "查看文件每行的修改者" },
+          { cmd: "git show <commit>", desc: "查看某次提交的详细内容" },
+          { cmd: "git stash", desc: "暂存未提交的更改" },
+          { cmd: "git stash pop", desc: "恢复最近的暂存" },
+          { cmd: "git stash list", desc: "查看暂存列表" },
+        ]},
+        { name: "撤销 & 回退", items: [
+          { cmd: "git reset HEAD <file>", desc: "取消暂存（保留修改）" },
+          { cmd: "git checkout -- <file>", desc: "丢弃工作区修改" },
+          { cmd: "git revert <commit>", desc: "创建新提交来撤销指定提交" },
+          { cmd: "git reset --hard HEAD~1", desc: "回退一个提交（丢弃修改）" },
+          { cmd: "git cherry-pick <commit>", desc: "挑选指定提交应用到当前分支" },
+        ]},
+        { name: "远程 & 标签", items: [
+          { cmd: "git remote -v", desc: "查看远程仓库地址" },
+          { cmd: "git remote add origin <url>", desc: "添加远程仓库" },
+          { cmd: "git tag", desc: "列出所有标签" },
+          { cmd: "git tag v1.0.0", desc: "创建标签" },
+          { cmd: "git push origin --tags", desc: "推送所有标签" },
+          { cmd: "git push origin <tag>", desc: "推送指定标签" },
+        ]},
+      ]},
+      { tab: "GitHub CLI", icon: "🐙", sections: [
+        { name: "认证 & 仓库", items: [
+          { cmd: "gh auth login", desc: "GitHub 登录认证" },
+          { cmd: "gh auth status", desc: "查看认证状态" },
+          { cmd: "gh repo create <name>", desc: "创建新仓库" },
+          { cmd: "gh repo fork <owner/repo>", desc: "Fork 远程仓库" },
+          { cmd: "gh repo view", desc: "查看仓库信息" },
+          { cmd: "gh repo clone <owner/repo>", desc: "克隆仓库" },
+        ]},
+        { name: "Pull Request", items: [
+          { cmd: "gh pr create", desc: "创建 Pull Request" },
+          { cmd: "gh pr create --fill", desc: "自动填充 PR 标题和描述" },
+          { cmd: "gh pr list", desc: "列出 PRs" },
+          { cmd: "gh pr view", desc: "查看当前 PR 详情" },
+          { cmd: "gh pr view <number>", desc: "查看指定 PR" },
+          { cmd: "gh pr checkout <number>", desc: "切换到 PR 分支" },
+          { cmd: "gh pr merge <number>", desc: "合并 PR" },
+          { cmd: "gh pr review --approve", desc: "批准 PR" },
+        ]},
+        { name: "Issue & Release", items: [
+          { cmd: "gh issue create", desc: "创建新 Issue" },
+          { cmd: "gh issue list", desc: "列出 Issues" },
+          { cmd: "gh issue view <number>", desc: "查看 Issue" },
+          { cmd: "gh issue close <number>", desc: "关闭 Issue" },
+          { cmd: "gh release create <tag>", desc: "创建新 Release" },
+          { cmd: "gh release list", desc: "列出 Releases" },
+          { cmd: "gh release upload <tag> <file>", desc: "上传附件到 Release" },
+        ]},
+      ]},
+      { tab: "Vercel", icon: "▲", sections: [
+        { name: "部署", items: [
+          { cmd: "vercel", desc: "部署到预览环境" },
+          { cmd: "vercel --prod", desc: "部署到生产环境" },
+          { cmd: "vercel deploy --prod --yes", desc: "一键部署生产（无需确认）" },
+          { cmd: "vercel --build-env KEY=value", desc: "指定构建环境变量部署" },
+        ]},
+        { name: "项目 & 环境", items: [
+          { cmd: "vercel link", desc: "关联已有 Vercel 项目" },
+          { cmd: "vercel projects list", desc: "列出所有项目" },
+          { cmd: "vercel env pull .env.local", desc: "拉取环境变量" },
+          { cmd: "vercel env add <name>", desc: "添加环境变量" },
+          { cmd: "vercel env ls", desc: "列出环境变量" },
+          { cmd: "vercel env rm <name>", desc: "删除环境变量" },
+        ]},
+        { name: "域名 & 日志", items: [
+          { cmd: "vercel domains ls", desc: "列出所有域名" },
+          { cmd: "vercel domains add <domain>", desc: "添加自定义域名" },
+          { cmd: "vercel alias set <url> <domain>", desc: "设置域名别名" },
+          { cmd: "vercel logs", desc: "查看项目日志" },
+          { cmd: "vercel inspect <url>", desc: "查看部署详情" },
+          { cmd: "vercel ls", desc: "列出所有部署记录" },
+        ]},
+      ]},
+      { tab: "Docker", icon: "🐳", sections: [
+        { name: "镜像操作", items: [
+          { cmd: "docker build -t <name> .", desc: "构建镜像" },
+          { cmd: "docker pull <image>", desc: "拉取镜像" },
+          { cmd: "docker images", desc: "列出本地镜像" },
+          { cmd: "docker rmi <image>", desc: "删除镜像" },
+          { cmd: "docker tag <src> <dst>", desc: "给镜像打标签" },
+          { cmd: "docker push <image>", desc: "推送镜像到仓库" },
+          { cmd: "docker save -o <file>.tar <image>", desc: "导出镜像为 tar" },
+          { cmd: "docker load -i <file>.tar", desc: "从 tar 导入镜像" },
+        ]},
+        { name: "容器操作", items: [
+          { cmd: "docker run -d --name <name> -p 80:80 <image>", desc: "后台运行容器并映射端口" },
+          { cmd: "docker run -it --rm <image> /bin/bash", desc: "交互式运行（退出自动删除）" },
+          { cmd: "docker ps", desc: "列出运行中的容器" },
+          { cmd: "docker ps -a", desc: "列出所有容器" },
+          { cmd: "docker start <container>", desc: "启动已停止的容器" },
+          { cmd: "docker stop <container>", desc: "停止容器" },
+          { cmd: "docker restart <container>", desc: "重启容器" },
+          { cmd: "docker rm <container>", desc: "删除容器" },
+          { cmd: "docker exec -it <container> /bin/bash", desc: "进入运行中容器的 shell" },
+          { cmd: "docker logs <container>", desc: "查看容器日志" },
+          { cmd: "docker logs -f <container>", desc: "实时跟踪容器日志" },
+        ]},
+        { name: "清理 & 监控", items: [
+          { cmd: "docker system prune -a", desc: "清理所有未使用的镜像和容器" },
+          { cmd: "docker stats", desc: "实时查看容器资源使用" },
+          { cmd: "docker inspect <container>", desc: "查看容器详细信息" },
+          { cmd: "docker-compose up -d", desc: "启动 docker-compose 项目" },
+          { cmd: "docker-compose down", desc: "停止并删除 compose 容器" },
+          { cmd: "docker-compose logs -f", desc: "实时查看 compose 日志" },
+          { cmd: "docker-compose build --no-cache", desc: "无缓存重新构建" },
+        ]},
+      ]},
+      { tab: "Linux", icon: "🐧", sections: [
+        { name: "文件操作", items: [
+          { cmd: "ls -la", desc: "详细列出目录内容" },
+          { cmd: "cp -r <src> <dst>", desc: "递归复制" },
+          { cmd: "mv <src> <dst>", desc: "移动/重命名" },
+          { cmd: "rm -rf <dir>", desc: "递归强制删除" },
+          { cmd: "mkdir -p <path>", desc: "递归创建目录" },
+          { cmd: "find . -name '*.js'", desc: "按名称查找文件" },
+          { cmd: "du -sh <dir>", desc: "查看目录大小" },
+          { cmd: "df -h", desc: "查看磁盘使用情况" },
+          { cmd: "chmod 755 <file>", desc: "修改文件权限" },
+          { cmd: "chown user:group <file>", desc: "修改文件所有者" },
+        ]},
+        { name: "文本处理", items: [
+          { cmd: "cat <file>", desc: "查看文件内容" },
+          { cmd: "tail -f <file>", desc: "实时跟踪文件末尾" },
+          { cmd: "head -n 20 <file>", desc: "查看文件前 20 行" },
+          { cmd: "grep -r 'pattern' .", desc: "递归搜索文本" },
+          { cmd: "grep -ri 'pattern' .", desc: "忽略大小写递归搜索" },
+          { cmd: "sed -i 's/old/new/g' <file>", desc: "批量替换文本" },
+          { cmd: "awk '{print $1}' <file>", desc: "提取第一列" },
+          { cmd: "sort <file> | uniq", desc: "排序去重" },
+          { cmd: "wc -l <file>", desc: "统计行数" },
+        ]},
+        { name: "进程 & 系统", items: [
+          { cmd: "top", desc: "实时进程监控" },
+          { cmd: "htop", desc: "增强版进程监控" },
+          { cmd: "ps aux", desc: "列出所有进程" },
+          { cmd: "ps aux | grep <name>", desc: "查找指定进程" },
+          { cmd: "kill -9 <pid>", desc: "强制结束进程" },
+          { cmd: "pkill <name>", desc: "按名称结束进程" },
+          { cmd: "free -h", desc: "查看内存使用" },
+          { cmd: "uptime", desc: "查看系统运行时间" },
+          { cmd: "uname -a", desc: "查看系统信息" },
+        ]},
+        { name: "网络", items: [
+          { cmd: "ifconfig", desc: "查看网络接口信息" },
+          { cmd: "ip addr show", desc: "新版查看 IP 地址" },
+          { cmd: "ping <host>", desc: "测试网络连通性" },
+          { cmd: "netstat -tlnp", desc: "查看监听端口" },
+          { cmd: "ss -tlnp", desc: "新版查看监听端口" },
+          { cmd: "nslookup <domain>", desc: "DNS 查询" },
+          { cmd: "dig <domain>", desc: "详细 DNS 查询" },
+          { cmd: "traceroute <host>", desc: "路由追踪" },
+        ]},
+      ]},
+      { tab: "macOS", icon: "🍎", sections: [
+        { name: "Finder & 文件", items: [
+          { cmd: "open .", desc: "在 Finder 中打开当前目录" },
+          { cmd: "open -a 'Visual Studio Code' .", desc: "用 VS Code 打开当前目录" },
+          { cmd: "open -e <file>", desc: "用 TextEdit 打开文件" },
+          { cmd: "pbcopy < <file>", desc: "复制文件内容到剪贴板" },
+          { cmd: "pbpaste > <file>", desc: "从剪贴板粘贴到文件" },
+          { cmd: "defaults write com.apple.finder AppleShowAllFiles YES && killall Finder", desc: "显示隐藏文件" },
+          { cmd: "mdfind -name <filename>", desc: "Spotlight 搜索文件" },
+        ]},
+        { name: "系统管理", items: [
+          { cmd: "sudo softwareupdate -i -a", desc: "安装所有系统更新" },
+          { cmd: "system_profiler SPHardwareDataType", desc: "查看硬件信息" },
+          { cmd: "sysctl -n machdep.cpu.brand_string", desc: "查看 CPU 型号" },
+          { cmd: "diskutil list", desc: "列出所有磁盘" },
+          { cmd: "sudo purge", desc: "清理内存缓存" },
+          { cmd: "caffeinate", desc: "防止 Mac 休眠" },
+          { cmd: "tccutil reset All <bundle-id>", desc: "重置应用权限（TCC）" },
+        ]},
+        { name: "开发环境", items: [
+          { cmd: "xcode-select --install", desc: "安装 Xcode Command Line Tools" },
+          { cmd: "xcode-select --reset", desc: "重置 Xcode CLI 路径" },
+          { cmd: "arch -x86_64 <cmd>", desc: "Rosetta 模式运行（Intel）" },
+          { cmd: "lipo -archs <binary>", desc: "查看二进制支持的架构" },
+          { cmd: "codesign --verify --deep --strict .", desc: "验证代码签名" },
+          { cmd: "spctl --assess --verbose .", desc: "检查 Gatekeeper 评估" },
+        ]},
+      ]},
+      { tab: "Homebrew", icon: "🍺", sections: [
+        { name: "安装 & 更新", items: [
+          { cmd: '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"', desc: "安装 Homebrew" },
+          { cmd: "brew update", desc: "更新 Homebrew 本身" },
+          { cmd: "brew upgrade", desc: "升级所有已安装的包" },
+          { cmd: "brew upgrade <pkg>", desc: "升级指定包" },
+          { cmd: "brew outdated", desc: "查看可升级的包" },
+        ]},
+        { name: "包管理", items: [
+          { cmd: "brew install <pkg>", desc: "安装包" },
+          { cmd: "brew uninstall <pkg>", desc: "卸载包" },
+          { cmd: "brew list", desc: "列出已安装的包" },
+          { cmd: "brew search <query>", desc: "搜索包" },
+          { cmd: "brew info <pkg>", desc: "查看包详细信息" },
+          { cmd: "brew deps <pkg>", desc: "查看包的依赖" },
+          { cmd: "brew uses --installed <pkg>", desc: "查看哪些包依赖此包" },
+        ]},
+        { name: "服务 & 清理", items: [
+          { cmd: "brew services list", desc: "列出所有服务" },
+          { cmd: "brew services start <name>", desc: "启动服务" },
+          { cmd: "brew services stop <name>", desc: "停止服务" },
+          { cmd: "brew services restart <name>", desc: "重启服务" },
+          { cmd: "brew cleanup", desc: "清理旧版本和缓存" },
+          { cmd: "brew doctor", desc: "诊断 Homebrew 问题" },
+        ]},
+      ]},
+      { tab: "SSH", icon: "🔑", sections: [
+        { name: "连接", items: [
+          { cmd: "ssh user@host", desc: "SSH 连接远程主机" },
+          { cmd: "ssh -p <port> user@host", desc: "指定端口连接" },
+          { cmd: "ssh -i <keyfile> user@host", desc: "使用密钥文件连接" },
+          { cmd: "ssh -L 8080:localhost:80 user@host", desc: "本地端口转发" },
+          { cmd: "ssh -R 8080:localhost:80 user@host", desc: "远程端口转发" },
+          { cmd: "ssh -D 1080 user@host", desc: "SOCKS 代理" },
+          { cmd: "ssh -N -f -L 3306:db:3306 user@host", desc: "后台端口转发隧道" },
+        ]},
+        { name: "密钥管理", items: [
+          { cmd: "ssh-keygen -t ed25519 -C 'email'", desc: "生成 Ed25519 密钥" },
+          { cmd: "ssh-keygen -t rsa -b 4096 -C 'email'", desc: "生成 RSA 4096 密钥" },
+          { cmd: "ssh-copy-id user@host", desc: "复制公钥到远程主机" },
+          { cmd: "ssh-add ~/.ssh/id_ed25519", desc: "添加密钥到 agent" },
+          { cmd: "ssh-add -l", desc: "列出已加载的密钥" },
+          { cmd: "ssh-keyscan <host> >> ~/.ssh/known_hosts", desc: "扫描并记录主机密钥" },
+        ]},
+        { name: "SCP & SFTP", items: [
+          { cmd: "scp <file> user@host:<path>", desc: "上传文件到远程" },
+          { cmd: "scp user@host:<file> <local>", desc: "下载远程文件" },
+          { cmd: "scp -r <dir> user@host:<path>", desc: "递归上传目录" },
+          { cmd: "sftp user@host", desc: "交互式 SFTP 会话" },
+          { cmd: "rsync -avz --progress <src> user@host:<dst>", desc: "增量同步（推荐替代 scp）" },
+          { cmd: "rsync -avz --delete --progress <src> <dst>", desc: "镜像同步（删除目标多余文件）" },
+        ]},
+      ]},
+      { tab: "curl / HTTP", icon: "🌐", sections: [
+        { name: "curl 基础", items: [
+          { cmd: "curl <url>", desc: "GET 请求" },
+          { cmd: "curl -X POST <url>", desc: "POST 请求" },
+          { cmd: "curl -X PUT <url>", desc: "PUT 请求" },
+          { cmd: "curl -X DELETE <url>", desc: "DELETE 请求" },
+          { cmd: "curl -d 'key=value' <url>", desc: "发送表单数据" },
+          { cmd: "curl -d '{\"k\":\"v\"}' -H 'Content-Type: application/json' <url>", desc: "发送 JSON 数据" },
+          { cmd: "curl -H 'Authorization: Bearer <token>' <url>", desc: "带认证头请求" },
+          { cmd: "curl -i <url>", desc: "显示响应头 + 内容" },
+          { cmd: "curl -I <url>", desc: "仅显示响应头（HEAD）" },
+          { cmd: "curl -o <file> <url>", desc: "下载文件" },
+          { cmd: "curl -O <url>", desc: "下载文件（保留远程文件名）" },
+          { cmd: "curl -L <url>", desc: "跟随重定向" },
+          { cmd: "curl -v <url>", desc: "详细模式（调试用）" },
+          { cmd: "curl --limit-rate 1M -O <url>", desc: "限速下载" },
+          { cmd: "curl -u user:pass <url>", desc: "HTTP Basic 认证" },
+        ]},
+        { name: "jq JSON 处理", items: [
+          { cmd: "curl -s <api-url> | jq '.'", desc: "格式化 JSON" },
+          { cmd: "curl -s <api-url> | jq '.data'", desc: "提取字段" },
+          { cmd: "curl -s <api-url> | jq '.items[].name'", desc: "提取数组字段" },
+          { cmd: "curl -s <api-url> | jq '.items[] | select(.active)'", desc: "过滤数组" },
+          { cmd: "cat data.json | jq '.'", desc: "格式化本地 JSON 文件" },
+          { cmd: "cat data.json | jq '[.[] | {name, id}]'", desc: "转换 JSON 结构" },
+          { cmd: "cat data.json | jq length", desc: "数组长度" },
+          { cmd: "cat data.json | jq 'keys'", desc: "列出对象键名" },
+        ]},
+        { name: "wget", items: [
+          { cmd: "wget <url>", desc: "下载文件" },
+          { cmd: "wget -O <file> <url>", desc: "指定输出文件名下载" },
+          { cmd: "wget -c <url>", desc: "断点续传" },
+          { cmd: "wget -r -np -k <url>", desc: "递归下载网站" },
+          { cmd: "wget --limit-rate=1m <url>", desc: "限速下载" },
+          { cmd: "wget --user=user --password=pass <url>", desc: "认证下载" },
+        ]},
+        { name: "netcat / nmap", items: [
+          { cmd: "nc -zv <host> <port>", desc: "测试端口连通性" },
+          { cmd: "nc -l 8080", desc: "监听端口" },
+          { cmd: "nmap -sV -p 80,443 <host>", desc: "端口扫描 + 服务识别" },
+          { cmd: "nmap -sn 192.168.1.0/24", desc: "局域网主机发现" },
+          { cmd: "nmap -A <host>", desc: "全面扫描（OS+版本+脚本）" },
+        ]},
+      ]},
+      { tab: "Python 环境", icon: "🐍", sections: [
+        { name: "venv 虚拟环境", items: [
+          { cmd: "python3 -m venv .venv", desc: "创建虚拟环境" },
+          { cmd: "source .venv/bin/activate", desc: "激活虚拟环境（macOS/Linux）" },
+          { cmd: ".venv\\Scripts\\activate", desc: "激活虚拟环境（Windows）" },
+          { cmd: "deactivate", desc: "退出虚拟环境" },
+          { cmd: "which python", desc: "查看当前 Python 路径" },
+          { cmd: "python --version", desc: "查看 Python 版本" },
+        ]},
+        { name: "conda", items: [
+          { cmd: "conda create -n myenv python=3.12", desc: "创建 conda 环境" },
+          { cmd: "conda activate myenv", desc: "激活 conda 环境" },
+          { cmd: "conda deactivate", desc: "退出 conda 环境" },
+          { cmd: "conda env list", desc: "列出所有 conda 环境" },
+          { cmd: "conda env export > environment.yml", desc: "导出环境配置" },
+          { cmd: "conda env create -f environment.yml", desc: "从配置文件创建环境" },
+          { cmd: "conda list", desc: "列出当前环境的包" },
+        ]},
+        { name: "uv（快速 Python）", items: [
+          { cmd: "uv venv", desc: "用 uv 创建虚拟环境（比 venv 快）" },
+          { cmd: "uv pip install <pkg>", desc: "用 uv 安装包" },
+          { cmd: "uv pip install -r requirements.txt", desc: "批量安装" },
+          { cmd: "uv run python app.py", desc: "在虚拟环境中运行" },
+          { cmd: "uv python list", desc: "查看可用的 Python 版本" },
+          { cmd: "uv python install 3.12", desc: "安装指定 Python 版本" },
+        ]},
+        { name: "Django / FastAPI", items: [
+          { cmd: "django-admin startproject mysite", desc: "创建 Django 项目" },
+          { cmd: "python manage.py runserver", desc: "启动 Django 开发服务器" },
+          { cmd: "python manage.py makemigrations", desc: "创建数据库迁移" },
+          { cmd: "python manage.py migrate", desc: "执行数据库迁移" },
+          { cmd: "python manage.py createsuperuser", desc: "创建管理员账号" },
+          { cmd: "uvicorn main:app --reload", desc: "启动 FastAPI 开发服务器" },
+        ]},
+      ]},
+      { tab: "Node.js", icon: "🟩", sections: [
+        { name: "版本管理", items: [
+          { cmd: "node -v", desc: "查看 Node.js 版本" },
+          { cmd: "npm -v", desc: "查看 npm 版本" },
+          { cmd: "nvm ls", desc: "列出已安装的 Node 版本" },
+          { cmd: "nvm install 20", desc: "安装 Node 20" },
+          { cmd: "nvm use 20", desc: "切换到 Node 20" },
+          { cmd: "nvm alias default 20", desc: "设置默认版本" },
+          { cmd: "fnm install 20", desc: "fnm 安装 Node 20（更快的 nvm 替代）" },
+          { cmd: "fnm use 20", desc: "fnm 切换版本" },
+        ]},
+        { name: "常用操作", items: [
+          { cmd: "node <file>", desc: "运行 JS 文件" },
+          { cmd: "node -e 'console.log(1+1)'", desc: "执行 JS 表达式" },
+          { cmd: "node --watch <file>", desc: "监听文件变化自动重启" },
+          { cmd: "node --inspect <file>", desc: "启用调试模式" },
+        ]},
+      ]},
+      { tab: "PM2", icon: "⚡", sections: [
+        { name: "进程管理", items: [
+          { cmd: "pm2 start app.js", desc: "启动应用" },
+          { cmd: "pm2 start app.js -i max", desc: "以集群模式启动（多核）" },
+          { cmd: "pm2 start app.js --name myapp", desc: "指定名称启动" },
+          { cmd: "pm2 list", desc: "查看所有进程" },
+          { cmd: "pm2 stop <id|name>", desc: "停止进程" },
+          { cmd: "pm2 restart <id|name>", desc: "重启进程" },
+          { cmd: "pm2 delete <id|name>", desc: "删除进程" },
+          { cmd: "pm2 reload <id|name>", desc: "零停机重载" },
+          { cmd: "pm2 monit", desc: "实时监控面板" },
+          { cmd: "pm2 logs", desc: "查看日志" },
+          { cmd: "pm2 logs --lines 100", desc: "查看最近 100 行日志" },
+        ]},
+        { name: "开机启动", items: [
+          { cmd: "pm2 startup", desc: "生成开机自启命令" },
+          { cmd: "pm2 save", desc: "保存当前进程列表" },
+          { cmd: "pm2 resurrect", desc: "恢复已保存的进程" },
+          { cmd: "pm2 unstartup", desc: "取消开机自启" },
+        ]},
+        { name: "配置发布", items: [
+          { cmd: "pm2 deploy production setup", desc: "初始化部署目标" },
+          { cmd: "pm2 deploy production", desc: "部署到 production" },
+          { cmd: "pm2 deploy production force", desc: "强制部署" },
+          { cmd: "pm2 ecosystem", desc: "生成 ecosystem.config.js 模板" },
+        ]},
+      ]},
+      { tab: "Nginx", icon: "🌿", sections: [
+        { name: "服务控制", items: [
+          { cmd: "sudo nginx -t", desc: "测试配置文件语法" },
+          { cmd: "sudo systemctl start nginx", desc: "启动 Nginx" },
+          { cmd: "sudo systemctl stop nginx", desc: "停止 Nginx" },
+          { cmd: "sudo systemctl restart nginx", desc: "重启 Nginx" },
+          { cmd: "sudo systemctl reload nginx", desc: "优雅重载配置" },
+          { cmd: "sudo nginx -s reload", desc: "向主进程发送重载信号" },
+          { cmd: "sudo nginx -s stop", desc: "快速停止" },
+        ]},
+        { name: "配置 & 日志", items: [
+          { cmd: "nginx -V", desc: "查看编译参数和模块" },
+          { cmd: "cat /etc/nginx/nginx.conf", desc: "查看主配置" },
+          { cmd: "ls /etc/nginx/sites-enabled/", desc: "查看已启用的站点" },
+          { cmd: "sudo nginx -T", desc: "查看完整配置（含 include）" },
+          { cmd: "sudo tail -f /var/log/nginx/access.log", desc: "实时查看访问日志" },
+          { cmd: "sudo tail -f /var/log/nginx/error.log", desc: "实时查看错误日志" },
+        ]},
+        { name: "SSL / HTTPS", items: [
+          { cmd: "sudo certbot --nginx -d example.com", desc: "申请 Let's Encrypt 证书" },
+          { cmd: "sudo certbot renew --dry-run", desc: "测试证书续期" },
+          { cmd: "sudo certbot certificates", desc: "查看已安装的证书" },
+          { cmd: "sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem", desc: "生成自签名证书" },
+        ]},
+      ]},
+      { tab: "Playwright", icon: "🎭", sections: [
+        { name: "安装", items: [
+          { cmd: "npm init playwright@latest", desc: "初始化 Playwright 项目" },
+          { cmd: "npx playwright install", desc: "安装浏览器驱动" },
+          { cmd: "npx playwright install chromium", desc: "仅安装 Chromium" },
+          { cmd: "npx playwright install-deps", desc: "安装系统依赖（Linux）" },
+          { cmd: "npx playwright install msedge", desc: "安装 Edge 浏览器驱动" },
+        ]},
+        { name: "运行测试", items: [
+          { cmd: "npx playwright test", desc: "运行所有测试" },
+          { cmd: "npx playwright test --headed", desc: "有界面模式运行" },
+          { cmd: "npx playwright test --debug", desc: "调试模式" },
+          { cmd: "npx playwright test --ui", desc: "UI 交互模式" },
+          { cmd: "npx playwright test <file>", desc: "运行指定测试文件" },
+          { cmd: "npx playwright test --grep 'keyword'", desc: "按关键词过滤" },
+          { cmd: "npx playwright test --retries=2", desc: "失败重试 2 次" },
+          { cmd: "npx playwright test --shard=1/4", desc: "分片并行（第 1/4 组）" },
+        ]},
+        { name: "报告 & 工具", items: [
+          { cmd: "npx playwright show-report", desc: "查看 HTML 测试报告" },
+          { cmd: "npx playwright show-trace <trace.zip>", desc: "Trace Viewer 回放" },
+          { cmd: "npx playwright codegen <url>", desc: "录制生成测试代码" },
+          { cmd: "npx playwright codegen --target=python <url>", desc: "录制生成 Python 代码" },
+          { cmd: "npx playwright screenshot <url> screenshot.png", desc: "截取页面截图" },
+        ]},
+      ]},
+      { tab: "构建工具", icon: "🔨", sections: [
+        { name: "Vite", items: [
+          { cmd: "npm create vite@latest", desc: "创建 Vite 项目" },
+          { cmd: "npm run dev", desc: "启动开发服务器" },
+          { cmd: "npm run build", desc: "构建生产版本" },
+          { cmd: "npm run preview", desc: "预览生产构建" },
+          { cmd: "npx vite build --mode staging", desc: "指定模式构建" },
+        ]},
+        { name: "Parcel", items: [
+          { cmd: "npx parcel src/index.html", desc: "启动开发服务器" },
+          { cmd: "npx parcel src/index.html --port 3000", desc: "指定端口" },
+          { cmd: "npx parcel build src/*.html --dist-dir dist", desc: "构建生产版本" },
+          { cmd: "npx parcel build src/*.html --public-url ./", desc: "相对路径构建" },
+          { cmd: "npx parcel --no-cache", desc: "清除缓存后启动" },
+        ]},
+        { name: "Webpack", items: [
+          { cmd: "npx webpack --mode development", desc: "开发模式打包" },
+          { cmd: "npx webpack --mode production", desc: "生产模式打包" },
+          { cmd: "npx webpack serve", desc: "启动开发服务器" },
+          { cmd: "npx webpack --progress --profile", desc: "显示详细构建过程" },
+          { cmd: "npx webpack-bundle-analyzer dist/stats.json", desc: "分析打包体积" },
+        ]},
+        { name: "TypeScript", items: [
+          { cmd: "npx tsc --init", desc: "生成 tsconfig.json" },
+          { cmd: "npx tsc", desc: "编译 TypeScript" },
+          { cmd: "npx tsc --watch", desc: "监听模式编译" },
+          { cmd: "npx tsc --noEmit", desc: "仅检查类型（不生成文件）" },
+          { cmd: "npx tsx <file>", desc: "直接运行 TS 文件（无需编译）" },
+        ]},
+      ]},
+      { tab: "AI Agent", icon: "🤖", sections: [
+        { name: "Hermes Agent", items: [
+          { cmd: "pip install hermes-agent", desc: "pip 安装" },
+          { cmd: "pipx install hermes-agent", desc: "pipx 安装（推荐）" },
+          { cmd: "hermes setup", desc: "首次安装引导" },
+          { cmd: "hermes", desc: "启动 TUI 交互界面" },
+          { cmd: "hermes gateway", desc: "启动网关模式" },
+          { cmd: "hermes config list", desc: "列出所有配置" },
+          { cmd: "hermes config set <key> <value>", desc: "修改配置项" },
+          { cmd: "hermes --model <model>", desc: "指定模型启动" },
+          { cmd: "hermes skills list", desc: "列出已安装技能" },
+          { cmd: "hermes skills install <name>", desc: "安装技能" },
+          { cmd: "hermes skills create <name>", desc: "创建新技能" },
+        ]},
+        { name: "Claude Code / Codex", items: [
+          { cmd: "npm install -g @anthropic-ai/claude-code", desc: "安装 Claude Code" },
+          { cmd: "claude", desc: "启动 Claude Code" },
+          { cmd: "claude <prompt>", desc: "直接执行 prompt" },
+          { cmd: "npm install -g @openai/codex-cli", desc: "安装 Codex CLI" },
+          { cmd: "codex", desc: "启动 Codex 交互模式" },
+          { cmd: "codex --model o4-mini", desc: "指定模型启动" },
+          { cmd: "copilot --acp --stdio", desc: "GitHub Copilot CLI (ACP 模式)" },
+          { cmd: "codex --acp --stdio", desc: "Codex ACP 模式（subagent 调用）" },
+        ]},
+        { name: "OpenCode", items: [
+          { cmd: "npm install -g opencode-ai", desc: "安装 OpenCode" },
+          { cmd: "opencode", desc: "启动 OpenCode" },
+          { cmd: "opencode run '<task>'", desc: "直接执行任务" },
+        ]},
+      ]},
+    ];
+    const tabsEl = document.getElementById('cmdTabs');
+    const sectionsEl = document.getElementById('cmdSections');
+    let activeTab = 0;
+    function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function render() {
+      tabsEl.innerHTML = ''; sectionsEl.innerHTML = '';
+      DATA.forEach((tab, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'cmd-tab' + (idx === activeTab ? ' active' : '');
+        btn.textContent = tab.icon + ' ' + tab.tab;
+        btn.onclick = () => switchTab(idx);
+        tabsEl.appendChild(btn);
+        const sec = document.createElement('div');
+        sec.className = 'cmd-section' + (idx === activeTab ? ' show' : '');
+        sec.id = 'section-' + idx;
+        tab.sections.forEach(cat => {
+          const catEl = document.createElement('div');
+          catEl.className = 'cmd-category';
+          let itemsHTML = '';
+          cat.items.forEach(item => {
+            const kw = (item.cmd + ' ' + item.desc).toLowerCase();
+            itemsHTML += '<div class="cmd-item" data-keywords="' + kw + '">' +
+              '<div class="cmd-desc-text">' + esc(item.desc) + '</div>' +
+              '<div class="cmd-code-wrap"><code class="cmd-code">' + esc(item.cmd) + '</code>' +
+              '<button class="cmd-copy-btn">📋</button></div></div>';
+          });
+          catEl.innerHTML = '<div class="cmd-cat-header open"><span>' + cat.name + '</span><span class="arrow">▶</span></div>' +
+            '<div class="cmd-cat-body open">' + itemsHTML + '</div>';
+          const body = catEl.querySelector('.cmd-cat-body');
+          catEl.querySelector('.cmd-cat-header').onclick = function() {
+            this.classList.toggle('open'); body.classList.toggle('open');
+          };
+          // Copy buttons
+          catEl.querySelectorAll('.cmd-copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const code = this.parentElement.querySelector('.cmd-code').textContent;
+              navigator.clipboard.writeText(code);
+              this.textContent = '✅'; this.classList.add('copied');
+              setTimeout(() => { this.textContent = '📋'; this.classList.remove('copied'); }, 2000);
+            });
+          });
+          sec.appendChild(catEl);
+        });
+        sectionsEl.appendChild(sec);
+      });
+    }
+    function switchTab(idx) {
+      activeTab = idx;
+      document.querySelectorAll('.cmd-tab').forEach((t,i) => t.classList.toggle('active',i===idx));
+      document.querySelectorAll('.cmd-section').forEach((s,i) => s.classList.toggle('show',i===idx));
+      document.getElementById('cmdSearch').value = '';
+      filterItems('');
+    }
+    function filterItems(q) {
+      q = q.toLowerCase().trim();
+      const vis = { total: 0, hidden: 0 };
+      document.querySelectorAll('.cmd-item').forEach(it => {
+        const match = !q || it.dataset.keywords.includes(q);
+        it.classList.toggle('hidden', !match);
+        vis.total++; if (!match) vis.hidden++;
+      });
+      document.querySelectorAll('.cmd-category').forEach(cat => {
+        const body = cat.querySelector('.cmd-cat-body');
+        const anyVisible = [...body.querySelectorAll('.cmd-item')].some(it => !it.classList.contains('hidden'));
+        cat.style.display = (anyVisible || !q) ? '' : 'none';
+        if (q && anyVisible) { cat.querySelector('.cmd-cat-header').classList.add('open'); body.classList.add('open'); }
+      });
+      let emptyEl = document.getElementById('cmdEmpty');
+      if (q && vis.total === vis.hidden) {
+        if (!emptyEl) { emptyEl = document.createElement('div'); emptyEl.id = 'cmdEmpty'; emptyEl.className = 'cmd-empty'; sectionsEl.appendChild(emptyEl); }
+        emptyEl.textContent = '😕 未找到匹配的命令，试试其他关键词';
+      } else if (emptyEl) { emptyEl.remove(); }
+    }
+    document.getElementById('cmdSearch').addEventListener('input', e => filterItems(e.target.value));
+    render();
+  </script>
+</body>
+</html>

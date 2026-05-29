@@ -78,7 +78,31 @@ export function render(container) {
           <div class="mdhtml-mode-btns">
             <button class="mdhtml-mode-btn active" data-pane="html" data-mode="render">${t('mdhtml.view')}</button>
             <button class="mdhtml-mode-btn" data-pane="html" data-mode="source">${t('mdhtml.source')}</button>
+            <button class="mdhtml-mode-btn" data-pane="html" data-mode="preview">📱 模板预览</button>
           </div>
+        </div>
+        <!-- 模板选择栏 -->
+        <div class="mdhtml-tmpl-bar hidden" id="tmplBar">
+          <select id="tmplSelect" class="mdhtml-tmpl-select">
+            <option value="">选择排版模板...</option>
+            <optgroup label="📄 开发文档">
+              <option value="techdocs">① 技术文档 TechDocs</option>
+              <option value="prd">② 产品需求 PRD</option>
+              <option value="apidocs">④ API 接口文档</option>
+            </optgroup>
+            <optgroup label="📝 内容创作">
+              <option value="blog">③ 博客文章 Blog</option>
+              <option value="report">⑤ 项目报告 Report</option>
+              <option value="knowledgebase">⑥ 知识笔记 KB</option>
+            </optgroup>
+            <optgroup label="📱 社交平台">
+              <option value="xiaohongshu">⑦ 小红书风格 RED</option>
+              <option value="wechat">⑧ 公众号风格 WeChat</option>
+              <option value="zhihu">⑨ 知乎风格 Zhihu</option>
+              <option value="toutiao">⑩ 今日头条 Toutiao</option>
+            </optgroup>
+          </select>
+          <button class="btn btn-sm" id="btnPreviewTmpl">👁️ 预览</button>
         </div>
         <div class="mdhtml-fmt-bar hidden" id="htmlFmtBar">
           <button class="mdhtml-fmt-btn" data-fmt="bold"><b>B</b></button>
@@ -94,9 +118,10 @@ export function render(container) {
         </div>
         <div id="htmlRender" class="mdhtml-render" contenteditable spellcheck="false" data-placeholder="${t('mdhtml.html_render_ph')}"></div>
         <textarea id="htmlSource" class="mdhtml-source hidden" spellcheck="false" placeholder="${t('mdhtml.html_placeholder')}"></textarea>
+        <!-- 模板预览 iframe -->
+        <iframe id="tmplPreview" class="mdhtml-tmpl-preview hidden" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
     </div>
-    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="2222222222" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
     <!-- Modals -->
     <div class="mdhtml-modal-overlay hidden" id="mdhtmlModal">
       <div class="mdhtml-modal">
@@ -141,11 +166,10 @@ export function render(container) {
   }
 
   // ---- Pane mode ----
-  document.querySelectorAll('.mdhtml-mode-btn').forEach(b => {
-    b.addEventListener('click', () => setPaneMode(b.dataset.pane, b.dataset.mode));
-  });
-
   function setPaneMode(pane, mode, skipSync=false) {
+    const tmplBar = $('tmplBar');
+    const tmplSelect = $('tmplSelect');
+    const tmplPreview = $('tmplPreview');
     const prev = paneModes[pane]; paneModes[pane] = mode;
     document.querySelectorAll(`.mdhtml-mode-btn[data-pane="${pane}"]`).forEach(b => b.classList.toggle('active', b.dataset.mode===mode));
     if (pane==='md') {
@@ -157,12 +181,20 @@ export function render(container) {
         mdRender.classList.add('hidden'); mdFmtBar.classList.add('hidden'); mdSource.classList.remove('hidden'); mdSource.focus();
       }
     } else {
+      // HTML pane
       if (mode==='render') {
         if (!skipSync && prev==='source') htmlRender.innerHTML = htmlSource.value;
         htmlSource.classList.add('hidden'); htmlFmtBar.classList.remove('hidden'); htmlRender.classList.remove('hidden');
-      } else {
+        tmplBar.classList.add('hidden'); tmplPreview.classList.add('hidden');
+      } else if (mode==='source') {
         if (!skipSync && prev==='render') htmlSource.value = htmlRender.innerHTML;
         htmlRender.classList.add('hidden'); htmlFmtBar.classList.add('hidden'); htmlSource.classList.remove('hidden'); htmlSource.focus();
+        tmplBar.classList.add('hidden'); tmplPreview.classList.add('hidden');
+      } else if (mode==='preview') {
+        // 预览模式
+        htmlRender.classList.add('hidden'); htmlFmtBar.classList.add('hidden'); htmlSource.classList.add('hidden');
+        tmplBar.classList.remove('hidden'); tmplPreview.classList.remove('hidden');
+        updateTmplPreview();
       }
     }
   }
@@ -363,6 +395,55 @@ export function render(container) {
     downloadBlob(await Packer.toBlob(doc),'document.docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document');
     toast(t('mdhtml.toast.word'));
   }
+
+  // ---- Template Preview ----
+  // 绑定事件（包括 preview 模式）
+  document.querySelectorAll('.mdhtml-mode-btn').forEach(b => {
+    b.addEventListener('click', () => setPaneMode(b.dataset.pane, b.dataset.mode));
+  });
+
+  // 更新模板预览
+  function updateTmplPreview() {
+    const tmplSelect = $('tmplSelect');
+    const tmplPreview = $('tmplPreview');
+    if (!tmplSelect || !tmplPreview) return;
+    const tmplId = tmplSelect.value;
+    if (!tmplId) {
+      tmplPreview.srcdoc = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;">请选择一个排版模板</div>';
+      return;
+    }
+
+    // 获取 HTML 内容（优先从 source 获取最新内容）
+    let htmlBody = '';
+    if (htmlSource.value && htmlSource.value.trim()) {
+      htmlBody = htmlSource.value;
+    } else if (htmlRender.innerHTML && htmlRender.innerHTML.trim()) {
+      htmlBody = htmlRender.innerHTML;
+    }
+
+    if (!htmlBody.trim()) {
+      tmplPreview.srcdoc = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;">请先转换或输入 HTML 内容</div>';
+      return;
+    }
+
+    // 获取标题
+    const md = mdSource.value.trim();
+    const title = (md.match(/^#\s+(.+)/m) || [,'文档'])[1];
+
+    // 生成完整 HTML
+    let processedHtml = addIds(htmlBody);
+    processedHtml = groupBlocks(processedHtml);
+    const fullHtml = wrapTemplate(processedHtml, tmplId, title);
+
+    // 在 iframe 中预览
+    tmplPreview.srcdoc = fullHtml;
+  }
+
+  // 模板选择变化时更新预览
+  const tmplSelectEl = $('tmplSelect');
+  const btnPreviewTmplEl = $('btnPreviewTmpl');
+  if (tmplSelectEl) tmplSelectEl.addEventListener('change', updateTmplPreview);
+  if (btnPreviewTmplEl) btnPreviewTmplEl.addEventListener('click', updateTmplPreview);
 
   function exportHtml(body) {
     // 显示模板选择弹窗

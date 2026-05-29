@@ -83,26 +83,20 @@ export function render(container) {
         </div>
         <!-- 模板选择栏 -->
         <div class="mdhtml-tmpl-bar hidden" id="tmplBar">
-          <select id="tmplSelect" class="mdhtml-tmpl-select">
-            <option value="">选择排版模板...</option>
-            <optgroup label="📄 开发文档">
-              <option value="techdocs">① 技术文档 TechDocs</option>
-              <option value="prd">② 产品需求 PRD</option>
-              <option value="apidocs">④ API 接口文档</option>
-            </optgroup>
-            <optgroup label="📝 内容创作">
-              <option value="blog">③ 博客文章 Blog</option>
-              <option value="report">⑤ 项目报告 Report</option>
-              <option value="knowledgebase">⑥ 知识笔记 KB</option>
-            </optgroup>
-            <optgroup label="📱 社交平台">
-              <option value="xiaohongshu">⑦ 小红书风格 RED</option>
-              <option value="wechat">⑧ 公众号风格 WeChat</option>
-              <option value="zhihu">⑨ 知乎风格 Zhihu</option>
-              <option value="toutiao">⑩ 今日头条 Toutiao</option>
-            </optgroup>
-          </select>
-          <button class="btn btn-sm" id="btnPreviewTmpl">👁️ 预览</button>
+          <div class="mdhtml-tmpl-btns">
+            <span class="mdhtml-tmpl-label">模板：</span>
+            <button class="mdhtml-tmpl-btn active" data-tmpl="xiaohongshu">📕 小红书</button>
+            <button class="mdhtml-tmpl-btn" data-tmpl="wechat">💬 公众号</button>
+            <button class="mdhtml-tmpl-btn" data-tmpl="zhihu">🔵 知乎</button>
+            <button class="mdhtml-tmpl-btn" data-tmpl="toutiao">📰 头条</button>
+            <span class="mdhtml-tmpl-sep"></span>
+            <button class="mdhtml-tmpl-btn" data-tmpl="techdocs">📘 技术文档</button>
+            <button class="mdhtml-tmpl-btn" data-tmpl="prd">📋 PRD</button>
+            <button class="mdhtml-tmpl-btn" data-tmpl="blog">✍️ 博客</button>
+            <button class="mdhtml-tmpl-btn" data-tmpl="apidocs">📡 API文档</button>
+            <button class="mdhtml-tmpl-btn" data-tmpl="report">📊 报告</button>
+            <button class="mdhtml-tmpl-btn" data-tmpl="knowledgebase">📚 知识库</button>
+          </div>
         </div>
         <div class="mdhtml-fmt-bar hidden" id="htmlFmtBar">
           <button class="mdhtml-fmt-btn" data-fmt="bold"><b>B</b></button>
@@ -168,7 +162,6 @@ export function render(container) {
   // ---- Pane mode ----
   function setPaneMode(pane, mode, skipSync=false) {
     const tmplBar = $('tmplBar');
-    const tmplSelect = $('tmplSelect');
     const tmplPreview = $('tmplPreview');
     const prev = paneModes[pane]; paneModes[pane] = mode;
     document.querySelectorAll(`.mdhtml-mode-btn[data-pane="${pane}"]`).forEach(b => b.classList.toggle('active', b.dataset.mode===mode));
@@ -403,14 +396,12 @@ export function render(container) {
   });
 
   // 更新模板预览
-  function updateTmplPreview() {
-    const tmplSelect = $('tmplSelect');
+  function updateTmplPreview(tmplId) {
     const tmplPreview = $('tmplPreview');
-    if (!tmplSelect || !tmplPreview) return;
-    const tmplId = tmplSelect.value;
+    if (!tmplPreview) return;
     if (!tmplId) {
-      tmplPreview.srcdoc = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;">请选择一个排版模板</div>';
-      return;
+      const activeBtn = document.querySelector('.mdhtml-tmpl-btn.active');
+      tmplId = activeBtn ? activeBtn.dataset.tmpl : 'xiaohongshu';
     }
 
     // 获取 HTML 内容（优先从 source 获取最新内容）
@@ -439,11 +430,14 @@ export function render(container) {
     tmplPreview.srcdoc = fullHtml;
   }
 
-  // 模板选择变化时更新预览
-  const tmplSelectEl = $('tmplSelect');
-  const btnPreviewTmplEl = $('btnPreviewTmpl');
-  if (tmplSelectEl) tmplSelectEl.addEventListener('change', updateTmplPreview);
-  if (btnPreviewTmplEl) btnPreviewTmplEl.addEventListener('click', updateTmplPreview);
+  // 模板按钮点击事件
+  document.querySelectorAll('.mdhtml-tmpl-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mdhtml-tmpl-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateTmplPreview(btn.dataset.tmpl);
+    });
+  });
 
   function exportHtml(body) {
     // 显示模板选择弹窗

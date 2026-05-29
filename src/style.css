@@ -255,18 +255,29 @@ main.page-tool{
 
 /* Template bar */
 .mdhtml-tmpl-bar{
-  display:flex;align-items:center;gap:10px;padding:8px 14px;
-  background:#161b22;border-bottom:1px solid #21262d;
+  display:flex;align-items:center;gap:10px;padding:6px 10px;
+  background:#161b22;border-bottom:1px solid #21262d;overflow-x:auto;
 }
-.mdhtml-tmpl-select{
-  flex:1;padding:6px 10px;background:#0d1117;color:#c9d1d9;
-  border:1px solid #30363d;border-radius:6px;font-size:.8rem;
-  cursor:pointer;outline:none;
+.mdhtml-tmpl-btns{
+  display:flex;align-items:center;gap:4px;flex-wrap:nowrap;
 }
-.mdhtml-tmpl-select:focus{border-color:#58a6ff}
-.mdhtml-tmpl-select option{background:#161b22;color:#c9d1d9}
-.mdhtml-tmpl-select optgroup{color:#58a6ff;font-weight:600}
-.btn-sm{padding:6px 12px;font-size:.78rem}
+.mdhtml-tmpl-label{
+  font-size:.75rem;color:#8b949e;white-space:nowrap;margin-right:4px;
+}
+.mdhtml-tmpl-btn{
+  padding:5px 10px;background:#21262d;color:#8b949e;
+  border:1px solid #30363d;border-radius:6px;font-size:.75rem;
+  cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.mdhtml-tmpl-btn:hover{
+  background:#30363d;color:#c9d1d9;border-color:#58a6ff;
+}
+.mdhtml-tmpl-btn.active{
+  background:#58a6ff;color:#0d1117;border-color:#58a6ff;font-weight:600;
+}
+.mdhtml-tmpl-sep{
+  width:1px;height:20px;background:#30363d;margin:0 4px;flex-shrink:0;
+}
 
 /* Template preview iframe */
 .mdhtml-tmpl-preview{

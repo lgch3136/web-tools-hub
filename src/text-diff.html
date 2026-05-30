@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>文本差异对比器 - 在线工具集</title>
-  <meta name="description" content="免费在线文本差异对比工具，左右对比两段文本，高亮显示新增/删除/修改内容，支持行级对比。">
-  <meta name="keywords" content="文本差异对比,文本比较,Diff checker,文本对比,文件比较,在线对比">
+  <title>文件差异对比器 - 在线工具集</title>
+  <meta name="description" content="免费在线文件差异对比工具，支持文本、Word、PDF、Excel、CSV、JSON格式对比，高亮显示新增/删除/修改内容。">
+  <meta name="keywords" content="文本差异对比,Word对比,PDF对比,Excel对比,CSV对比,JSON对比,Diff checker,文件比较,在线对比">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <link rel="stylesheet" href="./style.css">
   <style>
     .diff-container{max-width:900px;margin:20px auto;padding:0 20px;width:100%;flex:1;display:flex;flex-direction:column;min-height:0}
@@ -45,10 +48,32 @@
     .diff-stat{font-size:.7rem}
     .diff-stat.add{color:#3fb950}.diff-stat.del{color:#f85149}.diff-stat.eq{color:#484f58}
     @media(max-width:600px){.diff-card{padding:16px}.diff-panels,.diff-result{flex-direction:column}.diff-panel+.diff-panel,.diff-col+.diff-col{border-left:none;border-top:1px solid #30363d}}
+    .diff-format-bar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+    .diff-format-btn{padding:8px 16px;background:#21262d;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-size:.8rem;cursor:pointer;transition:all .15s}
+    .diff-format-btn:hover{background:#30363d;color:#c9d1d9}
+    .diff-format-btn.active{background:#1f6feb;border-color:#1f6feb;color:#fff}
+    .diff-upload-zone{border:2px dashed #30363d;border-radius:8px;padding:20px;text-align:center;margin-bottom:12px;cursor:pointer;transition:all .15s}
+    .diff-upload-zone:hover{border-color:#58a6ff;background:#58a6ff11}
+    .diff-upload-zone.dragover{border-color:#58a6ff;background:#58a6ff22}
+    .diff-upload-icon{font-size:2rem;margin-bottom:8px}
+    .diff-upload-text{color:#8b949e;font-size:.85rem}
+    .diff-upload-hint{color:#484f58;font-size:.72rem;margin-top:4px}
+    .diff-file-info{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#21262d;border-radius:6px;margin-bottom:8px;font-size:.8rem;color:#c9d1d9}
+    .diff-file-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .diff-file-remove{color:#f85149;cursor:pointer;padding:2px 6px;border-radius:4px}
+    .diff-file-remove:hover{background:#f8514922}
+    .diff-table-wrapper{overflow:auto;max-height:300px;border:1px solid #30363d;border-radius:8px}
+    .diff-table{width:100%;border-collapse:collapse;font-size:.78rem;font-family:'JetBrains Mono',monospace}
+    .diff-table th,.diff-table td{padding:6px 10px;border:1px solid #21262d;text-align:left}
+    .diff-table th{background:#21262d;color:#58a6ff;position:sticky;top:0;z-index:1}
+    .diff-table td{color:#c9d1d9}
+    .diff-table tr:hover{background:#161b22}
+    .diff-cell-added{background:#23863622}.diff-cell-removed{background:#f8514912}.diff-cell-changed{background:#d2992222}
+    .hidden{display:none!important}
   </style>
 
-  <meta property="og:title" content="文本差异对比器 - 在线工具集">
-  <meta property="og:description" content="免费在线文本差异对比工具，左右对比两段文本，高亮显示新增/删除行，支持行级对比。">
+  <meta property="og:title" content="文件差异对比器 - 在线工具集">
+  <meta property="og:description" content="免费在线文件差异对比工具，支持文本、Excel、CSV、JSON格式对比，高亮显示差异。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://web-tools-hub-three.vercel.app/text-diff.html">
   <meta name="twitter:card" content="summary">
@@ -56,35 +81,84 @@
 {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "文本差异对比器",
+    "name": "文件差异对比器",
     "url": "https://web-tools-hub-three.vercel.app/text-diff.html",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "All",
-    "description": "免费在线文本差异对比工具，左右对比两段文本，高亮显示新增/删除内容。"
+    "description": "免费在线文件差异对比工具，支持文本、Excel、CSV、JSON格式对比。"
 }
 </script>
 </head>
 <body>
   <header class="topbar">
     <a href="./index" class="topbar-home">← 返回首页</a>
-    <span class="topbar-title">📊 文本差异对比</span>
+    <span class="topbar-title">📊 文件差异对比</span>
     <button class="lang-switch" style="visibility:hidden">EN</button>
   </header>
   <main class="page page-tool">
     <div class="diff-container">
       <div class="diff-card">
-        <h2>📊 文本差异对比器</h2>
-        <p class="diff-desc">左右对比两段文本，高亮显示差异</p>
+        <h2>📊 文件差异对比器</h2>
+        <p class="diff-desc">支持文本、Word、PDF、Excel、CSV、JSON格式对比</p>
+        <div class="diff-format-bar">
+          <button class="diff-format-btn active" data-format="text" onclick="switchFormat('text')">📝 文本</button>
+          <button class="diff-format-btn" data-format="word" onclick="switchFormat('word')">📘 Word</button>
+          <button class="diff-format-btn" data-format="pdf" onclick="switchFormat('pdf')">📕 PDF</button>
+          <button class="diff-format-btn" data-format="excel" onclick="switchFormat('excel')">📊 Excel</button>
+          <button class="diff-format-btn" data-format="csv" onclick="switchFormat('csv')">📋 CSV</button>
+          <button class="diff-format-btn" data-format="json" onclick="switchFormat('json')">🔧 JSON</button>
+        </div>
         <div class="diff-toolbar">
           <button class="diff-btn primary" onclick="runDiff()">🔍 对比</button>
           <button class="diff-btn danger" onclick="clearDiff()">🗑️ 清空</button>
           <button class="diff-btn" onclick="loadSamples()">📄 示例</button>
-          <div class="diff-opt"><input type="checkbox" id="diffCaseSensitive" checked> 区分大小写</div>
-          <div class="diff-opt"><input type="checkbox" id="diffTrim"> 忽略首尾空格</div>
+          <div class="diff-opt" id="textOptions">
+            <input type="checkbox" id="diffCaseSensitive" checked> 区分大小写
+            <input type="checkbox" id="diffTrim" style="margin-left:8px"> 忽略首尾空格
+          </div>
+          <div class="diff-opt hidden" id="excelOptions">
+            <input type="checkbox" id="diffAllSheets"> 对比所有Sheet
+          </div>
         </div>
-        <div class="diff-panels" id="diffPanels">
-          <div class="diff-panel"><div class="diff-panel-header">原文 (A)</div><textarea class="diff-textarea" id="diffA" placeholder="粘贴原文…" spellcheck="false"></textarea></div>
-          <div class="diff-panel"><div class="diff-panel-header">修改版 (B)</div><textarea class="diff-textarea" id="diffB" placeholder="粘贴修改版…" spellcheck="false"></textarea></div>
+        <div id="textMode">
+          <div class="diff-panels" id="diffPanels">
+            <div class="diff-panel"><div class="diff-panel-header">原文 (A)</div><textarea class="diff-textarea" id="diffA" placeholder="粘贴文本…" spellcheck="false"></textarea></div>
+            <div class="diff-panel"><div class="diff-panel-header">修改版 (B)</div><textarea class="diff-textarea" id="diffB" placeholder="粘贴文本…" spellcheck="false"></textarea></div>
+          </div>
+        </div>
+        <div id="fileMode" class="hidden">
+          <div class="diff-panels" id="filePanels">
+            <div class="diff-panel">
+              <div class="diff-panel-header">文件 A</div>
+              <div class="diff-upload-zone" id="uploadZoneA" onclick="document.getElementById('fileInputA').click()">
+                <div class="diff-upload-icon">📁</div>
+                <div class="diff-upload-text">点击或拖拽文件到此处</div>
+                <div class="diff-upload-hint" id="uploadHintA">支持 .docx, .pdf, .xlsx, .xls, .csv, .json</div>
+              </div>
+              <div class="diff-file-info hidden" id="fileInfoA">
+                <span>📎</span>
+                <span class="diff-file-name" id="fileNameA"></span>
+                <span class="diff-file-remove" onclick="removeFile('A')">✕</span>
+              </div>
+              <input type="file" id="fileInputA" class="hidden" accept=".docx,.pdf,.xlsx,.xls,.csv,.json" onchange="handleFile(this, 'A')">
+              <div class="diff-table-wrapper hidden" id="previewA"></div>
+            </div>
+            <div class="diff-panel">
+              <div class="diff-panel-header">文件 B</div>
+              <div class="diff-upload-zone" id="uploadZoneB" onclick="document.getElementById('fileInputB').click()">
+                <div class="diff-upload-icon">📁</div>
+                <div class="diff-upload-text">点击或拖拽文件到此处</div>
+                <div class="diff-upload-hint" id="uploadHintB">支持 .docx, .pdf, .xlsx, .xls, .csv, .json</div>
+              </div>
+              <div class="diff-file-info hidden" id="fileInfoB">
+                <span>📎</span>
+                <span class="diff-file-name" id="fileNameB"></span>
+                <span class="diff-file-remove" onclick="removeFile('B')">✕</span>
+              </div>
+              <input type="file" id="fileInputB" class="hidden" accept=".docx,.pdf,.xlsx,.xls,.csv,.json" onchange="handleFile(this, 'B')">
+              <div class="diff-table-wrapper hidden" id="previewB"></div>
+            </div>
+          </div>
         </div>
         <div class="diff-status" id="diffStatus"></div>
         <div class="diff-result" id="diffResult">
@@ -99,7 +173,7 @@
   <section class="tool-about">
     <div class="about-wrap">
       <h3>📖 关于此工具</h3>
-      <p><strong>文本差异对比器</strong> 使用 <strong>Myers Diff 算法</strong>对两段文本进行<strong>行级对比</strong>，以左右双面板形式高亮显示新增（绿色）和删除（红色）的内容。支持区分大小写和忽略首尾空格选项。内置示例代码对比，适合代码审查、版本比对、文档校对和配置差异分析等场景。所有对比在浏览器本地完成。</p>
+      <p><strong>文件差异对比器</strong> 支持 6 种格式对比：<strong>文本</strong>使用 Myers Diff 算法行级对比；<strong>Word (.docx)</strong> 提取文本内容对比；<strong>PDF (.pdf)</strong> 提取文字内容对比；<strong>Excel (.xlsx/.xls)</strong> 逐单元格对比；<strong>CSV</strong> 按行列对比；<strong>JSON</strong> 对比结构化数据。高亮显示新增（绿色）、删除（红色）和修改（黄色）内容。适合代码审查、文档校对、数据对比等场景。所有对比在浏览器本地完成，数据不会上传。</p>
     </div>
   </section>
   <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
@@ -108,13 +182,498 @@
   <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
   <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
-    function myersDiff(a,b){const n=a.length,m=b.length;const max=n+m;const V=new Array(2*max+1);const trace=[];for(let d=0;d<=max;d++){trace.push([...V]);for(let k=-d;k<=d;k+=2){const idx=k+max;let x;if(k===-d||(k!==d&&V[idx-1]<V[idx+1]))x=V[idx+1];else x=V[idx-1]+1;let y=x-k;while(x<n&&y<m&&a[x]===b[y]){x++;y++}V[idx]=x;if(x>=n&&y>=m){trace.push([...V]);return backtrack(trace,n,m,max)}}}return backtrack(trace,n,m,max)}
-    function backtrack(trace,n,m,max){const ops=[];let x=n,y=m;for(let d=trace.length-1;d>=0;d--){const V=trace[d];if(!V)continue;const k=x-y;const idx=k+max;let prevK;if(k===-d||(k!==d&&V[idx-1]<V[idx+1]))prevK=k+1;else prevK=k-1;const prevX=V[prevK+max];const prevY=prevX-prevK;while(x>prevX&&y>prevY){ops.push({type:'equal',aIndex:x-1,bIndex:y-1});x--;y--}if(x>prevX){ops.push({type:'delete',aIndex:x-1});x--}else if(y>prevY){ops.push({type:'insert',bIndex:y-1});y--}}return ops.reverse()}
-    function runDiff(){let a=document.getElementById('diffA').value;let b=document.getElementById('diffB').value;const s=document.getElementById('diffStatus');const r=document.getElementById('diffResult');if(!a&&!b){s.textContent='⚠️ 请在两侧输入要对比的文本';r.classList.remove('show');return}const cs=document.getElementById('diffCaseSensitive').checked;const tr=document.getElementById('diffTrim').checked;let la=a.split('\n'),lb=b.split('\n');if(!cs){la=la.map(l=>l.toLowerCase());lb=lb.map(l=>l.toLowerCase())}if(tr){la=la.map(l=>l.trim());lb=lb.map(l=>l.trim())}const ra=a.split('\n'),rb=b.split('\n');const ops=myersDiff(la,lb);const rA=document.getElementById('diffResultA'),rB=document.getElementById('diffResultB');rA.innerHTML='';rB.innerHTML='';let aL=0,bL=0,add=0,del=0,eq=0;const ml=(t,type,num)=>{const d=document.createElement('div');d.className='diff-line diff-line-'+type;const n=document.createElement('span');n.className='diff-line-num';n.textContent=num!==null?num:'';const c=document.createElement('span');c.className='diff-line-content';c.textContent=t||' ';d.appendChild(n);d.appendChild(c);return d};for(const op of ops){if(op.type==='equal'){eq++;rA.appendChild(ml(ra[op.aIndex],'equal',++aL));rB.appendChild(ml(rb[op.bIndex],'equal',++bL))}else if(op.type==='delete'){del++;rA.appendChild(ml(ra[op.aIndex],'removed',++aL));rB.appendChild(ml('','empty',null))}else{add++;rA.appendChild(ml('','empty',null));rB.appendChild(ml(rb[op.bIndex],'added',++bL))}}document.getElementById('diffStatsA').textContent='+'+add+' -'+del+' '+eq+'行相同';document.getElementById('diffStatsB').textContent='+'+add+' -'+del+' '+eq+'行相同';r.classList.add('show');if(add===0&&del===0)s.textContent='✅ 两段文本完全相同 ('+eq+' 行)';else s.textContent='✅ 发现 '+del+' 处删除, '+add+' 处新增 ('+eq+' 行相同)'}
-    function clearDiff(){document.getElementById('diffA').value='';document.getElementById('diffB').value='';document.getElementById('diffResult').classList.remove('show');document.getElementById('diffResultA').innerHTML='';document.getElementById('diffResultB').innerHTML='';document.getElementById('diffStatus').textContent=''}
-    function loadSamples(){document.getElementById('diffA').value='function hello(name) {\n  console.log("Hello, " + name);\n  return true;\n}\n\nconst user = "Alice";\nhello(user);';document.getElementById('diffB').value='function greet(name) {\n  console.log(`Hello, ${name}!`);\n  return true;\n}\n\nconst user = "Bob";\ngreet(user);\nconsole.log("Done");';runDiff()}
-    document.getElementById('diffA').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runDiff()}});
-    document.getElementById('diffB').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runDiff()}});
+    let currentFormat = 'text';
+    let fileDataA = null, fileDataB = null;
+
+    function switchFormat(format) {
+      currentFormat = format;
+      document.querySelectorAll('.diff-format-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.format === format);
+      });
+      document.getElementById('textMode').classList.toggle('hidden', format !== 'text');
+      document.getElementById('fileMode').classList.toggle('hidden', format === 'text');
+      document.getElementById('textOptions').classList.toggle('hidden', format !== 'text');
+      document.getElementById('excelOptions').classList.toggle('hidden', format !== 'excel');
+      const hints = {
+        word: '支持 .docx',
+        pdf: '支持 .pdf',
+        excel: '支持 .xlsx, .xls',
+        csv: '支持 .csv',
+        json: '支持 .json'
+      };
+      document.getElementById('uploadHintA').textContent = hints[format] || '';
+      document.getElementById('uploadHintB').textContent = hints[format] || '';
+      clearDiff();
+    }
+
+    function handleFile(input, side) {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const data = e.target.result;
+        try {
+          if (currentFormat === 'word') {
+            mammoth.extractRawText({ arrayBuffer: data }).then(function(result) {
+              const rows = result.value.split('\n').map(line => [line]);
+              if (side === 'A') fileDataA = rows;
+              else fileDataB = rows;
+              showPreview(rows, side);
+              document.getElementById('fileInfo' + side).classList.remove('hidden');
+              document.getElementById('fileName' + side).textContent = file.name;
+              document.getElementById('uploadZone' + side).classList.add('hidden');
+            }).catch(function(err) {
+              alert('Word文档解析失败: ' + err.message);
+            });
+            return;
+          } else if (currentFormat === 'pdf') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+            pdfjsLib.getDocument({ data: data }).promise.then(function(pdf) {
+              let allText = [];
+              let promises = [];
+              for (let i = 1; i <= pdf.numPages; i++) {
+                promises.push(pdf.getPage(i).then(function(page) {
+                  return page.getTextContent().then(function(textContent) {
+                    return textContent.items.map(item => item.str).join(' ');
+                  });
+                }));
+              }
+              Promise.all(promises).then(function(pages) {
+                const rows = pages.map(text => [text]);
+                if (side === 'A') fileDataA = rows;
+                else fileDataB = rows;
+                showPreview(rows, side);
+                document.getElementById('fileInfo' + side).classList.remove('hidden');
+                document.getElementById('fileName' + side).textContent = file.name;
+                document.getElementById('uploadZone' + side).classList.add('hidden');
+              });
+            }).catch(function(err) {
+              alert('PDF解析失败: ' + err.message);
+            });
+            return;
+          } else if (currentFormat === 'excel') {
+            const workbook = XLSX.read(data, { type: 'array' });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+            if (side === 'A') fileDataA = jsonData;
+            else fileDataB = jsonData;
+            showPreview(jsonData, side);
+          } else if (currentFormat === 'csv') {
+            const text = new TextDecoder().decode(data);
+            const rows = parseCSV(text);
+            if (side === 'A') fileDataA = rows;
+            else fileDataB = rows;
+            showPreview(rows, side);
+          } else if (currentFormat === 'json') {
+            const text = new TextDecoder().decode(data);
+            const json = JSON.parse(text);
+            const rows = jsonToTable(json);
+            if (side === 'A') fileDataA = rows;
+            else fileDataB = rows;
+            showPreview(rows, side);
+          }
+          document.getElementById('fileInfo' + side).classList.remove('hidden');
+          document.getElementById('fileName' + side).textContent = file.name;
+          document.getElementById('uploadZone' + side).classList.add('hidden');
+        } catch (err) {
+          alert('文件解析失败: ' + err.message);
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function removeFile(side) {
+      if (side === 'A') fileDataA = null;
+      else fileDataB = null;
+      document.getElementById('fileInfo' + side).classList.add('hidden');
+      document.getElementById('preview' + side).classList.add('hidden');
+      document.getElementById('preview' + side).innerHTML = '';
+      document.getElementById('uploadZone' + side).classList.remove('hidden');
+      document.getElementById('fileInput' + side).value = '';
+    }
+
+    function showPreview(data, side) {
+      const preview = document.getElementById('preview' + side);
+      if (!data || data.length === 0) {
+        preview.classList.add('hidden');
+        return;
+      }
+      preview.classList.remove('hidden');
+      const maxRows = Math.min(data.length, 50);
+      const maxCols = Math.max(...data.slice(0, maxRows).map(r => r ? r.length : 0));
+      let html = '<table class="diff-table"><thead><tr><th>#</th>';
+      for (let c = 0; c < maxCols; c++) {
+        html += '<th>' + String.fromCharCode(65 + c) + '</th>';
+      }
+      html += '</tr></thead><tbody>';
+      for (let r = 0; r < maxRows; r++) {
+        const row = data[r] || [];
+        html += '<tr><td style="background:#21262d;color:#58a6ff">' + (r + 1) + '</td>';
+        for (let c = 0; c < maxCols; c++) {
+          html += '<td>' + (row[c] !== undefined ? escapeHtml(String(row[c])) : '') + '</td>';
+        }
+        html += '</tr>';
+      }
+      html += '</tbody></table>';
+      preview.innerHTML = html;
+    }
+
+    function parseCSV(text) {
+      const lines = text.split('\n');
+      return lines.map(line => {
+        const result = [];
+        let current = '';
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const char = line[i];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            result.push(current.trim());
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        result.push(current.trim());
+        return result;
+      });
+    }
+
+    function jsonToTable(json) {
+      if (Array.isArray(json)) {
+        if (json.length === 0) return [[]];
+        if (typeof json[0] === 'object' && !Array.isArray(json[0])) {
+          const keys = Object.keys(json[0]);
+          const result = [keys];
+          json.forEach(item => {
+            result.push(keys.map(k => item[k] !== undefined ? item[k] : ''));
+          });
+          return result;
+        }
+        return json.map(item => Array.isArray(item) ? item : [item]);
+      }
+      if (typeof json === 'object') {
+        return Object.entries(json).map(([k, v]) => [k, typeof v === 'object' ? JSON.stringify(v) : v]);
+      }
+      return [[json]];
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function myersDiff(a, b) {
+      const n = a.length, m = b.length;
+      const max = n + m;
+      const V = new Array(2 * max + 1);
+      const trace = [];
+      for (let d = 0; d <= max; d++) {
+        trace.push([...V]);
+        for (let k = -d; k <= d; k += 2) {
+          const idx = k + max;
+          let x;
+          if (k === -d || (k !== d && V[idx - 1] < V[idx + 1])) x = V[idx + 1];
+          else x = V[idx - 1] + 1;
+          let y = x - k;
+          while (x < n && y < m && a[x] === b[y]) { x++; y++ }
+          V[idx] = x;
+          if (x >= n && y >= m) {
+            trace.push([...V]);
+            return backtrack(trace, n, m, max);
+          }
+        }
+      }
+      return backtrack(trace, n, m, max);
+    }
+
+    function backtrack(trace, n, m, max) {
+      const ops = [];
+      let x = n, y = m;
+      for (let d = trace.length - 1; d >= 0; d--) {
+        const V = trace[d];
+        if (!V) continue;
+        const k = x - y;
+        const idx = k + max;
+        let prevK;
+        if (k === -d || (k !== d && V[idx - 1] < V[idx + 1])) prevK = k + 1;
+        else prevK = k - 1;
+        const prevX = V[prevK + max];
+        const prevY = prevX - prevK;
+        while (x > prevX && y > prevY) {
+          ops.push({ type: 'equal', aIndex: x - 1, bIndex: y - 1 });
+          x--; y--;
+        }
+        if (x > prevX) { ops.push({ type: 'delete', aIndex: x - 1 }); x--; }
+        else if (y > prevY) { ops.push({ type: 'insert', bIndex: y - 1 }); y--; }
+      }
+      return ops.reverse();
+    }
+
+    function diffTable(tableA, tableB) {
+      const maxRows = Math.max(tableA.length, tableB.length);
+      const maxColsA = Math.max(...tableA.map(r => r ? r.length : 0), 0);
+      const maxColsB = Math.max(...tableB.map(r => r ? r.length : 0), 0);
+      const maxCols = Math.max(maxColsA, maxColsB);
+      const result = [];
+      let add = 0, del = 0, change = 0, eq = 0;
+      for (let r = 0; r < maxRows; r++) {
+        const rowA = tableA[r] || [];
+        const rowB = tableB[r] || [];
+        const rowResult = { cells: [] };
+        for (let c = 0; c < maxCols; c++) {
+          const cellA = rowA[c] !== undefined ? rowA[c] : '';
+          const cellB = rowB[c] !== undefined ? rowB[c] : '';
+          const strA = String(cellA);
+          const strB = String(cellB);
+          if (r >= tableA.length) {
+            rowResult.cells.push({ type: 'added', valueB: cellB });
+            add++;
+          } else if (r >= tableB.length) {
+            rowResult.cells.push({ type: 'removed', valueA: cellA });
+            del++;
+          } else if (c >= rowA.length) {
+            rowResult.cells.push({ type: 'added', valueB: cellB });
+            add++;
+          } else if (c >= rowB.length) {
+            rowResult.cells.push({ type: 'removed', valueA: cellA });
+            del++;
+          } else if (strA === strB) {
+            rowResult.cells.push({ type: 'equal', value: cellA });
+            eq++;
+          } else {
+            rowResult.cells.push({ type: 'changed', valueA: cellA, valueB: cellB });
+            change++;
+          }
+        }
+        result.push(rowResult);
+      }
+      return { rows: result, stats: { add, del, change, eq } };
+    }
+
+    function renderTableDiff(diffResult, containerA, containerB) {
+      const maxCols = diffResult.rows[0] ? diffResult.rows[0].cells.length : 0;
+      let htmlA = '<table class="diff-table"><thead><tr><th>#</th>';
+      let htmlB = '<table class="diff-table"><thead><tr><th>#</th>';
+      for (let c = 0; c < maxCols; c++) {
+        const colName = String.fromCharCode(65 + c);
+        htmlA += '<th>' + colName + '</th>';
+        htmlB += '<th>' + colName + '</th>';
+      }
+      htmlA += '</tr></thead><tbody>';
+      htmlB += '</tr></thead><tbody>';
+      diffResult.rows.forEach((row, r) => {
+        htmlA += '<tr><td style="background:#21262d;color:#58a6ff">' + (r + 1) + '</td>';
+        htmlB += '<tr><td style="background:#21262d;color:#58a6ff">' + (r + 1) + '</td>';
+        row.cells.forEach(cell => {
+          if (cell.type === 'equal') {
+            htmlA += '<td>' + escapeHtml(String(cell.value)) + '</td>';
+            htmlB += '<td>' + escapeHtml(String(cell.value)) + '</td>';
+          } else if (cell.type === 'removed') {
+            htmlA += '<td class="diff-cell-removed">' + escapeHtml(String(cell.valueA)) + '</td>';
+            htmlB += '<td class="diff-cell-removed" style="color:#f8514944">—</td>';
+          } else if (cell.type === 'added') {
+            htmlA += '<td class="diff-cell-added" style="color:#3fb95044">—</td>';
+            htmlB += '<td class="diff-cell-added">' + escapeHtml(String(cell.valueB)) + '</td>';
+          } else if (cell.type === 'changed') {
+            htmlA += '<td class="diff-cell-changed">' + escapeHtml(String(cell.valueA)) + '</td>';
+            htmlB += '<td class="diff-cell-changed">' + escapeHtml(String(cell.valueB)) + '</td>';
+          }
+        });
+        htmlA += '</tr>';
+        htmlB += '</tr>';
+      });
+      htmlA += '</tbody></table>';
+      htmlB += '</tbody></table>';
+      containerA.innerHTML = htmlA;
+      containerB.innerHTML = htmlB;
+    }
+
+    function runDiff() {
+      if (currentFormat === 'text') {
+        runTextDiff();
+      } else {
+        runFileDiff();
+      }
+    }
+
+    function runTextDiff() {
+      let a = document.getElementById('diffA').value;
+      let b = document.getElementById('diffB').value;
+      const s = document.getElementById('diffStatus');
+      const r = document.getElementById('diffResult');
+      if (!a && !b) {
+        s.textContent = '⚠️ 请在两侧输入要对比的文本';
+        r.classList.remove('show');
+        return;
+      }
+      const cs = document.getElementById('diffCaseSensitive').checked;
+      const tr = document.getElementById('diffTrim').checked;
+      let la = a.split('\n'), lb = b.split('\n');
+      if (!cs) { la = la.map(l => l.toLowerCase()); lb = lb.map(l => l.toLowerCase()); }
+      if (tr) { la = la.map(l => l.trim()); lb = lb.map(l => l.trim()); }
+      const ra = a.split('\n'), rb = b.split('\n');
+      const ops = myersDiff(la, lb);
+      const rA = document.getElementById('diffResultA'), rB = document.getElementById('diffResultB');
+      rA.innerHTML = ''; rB.innerHTML = '';
+      let aL = 0, bL = 0, add = 0, del = 0, eq = 0;
+      const ml = (t, type, num) => {
+        const d = document.createElement('div');
+        d.className = 'diff-line diff-line-' + type;
+        const n = document.createElement('span');
+        n.className = 'diff-line-num';
+        n.textContent = num !== null ? num : '';
+        const c = document.createElement('span');
+        c.className = 'diff-line-content';
+        c.textContent = t || ' ';
+        d.appendChild(n); d.appendChild(c);
+        return d;
+      };
+      for (const op of ops) {
+        if (op.type === 'equal') {
+          eq++;
+          rA.appendChild(ml(ra[op.aIndex], 'equal', ++aL));
+          rB.appendChild(ml(rb[op.bIndex], 'equal', ++bL));
+        } else if (op.type === 'delete') {
+          del++;
+          rA.appendChild(ml(ra[op.aIndex], 'removed', ++aL));
+          rB.appendChild(ml('', 'empty', null));
+        } else {
+          add++;
+          rA.appendChild(ml('', 'empty', null));
+          rB.appendChild(ml(rb[op.bIndex], 'added', ++bL));
+        }
+      }
+      document.getElementById('diffStatsA').textContent = '+' + add + ' -' + del + ' ' + eq + '行相同';
+      document.getElementById('diffStatsB').textContent = '+' + add + ' -' + del + ' ' + eq + '行相同';
+      r.classList.add('show');
+      if (add === 0 && del === 0) s.textContent = '✅ 两段文本完全相同 (' + eq + ' 行)';
+      else s.textContent = '✅ 发现 ' + del + ' 处删除, ' + add + ' 处新增 (' + eq + ' 行相同)';
+    }
+
+    function runFileDiff() {
+      const s = document.getElementById('diffStatus');
+      const r = document.getElementById('diffResult');
+      if (!fileDataA && !fileDataB) {
+        s.textContent = '⚠️ 请上传要对比的文件';
+        r.classList.remove('show');
+        return;
+      }
+      if (!fileDataA || !fileDataB) {
+        s.textContent = '⚠️ 请上传两个文件进行对比';
+        r.classList.remove('show');
+        return;
+      }
+      const rA = document.getElementById('diffResultA'), rB = document.getElementById('diffResultB');
+      rA.innerHTML = ''; rB.innerHTML = '';
+      const diff = diffTable(fileDataA, fileDataB);
+      renderTableDiff(diff, rA, rB);
+      document.getElementById('diffStatsA').textContent = '+' + diff.stats.add + ' -' + diff.stats.del + ' ~' + diff.stats.change + ' ' + diff.stats.eq + '相同';
+      document.getElementById('diffStatsB').textContent = '+' + diff.stats.add + ' -' + diff.stats.del + ' ~' + diff.stats.change + ' ' + diff.stats.eq + '相同';
+      r.classList.add('show');
+      if (diff.stats.add === 0 && diff.stats.del === 0 && diff.stats.change === 0) {
+        s.textContent = '✅ 两个文件完全相同 (' + diff.stats.eq + ' 个单元格)';
+      } else {
+        s.textContent = '✅ 发现 ' + diff.stats.del + ' 处删除, ' + diff.stats.add + ' 处新增, ' + diff.stats.change + ' 处修改';
+      }
+    }
+
+    function clearDiff() {
+      document.getElementById('diffA').value = '';
+      document.getElementById('diffB').value = '';
+      fileDataA = null; fileDataB = null;
+      removeFile('A');
+      removeFile('B');
+      document.getElementById('diffResult').classList.remove('show');
+      document.getElementById('diffResultA').innerHTML = '';
+      document.getElementById('diffResultB').innerHTML = '';
+      document.getElementById('diffStatus').textContent = '';
+    }
+
+    function loadSamples() {
+      if (currentFormat === 'text') {
+        document.getElementById('diffA').value = 'function hello(name) {\n  console.log("Hello, " + name);\n  return true;\n}\n\nconst user = "Alice";\nhello(user);';
+        document.getElementById('diffB').value = 'function greet(name) {\n  console.log(`Hello, ${name}!`);\n  return true;\n}\n\nconst user = "Bob";\ngreet(user);\nconsole.log("Done");';
+        runDiff();
+      } else if (currentFormat === 'word' || currentFormat === 'pdf') {
+        document.getElementById('diffStatus').textContent = '💡 请上传两个 Word/PDF 文件进行对比';
+      } else if (currentFormat === 'excel' || currentFormat === 'csv') {
+        fileDataA = [
+          ['姓名', '年龄', '城市'],
+          ['张三', 25, '北京'],
+          ['李四', 30, '上海'],
+          ['王五', 28, '广州']
+        ];
+        fileDataB = [
+          ['姓名', '年龄', '城市', '邮箱'],
+          ['张三', 26, '北京', 'zhangsan@email.com'],
+          ['李四', 30, '深圳'],
+          ['赵六', 22, '杭州']
+        ];
+        document.getElementById('fileInfoA').classList.remove('hidden');
+        document.getElementById('fileNameA').textContent = '示例数据A';
+        document.getElementById('uploadZoneA').classList.add('hidden');
+        document.getElementById('fileInfoB').classList.remove('hidden');
+        document.getElementById('fileNameB').textContent = '示例数据B';
+        document.getElementById('uploadZoneB').classList.add('hidden');
+        showPreview(fileDataA, 'A');
+        showPreview(fileDataB, 'B');
+        runDiff();
+      } else if (currentFormat === 'json') {
+        fileDataA = [
+          ['name', 'value'],
+          ['version', '1.0.0'],
+          ['debug', 'true'],
+          ['port', '3000']
+        ];
+        fileDataB = [
+          ['name', 'value'],
+          ['version', '1.1.0'],
+          ['debug', 'false'],
+          ['port', '3000'],
+          ['database', 'mysql']
+        ];
+        document.getElementById('fileInfoA').classList.remove('hidden');
+        document.getElementById('fileNameA').textContent = '示例JSON A';
+        document.getElementById('uploadZoneA').classList.add('hidden');
+        document.getElementById('fileInfoB').classList.remove('hidden');
+        document.getElementById('fileNameB').textContent = '示例JSON B';
+        document.getElementById('uploadZoneB').classList.add('hidden');
+        showPreview(fileDataA, 'A');
+        showPreview(fileDataB, 'B');
+        runDiff();
+      }
+    }
+
+    document.getElementById('diffA').addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runDiff(); }
+    });
+    document.getElementById('diffB').addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runDiff(); }
+    });
+
+    ['A', 'B'].forEach(side => {
+      const zone = document.getElementById('uploadZone' + side);
+      zone.addEventListener('dragover', e => {
+        e.preventDefault();
+        zone.classList.add('dragover');
+      });
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('dragover');
+      });
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          document.getElementById('fileInput' + side).files = files;
+          handleFile(document.getElementById('fileInput' + side), side);
+        }
+      });
+    });
   </script>
 </body>
 </html>

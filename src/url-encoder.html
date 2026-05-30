@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL 编解码器 - 在线工具集</title>
+  <meta name="description" content="免费在线 URL 编解码工具，支持 URL 编码/解码、Base64 编解码、HTML 实体编解码，一键转换。">
+  <meta name="keywords" content="URL编码,URL解码,URL encode,URL decode,URL编解码,在线编码工具,encodeURIComponent">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .url-container{max-width:750px;margin:0 auto;padding:20px 20px 0;width:100%;flex:1;display:flex;flex-direction:column;min-height:0}
+    .url-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px;flex:1;display:flex;flex-direction:column}
+    .url-card h2{font-size:1.2rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .url-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:16px}
+    .url-tabs{display:flex;gap:4px;margin-bottom:12px;background:#21262d;border:1px solid #30363d;border-radius:6px;padding:3px;width:fit-content}
+    .url-tab{padding:5px 14px;border-radius:4px;font-size:.78rem;background:transparent;color:#8b949e;border:none;cursor:pointer;transition:all .12s}
+    .url-tab.active{background:#58a6ff;color:#0d1117;font-weight:600}
+    .url-tab:hover:not(.active){color:#c9d1d9}
+    .url-textarea{flex:1;width:100%;padding:12px 14px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c9d1d9;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.6;outline:none;resize:none;min-height:120px;tab-size:2}
+    .url-textarea:focus{border-color:#58a6ff}
+    .url-textarea.result{color:#3fb950}
+    .url-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+    .url-btn{padding:8px 16px;background:#21262d;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-size:.78rem;cursor:pointer;transition:all .12s;white-space:nowrap}
+    .url-btn:hover{background:#30363d;border-color:#58a6ff;color:#58a6ff}
+    .url-btn:active{transform:scale(.96)}
+    .url-btn.primary{background:#238636;color:#fff;border-color:#238636}
+    .url-btn.primary:hover{background:#2ea043}
+    .url-btn.danger{color:#f85149;border-color:#f85149}
+    .url-status{margin-left:auto;font-size:.75rem;color:#484f58}
+    .url-status.ok{color:#3fb950}
+    .url-status.err{color:#f85149}
+    .url-info{margin-top:8px;padding:10px 14px;background:#0d1117;border:1px solid #21262d;border-radius:6px;font-size:.75rem;color:#8b949e;line-height:1.6}
+    .url-info strong{color:#58a6ff}
+    @media(max-width:480px){.url-card{padding:16px}.url-toolbar{gap:4px}.url-btn{padding:6px 10px;font-size:.72rem}}
+  </style>
+  <meta property="og:title" content="URL 编解码器 - 在线工具集">
+  <meta property="og:description" content="免费在线 URL 编解码工具，支持多种编码方式。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/url-encoder.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"URL 编解码器","url":"https://web-tools-hub-three.vercel.app/url-encoder.html","applicationCategory":"DeveloperApplication","operatingSystem":"All","description":"免费在线 URL 编解码工具。"}</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">🔗 URL 编解码器</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="url-container">
+      <div class="url-card">
+        <h2>🔗 URL 编解码器</h2>
+        <p class="url-desc">URL 编码/解码 · Unicode 编码/解码 · HTML 实体编解码</p>
+
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
+          <div class="url-tabs" id="urlMode">
+            <button class="url-tab active" data-mode="urlenc">URL 编码</button>
+            <button class="url-tab" data-mode="urldec">URL 解码</button>
+            <button class="url-tab" data-mode="unicode">Unicode</button>
+            <button class="url-tab" data-mode="htmlenc">HTML 实体</button>
+            <button class="url-tab" data-mode="htmldec">HTML 解码</button>
+          </div>
+        </div>
+
+        <textarea class="url-textarea" id="urlInput" placeholder="输入要编码的文本…" spellcheck="false">https://web-tools-hub-three.vercel.app/search?q=你好世界&lang=zh-CN&page=1</textarea>
+
+        <div class="url-toolbar">
+          <button class="url-btn primary" onclick="runConvert()">🔄 转换</button>
+          <button class="url-btn" onclick="copyResult()">📋 复制结果</button>
+          <button class="url-btn" onclick="swapIO()">⇅ 互换</button>
+          <button class="url-btn danger" onclick="clearAll()">🗑️ 清空</button>
+          <button class="url-btn" onclick="loadSample()">📄 示例</button>
+          <span class="url-status" id="urlStatus">就绪</span>
+        </div>
+
+        <textarea class="url-textarea result" id="urlOutput" placeholder="结果…" readonly></textarea>
+
+        <div class="url-info" id="urlInfo">
+          <strong>💡 提示：</strong> URL 编码（百分号编码）将特殊字符转换为 <code>%XX</code> 格式。<code>encodeURIComponent</code> 编码所有特殊字符，<code>encodeURI</code> 保留 URL 结构字符（如 :/?#[]@）。
+        </div>
+      </div>
+    </div>
+
+    <section class="tool-about">
+      <div class="about-wrap">
+        <h3>📖 关于此工具</h3>
+        <p><strong>URL 编解码器</strong> 支持 <strong>URL 百分号编码/解码</strong>（encodeURIComponent / encodeURI）、<strong>Unicode 转义序列</strong>（\\uXXXX）编码/解码和 <strong>HTML 实体</strong>编码/解码。适用于 URL 参数处理、网页国际化、数据传输和跨平台数据交换等场景。</p>
+      </div>
+    </section>
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="5555555555" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  </main>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    let mode = 'urlenc';
+
+    document.querySelectorAll('.url-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.url-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        mode = tab.dataset.mode;
+        const ph = {urlenc:'输入要 URL 编码的文本…',urldec:'输入要 URL 解码的文本…',unicode:'输入要 Unicode 编码的文本…',htmlenc:'输入要 HTML 实体编码的文本…',htmldec:'输入要 HTML 解码的文本…'};
+        document.getElementById('urlInput').placeholder = ph[mode] || '';
+        document.getElementById('urlOutput').value = '';
+        document.getElementById('urlStatus').textContent = '就绪';
+      });
+    });
+
+    function runConvert() {
+      const input = document.getElementById('urlInput').value;
+      const output = document.getElementById('urlOutput');
+      const status = document.getElementById('urlStatus');
+      if (!input) { status.textContent = '⚠️ 请输入内容'; status.className = 'url-status err'; return; }
+      try {
+        let result = '';
+        if (mode === 'urlenc') {
+          result = encodeURIComponent(input);
+        } else if (mode === 'urldec') {
+          result = decodeURIComponent(input);
+        } else if (mode === 'unicode') {
+          result = Array.from(input).map(c => {
+            const code = c.codePointAt(0);
+            return code > 127 ? '\\u' + code.toString(16).padStart(4, '0') : c;
+          }).join('');
+        } else if (mode === 'htmlenc') {
+          result = Array.from(input).map(c => {
+            const code = c.codePointAt(0);
+            return code > 127 ? '&#' + code + ';' : c;
+          }).join('');
+        } else if (mode === 'htmldec') {
+          const doc = new DOMParser().parseFromString(input, 'text/html');
+          result = doc.documentElement.textContent;
+        }
+        output.value = result;
+        status.textContent = '✅ 转换成功 (' + result.length + ' 字符)';
+        status.className = 'url-status ok';
+      } catch (e) {
+        status.textContent = '❌ ' + e.message;
+        status.className = 'url-status err';
+      }
+    }
+
+    function copyResult() {
+      const val = document.getElementById('urlOutput').value;
+      if (!val) return;
+      navigator.clipboard.writeText(val).then(() => {
+        const s = document.getElementById('urlStatus');
+        s.textContent = '✅ 已复制'; s.className = 'url-status ok';
+        setTimeout(() => { s.textContent = '就绪'; s.className = 'url-status'; }, 2000);
+      });
+    }
+
+    function swapIO() {
+      const inp = document.getElementById('urlInput');
+      const out = document.getElementById('urlOutput');
+      if (!out.value) return;
+      inp.value = out.value;
+      out.value = '';
+    }
+
+    function clearAll() {
+      document.getElementById('urlInput').value = '';
+      document.getElementById('urlOutput').value = '';
+      document.getElementById('urlStatus').textContent = '就绪';
+    }
+
+    function loadSample() {
+      const samples = {
+        urlenc: 'https://example.com/search?q=你好世界&lang=zh-CN',
+        urldec: 'https%3A%2F%2Fexample.com%2Fsearch%3Fq%3D%E4%BD%A0%E5%A5BD%26lang%3Dzh-CN',
+        unicode: 'Hello 你好世界 🌍',
+        htmlenc: '<div class="container">Hello & Welcome "世界"</div>',
+        htmldec: '&lt;div class=&quot;container&quot;&gt;Hello &amp; Welcome &quot;世界&quot;&lt;/div&gt;'
+      };
+      document.getElementById('urlInput').value = samples[mode] || '';
+      runConvert();
+    }
+
+    document.getElementById('urlInput').addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); runConvert(); }
+    });
+  </script>
+</body>
+</html>

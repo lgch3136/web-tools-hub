@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>进制转换器 - 在线工具集</title>
+  <meta name="description" content="免费在线进制转换工具，支持二进制、八进制、十进制、十六进制等 2-36 进制互转，实时计算。">
+  <meta name="keywords" content="进制转换,二进制转换,十六进制转换,hex to decimal,进制转换器,在线进制转换,二进制转十进制">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .base-container{max-width:650px;margin:0 auto;padding:20px 20px 0;width:100%}
+    .base-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:28px}
+    .base-card h2{font-size:1.2rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .base-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:24px}
+    .base-main-input{margin-bottom:20px}
+    .base-main-label{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .base-main-label-text{font-size:.82rem;color:#58a6ff;font-weight:600}
+    .base-radix-select{padding:4px 8px;background:#0d1117;border:1px solid #30363d;border-radius:5px;color:#c9d1d9;font-size:.75rem;outline:none}
+    .base-input-wrap{display:flex;gap:8px}
+    .base-input{flex:1;padding:14px 16px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#3fb950;font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:600;outline:none;letter-spacing:1px}
+    .base-input:focus{border-color:#58a6ff}
+    .base-input.error{border-color:#f85149;color:#f85149}
+    .base-copy-btn{padding:14px;background:#21262d;border:1px solid #30363d;border-radius:8px;color:#c9d1d9;font-size:1rem;cursor:pointer;transition:all .12s}
+    .base-copy-btn:hover{background:#30363d;border-color:#58a6ff;color:#58a6ff}
+    .base-results{display:flex;flex-direction:column;gap:10px}
+    .base-result{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#0d1117;border:1px solid #21262d;border-radius:8px;transition:all .15s}
+    .base-result:hover{border-color:#30363d}
+    .base-result-label{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;min-width:48px;flex-shrink:0}
+    .base-result-label.bin{color:#3fb950}
+    .base-result-label.oct{color:#ffa657}
+    .base-result-label.dec{color:#58a6ff}
+    .base-result-label.hex{color:#d2a8ff}
+    .base-result-val{flex:1;font-family:'JetBrains Mono',monospace;font-size:.88rem;color:#c9d1d9;word-break:break-all;cursor:pointer;user-select:all}
+    .base-result-copy{padding:4px 10px;background:transparent;border:1px solid #30363d;border-radius:5px;color:#484f58;font-size:.7rem;cursor:pointer;transition:all .12s;flex-shrink:0}
+    .base-result-copy:hover{color:#58a6ff;border-color:#58a6ff}
+    .base-error{padding:8px 12px;background:#f8514912;border:1px solid #f8514944;border-radius:6px;color:#f85149;font-size:.78rem;margin-top:8px;display:none}
+    .base-bit-info{margin-top:16px;padding:12px 14px;background:#0d1117;border:1px solid #21262d;border-radius:8px}
+    .base-bit-title{font-size:.72rem;color:#58a6ff;font-weight:600;margin-bottom:8px;text-transform:uppercase}
+    .base-bit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
+    .base-bit-item{display:flex;justify-content:space-between;padding:3px 0;font-size:.75rem;border-bottom:1px solid #161b22}
+    .base-bit-label{color:#484f58}
+    .base-bit-val{color:#8b949e;font-family:'JetBrains Mono',monospace}
+    .base-presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;justify-content:center}
+    .base-preset{padding:5px 12px;background:#21262d;border:1px solid #30363d;border-radius:6px;color:#8b949e;font-size:.72rem;cursor:pointer;transition:all .12s;font-family:'JetBrains Mono',monospace}
+    .base-preset:hover{background:#30363d;color:#c9d1d9;border-color:#58a6ff}
+    @media(max-width:480px){.base-card{padding:20px 16px}.base-input{font-size:1rem}}
+  </style>
+  <meta property="og:title" content="进制转换器 - 在线工具集">
+  <meta property="og:description" content="免费在线进制转换工具，支持二进制、八进制、十进制、十六进制互转。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/base-converter.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"进制转换器","url":"https://web-tools-hub-three.vercel.app/base-converter.html","applicationCategory":"DeveloperApplication","operatingSystem":"All","description":"免费在线进制转换工具，支持二进制、八进制、十进制、十六进制互转。"}</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">🔢 进制转换器</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="base-container">
+      <div class="base-card">
+        <h2>🔢 进制转换器</h2>
+        <p class="base-desc">二进制 · 八进制 · 十进制 · 十六进制 · 2-36 进制实时互转</p>
+
+        <div class="base-presets">
+          <span class="base-preset" onclick="loadPreset('255')">255</span>
+          <span class="base-preset" onclick="loadPreset('1024')">1024</span>
+          <span class="base-preset" onclick="loadPreset('65535')">65535</span>
+          <span class="base-preset" onclick="loadPreset('FF',16)">FF<sub>16</sub></span>
+          <span class="base-preset" onclick="loadPreset('11111111',2)">11111111<sub>2</sub></span>
+          <span class="base-preset" onclick="loadPreset('377',8)">377<sub>8</sub></span>
+          <span class="base-preset" onclick="loadPreset('16777215')">16777215</span>
+          <span class="base-preset" onclick="loadPreset('FFFFFFFF',16)">FFFFFFFF<sub>16</sub></span>
+        </div>
+
+        <div class="base-main-input">
+          <div class="base-main-label">
+            <span class="base-main-label-text">输入数值</span>
+            <select class="base-radix-select" id="baseInputRadix">
+              <option value="2">二进制 (2)</option>
+              <option value="8">八进制 (8)</option>
+              <option value="10" selected>十进制 (10)</option>
+              <option value="16">十六进制 (16)</option>
+              <option value="36">36 进制</option>
+            </select>
+          </div>
+          <div class="base-input-wrap">
+            <input type="text" class="base-input" id="baseInput" value="42" spellcheck="false" autocomplete="off">
+            <button class="base-copy-btn" onclick="copyVal('baseInput')" title="复制">📋</button>
+          </div>
+          <div class="base-error" id="baseError"></div>
+        </div>
+
+        <div class="base-results" id="baseResults">
+          <div class="base-result">
+            <span class="base-result-label bin">BIN</span>
+            <span class="base-result-val" id="resBin">-</span>
+            <button class="base-result-copy" onclick="copyRes('resBin')">复制</button>
+          </div>
+          <div class="base-result">
+            <span class="base-result-label oct">OCT</span>
+            <span class="base-result-val" id="resOct">-</span>
+            <button class="base-result-copy" onclick="copyRes('resOct')">复制</button>
+          </div>
+          <div class="base-result">
+            <span class="base-result-label dec">DEC</span>
+            <span class="base-result-val" id="resDec">-</span>
+            <button class="base-result-copy" onclick="copyRes('resDec')">复制</button>
+          </div>
+          <div class="base-result">
+            <span class="base-result-label hex">HEX</span>
+            <span class="base-result-val" id="resHex">-</span>
+            <button class="base-result-copy" onclick="copyRes('resHex')">复制</button>
+          </div>
+        </div>
+
+        <div class="base-bit-info" id="baseBitInfo">
+          <div class="base-bit-title">📊 数值信息</div>
+          <div class="base-bit-grid">
+            <div class="base-bit-item"><span class="base-bit-label">字节数</span><span class="base-bit-val" id="infoBytes">-</span></div>
+            <div class="base-bit-item"><span class="base-bit-label">位数</span><span class="base-bit-val" id="infoBits">-</span></div>
+            <div class="base-bit-item"><span class="base-bit-label">二进制长度</span><span class="base-bit-val" id="infoBinLen">-</span></div>
+            <div class="base-bit-item"><span class="base-bit-label">十六进制长度</span><span class="base-bit-val" id="infoHexLen">-</span></div>
+            <div class="base-bit-item"><span class="base-bit-label">是否 2 的幂</span><span class="base-bit-val" id="infoPow2">-</span></div>
+            <div class="base-bit-item"><span class="base-bit-label">科学计数法</span><span class="base-bit-val" id="infoSci">-</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="tool-about">
+      <div class="about-wrap">
+        <h3>📖 关于此工具</h3>
+        <p><strong>进制转换器</strong> 支持<strong>二进制（BIN）、八进制（OCT）、十进制（DEC）、十六进制（HEX）</strong>以及<strong>2-36 任意进制</strong>之间的实时互转。同时显示数值的字节数、位数、是否为 2 的幂等附加信息。内置常用数值预设，支持超大整数运算。适合编程开发、网络配置、颜色代码转换等场景。</p>
+      </div>
+    </section>
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="8888888888" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  </main>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    const inputEl = document.getElementById('baseInput');
+    const radixEl = document.getElementById('baseInputRadix');
+    const errorEl = document.getElementById('baseError');
+
+    function convert() {
+      const raw = inputEl.value.trim();
+      const fromRadix = parseInt(radixEl.value);
+      errorEl.style.display = 'none';
+      inputEl.classList.remove('error');
+
+      if (!raw) {
+        ['resBin','resOct','resDec','resHex'].forEach(id => document.getElementById(id).textContent = '-');
+        updateInfo(null);
+        return;
+      }
+
+      try {
+        const num = BigInt(parseInt(raw, fromRadix));
+        if (isNaN(Number(num)) && raw !== '0') throw new Error('无效输入');
+
+        document.getElementById('resBin').textContent = num.toString(2);
+        document.getElementById('resOct').textContent = num.toString(8);
+        document.getElementById('resDec').textContent = num.toString(10);
+        document.getElementById('resHex').textContent = num.toString(16).toUpperCase();
+        updateInfo(num);
+      } catch (e) {
+        errorEl.textContent = '❌ 无效的 ' + fromRadix + ' 进制数值: ' + raw;
+        errorEl.style.display = 'block';
+        inputEl.classList.add('error');
+        ['resBin','resOct','resDec','resHex'].forEach(id => document.getElementById(id).textContent = '-');
+        updateInfo(null);
+      }
+    }
+
+    function updateInfo(num) {
+      if (num === null || num === undefined) {
+        ['infoBytes','infoBits','infoBinLen','infoHexLen','infoPow2','infoSci'].forEach(id => document.getElementById(id).textContent = '-');
+        return;
+      }
+      const absNum = num < 0n ? -num : num;
+      const binStr = absNum.toString(2);
+      const hexStr = absNum.toString(16);
+      const bits = binStr.length;
+      const bytes = Math.ceil(bits / 8);
+      const isPow2 = absNum > 0n && (absNum & (absNum - 1n)) === 0n;
+      const numStr = num.toString();
+
+      document.getElementById('infoBytes').textContent = bytes + ' 字节';
+      document.getElementById('infoBits').textContent = bits + ' 位';
+      document.getElementById('infoBinLen').textContent = binStr.length + ' 位';
+      document.getElementById('infoHexLen').textContent = hexStr.length + ' 位';
+      document.getElementById('infoPow2').textContent = isPow2 ? '✅ 是' : '❌ 否';
+      document.getElementById('infoSci').textContent = numStr.length > 15 ? Number(num).toExponential(6) : numStr;
+    }
+
+    function loadPreset(val, radix) {
+      inputEl.value = val;
+      if (radix) radixEl.value = radix.toString();
+      convert();
+    }
+
+    function copyVal(id) {
+      const el = document.getElementById(id);
+      navigator.clipboard.writeText(el.value);
+    }
+
+    function copyRes(id) {
+      const el = document.getElementById(id);
+      navigator.clipboard.writeText(el.textContent).then(() => {
+        const btn = el.nextElementSibling;
+        btn.textContent = '✅'; setTimeout(() => btn.textContent = '复制', 1500);
+      });
+    }
+
+    inputEl.addEventListener('input', convert);
+    radixEl.addEventListener('change', convert);
+    convert();
+  </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字数统计器 - 在线工具集</title>
+  <meta name="description" content="免费在线字数统计工具，实时统计字符数、字数、行数、段落数，估算阅读时间，支持中英文混合。">
+  <meta name="keywords" content="字数统计,字数统计器,字符计数,word counter,在线字数统计,字数统计工具,文章字数">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .wc-container{max-width:800px;margin:0 auto;padding:20px 20px 0;width:100%;flex:1;display:flex;flex-direction:column;min-height:0}
+    .wc-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px;flex:1;display:flex;flex-direction:column}
+    .wc-card h2{font-size:1.2rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .wc-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:16px}
+    .wc-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+    .wc-stat{background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px;text-align:center}
+    .wc-stat-val{font-size:1.8rem;font-weight:800;color:#58a6ff;line-height:1.2}
+    .wc-stat-label{font-size:.7rem;color:#484f58;margin-top:4px;text-transform:uppercase;letter-spacing:.03em}
+    .wc-stat.green .wc-stat-val{color:#3fb950}
+    .wc-stat.orange .wc-stat-val{color:#ffa657}
+    .wc-stat.purple .wc-stat-val{color:#d2a8ff}
+    .wc-textarea{flex:1;width:100%;padding:14px 16px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;font-size:.92rem;line-height:1.8;outline:none;resize:none;min-height:200px;tab-size:2}
+    .wc-textarea:focus{border-color:#58a6ff}
+    .wc-textarea::placeholder{color:#30363d}
+    .wc-toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .wc-btn{padding:8px 16px;background:#21262d;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-size:.78rem;cursor:pointer;transition:all .12s}
+    .wc-btn:hover{background:#30363d;border-color:#58a6ff;color:#58a6ff}
+    .wc-btn.danger{color:#f85149;border-color:#f85149}
+    .wc-btn.danger:hover{background:#f8514922}
+    .wc-detail{margin-top:16px;background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:14px}
+    .wc-detail-title{font-size:.72rem;color:#58a6ff;font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em}
+    .wc-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .wc-detail-item{display:flex;justify-content:space-between;padding:4px 0;font-size:.78rem;border-bottom:1px solid #21262d}
+    .wc-detail-label{color:#8b949e}
+    .wc-detail-val{color:#c9d1d9;font-family:'JetBrains Mono',monospace}
+    @media(max-width:480px){.wc-card{padding:16px}.wc-stats{grid-template-columns:repeat(2,1fr)}.wc-stat-val{font-size:1.4rem}}
+  </style>
+  <meta property="og:title" content="字数统计器 - 在线工具集">
+  <meta property="og:description" content="免费在线字数统计工具，实时统计字符数、字数、行数、段落，估算阅读时间。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/word-counter.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"字数统计器","url":"https://web-tools-hub-three.vercel.app/word-counter.html","applicationCategory":"UtilityApplication","operatingSystem":"All","description":"免费在线字数统计工具，实时统计字符数、字数、行数。"}</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">📝 字数统计</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="wc-container">
+      <div class="wc-card">
+        <h2>📝 字数统计器</h2>
+        <p class="wc-desc">实时统计 · 中英文混合 · 阅读时间估算</p>
+
+        <div class="wc-stats" id="wcStats">
+          <div class="wc-stat"><div class="wc-stat-val" id="wcChars">0</div><div class="wc-stat-label">字符数</div></div>
+          <div class="wc-stat green"><div class="wc-stat-val" id="wcCharsNoSpace">0</div><div class="wc-stat-label">不含空格</div></div>
+          <div class="wc-stat orange"><div class="wc-stat-val" id="wcWords">0</div><div class="wc-stat-label">字/词数</div></div>
+          <div class="wc-stat purple"><div class="wc-stat-val" id="wcLines">0</div><div class="wc-stat-label">行数</div></div>
+          <div class="wc-stat"><div class="wc-stat-val" id="wcParas">0</div><div class="wc-stat-label">段落数</div></div>
+          <div class="wc-stat green"><div class="wc-stat-val" id="wcReadTime">0</div><div class="wc-stat-label">阅读(分钟)</div></div>
+        </div>
+
+        <textarea class="wc-textarea" id="wcInput" placeholder="在此输入或粘贴文本，实时统计字数…&#10;&#10;支持中文、英文、日文、韩文等多语言混合统计。&#10;中文按字符计数，英文按空格分词计数。" spellcheck="false"></textarea>
+
+        <div class="wc-toolbar">
+          <button class="wc-btn" onclick="loadSample()">📄 加载示例</button>
+          <button class="wc-btn" onclick="copyStats()">📋 复制统计</button>
+          <button class="wc-btn danger" onclick="clearText()">🗑️ 清空</button>
+          <span style="margin-left:auto;font-size:.72rem;color:#484f58" id="wcBytes">0 字节</span>
+        </div>
+
+        <div class="wc-detail">
+          <div class="wc-detail-title">📊 详细统计</div>
+          <div class="wc-detail-grid">
+            <div class="wc-detail-item"><span class="wc-detail-label">中文字符</span><span class="wc-detail-val" id="wcCJK">0</span></div>
+            <div class="wc-detail-item"><span class="wc-detail-label">英文字母</span><span class="wc-detail-val" id="wcAlpha">0</span></div>
+            <div class="wc-detail-item"><span class="wc-detail-label">数字</span><span class="wc-detail-val" id="wcDigits">0</span></div>
+            <div class="wc-detail-item"><span class="wc-detail-label">标点符号</span><span class="wc-detail-val" id="wcPunct">0</span></div>
+            <div class="wc-detail-item"><span class="wc-detail-label">空格</span><span class="wc-detail-val" id="wcSpaces">0</span></div>
+            <div class="wc-detail-item"><span class="wc-detail-label">英文单词</span><span class="wc-detail-val" id="wcEnWords">0</span></div>
+            <div class="wc-detail-item"><span class="wc-detail-label">字节大小</span><span class="wc-detail-val" id="wcByteSize">0 B</span></div>
+            <div class="wc-detail-item"><span class="wc-detail-label">朗读时间</span><span class="wc-detail-val" id="wcSpeakTime">0 分钟</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="tool-about">
+      <div class="about-wrap">
+        <h3>📖 关于此工具</h3>
+        <p><strong>字数统计器</strong> 提供<strong>实时</strong>的文本统计分析，支持<strong>中英文混合</strong>文本。统计项目包括：总字符数、不含空格字符数、字/词数、行数、段落数、中文字符数、英文字母数、数字数、标点符号数。自动估算<strong>阅读时间</strong>（中文 400 字/分钟）和<strong>朗读时间</strong>（中文 250 字/分钟）。适合论文写作、社交媒体文案、SEO 文案和内容编辑等场景。</p>
+      </div>
+    </section>
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="7777777777" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  </main>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    const input = document.getElementById('wcInput');
+
+    function countStats(text) {
+      const chars = text.length;
+      const charsNoSpace = text.replace(/\s/g, '').length;
+      const lines = text ? text.split('\n').length : 0;
+      const paras = text ? text.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
+      const spaces = (text.match(/\s/g) || []).length;
+
+      // CJK characters
+      const cjk = (text.match(/[一-鿿㐀-䶿\u{20000}-\u{2a6df}぀-ゟ゠-ヿ가-힯]/gu) || []).length;
+
+      // English letters
+      const alpha = (text.match(/[a-zA-Z]/g) || []).length;
+
+      // Digits
+      const digits = (text.match(/\d/g) || []).length;
+
+      // Punctuation (non-alphanumeric, non-space, non-CJK)
+      const punct = charsNoSpace - cjk - alpha - digits;
+
+      // English words
+      const enWords = (text.match(/[a-zA-Z]+(?:['-][a-zA-Z]+)*/g) || []).length;
+
+      // Total "words" for mixed content: CJK chars count as 1 word each, plus English words
+      const words = cjk + enWords;
+
+      // Read time: CJK ~400 chars/min, English ~200 words/min
+      const readMinutes = Math.ceil((cjk / 400) + (enWords / 200)) || 0;
+
+      // Speak time: CJK ~250 chars/min, English ~150 words/min
+      const speakMinutes = Math.ceil((cjk / 250) + (enWords / 150)) || 0;
+
+      // Byte size
+      const byteSize = new TextEncoder().encode(text).length;
+
+      return { chars, charsNoSpace, words, lines, paras, readMinutes, cjk, alpha, digits, punct, spaces, enWords, byteSize, speakMinutes };
+    }
+
+    function formatBytes(b) {
+      if (b >= 1048576) return (b / 1048576).toFixed(2) + ' MB';
+      if (b >= 1024) return (b / 1024).toFixed(1) + ' KB';
+      return b + ' B';
+    }
+
+    function update() {
+      const text = input.value;
+      const s = countStats(text);
+      document.getElementById('wcChars').textContent = s.chars.toLocaleString();
+      document.getElementById('wcCharsNoSpace').textContent = s.charsNoSpace.toLocaleString();
+      document.getElementById('wcWords').textContent = s.words.toLocaleString();
+      document.getElementById('wcLines').textContent = s.lines.toLocaleString();
+      document.getElementById('wcParas').textContent = s.paras.toLocaleString();
+      document.getElementById('wcReadTime').textContent = s.readMinutes;
+      document.getElementById('wcCJK').textContent = s.cjk.toLocaleString();
+      document.getElementById('wcAlpha').textContent = s.alpha.toLocaleString();
+      document.getElementById('wcDigits').textContent = s.digits.toLocaleString();
+      document.getElementById('wcPunct').textContent = s.punct.toLocaleString();
+      document.getElementById('wcSpaces').textContent = s.spaces.toLocaleString();
+      document.getElementById('wcEnWords').textContent = s.enWords.toLocaleString();
+      document.getElementById('wcByteSize').textContent = formatBytes(s.byteSize);
+      document.getElementById('wcSpeakTime').textContent = s.speakMinutes + ' 分钟';
+      document.getElementById('wcBytes').textContent = formatBytes(s.byteSize);
+    }
+
+    input.addEventListener('input', update);
+
+    function loadSample() {
+      input.value = `在当今数字化时代，在线工具已经成为开发者和办公用户日常工作的重要助手。
+
+无论是格式化 JSON 数据、压缩图片、生成二维码，还是进行文本对比，一款好用的在线工具能大大提升工作效率。
+
+Web Tools Hub 是一个免费的在线工具集，包含 20+ 款实用工具。所有工具完全在浏览器本地运行，数据不上传服务器，保护你的隐私安全。
+
+Features:
+- Markdown ↔ HTML conversion with rich templates
+- JSON formatter & validator with syntax highlighting
+- Base64 encoder/decoder for text and images
+- Password generator with strength detection
+- Regular expression tester with real-time matching
+
+这些工具适用于前端开发、后端开发、UI 设计、内容创作、SEO 优化等多个场景。无需安装任何软件，打开浏览器即可使用。`;
+      update();
+    }
+
+    function copyStats() {
+      const s = countStats(input.value);
+      const text = `字数统计结果：
+字符数: ${s.chars}
+不含空格: ${s.charsNoSpace}
+字/词数: ${s.words}
+行数: ${s.lines}
+段落数: ${s.paras}
+中文字符: ${s.cjk}
+英文单词: ${s.enWords}
+阅读时间: ${s.readMinutes} 分钟
+朗读时间: ${s.speakMinutes} 分钟
+文件大小: ${formatBytes(s.byteSize)}`;
+      navigator.clipboard.writeText(text);
+    }
+
+    function clearText() { input.value = ''; update(); }
+    update();
+  </script>
+</body>
+</html>

@@ -15,6 +15,13 @@
     { "source": "/text-diff", "destination": "/text-diff.html" },
     { "source": "/agent-commands", "destination": "/agent-commands.html" },
     { "source": "/dev-commands", "destination": "/dev-commands.html" },
-    { "source": "/dev-links", "destination": "/dev-links.html" }
+    { "source": "/dev-links", "destination": "/dev-links.html" },
+    { "source": "/regex-tester", "destination": "/regex-tester.html" },
+    { "source": "/hash-calculator", "destination": "/hash-calculator.html" },
+    { "source": "/url-encoder", "destination": "/url-encoder.html" },
+    { "source": "/uuid-generator", "destination": "/uuid-generator.html" },
+    { "source": "/word-counter", "destination": "/word-counter.html" },
+    { "source": "/base-converter", "destination": "/base-converter.html" },
+    { "source": "/image-watermark-remover", "destination": "/image-watermark-remover.html" }
   ]
 }

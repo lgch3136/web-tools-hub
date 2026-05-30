@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hash 计算器 - 在线工具集</title>
+  <meta name="description" content="免费在线 Hash 计算工具，支持 MD5、SHA-1、SHA-256、SHA-512 在线计算，支持文本和文件。">
+  <meta name="keywords" content="Hash计算器,MD5,SHA256,SHA512,哈希计算,在线Hash,文件校验,checksum,hash calculator">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .hash-container{max-width:700px;margin:0 auto;padding:20px 20px 0;width:100%;flex:1;display:flex;flex-direction:column;min-height:0}
+    .hash-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px;flex:1;display:flex;flex-direction:column}
+    .hash-card h2{font-size:1.2rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .hash-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:16px}
+    .hash-tabs{display:flex;gap:0;margin-bottom:12px}
+    .hash-tab{padding:8px 20px;background:#21262d;border:1px solid #30363d;border-radius:6px 6px 0 0;font-size:.82rem;color:#8b949e;cursor:pointer;transition:all .12s;margin-bottom:-1px}
+    .hash-tab.active{background:#0d1117;border-bottom-color:#0d1117;color:#58a6ff;font-weight:600}
+    .hash-tab:hover:not(.active){color:#c9d1d9}
+    .hash-pane{display:none;flex:1;flex-direction:column;min-height:0}
+    .hash-pane.active{display:flex}
+    .hash-textarea{flex:1;width:100%;padding:12px 14px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c9d1d9;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.6;outline:none;resize:none;min-height:100px;tab-size:2}
+    .hash-textarea:focus{border-color:#58a6ff}
+    .hash-drop{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;border:2px dashed #30363d;border-radius:8px;color:#484f58;font-size:.82rem;cursor:pointer;transition:all .2s;text-align:center}
+    .hash-drop:hover,.hash-drop.dragover{border-color:#58a6ff;color:#58a6ff;background:#58a6ff08}
+    .hash-drop-icon{font-size:2rem;margin-bottom:6px}
+    .hash-btn{padding:10px 20px;background:#238636;border:none;border-radius:8px;color:#fff;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .12s;width:100%;margin:12px 0}
+    .hash-btn:hover{background:#2ea043}
+    .hash-btn:disabled{background:#30363d;color:#484f58;cursor:not-allowed}
+    .hash-results{display:flex;flex-direction:column;gap:10px}
+    .hash-result{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:12px 14px}
+    .hash-result-label{font-size:.72rem;color:#58a6ff;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+    .hash-result-val{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#3fb950;word-break:break-all;line-height:1.6;cursor:pointer;padding:6px 8px;background:#161b22;border-radius:4px;transition:all .12s;user-select:all}
+    .hash-result-val:hover{background:#21262d}
+    .hash-copy{padding:3px 8px;background:transparent;border:1px solid #30363d;border-radius:4px;color:#8b949e;font-size:.68rem;cursor:pointer;transition:all .12s}
+    .hash-copy:hover{color:#58a6ff;border-color:#58a6ff}
+    .hash-file-info{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#21262d;border:1px solid #30363d;border-radius:6px;font-size:.78rem;color:#c9d1d9;margin-bottom:10px}
+    .hash-verify{margin-top:12px;padding:12px 14px;background:#0d1117;border:1px solid #21262d;border-radius:8px}
+    .hash-verify-label{font-size:.72rem;color:#ffa657;font-weight:600;margin-bottom:6px}
+    .hash-verify-input{width:100%;padding:8px 10px;background:#161b22;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-family:'JetBrains Mono',monospace;font-size:.78rem;outline:none}
+    .hash-verify-input:focus{border-color:#58a6ff}
+    .hash-verify-result{margin-top:6px;font-size:.75rem;font-weight:600}
+    .hash-verify-result.ok{color:#3fb950}
+    .hash-verify-result.fail{color:#f85149}
+    @media(max-width:480px){.hash-card{padding:16px}.hash-tab{padding:6px 12px;font-size:.75rem}}
+  </style>
+  <meta property="og:title" content="Hash 计算器 - 在线工具集">
+  <meta property="og:description" content="免费在线 Hash 计算工具，支持 MD5、SHA-1、SHA-256、SHA-512。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/hash-calculator.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Hash 计算器","url":"https://web-tools-hub-three.vercel.app/hash-calculator.html","applicationCategory":"DeveloperApplication","operatingSystem":"All","description":"免费在线 Hash 计算工具，支持 MD5、SHA-1、SHA-256、SHA-512。"}</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">🔢 Hash 计算器</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="hash-container">
+      <div class="hash-card">
+        <h2>🔢 Hash / 哈希计算器</h2>
+        <p class="hash-desc">MD5 · SHA-1 · SHA-256 · SHA-512 在线计算</p>
+
+        <div class="hash-tabs">
+          <span class="hash-tab active" data-tab="text">📝 文本</span>
+          <span class="hash-tab" data-tab="file">📁 文件</span>
+        </div>
+
+        <div class="hash-pane active" id="paneText">
+          <textarea class="hash-textarea" id="hashInput" placeholder="输入要计算 Hash 的文本…" spellcheck="false">Hello, 在线工具集!</textarea>
+        </div>
+
+        <div class="hash-pane" id="paneFile">
+          <div class="hash-drop" id="hashDrop">
+            <div class="hash-drop-icon">📁</div>
+            <div>拖拽文件到此处，或点击选择</div>
+            <div style="font-size:.72rem;color:#484f58;margin-top:4px">支持任意文件类型</div>
+          </div>
+          <input type="file" id="hashFileInput" style="display:none">
+          <div id="hashFileInfo" class="hash-file-info" style="display:none"><span class="name"></span><span class="size"></span></div>
+        </div>
+
+        <button class="hash-btn" id="hashCalcBtn" onclick="calcHash()">🔢 计算 Hash</button>
+
+        <div class="hash-results" id="hashResults">
+          <div class="hash-result"><div class="hash-result-label"><span>MD5</span><button class="hash-copy" onclick="copyHash('md5')">复制</button></div><div class="hash-result-val" id="hash-md5">-</div></div>
+          <div class="hash-result"><div class="hash-result-label"><span>SHA-1</span><button class="hash-copy" onclick="copyHash('sha1')">复制</button></div><div class="hash-result-val" id="hash-sha1">-</div></div>
+          <div class="hash-result"><div class="hash-result-label"><span>SHA-256</span><button class="hash-copy" onclick="copyHash('sha256')">复制</button></div><div class="hash-result-val" id="hash-sha256">-</div></div>
+          <div class="hash-result"><div class="hash-result-label"><span>SHA-512</span><button class="hash-copy" onclick="copyHash('sha512')">复制</button></div><div class="hash-result-val" id="hash-sha512">-</div></div>
+        </div>
+
+        <div class="hash-verify">
+          <div class="hash-verify-label">🔍 校验对比</div>
+          <input type="text" class="hash-verify-input" id="hashVerify" placeholder="粘贴预期的 Hash 值进行对比…">
+          <div class="hash-verify-result" id="hashVerifyResult"></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="tool-about">
+      <div class="about-wrap">
+        <h3>📖 关于此工具</h3>
+        <p><strong>Hash 计算器</strong> 支持 <strong>MD5、SHA-1、SHA-256、SHA-512</strong> 四种常见哈希算法的在线计算。支持<strong>文本输入</strong>和<strong>文件上传</strong>两种模式。内置<strong>校验对比</strong>功能，可粘贴预期 Hash 值自动比对，适合文件完整性验证、密码哈希校验、数据校验等场景。SHA 系列使用 Web Crypto API 计算，MD5 使用纯 JS 实现。</p>
+      </div>
+    </section>
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="4444444444" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  </main>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    let currentData = null;
+    let currentMode = 'text';
+
+    document.querySelectorAll('.hash-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.hash-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.hash-pane').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('pane' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1)).classList.add('active');
+        currentMode = tab.dataset.tab;
+      });
+    });
+
+    const dropEl = document.getElementById('hashDrop');
+    const fileInput = document.getElementById('hashFileInput');
+    dropEl.addEventListener('click', () => fileInput.click());
+    dropEl.addEventListener('dragover', e => { e.preventDefault(); dropEl.classList.add('dragover'); });
+    dropEl.addEventListener('dragleave', () => dropEl.classList.remove('dragover'));
+    dropEl.addEventListener('drop', e => { e.preventDefault(); dropEl.classList.remove('dragover'); if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+    fileInput.addEventListener('change', () => { if (fileInput.files.length) handleFile(fileInput.files[0]); });
+
+    function handleFile(file) {
+      const info = document.getElementById('hashFileInfo');
+      info.style.display = 'flex';
+      info.querySelector('.name').textContent = '✅ ' + file.name;
+      info.querySelector('.size').textContent = formatSize(file.size);
+      const reader = new FileReader();
+      reader.onload = e => { currentData = new Uint8Array(e.target.result); calcHash(); };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function formatSize(b) {
+      return b >= 1048576 ? (b / 1048576).toFixed(2) + ' MB' : (b / 1024).toFixed(1) + ' KB';
+    }
+
+    // MD5 implementation (RFC 1321)
+    function md5(str) {
+      function md5cycle(x, k) {
+        var a = x[0], b = x[1], c = x[2], d = x[3];
+        a = ff(a, b, c, d, k[0], 7, -680876936); d = ff(d, a, b, c, k[1], 12, -389564586); c = ff(c, d, a, b, k[2], 17, 606105819); b = ff(b, c, d, a, k[3], 22, -1044525330);
+        a = ff(a, b, c, d, k[4], 7, -176418897); d = ff(d, a, b, c, k[5], 12, 1200080426); c = ff(c, d, a, b, k[6], 17, -1473231341); b = ff(b, c, d, a, k[7], 22, -45705983);
+        a = ff(a, b, c, d, k[8], 7, 1770035416); d = ff(d, a, b, c, k[9], 12, -1958414417); c = ff(c, d, a, b, k[10], 17, -42063); b = ff(b, c, d, a, k[11], 22, -1990404162);
+        a = ff(a, b, c, d, k[12], 7, 1804603682); d = ff(d, a, b, c, k[13], 12, -40341101); c = ff(c, d, a, b, k[14], 17, -1502002290); b = ff(b, c, d, a, k[15], 22, 1236535329);
+        a = gg(a, b, c, d, k[1], 5, -165796510); d = gg(d, a, b, c, k[6], 9, -1069501632); c = gg(c, d, a, b, k[11], 14, 643717713); b = gg(b, c, d, a, k[0], 20, -373897302);
+        a = gg(a, b, c, d, k[5], 5, -701558691); d = gg(d, a, b, c, k[10], 9, 38016083); c = gg(c, d, a, b, k[15], 14, -660478335); b = gg(b, c, d, a, k[4], 20, -405537848);
+        a = gg(a, b, c, d, k[9], 5, 568446438); d = gg(d, a, b, c, k[14], 9, -1019803690); c = gg(c, d, a, b, k[3], 14, -187363961); b = gg(b, c, d, a, k[8], 20, 1163531501);
+        a = gg(a, b, c, d, k[13], 5, -1444681467); d = gg(d, a, b, c, k[2], 9, -51403784); c = gg(c, d, a, b, k[7], 14, 1735328473); b = gg(b, c, d, a, k[12], 20, -1926607734);
+        a = hh(a, b, c, d, k[5], 4, -378558); d = hh(d, a, b, c, k[8], 11, -2022574463); c = hh(c, d, a, b, k[11], 16, 1839030562); b = hh(b, c, d, a, k[14], 23, -35309556);
+        a = hh(a, b, c, d, k[1], 4, -1530992060); d = hh(d, a, b, c, k[4], 11, 1272893353); c = hh(c, d, a, b, k[7], 16, -155497632); b = hh(b, c, d, a, k[10], 23, -1094730640);
+        a = hh(a, b, c, d, k[13], 4, 681279174); d = hh(d, a, b, c, k[0], 11, -358537222); c = hh(c, d, a, b, k[3], 16, -722521979); b = hh(b, c, d, a, k[6], 23, 76029189);
+        a = hh(a, b, c, d, k[9], 4, -640364487); d = hh(d, a, b, c, k[12], 11, -421815835); c = hh(c, d, a, b, k[15], 16, 530742520); b = hh(b, c, d, a, k[2], 23, -995338651);
+        a = ii(a, b, c, d, k[0], 6, -198630844); d = ii(d, a, b, c, k[7], 10, 1126891415); c = ii(c, d, a, b, k[14], 15, -1416354905); b = ii(b, c, d, a, k[5], 21, -57434055);
+        a = ii(a, b, c, d, k[12], 6, 1700485571); d = ii(d, a, b, c, k[3], 10, -1894986606); c = ii(c, d, a, b, k[10], 15, -1051523); b = ii(b, c, d, a, k[1], 21, -2054922799);
+        a = ii(a, b, c, d, k[8], 6, 1873313359); d = ii(d, a, b, c, k[15], 10, -30611744); c = ii(c, d, a, b, k[6], 15, -1560198380); b = ii(b, c, d, a, k[13], 21, 1309151649);
+        a = ii(a, b, c, d, k[4], 6, -145523070); d = ii(d, a, b, c, k[11], 10, -1120210379); c = ii(c, d, a, b, k[2], 15, 718787259); b = ii(b, c, d, a, k[9], 21, -343485551);
+        x[0] = add32(a, x[0]); x[1] = add32(b, x[1]); x[2] = add32(c, x[2]); x[3] = add32(d, x[3]);
+      }
+      function cmn(q, a, b, x, s, t) { a = add32(add32(a, q), add32(x, t)); return add32((a << s) | (a >>> (32 - s)), b); }
+      function ff(a, b, c, d, x, s, t) { return cmn((b & c) | ((~b) & d), a, b, x, s, t); }
+      function gg(a, b, c, d, x, s, t) { return cmn((b & d) | (c & (~d)), a, b, x, s, t); }
+      function hh(a, b, c, d, x, s, t) { return cmn(b ^ c ^ d, a, b, x, s, t); }
+      function ii(a, b, c, d, x, s, t) { return cmn(c ^ (b | (~d)), a, b, x, s, t); }
+      function md5blk(s) { var md5blks = [], i; for (i = 0; i < 64; i += 4) { md5blks[i >> 2] = s[i] + (s[i + 1] << 8) + (s[i + 2] << 16) + (s[i + 3] << 24); } return md5blks; }
+      function add32(a, b) { return (a + b) & 0xFFFFFFFF; }
+      function rhex(n) { var s = '', j = 0; for (; j < 4; j++) s += '0123456789abcdef'.charAt((n >> (j * 8 + 4)) & 0x0F) + '0123456789abcdef'.charAt((n >> (j * 8)) & 0x0F); return s; }
+      var txt = unescape(encodeURIComponent(str)), n = txt.length, state = [1732584193, -271733879, -1732584194, 271733878], i;
+      for (i = 64; i <= n; i += 64) md5cycle(state, md5blk(txt.substring(i - 64, i).split('').map(function(c) { return c.charCodeAt(0); })));
+      txt = txt.substring(i - 64); var tail = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+      for (i = 0; i < txt.length; i++) tail[i >> 2] |= txt.charCodeAt(i) << ((i % 4) << 3);
+      tail[i >> 2] |= 0x80 << ((i % 4) << 3);
+      if (i > 55) { md5cycle(state, tail); tail = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; }
+      tail[14] = n * 8; md5cycle(state, tail);
+      return rhex(state[0]) + rhex(state[1]) + rhex(state[2]) + rhex(state[3]);
+    }
+
+    async function sha(algorithm, data) {
+      const buf = await crypto.subtle.digest(algorithm, data);
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function calcHash() {
+      let data;
+      if (currentMode === 'text') {
+        const text = document.getElementById('hashInput').value;
+        if (!text) return;
+        data = new TextEncoder().encode(text);
+        document.getElementById('hash-md5').textContent = md5(text);
+      } else {
+        if (!currentData) { alert('请先选择文件'); return; }
+        data = currentData;
+        // MD5 for binary: convert to string
+        let binaryStr = '';
+        for (let i = 0; i < currentData.length; i++) binaryStr += String.fromCharCode(currentData[i]);
+        document.getElementById('hash-md5').textContent = md5(binaryStr);
+      }
+      document.getElementById('hash-sha1').textContent = await sha('SHA-1', data);
+      document.getElementById('hash-sha256').textContent = await sha('SHA-256', data);
+      document.getElementById('hash-sha512').textContent = await sha('SHA-512', data);
+      verifyHash();
+    }
+
+    function copyHash(type) {
+      const el = document.getElementById('hash-' + type);
+      navigator.clipboard.writeText(el.textContent).then(() => {
+        const btn = el.parentElement.querySelector('.hash-copy');
+        btn.textContent = '✅'; setTimeout(() => btn.textContent = '复制', 1500);
+      });
+    }
+
+    function verifyHash() {
+      const expected = document.getElementById('hashVerify').value.trim().toLowerCase();
+      const result = document.getElementById('hashVerifyResult');
+      if (!expected) { result.textContent = ''; return; }
+      const hashes = ['md5','sha1','sha256','sha512'].map(t => document.getElementById('hash-' + t).textContent.toLowerCase());
+      if (hashes.some(h => h === expected)) {
+        result.textContent = '✅ Hash 匹配！'; result.className = 'hash-verify-result ok';
+      } else {
+        result.textContent = '❌ Hash 不匹配'; result.className = 'hash-verify-result fail';
+      }
+    }
+
+    document.getElementById('hashVerify').addEventListener('input', verifyHash);
+    calcHash();
+  </script>
+</body>
+</html>

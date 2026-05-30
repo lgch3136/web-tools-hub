@@ -1,6 +1,6 @@
 /**
  * md2html 模板系统 — 为 web-tools-hub 的 md-html 导出提供多模板方案
- * 6 套模板：TechDocs / PRD / Blog / APIDocs / Report / KnowledgeBase
+ * 10 套模板：TechDocs / PRD / Blog / APIDocs / Report / KnowledgeBase / 小红书 / 公众号 / 知乎 / 今日头条
  */
 
 const TOC_CSS = `
@@ -226,7 +226,7 @@ body{background:var(--bg);color:var(--text)}
 `
   },
   {
-    id: 'knowledgebase', name: '⑥ 知识笔记 KB', desc: '双栏+标签云，紫白配色。适合知识库',
+    id: 'knowledgebase', name: '⑥ 知识笔记 KB', desc: '双栏+标签云，紫白配色。适合知识库、个人wiki',
     css: `
 :root{--bg:#fafafe;--bg-card:#fff;--text:#1e1b4b;--text-muted:#6b6080;--border:#e4dff0;--accent:#7c3aed;--accent-light:#f5f3ff;--accent-dark:#5b21b6;--pink:#ec4899;--bg-code:#1e1b4b;--text-code:#e9e0f0;--sidebar-width:280px}
 body{background:var(--bg);color:var(--text)}
@@ -252,6 +252,143 @@ body{background:var(--bg);color:var(--text)}
 .card:hover{border-color:var(--accent);box-shadow:0 4px 16px rgba(124,58,237,0.08)}
 .md-toc a{color:var(--text-muted);padding:3px 8px}
 .md-toc a:hover,.md-toc a.active{color:var(--accent);background:var(--accent-light);border-radius:6px}
+`
+  },
+  {
+    id: 'xiaohongshu', name: '⑦ 小红书风格 RED', desc: '暖色渐变，圆角卡片，emoji 装饰。适合小红书笔记排版',
+    css: `
+:root{--bg:#fff5f5;--bg-card:#fff;--text:#333;--text-muted:#999;--border:#ffe0e0;--accent:#ff4757;--accent-light:#fff0f0;--accent-dark:#e8364a;--pink:#ff6b81;--orange:#ff7f50;--bg-code:#2d2d2d;--text-code:#f8f8f2;--max-width:640px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif}
+.page-wrap{max-width:var(--max-width);margin:0 auto;padding:20px 16px 60px}
+.doc-header{text-align:center;margin-bottom:24px;padding:24px 20px;background:linear-gradient(135deg,#ff6b81 0%,#ff4757 50%,#ff7f50 100%);border-radius:16px;color:#fff}
+.doc-header h1{font-size:1.5em;margin:0 0 8px;line-height:1.4;font-weight:800}
+.doc-header p{font-size:0.82em;opacity:0.9;margin:0}
+.content{background:var(--bg-card);border-radius:16px;padding:24px 20px;box-shadow:0 2px 20px rgba(255,71,87,0.08);line-height:1.9;font-size:0.95em}
+.content h1{font-size:1.4em;font-weight:800;color:var(--accent);margin:1.2em 0 0.5em;padding-left:12px;border-left:4px solid var(--accent)}
+.content h2{font-size:1.2em;font-weight:700;color:var(--accent-dark);margin:1.2em 0 0.4em;padding:4px 12px;background:var(--accent-light);border-radius:8px;display:inline-block}
+.content h3{font-size:1.05em;font-weight:700;color:var(--accent);margin:1em 0 0.3em}
+.content p{margin:0 0 0.8em}
+.content a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent)}
+.content strong{color:var(--accent-dark)}
+.content em{color:var(--pink);font-style:normal}
+.content code{background:var(--accent-light);color:var(--accent-dark);padding:2px 8px;border-radius:6px;font-size:0.88em}
+.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px;border-radius:12px;overflow-x:auto;margin:0.8em 0;font-size:0.82em;line-height:1.6}
+.content pre code{background:none;color:var(--text-code);padding:0}
+.content blockquote{margin:0.8em 0;padding:12px 16px;background:var(--accent-light);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;color:var(--accent-dark)}
+.content blockquote p:last-child{margin:0}
+.content ul,.content ol{margin:0.5em 0;padding-left:1.5em}
+.content li{margin:0.3em 0}
+.content table{width:100%;border-collapse:collapse;margin:0.8em 0;border-radius:8px;overflow:hidden}
+.content th{background:var(--accent);color:#fff;padding:8px 12px;font-size:0.85em;font-weight:600}
+.content td{padding:8px 12px;border-bottom:1px solid var(--border);font-size:0.88em}
+.content tr:nth-child(even){background:var(--accent-light)}
+.content img{border-radius:12px;margin:8px 0;max-width:100%}
+.content hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:1.5em 0}
+.footer-note{text-align:center;margin-top:20px;font-size:0.75em;color:var(--text-muted)}
+`
+  },
+  {
+    id: 'wechat', name: '⑧ 公众号风格 WeChat', desc: '经典公众号排版，居中标题，优雅间距。适合微信公众号文章',
+    css: `
+:root{--bg:#fff;--bg-card:#fff;--text:#3f3f3f;--text-muted:#888;--border:#e5e5e5;--accent:#07c160;--accent-light:#e8f8ef;--accent-dark:#06ad56;--header-accent:#fa5151;--bg-code:#f6f8fa;--text-code:#24292e;--max-width:578px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f7f7f7;color:var(--text);font-family:-apple-system,'PingFang SC','Helvetica Neue','Microsoft YaHei',sans-serif}
+.page-wrap{max-width:var(--max-width);margin:0 auto;padding:0;background:var(--bg);min-height:100vh;box-shadow:0 0 30px rgba(0,0,0,0.06)}
+.doc-header{text-align:center;padding:32px 24px 24px;border-bottom:1px solid var(--border)}
+.doc-header h1{font-size:1.6em;font-weight:700;color:#000;line-height:1.5;margin:0 0 12px;letter-spacing:0.5px}
+.doc-header .meta{font-size:0.78em;color:var(--text-muted);display:flex;justify-content:center;gap:16px}
+.content{padding:20px 24px 40px;line-height:2;font-size:0.95em;color:var(--text)}
+.content h1{font-size:1.3em;font-weight:700;color:#000;text-align:center;margin:2em 0 0.8em;position:relative;padding-bottom:10px}
+.content h1:after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:40px;height:3px;background:var(--header-accent);border-radius:2px}
+.content h2{font-size:1.15em;font-weight:700;color:#000;margin:1.8em 0 0.6em;padding-left:12px;border-left:4px solid var(--header-accent)}
+.content h3{font-size:1.05em;font-weight:700;color:#333;margin:1.4em 0 0.4em}
+.content p{margin:0 0 1em;text-align:justify}
+.content a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent)}
+.content strong{color:#000}
+.content code{background:var(--bg-code);color:var(--text-code);padding:2px 6px;border-radius:3px;font-size:0.88em}
+.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px;border-radius:6px;overflow-x:auto;margin:1em 0;font-size:0.82em;line-height:1.6;border:1px solid #eaecef}
+.content pre code{background:none;color:var(--text-code);padding:0}
+.content blockquote{margin:1em 0;padding:12px 16px;background:var(--accent-light);border-left:3px solid var(--accent);color:#333;font-size:0.92em}
+.content blockquote p:last-child{margin:0}
+.content ul,.content ol{margin:0.5em 0;padding-left:1.8em}
+.content li{margin:0.3em 0}
+.content table{width:100%;border-collapse:collapse;margin:1em 0;font-size:0.88em}
+.content th{background:#f2f2f2;color:#333;padding:8px 12px;border:1px solid var(--border);font-weight:600}
+.content td{padding:8px 12px;border:1px solid var(--border)}
+.content img{max-width:100%;border-radius:4px;margin:8px auto;display:block}
+.content hr{border:none;height:1px;background:var(--border);margin:2em 20%}
+.footer-note{text-align:center;padding:16px 24px;font-size:0.72em;color:var(--text-muted);border-top:1px solid var(--border)}
+`
+  },
+  {
+    id: 'zhihu', name: '⑨ 知乎风格 Zhihu', desc: '简洁学术风，衬线标题，代码高亮。适合知乎回答/专栏文章',
+    css: `
+:root{--bg:#fff;--bg-card:#fff;--text:#1a1a1a;--text-muted:#999;--border:#ebebeb;--accent:#0066ff;--accent-light:#f0f7ff;--accent-dark:#0052cc;--bg-code:#f6f8fa;--text-code:#24292e;--max-width:700px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f6f6f6;color:var(--text);font-family:-apple-system,'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif}
+.page-wrap{max-width:var(--max-width);margin:0 auto;padding:0;background:var(--bg);min-height:100vh;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.doc-header{padding:28px 32px 20px;border-bottom:1px solid var(--border)}
+.doc-header h1{font-size:1.7em;font-weight:700;color:#1a1a1a;line-height:1.45;margin:0 0 8px}
+.doc-header .meta{font-size:0.82em;color:var(--text-muted);display:flex;gap:12px}
+.content{padding:20px 32px 60px;line-height:1.85;font-size:0.95em}
+.content h1{font-size:1.35em;font-weight:700;color:#1a1a1a;margin:2em 0 0.6em}
+.content h2{font-size:1.18em;font-weight:700;color:#1a1a1a;margin:1.8em 0 0.5em;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.content h3{font-size:1.05em;font-weight:700;color:#333;margin:1.4em 0 0.4em}
+.content p{margin:0 0 0.9em;text-align:justify}
+.content a{color:var(--accent);text-decoration:none}
+.content a:hover{text-decoration:underline}
+.content strong{color:#1a1a1a;font-weight:700}
+.content code{background:var(--bg-code);color:var(--text-code);padding:2px 6px;border-radius:3px;font-size:0.88em;font-family:'SF Mono','Menlo',monospace}
+.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px;border-radius:6px;overflow-x:auto;margin:1em 0;font-size:0.82em;line-height:1.6;border:1px solid #eaecef}
+.content pre code{background:none;color:var(--text-code);padding:0}
+.content blockquote{margin:1em 0;padding:12px 16px;background:var(--accent-light);border-left:3px solid var(--accent);color:#555}
+.content blockquote p:last-child{margin:0}
+.content ul,.content ol{margin:0.5em 0;padding-left:1.8em}
+.content li{margin:0.3em 0}
+.content table{width:100%;border-collapse:collapse;margin:1em 0;font-size:0.88em}
+.content th{background:#f7f8fa;color:#333;padding:8px 12px;border:1px solid var(--border);font-weight:600;text-align:left}
+.content td{padding:8px 12px;border:1px solid var(--border)}
+.content img{max-width:100%;border-radius:4px;margin:8px 0}
+.content hr{border:none;height:1px;background:var(--border);margin:2em 0}
+.footer-note{text-align:center;padding:20px 32px;font-size:0.75em;color:var(--text-muted);border-top:1px solid var(--border)}
+`
+  },
+  {
+    id: 'toutiao', name: '⑩ 今日头条 Toutiao', desc: '头条号文章风格，大标题醒目，正文易读。适合今日头条/头条号发布',
+    css: `
+:root{--bg:#fff;--bg-card:#fff;--text:#222;--text-muted:#999;--border:#e8e8e8;--accent:#ff0000;--accent-light:#fff5f5;--accent-dark:#d40000;--blue:#1e80ff;--bg-code:#f7f8fa;--text-code:#333;--max-width:640px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f4f5f6;color:var(--text);font-family:-apple-system,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif}
+.page-wrap{max-width:var(--max-width);margin:0 auto;background:var(--bg);min-height:100vh;box-shadow:0 0 20px rgba(0,0,0,0.05)}
+.doc-header{padding:24px 20px 20px;border-bottom:1px solid var(--border)}
+.doc-header h1{font-size:1.6em;font-weight:800;color:#1a1a1a;line-height:1.4;margin:0 0 12px;letter-spacing:0.3px}
+.doc-header .meta{font-size:0.78em;color:var(--text-muted);display:flex;gap:12px;align-items:center}
+.doc-header .meta .tag{display:inline-block;padding:2px 8px;background:var(--accent-light);color:var(--accent);border-radius:4px;font-size:0.85em;font-weight:500}
+.content{padding:20px 20px 40px;line-height:1.9;font-size:0.95em;color:#333}
+.content h1{font-size:1.4em;font-weight:800;color:#1a1a1a;margin:1.8em 0 0.6em;padding-left:10px;border-left:4px solid var(--accent)}
+.content h2{font-size:1.2em;font-weight:700;color:#1a1a1a;margin:1.6em 0 0.5em;position:relative;padding-left:14px}
+.content h2:before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:18px;background:var(--accent);border-radius:2px}
+.content h3{font-size:1.05em;font-weight:700;color:#333;margin:1.2em 0 0.4em}
+.content p{margin:0 0 0.9em;text-align:justify}
+.content a{color:var(--blue);text-decoration:none}
+.content a:hover{text-decoration:underline}
+.content strong{color:#1a1a1a;font-weight:700}
+.content code{background:var(--bg-code);color:var(--text-code);padding:2px 6px;border-radius:3px;font-size:0.88em;font-family:'Menlo',monospace}
+.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px;border-radius:6px;overflow-x:auto;margin:1em 0;font-size:0.82em;line-height:1.6;border:1px solid #eee}
+.content pre code{background:none;color:var(--text-code);padding:0}
+.content blockquote{margin:1em 0;padding:12px 16px;background:var(--accent-light);border-left:3px solid var(--accent);color:#555;border-radius:0 4px 4px 0}
+.content blockquote p:last-child{margin:0}
+.content ul,.content ol{margin:0.5em 0;padding-left:1.8em}
+.content li{margin:0.3em 0}
+.content table{width:100%;border-collapse:collapse;margin:1em 0;font-size:0.88em}
+.content th{background:#f5f6f7;color:#333;padding:10px 12px;border:1px solid var(--border);font-weight:600;text-align:left}
+.content td{padding:10px 12px;border:1px solid var(--border)}
+.content img{max-width:100%;border-radius:4px;margin:8px 0}
+.content hr{border:none;height:1px;background:var(--border);margin:2em 0}
+.card{background:#fafafa;border:1px solid var(--border);border-radius:8px;padding:16px;margin:0.8em 0}
+.card:hover{border-color:#ddd}
+.footer-note{text-align:center;padding:20px;font-size:0.75em;color:var(--text-muted);border-top:1px solid var(--border)}
 `
   }
 ];
@@ -282,7 +419,15 @@ window.addEventListener('scroll',function(){var c='';document.querySelectorAll('
     knowledgebase: `<div class="page-wrap"><aside class="sidebar"><div class="sidebar-header"><h2>📚 ${safeTitle}</h2></div><div class="sidebar-toc">${toc || ''}</div></aside><div class="main-wrap"><div class="topbar"><span>${safeTitle}</span></div><main class="content md-content">${body}</main></div></div><script>
 document.querySelectorAll('.md-toc a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('href').slice(1),el=document.getElementById(id);if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-20,behavior:'smooth'})};document.querySelectorAll('.md-toc a.active').forEach(function(x){x.classList.remove('active')});a.classList.add('active')})});
 window.addEventListener('scroll',function(){var c='';document.querySelectorAll('h1[id],h2[id],h3[id],h4[id]').forEach(function(h){if(h.getBoundingClientRect().top<=120)c='#'+h.id});document.querySelectorAll('.md-toc a').forEach(function(a){a.classList.toggle('active',a.getAttribute('href')===c)})});
-</script>`
+</script>`,
+
+    xiaohongshu: `<div class="page-wrap"><header class="doc-header"><h1>📌 ${safeTitle}</h1><p>✨ 收藏 + 关注，获取更多干货 ✨</p></header><main class="content md-content">${body}</main><div class="footer-note">❤️ 觉得有用就点个赞吧！关注我获取更多内容～</div></div>`,
+
+    wechat: `<div class="page-wrap"><header class="doc-header"><h1>${safeTitle}</h1><div class="meta"><span>📝 原创</span><span>📅 ${new Date().toLocaleDateString('zh-CN')}</span></div></header><main class="content md-content">${body}</main><div class="footer-note">— END —<br>觉得不错？点个「在看」支持一下 👇</div></div>`,
+
+    zhihu: `<div class="page-wrap"><header class="doc-header"><h1>${safeTitle}</h1><div class="meta"><span>✍️ 作者</span><span>📅 ${new Date().toLocaleDateString('zh-CN')}</span><span>💬 0 评论</span></div></header><main class="content md-content">${body}</main><div class="footer-note">如果觉得有帮助，欢迎点赞和收藏 ❤️</div></div>`,
+
+    toutiao: `<div class="page-wrap"><header class="doc-header"><h1>${safeTitle}</h1><div class="meta"><span class="tag">原创</span><span>📅 ${new Date().toLocaleDateString('zh-CN')}</span><span>👁️ 0 阅读</span></div></header><main class="content md-content">${body}</main><div class="footer-note">— 全文完 —<br>关注我，获取更多精彩内容 👆</div></div>`
   };
 
   const layout = layouts[tpl.id] || layouts.techdocs;

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片去水印/EXIF清除 - 在线工具集</title>
+  <meta name="description" content="免费在线图片去水印工具，去除AI生成图片角落水印，清除EXIF隐私信息（GPS、设备型号等），保护隐私安全。">
+  <meta name="keywords" content="图片去水印,EXIF清除,去除水印,AI图片水印,隐私保护,图片处理,在线工具">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .wm-container{max-width:900px;margin:20px auto;padding:0 20px;width:100%;flex:1;display:flex;flex-direction:column}
+    .wm-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px}
+    .wm-card h2{font-size:1.3rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .wm-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:16px}
+    .wm-upload{border:2px dashed #30363d;border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:16px}
+    .wm-upload:hover{border-color:#58a6ff;background:#58a6ff08}
+    .wm-upload.dragover{border-color:#58a6ff;background:#58a6ff15}
+    .wm-upload-icon{font-size:3rem;margin-bottom:12px}
+    .wm-upload-text{color:#c9d1d9;font-size:.9rem;margin-bottom:4px}
+    .wm-upload-hint{color:#484f58;font-size:.75rem}
+    .wm-options{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+    .wm-opt-group{background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:14px 16px}
+    .wm-opt-group h4{font-size:.85rem;color:#58a6ff;margin:0 0 10px 0}
+    .wm-opt-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+    .wm-opt-row:last-child{margin-bottom:0}
+    .wm-opt-row label{font-size:.8rem;color:#c9d1d9;cursor:pointer;display:flex;align-items:center;gap:6px}
+    .wm-opt-row input[type="checkbox"]{accent-color:#58a6ff;width:14px;height:14px;cursor:pointer}
+    .wm-opt-row input[type="range"]{flex:1;min-width:100px;accent-color:#58a6ff}
+    .wm-opt-row .range-val{font-size:.75rem;color:#8b949e;min-width:30px;text-align:right}
+    .wm-btn-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+    .wm-btn{padding:10px 24px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;border:1px solid transparent;transition:all .15s}
+    .wm-btn.primary{background:#238636;color:#fff;border-color:#238636}
+    .wm-btn.primary:hover{background:#2ea043}
+    .wm-btn.primary:disabled{opacity:.5;cursor:not-allowed}
+    .wm-btn.secondary{background:#21262d;color:#c9d1d9;border-color:#30363d}
+    .wm-btn.secondary:hover{background:#30363d;border-color:#58a6ff}
+    .wm-btn.download{background:#1f6feb;color:#fff;border-color:#1f6feb}
+    .wm-btn.download:hover{background:#388bfd}
+    .wm-preview-area{display:flex;gap:16px;margin-bottom:16px}
+    .wm-preview-box{flex:1;min-width:0}
+    .wm-preview-label{font-size:.8rem;color:#8b949e;margin-bottom:6px;font-weight:600}
+    .wm-preview-img-wrap{background:#0d1117;border:1px solid #21262d;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:200px;position:relative}
+    .wm-preview-img-wrap img{max-width:100%;max-height:400px;display:block}
+    .wm-preview-empty{color:#484f58;font-size:.85rem;padding:40px}
+    .wm-canvas-wrap{display:none}
+    .wm-info-bar{display:flex;gap:12px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+    .wm-info{font-size:.78rem;color:#8b949e;background:#21262d;padding:4px 10px;border-radius:4px}
+    .wm-exif-panel{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:12px;max-height:200px;overflow:auto;margin-bottom:12px;display:none}
+    .wm-exif-row{display:flex;font-size:.75rem;border-bottom:1px solid #21262d;padding:4px 0}
+    .wm-exif-row:last-child{border-bottom:none}
+    .wm-exif-key{color:#58a6ff;min-width:140px;font-weight:600}
+    .wm-exif-val{color:#c9d1d9;word-break:break-all}
+    .wm-status{text-align:center;font-size:.82rem;color:#8b949e;margin-top:8px}
+    .wm-corner-markers{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+    .wm-corner-box{position:absolute;border:2px dashed #f85149;background:#f8514912}
+    .wm-corner-tl{top:0;left:0}
+    .wm-corner-tr{top:0;right:0}
+    .wm-corner-bl{bottom:0;left:0}
+    .wm-corner-br{bottom:0;right:0}
+    @media(max-width:600px){.wm-card{padding:16px}.wm-preview-area{flex-direction:column}.wm-upload{padding:24px 16px}}
+  </style>
+  <meta property="og:title" content="图片去水印/EXIF清除 - 在线工具集">
+  <meta property="og:description" content="去除AI图片角落水印，清除EXIF隐私信息，保护隐私。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/image-watermark-remover.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "图片去水印/EXIF清除",
+  "url": "https://web-tools-hub-three.vercel.app/image-watermark-remover.html",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "All",
+  "description": "免费在线图片去水印工具，去除AI生成图片角落水印，清除EXIF隐私信息。"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">🧹 图片去水印/EXIF清除</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="wm-container">
+      <div class="wm-card">
+        <h2>🧹 图片去水印 / EXIF 清除</h2>
+        <p class="wm-desc">去除AI生成图片角落水印 · 清除EXIF隐私信息 · 保护隐私安全</p>
+
+        <div class="wm-upload" id="uploadZone">
+          <div class="wm-upload-icon">📁</div>
+          <div class="wm-upload-text">点击或拖拽图片到此处上传</div>
+          <div class="wm-upload-hint">支持 JPG / PNG / WebP，处理在本地完成，数据不上传</div>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" style="display:none">
+
+        <div id="optionsArea" style="display:none">
+          <div class="wm-options">
+            <div class="wm-opt-group">
+              <h4>🖼️ 水印去除</h4>
+              <div class="wm-opt-row">
+                <label><input type="checkbox" id="optRemoveCorner" checked> 去除角落水印（适用于豆包/Midjourney等AI图片）</label>
+              </div>
+              <div class="wm-opt-row">
+                <label>角落裁切比例</label>
+                <input type="range" id="cornerSize" min="1" max="15" value="4">
+                <span class="range-val" id="cornerSizeVal">4%</span>
+              </div>
+              <div class="wm-opt-row">
+                <label>裁切位置：</label>
+                <label><input type="checkbox" id="optTL" checked> 左上</label>
+                <label><input type="checkbox" id="optTR" checked> 右上</label>
+                <label><input type="checkbox" id="optBL" checked> 左下</label>
+                <label><input type="checkbox" id="optBR" checked> 右下</label>
+              </div>
+              <div class="wm-opt-row">
+                <label>处理模式：</label>
+                <label><input type="radio" name="cornerMode" value="crop" checked> 裁切</label>
+                <label><input type="radio" name="cornerMode" value="fill"> 智能填充</label>
+                <label><input type="radio" name="cornerMode" value="blur"> 模糊</label>
+              </div>
+              <div class="wm-opt-row" style="color:#8b949e;font-size:.75rem">
+                裁切：去除角落，图片变小；智能填充：用周围颜色渐变覆盖，保留尺寸；模糊：模糊处理角落
+              </div>
+            </div>
+            <div class="wm-opt-group">
+              <h4>🔒 EXIF 信息清除</h4>
+              <div class="wm-opt-row">
+                <label><input type="checkbox" id="optRemoveExif" checked> 清除所有EXIF元数据</label>
+              </div>
+              <div class="wm-opt-row" style="color:#8b949e;font-size:.75rem">
+                包括GPS位置、拍摄设备、时间戳、软件版本等隐私信息
+              </div>
+            </div>
+          </div>
+
+          <div class="wm-preview-area">
+            <div class="wm-preview-box">
+              <div class="wm-preview-label">原图</div>
+              <div class="wm-preview-img-wrap" id="previewOriginal">
+                <span class="wm-preview-empty">等待上传...</span>
+              </div>
+            </div>
+            <div class="wm-preview-box">
+              <div class="wm-preview-label">处理后</div>
+              <div class="wm-preview-img-wrap" id="previewResult">
+                <span class="wm-preview-empty">点击"处理"按钮</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="wm-info-bar" id="infoBar"></div>
+          <div class="wm-exif-panel" id="exifPanel"></div>
+
+          <div class="wm-btn-bar">
+            <button class="wm-btn secondary" onclick="resetAll()">🗑️ 重置</button>
+            <button class="wm-btn primary" id="processBtn" onclick="processImage()">⚡ 处理图片</button>
+            <button class="wm-btn download" id="downloadBtn" style="display:none" onclick="downloadResult()">💾 下载结果</button>
+          </div>
+          <div class="wm-status" id="statusText"></div>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="canvasCorner" style="display:none"></canvas>
+    <canvas id="canvasOutput" style="display:none"></canvas>
+
+    <section class="tool-about">
+      <div class="about-wrap">
+        <h3>📖 关于此工具</h3>
+        <p><strong>图片去水印/EXIF清除</strong> 支持三种角落处理模式：① <strong>裁切</strong>：直接去除角落区域，图片尺寸变小；② <strong>智能填充</strong>：用边缘颜色渐变覆盖角落水印，保留原始尺寸，效果更自然；③ <strong>模糊</strong>：模糊处理角落区域。支持去除豆包、Midjourney、Stable Diffusion 等AI生成图片的角标水印。同时可 <strong>清除EXIF隐私信息</strong>（GPS位置、设备型号、时间戳等）。所有处理在浏览器本地 Canvas 完成，<strong>图片数据不会上传</strong>到任何服务器。</p>
+      </div>
+    </section>
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  </main>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+
+    let originalImage = null;
+    let originalFile = null;
+    let processedBlob = null;
+
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    const cornerSize = document.getElementById('cornerSize');
+
+    cornerSize.addEventListener('input', () => {
+      document.getElementById('cornerSizeVal').textContent = cornerSize.value + '%';
+    });
+
+    uploadZone.addEventListener('click', () => fileInput.click());
+    uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+    uploadZone.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadZone.classList.remove('dragover');
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) handleFile(fileInput.files[0]);
+    });
+
+    function handleFile(file) {
+      if (!file || !file.type.startsWith('image/')) {
+        alert('请选择一张图片文件');
+        return;
+      }
+      originalFile = file;
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          originalImage = img;
+          showPreview(img, 'previewOriginal');
+          document.getElementById('optionsArea').style.display = '';
+          document.getElementById('infoBar').innerHTML =
+            '<span class="wm-info">📐 ' + img.width + ' × ' + img.height + '</span>' +
+            '<span class="wm-info">📦 ' + formatSize(file.size) + '</span>' +
+            '<span class="wm-info">🏷️ ' + file.type + '</span>';
+          document.getElementById('statusText').textContent = '';
+          document.getElementById('downloadBtn').style.display = 'none';
+          processedBlob = null;
+          parseExif(e.target.result);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function showPreview(img, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      const display = img.cloneNode();
+      display.style.maxWidth = '100%';
+      display.style.maxHeight = '400px';
+      display.style.display = 'block';
+      container.appendChild(display);
+    }
+
+    function parseExif(dataUrl) {
+      const panel = document.getElementById('exifPanel');
+      panel.style.display = 'none';
+      panel.innerHTML = '';
+      try {
+        const base64 = dataUrl.split(',')[1];
+        const binary = atob(base64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        if (bytes[0] !== 0xFF || bytes[1] !== 0xD8) {
+          panel.style.display = 'block';
+          panel.innerHTML = '<div style="color:#8b949e;font-size:.8rem">非JPEG格式，无EXIF数据（或EXIF已不适用）</div>';
+          return;
+        }
+        let exifData = [];
+        let offset = 2;
+        while (offset < bytes.length - 1) {
+          if (bytes[offset] === 0xFF) {
+            const marker = bytes[offset + 1];
+            if (marker === 0xE1) {
+              const len = (bytes[offset + 2] << 8) | bytes[offset + 3];
+              parseExifBlock(bytes, offset + 4, len - 2, exifData);
+              break;
+            } else if (marker === 0xDA) {
+              break;
+            } else {
+              const len = (bytes[offset + 2] << 8) | bytes[offset + 3];
+              offset += 2 + len;
+            }
+          } else {
+            offset++;
+          }
+        }
+        if (exifData.length > 0) {
+          panel.style.display = 'block';
+          exifData.forEach(item => {
+            const row = document.createElement('div');
+            row.className = 'wm-exif-row';
+            row.innerHTML = '<span class="wm-exif-key">' + escapeHtml(item.key) + '</span><span class="wm-exif-val">' + escapeHtml(item.val) + '</span>';
+            panel.appendChild(row);
+          });
+        } else {
+          panel.style.display = 'block';
+          panel.innerHTML = '<div style="color:#8b949e;font-size:.8rem">未发现EXIF元数据</div>';
+        }
+      } catch (e) {
+        panel.style.display = 'block';
+        panel.innerHTML = '<div style="color:#f85149;font-size:.8rem">EXIF解析异常: ' + escapeHtml(e.message) + '</div>';
+      }
+    }
+
+    function parseExifBlock(bytes, start, length, results) {
+      try {
+        if (start + 6 > bytes.length) return;
+        const exifHeader = String.fromCharCode(bytes[start], bytes[start+1], bytes[start+2], bytes[start+3]);
+        if (exifHeader !== 'Exif') return;
+        const tiffStart = start + 6;
+        if (tiffStart + 8 > bytes.length) return;
+        const bigEndian = bytes[tiffStart] === 0x4D;
+        const read16 = off => bigEndian ? (bytes[off] << 8 | bytes[off+1]) : (bytes[off+1] << 8 | bytes[off]);
+        const read32 = off => bigEndian ? (bytes[off]<<24|bytes[off+1]<<16|bytes[off+2]<<8|bytes[off+3]) : (bytes[off+3]<<24|bytes[off+2]<<16|bytes[off+1]<<8|bytes[off]);
+        const ifd0Offset = read32(tiffStart + 4);
+        parseIFD(bytes, tiffStart, tiffStart + ifd0Offset, read16, read32, results, 'IFD0');
+      } catch (e) {}
+    }
+
+    const EXIF_TAGS = {
+      0x010F:'相机厂商',0x0110:'相机型号',0x0112:'方向',0x011A:'X分辨率',0x011B:'Y分辨率',
+      0x0131:'软件版本',0x0132:'修改时间',0x013B:'拍摄者',0x8298:'版权信息',
+      0x8769:'Exif子IFD',0x8825:'GPS信息',
+      0x9003:'拍摄时间',0x9004:'数字化时间',0x9209:'闪光灯',0xA001:'色彩空间',
+      0xA002:'图像宽度',0xA003:'图像高度',0xA405:'焦距(35mm)',0xA420:'图像唯一ID'
+    };
+    const GPS_TAGS = {
+      0x0001:'GPS纬度参考',0x0002:'GPS纬度',0x0003:'GPS经度参考',0x0004:'GPS经度',
+      0x0005:'GPS海拔参考',0x0006:'GPS海拔',0x0007:'GPS时间戳',0x001D:'GPS日期戳'
+    };
+
+    function parseIFD(bytes, tiffStart, ifdOffset, read16, read32, results, ifdName) {
+      if (ifdOffset + 2 > bytes.length) return;
+      const entries = read16(ifdOffset);
+      const tags = ifdName === 'GPS' ? GPS_TAGS : EXIF_TAGS;
+      for (let i = 0; i < entries && i < 100; i++) {
+        const entryOff = ifdOffset + 2 + i * 12;
+        if (entryOff + 12 > bytes.length) break;
+        const tag = read16(entryOff);
+        const type = read16(entryOff + 2);
+        const count = read32(entryOff + 4);
+        const tagName = tags[tag] || ('Tag 0x' + tag.toString(16).padStart(4,'0'));
+        let val = '';
+        const typeSizes = [0,1,1,2,4,8,1,1,2,4,8,4,8];
+        const dataSize = (typeSizes[type] || 1) * count;
+        if (dataSize <= 4) {
+          const valOff = entryOff + 8;
+          if (type === 3) val = read16(valOff);
+          else if (type === 4) val = read32(valOff);
+          else if (type === 2) {
+            val = '';
+            for (let j = 0; j < count && j < 4; j++) {
+              const c = bytes[valOff + j];
+              if (c === 0) break;
+              val += String.fromCharCode(c);
+            }
+          }
+        } else {
+          const valPtr = read32(entryOff + 8);
+          const absOff = tiffStart + valPtr;
+          if (type === 2 && absOff + count <= bytes.length) {
+            val = '';
+            for (let j = 0; j < count - 1 && j < 200; j++) {
+              const c = bytes[absOff + j];
+              if (c === 0) break;
+              val += String.fromCharCode(c);
+            }
+          } else if ((type === 3 || type === 4) && ifdName === 'GPS' && count === 3) {
+            const r = type === 4 ? read32(absOff) : read16(absOff);
+            const r2 = type === 4 ? read32(absOff+4) : read16(absOff+4);
+            const r3 = type === 4 ? read32(absOff+8) : read16(absOff+8);
+            const d = type === 4 ? read32(absOff+4) : read16(absOff+4);
+            const s = type === 4 ? read32(absOff+8) : read16(absOff+8);
+            val = r + '°' + (type===4?read32(absOff+4):read16(absOff+4))/1 + "'" + (type===4?read32(absOff+8):read16(absOff+8))/1 + '"';
+          }
+        }
+        if (tag === 0x8769 || tag === 0x8825) {
+          const subOff = read32(entryOff + 8);
+          parseIFD(bytes, tiffStart, tiffStart + subOff, read16, read32, results, tag === 0x8825 ? 'GPS' : 'Exif');
+        } else if (val !== '' && val !== undefined) {
+          results.push({ key: tagName, val: String(val) });
+        }
+      }
+    }
+
+    function escapeHtml(text) {
+      const d = document.createElement('div');
+      d.textContent = text;
+      return d.innerHTML;
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / 1048576).toFixed(1) + ' MB';
+    }
+
+    function processImage() {
+      if (!originalImage) return;
+      const btn = document.getElementById('processBtn');
+      const status = document.getElementById('statusText');
+      btn.disabled = true;
+      status.textContent = '⏳ 处理中...';
+      setTimeout(() => {
+        try {
+          const img = originalImage;
+          const w = img.width, h = img.height;
+          const canvas = document.getElementById('canvasOutput');
+          const ctx = canvas.getContext('2d');
+          const removeCorner = document.getElementById('optRemoveCorner').checked;
+          const mode = document.querySelector('input[name="cornerMode"]:checked')?.value || 'crop';
+          const pct = parseInt(cornerSize.value) / 100;
+          const corners = {
+            tl: document.getElementById('optTL').checked,
+            tr: document.getElementById('optTR').checked,
+            bl: document.getElementById('optBL').checked,
+            br: document.getElementById('optBR').checked
+          };
+
+          if (removeCorner && mode === 'crop') {
+            const cw = Math.round(w * pct);
+            const ch = Math.round(h * pct);
+            const newW = w - (corners.tl || corners.bl ? cw : 0) - (corners.tr || corners.br ? cw : 0);
+            const newH = h - (corners.tl || corners.tr ? ch : 0) - (corners.bl || corners.br ? ch : 0);
+            canvas.width = Math.max(newW, 1);
+            canvas.height = Math.max(newH, 1);
+            const sx = corners.tl || corners.bl ? cw : 0;
+            const sy = corners.tl || corners.tr ? ch : 0;
+            const sw = w - sx - (corners.tr || corners.br ? cw : 0);
+            const sh = h - sy - (corners.bl || corners.br ? ch : 0);
+            ctx.drawImage(img, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+            status.textContent = '✅ 已裁切去除角落水印 (减少 ' + (pct * 100).toFixed(0) + '%)';
+          } else if (removeCorner && mode === 'fill') {
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(img, 0, 0);
+            const cw = Math.round(w * pct);
+            const ch = Math.round(h * pct);
+            if (corners.tl) smartFill(ctx, 0, 0, cw, ch, 'tl', w, h);
+            if (corners.tr) smartFill(ctx, w - cw, 0, cw, ch, 'tr', w, h);
+            if (corners.bl) smartFill(ctx, 0, h - ch, cw, ch, 'bl', w, h);
+            if (corners.br) smartFill(ctx, w - cw, h - ch, cw, ch, 'br', w, h);
+            status.textContent = '✅ 已用智能填充覆盖角落水印';
+          } else if (removeCorner && mode === 'blur') {
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(img, 0, 0);
+            const cw = Math.round(w * pct);
+            const ch = Math.round(h * pct);
+            const blurAmount = 20;
+            if (corners.tl) applyBlur(ctx, 0, 0, cw, ch, blurAmount);
+            if (corners.tr) applyBlur(ctx, w - cw, 0, cw, ch, blurAmount);
+            if (corners.bl) applyBlur(ctx, 0, h - ch, cw, ch, blurAmount);
+            if (corners.br) applyBlur(ctx, w - cw, h - ch, cw, ch, blurAmount);
+            status.textContent = '✅ 已模糊角落水印区域';
+          } else {
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(img, 0, 0);
+            status.textContent = '✅ 已清除EXIF信息（图片像素不变）';
+          }
+
+          canvas.toBlob(blob => {
+            processedBlob = blob;
+            const resultImg = new Image();
+            resultImg.onload = () => {
+              showPreview(resultImg, 'previewResult');
+              const infoBar = document.getElementById('infoBar');
+              infoBar.innerHTML += '<span class="wm-info">📦 处理后: ' + formatSize(blob.size) + '</span>' +
+                '<span class="wm-info">📊 节省: ' + formatSize(originalFile.size - blob.size) + '</span>';
+              document.getElementById('downloadBtn').style.display = '';
+            };
+            resultImg.src = URL.createObjectURL(blob);
+          }, 'image/png');
+          btn.disabled = false;
+        } catch (e) {
+          status.textContent = '❌ 处理失败: ' + e.message;
+          btn.disabled = false;
+        }
+      }, 50);
+    }
+
+    function applyBlur(ctx, x, y, w, h, radius) {
+      const imageData = ctx.getImageData(x, y, w, h);
+      const data = imageData.data;
+      const boxSize = Math.max(3, Math.round(radius / 2) * 2 + 1);
+      const half = Math.floor(boxSize / 2);
+      const tempData = new Uint8ClampedArray(data);
+      for (let pass = 0; pass < 3; pass++) {
+        for (let row = 0; row < h; row++) {
+          for (let col = 0; col < w; col++) {
+            let r = 0, g = 0, b = 0, a = 0, count = 0;
+            for (let dy = -half; dy <= half; dy++) {
+              for (let dx = -half; dx <= half; dx++) {
+                const ny = Math.min(h - 1, Math.max(0, row + dy));
+                const nx = Math.min(w - 1, Math.max(0, col + dx));
+                const idx = (ny * w + nx) * 4;
+                r += tempData[idx]; g += tempData[idx+1]; b += tempData[idx+2]; a += tempData[idx+3];
+                count++;
+              }
+            }
+            const idx = (row * w + col) * 4;
+            data[idx] = r / count; data[idx+1] = g / count; data[idx+2] = b / count; data[idx+3] = a / count;
+          }
+        }
+        tempData.set(data);
+      }
+      ctx.putImageData(imageData, x, y);
+    }
+
+    function smartFill(ctx, x, y, w, h, corner, imgW, imgH) {
+      // 从区域外部边缘采样，然后用渐变填充覆盖水印
+      const imageData = ctx.getImageData(x, y, w, h);
+      const data = imageData.data;
+      const tempData = new Uint8ClampedArray(data);
+
+      // 多行采样边缘颜色
+      const edgeColors = [];
+      const sampleRows = Math.min(5, Math.floor(h / 4));
+
+      for (let s = 0; s < sampleRows; s++) {
+        let rowColors = [];
+        for (let i = 0; i < w; i++) {
+          let srcRow, srcCol;
+          if (corner === 'tl') { srcRow = h - 1 - s; srcCol = i; }
+          else if (corner === 'tr') { srcRow = h - 1 - s; srcCol = i; }
+          else if (corner === 'bl') { srcRow = s; srcCol = i; }
+          else { srcRow = s; srcCol = i; }
+          const idx = (srcRow * w + srcCol) * 4;
+          rowColors.push([data[idx], data[idx+1], data[idx+2]]);
+        }
+        edgeColors.push(rowColors);
+      }
+
+      // 渐变填充
+      for (let row = 0; row < h; row++) {
+        for (let col = 0; col < w; col++) {
+          const idx = (row * w + col) * 4;
+
+          // 计算到边缘的距离比例
+          let distFromEdge;
+          if (corner === 'tl') {
+            const dx = col / w;
+            const dy = row / h;
+            distFromEdge = Math.min(dx, dy);
+          } else if (corner === 'tr') {
+            const dx = (w - 1 - col) / w;
+            const dy = row / h;
+            distFromEdge = Math.min(dx, dy);
+          } else if (corner === 'bl') {
+            const dx = col / w;
+            const dy = (h - 1 - row) / h;
+            distFromEdge = Math.min(dx, dy);
+          } else {
+            const dx = (w - 1 - col) / w;
+            const dy = (h - 1 - row) / h;
+            distFromEdge = Math.min(dx, dy);
+          }
+
+          // 使用平滑的渐变函数
+          const blend = smoothstep(distFromEdge * 3);
+
+          // 从最近的边缘行采样颜色
+          const sampleRow = Math.min(edgeColors.length - 1, Math.floor(distFromEdge * edgeColors.length * 2));
+          const sampleCol = Math.min(w - 1, col);
+          const sampleColor = edgeColors[sampleRow][sampleCol];
+
+          data[idx] = Math.round(data[idx] * (1 - blend) + sampleColor[0] * blend);
+          data[idx+1] = Math.round(data[idx+1] * (1 - blend) + sampleColor[1] * blend);
+          data[idx+2] = Math.round(data[idx+2] * (1 - blend) + sampleColor[2] * blend);
+        }
+      }
+
+      ctx.putImageData(imageData, x, y);
+
+      // 额外模糊处理使过渡更自然
+      applyBlur(ctx, x, y, w, h, 5);
+    }
+
+    function smoothstep(t) {
+      t = Math.max(0, Math.min(1, t));
+      return t * t * (3 - 2 * t);
+    }
+
+    function downloadResult() {
+      if (!processedBlob) return;
+      const url = URL.createObjectURL(processedBlob);
+      const a = document.createElement('a');
+      const ext = originalFile.name.split('.').pop();
+      const baseName = originalFile.name.replace(/\.[^.]+$/, '');
+      a.href = url;
+      a.download = baseName + '_clean.' + ext;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function resetAll() {
+      originalImage = null;
+      originalFile = null;
+      processedBlob = null;
+      fileInput.value = '';
+      document.getElementById('optionsArea').style.display = 'none';
+      document.getElementById('previewOriginal').innerHTML = '<span class="wm-preview-empty">等待上传...</span>';
+      document.getElementById('previewResult').innerHTML = '<span class="wm-preview-empty">点击"处理"按钮</span>';
+      document.getElementById('infoBar').innerHTML = '';
+      document.getElementById('exifPanel').style.display = 'none';
+      document.getElementById('downloadBtn').style.display = 'none';
+      document.getElementById('statusText').textContent = '';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UUID 生成器 - 在线工具集</title>
+  <meta name="description" content="免费在线 UUID/GUID 生成器，支持 UUID v4 批量生成，多种格式输出，一键复制。">
+  <meta name="keywords" content="UUID生成器,GUID生成器,UUID v4,在线UUID,随机ID生成,uuid generator">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .uuid-container{max-width:650px;margin:0 auto;padding:20px 20px 0;width:100%;flex:1;display:flex;flex-direction:column;min-height:0}
+    .uuid-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:24px;flex:1;display:flex;flex-direction:column}
+    .uuid-card h2{font-size:1.2rem;color:#f0f6fc;margin-bottom:4px;text-align:center}
+    .uuid-desc{text-align:center;font-size:.82rem;color:#8b949e;margin-bottom:20px}
+    .uuid-options{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+    .uuid-opt{display:flex;align-items:center;gap:6px;font-size:.78rem;color:#8b949e}
+    .uuid-opt select,.uuid-opt input[type="number"]{padding:6px 10px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-size:.78rem;outline:none;cursor:pointer}
+    .uuid-opt select:focus,.uuid-opt input:focus{border-color:#58a6ff}
+    .uuid-opt input[type="number"]{width:60px}
+    .uuid-opt label{display:flex;align-items:center;gap:4px;cursor:pointer;user-select:none}
+    .uuid-opt input[type="checkbox"]{accent-color:#58a6ff;width:14px;height:14px}
+    .uuid-btn{padding:12px 24px;background:#238636;border:none;border-radius:8px;color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .12s;width:100%;margin-bottom:16px}
+    .uuid-btn:hover{background:#2ea043}
+    .uuid-btn:active{transform:scale(.98)}
+    .uuid-result-wrap{position:relative;flex:1;min-height:0}
+    .uuid-result{width:100%;height:100%;min-height:200px;padding:14px 16px;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#3fb950;font-family:'JetBrains Mono',monospace;font-size:.85rem;line-height:1.8;outline:none;resize:none;user-select:all;white-space:pre-wrap}
+    .uuid-result:focus{border-color:#58a6ff}
+    .uuid-actions{display:flex;gap:8px;margin-top:12px}
+    .uuid-act-btn{flex:1;padding:10px;background:#21262d;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-size:.78rem;cursor:pointer;transition:all .12s;text-align:center}
+    .uuid-act-btn:hover{background:#30363d;border-color:#58a6ff;color:#58a6ff}
+    .uuid-count{font-size:.75rem;color:#484f58;text-align:center;margin-top:8px}
+    @media(max-width:480px){.uuid-card{padding:16px}.uuid-options{flex-direction:column;align-items:flex-start}}
+  </style>
+  <meta property="og:title" content="UUID 生成器 - 在线工具集">
+  <meta property="og:description" content="免费在线 UUID/GUID 生成器，支持批量生成，多种格式。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/uuid-generator.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"UUID 生成器","url":"https://web-tools-hub-three.vercel.app/uuid-generator.html","applicationCategory":"DeveloperApplication","operatingSystem":"All","description":"免费在线 UUID/GUID 生成器，支持批量生成，多种格式。"}</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">🆔 UUID 生成器</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <div class="uuid-container">
+      <div class="uuid-card">
+        <h2>🆔 UUID / GUID 生成器</h2>
+        <p class="uuid-desc">UUID v4 随机生成 · 批量输出 · 多种格式</p>
+
+        <div class="uuid-options">
+          <div class="uuid-opt"><span>数量</span><input type="number" id="uuidCount" value="5" min="1" max="1000"></div>
+          <div class="uuid-opt">
+            <span>格式</span>
+            <select id="uuidFormat">
+              <option value="standard">标准 (带连字符)</option>
+              <option value="nodash">无连字符</option>
+              <option value="upper">大写</option>
+              <option value="braces">花括号 { }</option>
+              <option value="base64">Base64</option>
+            </select>
+          </div>
+          <div class="uuid-opt"><label><input type="checkbox" id="uuidNoDash"> 无连字符</label></div>
+          <div class="uuid-opt"><label><input type="checkbox" id="uuidUpper"> 大写</label></div>
+        </div>
+
+        <button class="uuid-btn" onclick="generateUUID()">🔄 生成 UUID</button>
+
+        <div class="uuid-result-wrap">
+          <textarea class="uuid-result" id="uuidResult" readonly></textarea>
+        </div>
+
+        <div class="uuid-actions">
+          <button class="uuid-act-btn" onclick="copyAll()">📋 复制全部</button>
+          <button class="uuid-act-btn" onclick="copyFirst()">📋 复制第一个</button>
+          <button class="uuid-act-btn" onclick="downloadList()">💾 下载 TXT</button>
+        </div>
+
+        <div class="uuid-count" id="uuidCountInfo"></div>
+      </div>
+    </div>
+
+    <section class="tool-about">
+      <div class="about-wrap">
+        <h3>📖 关于此工具</h3>
+        <p><strong>UUID 生成器</strong> 使用 <code>crypto.getRandomValues()</code> 生成符合 RFC 4122 标准的 <strong>UUID v4</strong>（随机 UUID）。支持批量生成（最多 1000 个），可选择标准连字符格式、无连字符、大写、花括号包裹或 Base64 编码格式。适合数据库主键、API 请求 ID、会话标识等场景。所有生成均在浏览器本地完成。</p>
+      </div>
+    </section>
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="6666666666" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p></footer>
+  </main>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+
+    function generateUUIDv4() {
+      const bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      bytes[6] = (bytes[6] & 0x0f) | 0x40;
+      bytes[8] = (bytes[8] & 0x3f) | 0x80;
+      const hex = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+      return hex.slice(0,8) + '-' + hex.slice(8,12) + '-' + hex.slice(12,16) + '-' + hex.slice(16,20) + '-' + hex.slice(20);
+    }
+
+    function formatUUID(uuid) {
+      const fmt = document.getElementById('uuidFormat').value;
+      const noDash = document.getElementById('uuidNoDash').checked;
+      const upper = document.getElementById('uuidUpper').checked;
+      let result = uuid;
+
+      if (fmt === 'nodash' || noDash) result = result.replace(/-/g, '');
+      if (fmt === 'upper' || upper) result = result.toUpperCase();
+      if (fmt === 'braces') result = '{' + uuid + '}';
+      if (fmt === 'base64') {
+        const hex = uuid.replace(/-/g, '');
+        const bytes = hex.match(/.{2}/g).map(h => parseInt(h, 16));
+        result = btoa(String.fromCharCode(...bytes));
+      }
+      return result;
+    }
+
+    function generateUUID() {
+      const count = Math.min(1000, Math.max(1, parseInt(document.getElementById('uuidCount').value) || 5));
+      const uuids = [];
+      for (let i = 0; i < count; i++) {
+        uuids.push(formatUUID(generateUUIDv4()));
+      }
+      document.getElementById('uuidResult').value = uuids.join('\n');
+      document.getElementById('uuidCountInfo').textContent = '已生成 ' + count + ' 个 UUID · ' + new Date().toLocaleTimeString('zh-CN');
+    }
+
+    function copyAll() {
+      const val = document.getElementById('uuidResult').value;
+      if (!val) return;
+      navigator.clipboard.writeText(val).then(() => {
+        document.getElementById('uuidCountInfo').textContent = '✅ 已复制全部';
+      });
+    }
+
+    function copyFirst() {
+      const val = document.getElementById('uuidResult').value;
+      if (!val) return;
+      navigator.clipboard.writeText(val.split('\n')[0]).then(() => {
+        document.getElementById('uuidCountInfo').textContent = '✅ 已复制第一个 UUID';
+      });
+    }
+
+    function downloadList() {
+      const val = document.getElementById('uuidResult').value;
+      if (!val) return;
+      const blob = new Blob([val], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'uuids_' + Date.now() + '.txt';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    generateUUID();
+  </script>
+</body>
+</html>

@@ -363,3 +363,182 @@ main.page-tool{
   .tool-card{padding:20px 18px}
   .rate-card{padding:20px 16px}
 }
+
+/* ===== Guide Section ===== */
+.guide-section{
+  padding:40px 20px;
+  background:#161b22;
+  border-top:1px solid #21262d;
+}
+.guide-wrap{
+  max-width:1100px;
+  margin:0 auto;
+}
+.guide-wrap h2{
+  text-align:center;
+  font-size:1.6rem;
+  color:#f0f6fc;
+  margin-bottom:30px;
+}
+.guide-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  gap:24px;
+}
+.guide-card{
+  background:#0d1117;
+  border:1px solid #21262d;
+  border-radius:12px;
+  padding:24px;
+}
+.guide-card h4{
+  color:#58a6ff;
+  font-size:1.1rem;
+  margin-bottom:12px;
+}
+.guide-card p{
+  color:#8b949e;
+  font-size:.9rem;
+  line-height:1.6;
+  margin-bottom:12px;
+}
+.guide-card ul{
+  list-style:none;
+  padding:0;
+  margin-bottom:12px;
+}
+.guide-card li{
+  color:#c9d1d9;
+  font-size:.85rem;
+  padding:6px 0 6px 20px;
+  position:relative;
+  line-height:1.5;
+}
+.guide-card li::before{
+  content:'✓';
+  position:absolute;
+  left:0;
+  color:#3fb950;
+  font-weight:bold;
+}
+
+/* ===== FAQ Section ===== */
+.faq-section{
+  padding:40px 20px;
+  background:#0d1117;
+}
+.faq-wrap{
+  max-width:800px;
+  margin:0 auto;
+}
+.faq-wrap h2{
+  text-align:center;
+  font-size:1.6rem;
+  color:#f0f6fc;
+  margin-bottom:30px;
+}
+.faq-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.faq-item{
+  background:#161b22;
+  border:1px solid #21262d;
+  border-radius:10px;
+  padding:20px 24px;
+}
+.faq-item h4{
+  color:#58a6ff;
+  font-size:1rem;
+  margin-bottom:8px;
+}
+.faq-item p{
+  color:#8b949e;
+  font-size:.9rem;
+  line-height:1.6;
+}
+
+/* ===== Footer Links ===== */
+.footer-links{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+.footer-links a{
+  color:#58a6ff;
+  text-decoration:none;
+  font-size:.82rem;
+  transition:color .15s;
+}
+.footer-links a:hover{
+  color:#79c0ff;
+  text-decoration:underline;
+}
+
+/* ===== Static Page Content ===== */
+.static-content{
+  max-width:800px;
+  margin:0 auto;
+  padding:40px 20px;
+}
+.static-content h1{
+  font-size:2rem;
+  color:#f0f6fc;
+  margin-bottom:24px;
+  text-align:center;
+}
+.static-content h2{
+  font-size:1.4rem;
+  color:#58a6ff;
+  margin:30px 0 12px;
+  padding-bottom:8px;
+  border-bottom:1px solid #21262d;
+}
+.static-content h3{
+  font-size:1.1rem;
+  color:#c9d1d9;
+  margin:20px 0 8px;
+}
+.static-content p{
+  color:#8b949e;
+  font-size:.95rem;
+  line-height:1.8;
+  margin-bottom:16px;
+}
+.static-content ul,.static-content ol{
+  padding-left:24px;
+  margin-bottom:16px;
+}
+.static-content li{
+  color:#8b949e;
+  font-size:.95rem;
+  line-height:1.8;
+  margin-bottom:8px;
+}
+.static-content strong{
+  color:#c9d1d9;
+}
+.static-content a{
+  color:#58a6ff;
+  text-decoration:none;
+}
+.static-content a:hover{
+  text-decoration:underline;
+}
+.static-content .last-updated{
+  color:#484f58;
+  font-size:.82rem;
+  text-align:center;
+  margin-top:40px;
+  padding-top:20px;
+  border-top:1px solid #21262d;
+}
+
+@media(max-width:768px){
+  .guide-grid{grid-template-columns:1fr}
+  .static-content{padding:24px 16px}
+  .static-content h1{font-size:1.5rem}
+}

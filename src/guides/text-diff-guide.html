@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文件差异对比工具指南 - 在线工具集</title>
+  <meta name="description" content="文件差异对比完全指南 - 学习如何使用文本、Word、PDF、Excel对比工具，提升工作效率。">
+  <meta name="keywords" content="文件对比,文本差异,Word对比,PDF对比,Excel对比,代码审查">
+  <link rel="canonical" href="https://web-tools-hub-three.vercel.app/guides/text-diff-guide.html">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../style.css">
+  <meta property="og:title" content="文件差异对比工具指南 - 在线工具集">
+  <meta property="og:description" content="文件差异对比完全指南">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/guides/text-diff-guide.html">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "文件差异对比工具完全指南",
+  "description": "学习如何使用文件对比工具，支持文本、Word、PDF、Excel等多种格式",
+  "author": {"@type": "Organization", "name": "在线工具集"},
+  "datePublished": "2026-06-01",
+  "dateModified": "2026-06-01"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">📖 工具指南</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <article class="static-content">
+      <h1>文件差异对比工具完全指南</h1>
+      <p><em>发布日期：2026年6月1日 | 阅读时间：6分钟</em></p>
+      
+      <p>文件对比是开发、写作和数据处理中的常见需求。无论是代码审查、文档版本对比还是数据校验，一款好用的对比工具都能大大提升效率。本文将介绍如何使用我们的在线文件对比工具。</p>
+      
+      <h2>支持的文件格式</h2>
+      <p>我们的对比工具支持6种主流格式：</p>
+      <table>
+        <tr><th>格式</th><th>文件类型</th><th>使用场景</th></tr>
+        <tr><td>📝 文本</td><td>.txt, 粘贴文本</td><td>代码对比、配置文件</td></tr>
+        <tr><td>📘 Word</td><td>.docx</td><td>合同、报告、论文</td></tr>
+        <tr><td>📕 PDF</td><td>.pdf</td><td>文档、电子书</td></tr>
+        <tr><td>📊 Excel</td><td>.xlsx, .xls</td><td>数据表格、报表</td></tr>
+        <tr><td>📋 CSV</td><td>.csv</td><td>导出数据、数据库</td></tr>
+        <tr><td>🔧 JSON</td><td>.json</td><td>API响应、配置文件</td></tr>
+      </table>
+      
+      <h2>使用场景</h2>
+      
+      <h3>1. 代码审查</h3>
+      <p>开发者经常需要对比代码变更：</p>
+      <ul>
+        <li>对比修改前后的代码</li>
+        <li>审查 Pull Request</li>
+        <li>查找 Bug 引入点</li>
+        <li>合并冲突解决</li>
+      </ul>
+      <pre><code>// 旧代码
+function hello(name) {
+  console.log("Hello, " + name);
+}
+
+// 新代码
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+  return true;
+}</code></pre>
+      
+      <h3>2. 文档版本对比</h3>
+      <p>对比合同、报告等文档的不同版本：</p>
+      <ul>
+        <li>找出修改的关键条款</li>
+        <li>追踪文档变更历史</li>
+        <li>确保修改无遗漏</li>
+      </ul>
+      
+      <h3>3. 数据校验</h3>
+      <p>对比 Excel/CSV 数据的一致性：</p>
+      <ul>
+        <li>对比两个数据导出</li>
+        <li>检查数据迁移结果</li>
+        <li>验证报表数据</li>
+      </ul>
+      
+      <h2>如何使用对比工具</h2>
+      
+      <h3>步骤1：选择格式</h3>
+      <p>根据文件类型选择对应格式（文本/Word/PDF/Excel/CSV/JSON）</p>
+      
+      <h3>步骤2：上传或粘贴内容</h3>
+      <ul>
+        <li><strong>文本模式</strong>：直接在左右面板粘贴文本</li>
+        <li><strong>文件模式</strong>：拖拽或点击上传文件</li>
+      </ul>
+      
+      <h3>步骤3：点击对比</h3>
+      <p>点击"🔍 对比"按钮，系统将分析差异</p>
+      
+      <h3>步骤4：查看结果</h3>
+      <ul>
+        <li><span style="color:#3fb950">绿色</span>：新增内容</li>
+        <li><span style="color:#f85149">红色</span>：删除内容</li>
+        <li><span style="color:#d29922">黄色</span>：修改内容</li>
+      </ul>
+      
+      <h2>高级功能</h2>
+      
+      <h3>文本对比选项</h3>
+      <ul>
+        <li><strong>区分大小写</strong>：开启后 A 和 a 视为不同</li>
+        <li><strong>忽略首尾空格</strong>：自动去除行首尾空白</li>
+      </ul>
+      
+      <h3>Excel 对比特点</h3>
+      <ul>
+        <li>逐单元格对比</li>
+        <li>显示行列号</li>
+        <li>高亮差异单元格</li>
+      </ul>
+      
+      <h2>实际案例</h2>
+      
+      <h3>案例1：对比配置文件</h3>
+      <p>服务器迁移时对比新旧配置：</p>
+      <pre><code># 旧配置
+server.port=8080
+database.host=localhost
+debug=true
+
+# 新配置  
+server.port=3000
+database.host=db.example.com
+database.port=5432
+debug=false</code></pre>
+      
+      <h3>案例2：对比 API 响应</h3>
+      <p>调试时对比预期和实际返回：</p>
+      <pre><code>// 预期
+{"status": "success", "count": 10}
+
+// 实际
+{"status": "success", "count": 8, "error": null}</code></pre>
+      
+      <h2>对比工具的优势</h2>
+      <ul>
+        <li><strong>多格式支持</strong>：6种主流格式一站式对比</li>
+        <li><strong>隐私安全</strong>：所有处理在本地完成</li>
+        <li><strong>无需安装</strong>：浏览器打开即用</li>
+        <li><strong>免费使用</strong>：无限制、无注册</li>
+      </ul>
+      
+      <div class="guide-cta">
+        <p><strong>立即体验</strong>：<a href="../text-diff">使用文件对比工具</a></p>
+      </div>
+      
+      <h2>常见问题</h2>
+      
+      <h3>Q: 支持多大的文件？</h3>
+      <p>A: 文本模式建议不超过10MB，文件模式建议不超过50MB。超大文件可能导致浏览器卡顿。</p>
+      
+      <h3>Q: 对比结果准确吗？</h3>
+      <p>A: 使用 Myers Diff 算法，结果准确可靠。这是业界标准的差异对比算法。</p>
+      
+      <h3>Q: 数据会被上传吗？</h3>
+      <p>A: 不会。所有对比都在浏览器本地完成，数据不会离开您的设备。</p>
+      
+      <p class="last-updated">本文最后更新于 2026年6月1日</p>
+    </article>
+    
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    
+    <footer class="footer">
+      <p>© 2026 在线工具集 · 全部工具在浏览器本地运行，数据不上传服务器</p>
+      <div class="footer-links">
+        <a href="../guides/">工具指南</a>
+        <a href="../about">关于我们</a>
+        <a href="../privacy">隐私政策</a>
+        <a href="../ad-disclosure">广告声明</a>
+        <a href="../terms">使用条款</a>
+        <a href="../contact">联系我们</a>
+      </div>
+    </footer>
+  </main>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</body>
+</html>

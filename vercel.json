@@ -29,6 +29,7 @@
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" },
     { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/ad-disclosure", "destination": "/ad-disclosure.html" },
     { "source": "/guides", "destination": "/guides/index.html" },
     { "source": "/guides/:path*", "destination": "/guides/:path*.html" }
   ]

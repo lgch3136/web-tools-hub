@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hash计算器使用指南 - 在线工具集</title>
+  <meta name="description" content="Hash计算器完全指南 - 学习MD5、SHA等哈希算法的原理和应用，掌握文件校验和密码存储的最佳实践。">
+  <meta name="keywords" content="Hash计算器,MD5,SHA,哈希算法,文件校验,密码加密">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">📖 工具指南</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <article class="static-content">
+      <h1>Hash计算器使用指南</h1>
+      <p><em>发布日期：2026年5月28日 | 阅读时间：6分钟</em></p>
+      
+      <p>哈希（Hash）算法是计算机科学中的重要概念，广泛应用于数据完整性校验、密码存储、数字签名等领域。本文将介绍Hash的原理、常见算法及其应用场景。</p>
+      
+      <h2>什么是哈希？</h2>
+      <p>哈希是一种将任意长度的输入（也叫做预映射，pre-image）通过散列算法变换成固定长度的输出，该输出就是散列值。这种转换是一种压缩映射，也就是，散列值的空间通常远小于输入的空间。</p>
+      
+      <p>哈希函数的特点：</p>
+      <ul>
+        <li><strong>确定性</strong>：相同输入总是产生相同输出</li>
+        <li><strong>快速计算</strong>：能够快速计算哈希值</li>
+        <li><strong>抗碰撞性</strong>：难以找到两个不同输入产生相同输出</li>
+        <li><strong>雪崩效应</strong>：输入的微小变化导致输出的巨大变化</li>
+      </ul>
+      
+      <h2>常见哈希算法</h2>
+      
+      <h3>MD5（Message-Digest Algorithm 5）</h3>
+      <ul>
+        <li><strong>输出长度</strong>：128位（32个十六进制字符）</li>
+        <li><strong>特点</strong>：计算速度快，但已不推荐用于安全场景</li>
+        <li><strong>适用场景</strong>：文件校验、非安全场景的数据完整性检查</li>
+      </ul>
+      <pre><code>MD5("hello") = 5d41402abc4b2a76b9719d911017c592</code></pre>
+      
+      <h3>SHA-1（Secure Hash Algorithm 1）</h3>
+      <ul>
+        <li><strong>输出长度</strong>：160位（40个十六进制字符）</li>
+        <li><strong>特点</strong>：比MD5更安全，但已被证明存在弱点</li>
+        <li><strong>适用场景</strong>：Git版本控制、非安全场景</li>
+      </ul>
+      
+      <h3>SHA-256（SHA-2家族）</h3>
+      <ul>
+        <li><strong>输出长度</strong>：256位（64个十六进制字符）</li>
+        <li><strong>特点</strong>：目前广泛使用的安全哈希算法</li>
+        <li><strong>适用场景</strong>：密码存储、数字签名、区块链、SSL证书</li>
+      </ul>
+      
+      <h3>SHA-512</h3>
+      <ul>
+        <li><strong>输出长度</strong>：512位（128个十六进制字符）</li>
+        <li><strong>特点</strong>：安全性更高，计算稍慢</li>
+        <li><strong>适用场景</strong>：高安全性要求的场景</li>
+      </ul>
+      
+      <h2>应用场景</h2>
+      
+      <h3>1. 文件完整性校验</h3>
+      <p>下载文件后，通过对比哈希值验证文件是否被篡改：</p>
+      <pre><code># 计算文件哈希
+sha256sum download.zip
+
+# 对比官方提供的哈希值
+echo "官方哈希值 download.zip" | sha256sum -c</code></pre>
+      
+      <h3>2. 密码存储</h3>
+      <p>存储密码时，不应存储明文，而应存储哈希值：</p>
+      <pre><code># 不安全的做法
+password = "user123"
+database.store(password)  # 存储明文
+
+# 安全的做法
+password = "user123"
+salt = generate_random_salt()
+hashed = sha256(password + salt)
+database.store(hashed, salt)</code></pre>
+      <p><strong>最佳实践</strong>：</p>
+      <ul>
+        <li>使用加盐（Salt）防止彩虹表攻击</li>
+        <li>使用bcrypt、scrypt等专门的密码哈希算法</li>
+        <li>多次迭代增加破解难度</li>
+      </ul>
+      
+      <h3>3. 数据完整性验证</h3>
+      <p>API请求签名示例：</p>
+      <pre><code>// 生成请求签名
+const data = JSON.stringify(requestBody);
+const timestamp = Date.now();
+const signature = sha256(data + timestamp + secret_key);
+
+// 发送请求
+fetch('/api', {
+  headers: {
+    'X-Signature': signature,
+    'X-Timestamp': timestamp
+  },
+  body: data
+});</code></pre>
+      
+      <h3>4. 数字签名</h3>
+      <p>哈希在数字签名中的作用：</p>
+      <ul>
+        <li>发送方对消息计算哈希值</li>
+        <li>使用私钥加密哈希值，生成签名</li>
+        <li>接收方使用公钥解密签名，获得哈希值</li>
+        <li>对接收到的消息计算哈希值，对比验证</li>
+      </ul>
+      
+      <h2>使用我们的Hash计算器</h2>
+      <p>我们的在线Hash计算器支持：</p>
+      <ul>
+        <li><strong>多种算法</strong>：MD5、SHA-1、SHA-256、SHA-512</li>
+        <li><strong>文本输入</strong>：直接输入文本计算哈希</li>
+        <li><strong>文件计算</strong>：上传文件计算哈希值</li>
+        <li><strong>哈希对比</strong>：对比两个哈希值是否相同</li>
+        <li><strong>实时计算</strong>：输入即时计算，无需点击按钮</li>
+      </ul>
+      
+      <div class="guide-cta">
+        <p><strong>立即体验</strong>：<a href="../hash-calculator">使用Hash计算器</a></p>
+      </div>
+      
+      <h2>安全注意事项</h2>
+      <ul>
+        <li><strong>MD5和SHA-1已不安全</strong>：不要用于密码存储或安全场景</li>
+        <li><strong>使用加盐</strong>：密码存储务必使用随机盐值</li>
+        <li><strong>选择合适算法</strong>：根据安全需求选择SHA-256或SHA-512</li>
+        <li><strong>保持更新</strong>：关注密码学进展，及时更新算法</li>
+      </ul>
+      
+      <p class="last-updated">本文最后更新于 2026年5月28日</p>
+    </article>
+    
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    
+    <footer class="footer">
+      <p>© 2026 在线工具集 · 全部工具在浏览器本地运行，数据不上传服务器</p>
+      <div class="footer-links">
+        <a href="../about">关于我们</a>
+        <a href="../privacy">隐私政策</a>
+        <a href="../terms">使用条款</a>
+        <a href="../contact">联系我们</a>
+      </div>
+    </footer>
+  </main>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</body>
+</html>

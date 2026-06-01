@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片压缩完全指南 - 在线工具集</title>
+  <meta name="description" content="图片压缩指南 - 学习如何在保持质量的同时减小图片文件大小，优化网站性能和用户体验。">
+  <meta name="keywords" content="图片压缩,图片优化,WebP,JPEG压缩,PNG压缩,网站性能优化">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">📖 工具指南</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <article class="static-content">
+      <h1>图片压缩完全指南</h1>
+      <p><em>发布日期：2026年5月28日 | 阅读时间：6分钟</em></p>
+      
+      <p>图片是网站中占用带宽最多的资源之一。合理的图片压缩可以显著提升网站加载速度，改善用户体验，同时节省存储空间和带宽成本。本文将介绍图片压缩的原理、技巧和最佳实践。</p>
+      
+      <h2>为什么要压缩图片？</h2>
+      <ul>
+        <li><strong>提升加载速度</strong>：更小的文件意味着更快的加载</li>
+        <li><strong>节省带宽</strong>：减少服务器带宽消耗</li>
+        <li><strong>改善SEO</strong>：页面速度是搜索引擎排名因素之一</li>
+        <li><strong>节省存储</strong>：减少存储空间占用</li>
+        <li><strong>提升用户体验</strong>：用户讨厌等待缓慢的页面</li>
+      </ul>
+      
+      <h2>常见图片格式</h2>
+      
+      <h3>JPEG/JPG</h3>
+      <ul>
+        <li><strong>特点</strong>：有损压缩，支持1670万色</li>
+        <li><strong>适用场景</strong>：照片、复杂图像</li>
+        <li><strong>压缩技巧</strong>：质量设置在70-85%通常可接受</li>
+      </ul>
+      
+      <h3>PNG</h3>
+      <ul>
+        <li><strong>特点</strong>：无损压缩，支持透明度</li>
+        <li><strong>适用场景</strong>：图标、Logo、需要透明背景的图像</li>
+        <li><strong>压缩技巧</strong>：使用PNG-8代替PNG-24（颜色少时）</li>
+      </ul>
+      
+      <h3>WebP</h3>
+      <ul>
+        <li><strong>特点</strong>：Google开发，压缩率更高</li>
+        <li><strong>适用场景</strong>：现代浏览器的网站</li>
+        <li><strong>压缩技巧</strong>：比JPEG小25-34%，质量相当</li>
+      </ul>
+      
+      <h3>GIF</h3>
+      <ul>
+        <li><strong>特点</strong>：支持动画，仅256色</li>
+        <li><strong>适用场景</strong>：简单动画、图标</li>
+        <li><strong>压缩技巧</strong>：减少帧数和颜色数</li>
+      </ul>
+      
+      <h2>压缩方法</h2>
+      
+      <h3>1. 调整尺寸</h3>
+      <p>最有效的压缩方法是减小图片尺寸：</p>
+      <pre><code>// 原始图片: 4000x3000 (12MP)
+// 网页显示: 800x600
+
+// 计算需要的尺寸
+const displayWidth = 800;
+const scaleFactor = displayWidth / originalWidth;
+const newHeight = originalHeight * scaleFactor;</code></pre>
+      
+      <h3>2. 降低质量</h3>
+      <p>对于JPEG，可以适当降低质量：</p>
+      <ul>
+        <li>90-100%：几乎无损，文件较大</li>
+        <li>80-90%：高质量，肉眼难以察觉差异</li>
+        <li>70-80%：中等质量，适合网页使用</li>
+        <li>60-70%：较低质量，可能有可见压缩痕迹</li>
+      </ul>
+      
+      <h3>3. 选择合适的格式</h3>
+      <table>
+        <tr><th>场景</th><th>推荐格式</th></tr>
+        <tr><td>照片</td><td>JPEG 或 WebP</td></tr>
+        <tr><td>图标/Logo</td><td>PNG 或 SVG</td></tr>
+        <tr><td>透明背景</td><td>PNG 或 WebP</td></tr>
+        <tr><td>动画</td><td>GIF 或 WebP</td></tr>
+        <tr><td>现代浏览器</td><td>WebP（优先）</td></tr>
+      </table>
+      
+      <h2>使用我们的图片压缩器</h2>
+      <p>我们的在线图片压缩器特点：</p>
+      <ul>
+        <li><strong>批量处理</strong>：支持同时压缩多张图片</li>
+        <li><strong>目标设置</strong>：设定目标分辨率和文件大小</li>
+        <li><strong>质量预览</strong>：压缩前后对比预览</li>
+        <li><strong>多格式支持</strong>：JPEG、PNG、WebP</li>
+        <li><strong>本地处理</strong>：图片不会上传到服务器</li>
+      </ul>
+      
+      <div class="guide-cta">
+        <p><strong>立即体验</strong>：<a href="../image-compressor">使用图片压缩器</a></p>
+      </div>
+      
+      <h2>最佳实践</h2>
+      <ul>
+        <li><strong>响应式图片</strong>：根据设备提供不同尺寸的图片</li>
+        <li><strong>懒加载</strong>：页面滚动到可视区域再加载图片</li>
+        <li><strong>CDN分发</strong>：使用CDN加速图片加载</li>
+        <li><strong>缓存策略</strong>：设置合理的缓存头</li>
+        <li><strong>监控性能</strong>：定期检查页面加载速度</li>
+      </ul>
+      
+      <p class="last-updated">本文最后更新于 2026年5月28日</p>
+    </article>
+    
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    
+    <footer class="footer">
+      <p>© 2026 在线工具集 · 全部工具在浏览器本地运行，数据不上传服务器</p>
+      <div class="footer-links">
+        <a href="../about">关于我们</a>
+        <a href="../privacy">隐私政策</a>
+        <a href="../terms">使用条款</a>
+        <a href="../contact">联系我们</a>
+      </div>
+    </footer>
+  </main>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>正则表达式入门与实战指南 - 在线工具集</title>
+  <meta name="description" content="正则表达式完全指南 - 从基础语法到实战应用，掌握文本匹配和数据提取的核心技能。">
+  <meta name="keywords" content="正则表达式,正则教程,regex,正则实战,文本匹配,数据提取">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "正则表达式入门与实战指南",
+  "description": "从基础语法到实战应用，掌握正则表达式的核心用法",
+  "author": {
+    "@type": "Organization",
+    "name": "在线工具集"
+  },
+  "datePublished": "2026-05-28",
+  "dateModified": "2026-05-28"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">📖 工具指南</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <article class="static-content">
+      <h1>正则表达式入门与实战指南</h1>
+      <p><em>发布日期：2026年5月28日 | 阅读时间：8分钟</em></p>
+      
+      <p>正则表达式（Regular Expression，简称 Regex 或 RegExp）是处理文本的强大工具。无论是数据验证、文本提取还是批量替换，正则表达式都能高效完成任务。本文将从基础语法讲起，结合实际案例，帮助您掌握这一核心技能。</p>
+      
+      <h2>为什么学习正则表达式？</h2>
+      <p>正则表达式在以下场景中非常有用：</p>
+      <ul>
+        <li><strong>表单验证</strong>：验证邮箱、手机号、身份证号等格式</li>
+        <li><strong>数据提取</strong>：从文本中提取特定信息（如URL、日期）</li>
+        <li><strong>文本替换</strong>：批量替换符合模式的文本</li>
+        <li><strong>日志分析</strong>：从日志文件中提取关键信息</li>
+        <li><strong>爬虫开发</strong>：从网页中提取数据</li>
+      </ul>
+      
+      <h2>基础语法</h2>
+      
+      <h3>1. 字符匹配</h3>
+      <table>
+        <tr><th>模式</th><th>说明</th><th>示例</th></tr>
+        <tr><td><code>.</code></td><td>匹配任意单个字符（除换行符）</td><td><code>a.c</code> 匹配 "abc", "a1c"</td></tr>
+        <tr><td><code>\d</code></td><td>匹配数字 [0-9]</td><td><code>\d\d</code> 匹配 "12", "34"</td></tr>
+        <tr><td><code>\w</code></td><td>匹配字母、数字、下划线</td><td><code>\w+</code> 匹配 "hello_123"</td></tr>
+        <tr><td><code>\s</code></td><td>匹配空白字符</td><td><code>a\sb</code> 匹配 "a b"</td></tr>
+      </table>
+      
+      <h3>2. 量词</h3>
+      <table>
+        <tr><th>量词</th><th>说明</th><th>示例</th></tr>
+        <tr><td><code>*</code></td><td>匹配 0 次或多次</td><td><code>ab*c</code> 匹配 "ac", "abc", "abbc"</td></tr>
+        <tr><td><code>+</code></td><td>匹配 1 次或多次</td><td><code>ab+c</code> 匹配 "abc", "abbc"（不匹配 "ac"）</td></tr>
+        <tr><td><code>?</code></td><td>匹配 0 次或 1 次</td><td><code>colou?r</code> 匹配 "color", "colour"</td></tr>
+        <tr><td><code>{n}</code></td><td>匹配恰好 n 次</td><td><code>\d{3}</code> 匹配 "123"</td></tr>
+        <tr><td><code>{n,m}</code></td><td>匹配 n 到 m 次</td><td><code>\d{2,4}</code> 匹配 "12", "1234"</td></tr>
+      </table>
+      
+      <h3>3. 位置锚点</h3>
+      <table>
+        <tr><th>锚点</th><th>说明</th><th>示例</th></tr>
+        <tr><td><code>^</code></td><td>匹配字符串开头</td><td><code>^Hello</code> 匹配以 "Hello" 开头的字符串</td></tr>
+        <tr><td><code>$</code></td><td>匹配字符串结尾</td><td><code>world$</code> 匹配以 "world" 结尾的字符串</td></tr>
+        <tr><td><code>\b</code></td><td>匹配单词边界</td><td><code>\bword\b</code> 匹配完整的单词 "word"</td></tr>
+      </table>
+      
+      <h2>常用正则表达式模板</h2>
+      
+      <h3>邮箱验证</h3>
+      <pre><code>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$</code></pre>
+      <p>说明：匹配标准邮箱格式，如 user@example.com</p>
+      
+      <h3>手机号验证（中国大陆）</h3>
+      <pre><code>^1[3-9]\d{9}$</code></pre>
+      <p>说明：匹配以 1 开头，第二位是 3-9，后面跟着 9 位数字</p>
+      
+      <h3>URL 提取</h3>
+      <pre><code>https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)</code></pre>
+      <p>说明：匹配 http 或 https 开头的 URL</p>
+      
+      <h3>HTML 标签提取</h3>
+      <pre><code>&lt;([a-z]+)([^&lt;]+)*(?:&gt;(.*)&lt;\/\1&gt;|\s+\/&gt;)</code></pre>
+      <p>说明：匹配完整的 HTML 标签及其内容</p>
+      
+      <h2>标志（Flags）</h2>
+      <table>
+        <tr><th>标志</th><th>说明</th><th>示例</th></tr>
+        <tr><td><code>g</code></td><td>全局匹配（找到所有匹配项）</td><td><code>/hello/g</code></td></tr>
+        <tr><td><code>i</code></td><td>忽略大小写</td><td><code>/hello/i</code> 匹配 "Hello", "HELLO"</td></tr>
+        <tr><td><code>m</code></td><td>多行模式</td><td><code>^hello/m</code> 匹配每行开头的 "hello"</td></tr>
+        <tr><td><code>s</code></td><td>点号匹配换行符</td><td><code>/a.b/s</code> 匹配 "a\nb"</td></tr>
+      </table>
+      
+      <h2>实战案例</h2>
+      
+      <h3>案例 1：提取字符串中的所有数字</h3>
+      <pre><code>const text = "价格是 123 元，数量 45 个";
+const numbers = text.match(/\d+/g);
+// 结果: ["123", "45"]</code></pre>
+      
+      <h3>案例 2：验证密码强度</h3>
+      <pre><code>// 至少8位，包含大小写字母和数字
+const strongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+strongPassword.test("MyPass123"); // true
+strongPassword.test("weak"); // false</code></pre>
+      
+      <h3>案例 3：清理 HTML 标签</h3>
+      <pre><code>const html = "&lt;p&gt;Hello &lt;b&gt;World&lt;/b&gt;&lt;/p&gt;";
+const text = html.replace(/&lt;[^&gt;]*&gt;/g, '');
+// 结果: "Hello World"</code></pre>
+      
+      <h2>使用我们的正则测试器</h2>
+      <p>我们的在线正则表达式测试器提供以下功能：</p>
+      <ul>
+        <li><strong>实时预览</strong>：输入正则表达式和测试文本，立即看到匹配结果</li>
+        <li><strong>高亮显示</strong>：匹配到的内容会高亮显示，便于查看</li>
+        <li><strong>内置模板</strong>：提供常用正则表达式模板，一键使用</li>
+        <li><strong>多标志支持</strong>：支持 g、i、m、s 等标志</li>
+      </ul>
+      
+      <div class="guide-cta">
+        <p><strong>立即体验</strong>：<a href="../regex-tester">使用正则表达式测试器</a></p>
+      </div>
+      
+      <h2>学习建议</h2>
+      <ul>
+        <li><strong>多练习</strong>：正则表达式需要大量练习才能熟练掌握</li>
+        <li><strong>使用工具</strong>：使用在线测试工具验证正则表达式</li>
+        <li><strong>参考文档</strong>：保存常用正则表达式模板</li>
+        <li><strong>逐步构建</strong>：复杂正则可以分步构建和测试</li>
+      </ul>
+      
+      <p class="last-updated">本文最后更新于 2026年5月28日</p>
+    </article>
+    
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    
+    <footer class="footer">
+      <p>© 2026 在线工具集 · 全部工具在浏览器本地运行，数据不上传服务器</p>
+      <div class="footer-links">
+        <a href="../about">关于我们</a>
+        <a href="../privacy">隐私政策</a>
+        <a href="../terms">使用条款</a>
+        <a href="../contact">联系我们</a>
+      </div>
+    </footer>
+  </main>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</body>
+</html>

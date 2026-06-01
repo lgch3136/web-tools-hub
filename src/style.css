@@ -428,7 +428,7 @@ main.page-tool{
   background:#0d1117;
 }
 .faq-wrap{
-  max-width:800px;
+  max-width:960px;
   margin:0 auto;
 }
 .faq-wrap h2{
@@ -438,9 +438,12 @@ main.page-tool{
   margin-bottom:30px;
 }
 .faq-list{
-  display:flex;
-  flex-direction:column;
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:16px;
+}
+@media(max-width:640px){
+  .faq-list{grid-template-columns:1fr;}
 }
 .faq-item{
   background:#161b22;

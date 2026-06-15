@@ -87,9 +87,36 @@
       <div class="about-wrap">
         <h3>📖 关于此工具</h3>
         <p><strong>URL 编解码器</strong> 支持 <strong>URL 百分号编码/解码</strong>（encodeURIComponent / encodeURI）、<strong>Unicode 转义序列</strong>（\\uXXXX）编码/解码和 <strong>HTML 实体</strong>编码/解码。适用于 URL 参数处理、网页国际化、数据传输和跨平台数据交换等场景。</p>
+
+        <h4>🔧 核心功能</h4>
+        <ul>
+          <li><strong>URL 编码（encodeURIComponent）</strong>：将特殊字符转为 %XX 格式，适合编码 URL 参数值</li>
+          <li><strong>URL 编码（encodeURI）</strong>：保留 URL 结构字符（:/?#[]@），仅编码非法字符</li>
+          <li><strong>URL 解码</strong>：将 %XX 编码的 URL 还原为原始字符串</li>
+          <li><strong>Unicode 转义</strong>：在 \\uXXXX 格式和原始 Unicode 字符间互转</li>
+          <li><strong>HTML 实体</strong>：在 HTML 实体（&amp;、&lt; 等）和原始字符间互转</li>
+          <li><strong>一键复制和互换</strong>：编码/解码结果可复制或作为新输入重新处理</li>
+        </ul>
+
+        <h4>📋 使用场景</h4>
+        <ul>
+          <li><strong>URL 参数处理</strong>：构造含中文或特殊字符的 URL 查询参数</li>
+          <li><strong>API 请求</strong>：对请求 URL 中的参数进行编码，避免特殊字符导致请求失败</li>
+          <li><strong>网页国际化</strong>：处理含非 ASCII 字符（中文、日文等）的 URL</li>
+          <li><strong>前端开发</strong>：处理路由参数、查询字符串的编码和解码</li>
+          <li><strong>安全防护</strong>：对用户输入进行 HTML 实体编码，防止 XSS 攻击</li>
+        </ul>
+
+        <h4>💡 使用技巧</h4>
+        <ul>
+          <li><strong>encodeURIComponent</strong> 编码更彻底，适合参数值；<strong>encodeURI</strong> 保留 URL 结构，适合完整 URL</li>
+          <li>HTML 实体编码可有效防止 XSS 攻击，输出用户内容到页面时建议先编码</li>
+          <li>使用"编码↔解码互换"功能可验证编解码是否正确</li>
+          <li>所有操作在浏览器本地完成</li>
+        </ul>
       </div>
     </section>
-    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="5555555555" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
     <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p><div class="footer-links"><a href="./guides/">工具指南</a><a href="./about">关于我们</a><a href="./privacy">隐私政策</a><a href="./terms">使用条款</a><a href="./contact">联系我们</a></div></footer>
   </main>
   <script>

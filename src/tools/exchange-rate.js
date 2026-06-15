@@ -106,7 +106,7 @@ export function render(container) {
     </div>
 
     <div class="ad-container ad-tool-bottom" style="margin-top:20px;">
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="3333333333" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
     </div>
   `;
 

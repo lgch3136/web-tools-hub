@@ -88,9 +88,35 @@
       <div class="about-wrap">
         <h3>📖 关于此工具</h3>
         <p><strong>UUID 生成器</strong> 使用 <code>crypto.getRandomValues()</code> 生成符合 RFC 4122 标准的 <strong>UUID v4</strong>（随机 UUID）。支持批量生成（最多 1000 个），可选择标准连字符格式、无连字符、大写、花括号包裹或 Base64 编码格式。适合数据库主键、API 请求 ID、会话标识等场景。所有生成均在浏览器本地完成。</p>
+
+        <h4>🔧 核心功能</h4>
+        <ul>
+          <li><strong>UUID v4 生成</strong>：基于加密级随机数生成器，确保唯一性和不可预测性</li>
+          <li><strong>批量生成</strong>：一次生成最多 1000 个 UUID，适合批量创建测试数据</li>
+          <li><strong>多格式输出</strong>：标准（带连字符）、无连字符、大写、花括号包裹、Base64 编码五种格式</li>
+          <li><strong>一键复制</strong>：点击即可复制全部生成的 UUID</li>
+          <li><strong>实时生成</strong>：点击生成按钮立即输出，无需等待</li>
+        </ul>
+
+        <h4>📋 使用场景</h4>
+        <ul>
+          <li><strong>数据库主键</strong>：为数据库记录生成全局唯一标识符，避免主键冲突</li>
+          <li><strong>API 请求追踪</strong>：为每个 API 请求生成唯一 ID，用于日志追踪和问题排查</li>
+          <li><strong>会话标识</strong>：生成 Session ID 或 Token，用于用户会话管理</li>
+          <li><strong>文件名</strong>：生成唯一文件名，防止上传文件重名覆盖</li>
+          <li><strong>测试数据</strong>：批量生成测试用的唯一标识符，填充测试数据库</li>
+        </ul>
+
+        <h4>💡 使用技巧</h4>
+        <ul>
+          <li>UUID v4 是随机生成的，理论上不会重复（碰撞概率约为 1/2^122）</li>
+          <li>数据库中使用 UUID 而非自增 ID 可以避免暴露数据规模</li>
+          <li>无连字符格式适合用作文件名，避免兼容性问题</li>
+          <li>所有生成在浏览器本地完成，<strong>UUID 不会上传到服务器</strong></li>
+        </ul>
       </div>
     </section>
-    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="6666666666" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
     <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p><div class="footer-links"><a href="./guides/">工具指南</a><a href="./about">关于我们</a><a href="./privacy">隐私政策</a><a href="./terms">使用条款</a><a href="./contact">联系我们</a></div></footer>
   </main>
   <script>

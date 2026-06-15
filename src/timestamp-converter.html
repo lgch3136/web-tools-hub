@@ -94,6 +94,33 @@
     <div class="about-wrap">
       <h3>📖 关于此工具</h3>
       <p><strong>时间戳转换</strong> 支持 Unix 时间戳与日期时间之间的<strong>双向转换</strong>，同时兼容<strong>秒级（10位）</strong>和<strong>毫秒级（13位）</strong>时间戳。提供 ISO 8601、GMT、RFC 2822、本地时间等多种格式输出，点击即可复制。页面顶部实时显示当前时间及对应的 Unix 时间戳（秒/毫秒），方便开发调试和日志分析。</p>
+
+      <h4>🔧 核心功能</h4>
+      <ul>
+        <li><strong>时间戳→日期</strong>：输入 Unix 时间戳（秒或毫秒），转换为可读的日期时间</li>
+        <li><strong>日期→时间戳</strong>：选择或输入日期时间，自动转换为 Unix 时间戳</li>
+        <li><strong>秒/毫秒双模式</strong>：自动识别 10 位秒级和 13 位毫秒级时间戳，正确转换</li>
+        <li><strong>多格式输出</strong>：提供 ISO 8601、GMT、RFC 2822、本地时间等多种常用格式</li>
+        <li><strong>实时时钟</strong>：页面顶部实时显示当前 UTC 时间、本地时间和对应的时间戳</li>
+        <li><strong>一键复制</strong>：每种格式的结果均可点击复制</li>
+      </ul>
+
+      <h4>📋 使用场景</h4>
+      <ul>
+        <li><strong>日志分析</strong>：将服务器日志中的时间戳转换为可读日期，快速定位问题时间</li>
+        <li><strong>API 开发</strong>：调试 API 时转换请求和响应中的时间戳字段</li>
+        <li><strong>数据库查询</strong>：将数据库中的 Unix 时间戳字段转换为人类可读格式</li>
+        <li><strong>定时任务</strong>：计算 Cron 表达式对应的时间戳，配置定时任务</li>
+        <li><strong>跨时区协作</strong>：将不同时区的时间统一转换为时间戳进行对比</li>
+      </ul>
+
+      <h4>💡 使用技巧</h4>
+      <ul>
+        <li>如果不确定时间戳是秒还是毫秒，可查看位数：10位=秒，13位=毫秒</li>
+        <li>Unix 时间戳基于 UTC 时区，转换为本地时间时会自动加上时区偏移</li>
+        <li>时间戳 0 代表 1970年1月1日 00:00:00 UTC（Unix 纪元）</li>
+        <li>所有转换在浏览器本地完成，<strong>不依赖后端服务</strong></li>
+      </ul>
     </div>
   </section>
   <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>

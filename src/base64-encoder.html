@@ -121,6 +121,32 @@
     <div class="about-wrap">
       <h3>📖 关于此工具</h3>
       <p><strong>Base64 编解码器</strong> 支持<strong>文本</strong>和<strong>图片</strong>的 Base64 编码与解码。文本模式支持编码和解码双向操作，并可在编码/解码结果间互换。图片模式支持拖拽或点击选择图片文件，自动生成 Base64 Data URL。所有操作在浏览器本地完成，文件不会上传到服务器。常用于数据传输、图片内嵌和 API 调试。</p>
+
+      <h4>🔧 核心功能</h4>
+      <ul>
+        <li><strong>文本 Base64 编码</strong>：将任意文本转换为 Base64 编码字符串</li>
+        <li><strong>Base64 解码</strong>：将 Base64 字符串还原为原始文本</li>
+        <li><strong>编码/解码互换</strong>：一键将结果作为新输入，方便链式操作和验证</li>
+        <li><strong>图片转 Base64</strong>：支持拖拽或选择图片文件（JPEG/PNG/WebP 等），自动生成 Data URL</li>
+        <li><strong>一键复制</strong>：编码或解码结果可直接复制到剪贴板</li>
+      </ul>
+
+      <h4>📋 使用场景</h4>
+      <ul>
+        <li><strong>图片内嵌</strong>：将小图标或图片转为 Base64 嵌入 HTML/CSS，减少 HTTP 请求</li>
+        <li><strong>API 传输</strong>：在 JSON 中传输二进制数据（如图片），通过 Base64 编码后传输</li>
+        <li><strong>数据加密</strong>：Base64 不是加密算法，但可用于简单的数据混淆（如 URL 参数）</li>
+        <li><strong>邮件附件</strong>：MIME 协议使用 Base64 编码邮件中的二进制附件</li>
+        <li><strong>数据存储</strong>：将二进制数据转为文本格式存储在数据库或配置文件中</li>
+      </ul>
+
+      <h4>💡 使用技巧</h4>
+      <ul>
+        <li>Base64 编码后的数据比原始数据大约 <strong>33%</strong>，大文件建议直接传输</li>
+        <li>图片转 Base64 适合 <strong>10KB 以内</strong>的小图标，大图会使 HTML/CSS 体积膨胀</li>
+        <li>使用"编码↔解码互换"功能可验证编解码是否正确</li>
+        <li>所有操作在浏览器本地完成，<strong>文件不会上传到服务器</strong></li>
+      </ul>
     </div>
   </section>
   <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>

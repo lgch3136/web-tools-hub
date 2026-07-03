@@ -9,4 +9,4 @@ User-agent: Mediapartners-Google
 Allow: /
 
 # Sitemap
-Sitemap: https://web-tools-hub-three.vercel.app/sitemap.xml
+Sitemap: https://practicaltools.xyz/sitemap.xml

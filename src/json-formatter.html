@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <link rel="canonical" href="https://web-tools-hub-three.vercel.app/json-formatter">
+  <link rel="canonical" href="https://practicaltools.xyz/json-formatter">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JSON 格式化/校验器 - 在线工具集</title>
@@ -58,14 +58,14 @@
   <meta property="og:title" content="JSON 格式化/校验器 - 在线工具集">
   <meta property="og:description" content="免费在线 JSON 格式化工具，格式化、压缩、校验 JSON，语法高亮，错误定位。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/json-formatter">
+  <meta property="og:url" content="https://practicaltools.xyz/json-formatter">
   <meta name="twitter:card" content="summary">
   <script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "JSON 格式化/校验器",
-    "url": "https://web-tools-hub-three.vercel.app/json-formatter",
+    "url": "https://practicaltools.xyz/json-formatter",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "All",
     "description": "免费在线 JSON 格式化工具，格式化、压缩、校验 JSON，语法高亮，错误定位。"
@@ -169,7 +169,7 @@
     function escapeJSON() { input.value = JSON.stringify(input.value).slice(1, -1); formatJSON(); }
     function unescapeJSON() { try { const unescaped = JSON.parse('"' + input.value.replace(/"/g, '\\"') + '"'); input.value = unescaped; formatJSON(); } catch(e) { showResult(false, input.value, '反转义失败: ' + e.message); } }
     function clearJSON() { input.value = ''; preview.style.display = 'none'; errMsg.style.display = 'none'; input.classList.remove('error'); status.textContent = '就绪'; status.className = 'json-status'; stats.textContent = ''; }
-    function loadSample() { input.value = JSON.stringify({ website: '在线工具集', url: 'https://web-tools-hub-three.vercel.app', tools: [{ name: 'MD ↔ HTML 转换器', category: 'format' }, { name: '汇率换算', category: 'finance' }, { name: '密码生成器', category: 'security' }, { name: '时间戳转换', category: 'developer' }, { name: 'JSON 格式化', category: 'developer' }], version: '1.0.0', features: { free: true, localProcessing: true, adsSupported: true } }, null, 2); formatJSON(); }
+    function loadSample() { input.value = JSON.stringify({ website: '在线工具集', url: 'https://practicaltools.xyz', tools: [{ name: 'MD ↔ HTML 转换器', category: 'format' }, { name: '汇率换算', category: 'finance' }, { name: '密码生成器', category: 'security' }, { name: '时间戳转换', category: 'developer' }, { name: 'JSON 格式化', category: 'developer' }], version: '1.0.0', features: { free: true, localProcessing: true, adsSupported: true } }, null, 2); formatJSON(); }
     function switchTab(tab) { document.getElementById('tabEditor').classList.toggle('active', tab === 'editor'); document.getElementById('tabPreview').classList.toggle('active', tab === 'preview'); input.style.display = tab === 'editor' ? '' : 'none'; preview.style.display = tab === 'preview' ? '' : 'none'; if (tab === 'preview') formatJSON(); }
     input.addEventListener('input', () => { input.classList.remove('error'); errMsg.style.display = 'none'; status.textContent = '已修改'; status.className = 'json-status'; });
     input.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); formatJSON(); } });

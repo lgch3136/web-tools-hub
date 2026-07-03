@@ -4,6 +4,8 @@
   <link rel="canonical" href="https://practicaltools.xyz/">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <title>在线工具集 - 20款免费在线开发与办公工具 | JSON格式化 | 正则测试 | Hash计算 | 图片压缩</title>
   <meta name="description" content="免费在线工具集，20款实用开发与办公工具：JSON格式化、正则表达式测试、Hash计算器、MD↔HTML转换、Base64编解码、URL编解码、文本差异对比、时间戳转换、二维码生成、图片压缩、图片隐私清理、颜色转换、密码生成器、UUID生成器、字数统计、进制转换器、开发命令速查。纯本地处理，无需安装。" />
   <meta name="keywords" content="在线工具,JSON格式化,正则表达式测试,Hash计算器,密码生成器,二维码生成器,Base64编解码,时间戳转换,颜色转换,文本对比,Markdown转换,图片压缩,图片隐私清理,EXIF清除,URL编码,UUID生成,字数统计,进制转换,命令速查,网站导航,Vibe Coding,免费在线工具" />
@@ -76,18 +78,43 @@
   ]
 }
 </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "在线工具集工具列表",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"JSON 格式化 / 校验器","url":"https://practicaltools.xyz/json-formatter"},
+    {"@type":"ListItem","position":2,"name":"MD ↔ HTML 转换器","url":"https://practicaltools.xyz/md-html"},
+    {"@type":"ListItem","position":3,"name":"Base64 编解码器","url":"https://practicaltools.xyz/base64-encoder"},
+    {"@type":"ListItem","position":4,"name":"二维码生成器","url":"https://practicaltools.xyz/qr-generator"},
+    {"@type":"ListItem","position":5,"name":"图片压缩器","url":"https://practicaltools.xyz/image-compressor"},
+    {"@type":"ListItem","position":6,"name":"强密码生成器","url":"https://practicaltools.xyz/password-generator"}
+  ]
+}
+</script>
 </head>
 <body>
   <header class="topbar">
-    <span class="topbar-home">🔧 在线工具集</span>
-    <span style="font-size:.75rem;color:#484f58;flex:1;text-align:right">20 款工具 · 全部纯本地运行</span>
+    <a class="topbar-home" href="./" aria-label="在线工具集首页">🔧 在线工具集</a>
+    <nav class="topbar-nav" aria-label="主导航">
+      <a href="#all-tools">全部工具</a>
+      <a href="./guides">工具指南</a>
+      <a href="./privacy">隐私安全</a>
+      <a href="./about">关于</a>
+    </nav>
+    <span class="topbar-title">20 款工具 · 全部纯本地运行</span>
   </header>
 
   <main class="page page-home">
     <section class="hero">
       <h1>🛠️ 在线工具集</h1>
-      <p class="hero-desc">面向开发者和办公用户的免费在线工具 · 无需安装 · 即开即用 · 数据不上传服务器</p>
-      <div class="hero-stats">
+      <p class="hero-desc">20 款免费开发与办公工具，打开即用，数据只在你的浏览器本地处理。</p>
+      <div class="hero-actions" aria-label="首页快捷操作">
+        <a class="hero-cta hero-cta-primary" href="#all-tools">浏览全部工具</a>
+        <a class="hero-cta hero-cta-secondary" href="#tool-search">搜索工具</a>
+      </div>
+      <div class="hero-stats" aria-label="工具特性">
         <span>🔒 数据纯本地处理</span>
         <span>⚡ 实时响应</span>
         <span>📱 移动端适配</span>
@@ -97,139 +124,34 @@
 
     <section class="site-intro">
       <div class="intro-wrap">
-        <p>本工具集汇聚了 <strong>20 款高频实用工具</strong>，涵盖 <strong>格式与编码</strong>、<strong>图片与设计</strong>、<strong>文本与安全</strong>、<strong>开发者工具</strong>、<strong>开发命令速查</strong>、<strong>常用网站导航</strong> 和 <strong>Vibe Coding 命令集</strong> 七大类别。所有工具均在浏览器端完成计算，<strong>数据不上传服务器</strong>，保护你的隐私安全。</p>
+        <p><strong>常用工具优先展示，减少滚动等待。</strong> 你可以直接搜索 JSON、二维码、图片压缩、密码、时间戳等关键词，也可以按分类快速跳转。大多数工具在浏览器端完成计算，敏感内容不会上传到服务器。</p>
       </div>
     </section>
 
-    <section class="site-extra">
-      <div class="extra-wrap">
-        <h3>为什么选择在线工具集？</h3>
-        <div class="extra-grid">
-          <div class="extra-item">
-            <strong>🔒 隐私优先</strong>
-            <p>所有工具完全在浏览器本地运行，你输入的任何数据都不会上传到服务器。关闭页面即清除所有记录。我们不收集、不存储、不分析任何用户数据。</p>
-          </div>
-          <div class="extra-item">
-            <strong>⚡ 无需安装</strong>
-            <p>打开浏览器即可使用，无需下载任何软件或注册账户。适合在公用电脑、公司网络等受限环境中使用。支持 Chrome、Firefox、Safari、Edge 等主流浏览器。</p>
-          </div>
-          <div class="extra-item">
-            <strong>📱 全平台适配</strong>
-            <p>桌面端和移动端均可流畅使用。响应式设计确保在手机、平板和电脑上都有良好的操作体验。随时随地处理工作需求。</p>
-          </div>
-          <div class="extra-item">
-            <strong>🎯 持续更新</strong>
-            <p>根据用户反馈持续增加新工具和优化现有功能。每月发布更新，不断改进用户体验。如果你有工具需求，欢迎提出建议。</p>
-          </div>
+    <section class="tool-finder" aria-labelledby="tool-finder-title">
+      <div class="finder-wrap">
+        <div class="finder-head">
+          <h2 id="tool-finder-title">快速找到需要的工具</h2>
+          <p>输入关键词筛选工具，或直接跳到对应分类。</p>
         </div>
+        <label class="search-box" for="tool-search">
+          <span>🔎 搜索工具</span>
+          <input id="tool-search" type="search" autocomplete="off" placeholder="搜索 JSON、二维码、压缩、密码" />
+        </label>
+        <nav class="category-chips" aria-label="工具分类">
+          <a href="#format-encoding">格式 & 编码</a>
+          <a href="#image-design">图片 & 设计</a>
+          <a href="#text-security">文本 & 安全</a>
+          <a href="#developer-tools">开发者工具</a>
+        </nav>
+        <p id="tools-empty" class="tools-empty" hidden>没有找到匹配工具。试试 JSON、图片、密码、二维码、时间戳等关键词。</p>
       </div>
     </section>
 
-    <!-- 工具使用指南 -->
-    <section class="guide-section">
-      <div class="guide-wrap">
-        <h2>📚 工具使用指南</h2>
-        <div class="guide-grid">
-          <div class="guide-card">
-            <h4>JSON 格式化工具</h4>
-            <p>JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。我们的 JSON 格式化工具可以帮助你：</p>
-            <ul>
-              <li>美化混乱的 JSON 代码，使其易于阅读</li>
-              <li>压缩 JSON 数据，减小文件体积</li>
-              <li>验证 JSON 语法是否正确</li>
-              <li>支持转义和反转义特殊字符</li>
-            </ul>
-            <p>适用场景：API 开发调试、数据处理、配置文件编辑等。</p>
-          </div>
-          <div class="guide-card">
-            <h4>正则表达式测试器</h4>
-            <p>正则表达式（Regular Expression）是处理文本的强大工具。使用我们的测试器可以：</p>
-            <ul>
-              <li>实时预览匹配结果，高亮显示匹配内容</li>
-              <li>支持全局、忽略大小写、多行等多种模式</li>
-              <li>内置常用正则模板：邮箱、手机号、URL 等</li>
-              <li>学习和调试复杂的正则表达式</li>
-            </ul>
-            <p>适用场景：数据验证、文本提取、批量替换、爬虫开发等。</p>
-          </div>
-          <div class="guide-card">
-            <h4>Hash 计算器</h4>
-            <p>哈希算法用于生成数据的唯一指纹。我们的 Hash 计算器支持：</p>
-            <ul>
-              <li>MD5、SHA-1、SHA-256、SHA-512 多种算法</li>
-              <li>文本和文件的哈希计算</li>
-              <li>文件完整性校验和比对</li>
-              <li>密码存储和数字签名验证</li>
-            </ul>
-            <p>适用场景：文件校验、安全验证、数据完整性检查等。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 精选指南文章 -->
-    <section class="featured-guides">
-      <div class="featured-wrap">
-        <h2>📝 精选指南文章</h2>
-        <p class="featured-sub">原创教程，助你更好地使用在线工具</p>
-        <div class="featured-grid">
-          <a href="./guides/password-guide.html" class="featured-card">
-            <span class="featured-icon">🔐</span>
-            <h4>密码安全最佳实践</h4>
-            <p>学习如何创建和管理强密码，了解密码短语（Passphrase）方法、双因素认证（2FA）和密码管理器的使用。</p>
-            <span class="featured-meta">5分钟阅读 · 安全指南</span>
-          </a>
-          <a href="./guides/json-formatter-guide.html" class="featured-card">
-            <span class="featured-icon">📋</span>
-            <h4>JSON格式化完全指南</h4>
-            <p>从基础语法到高级技巧，掌握 JSON 美化、压缩、校验的核心用法，提升 API 调试效率。</p>
-            <span class="featured-meta">5分钟阅读 · 基础到进阶</span>
-          </a>
-          <a href="./guides/regex-guide.html" class="featured-card">
-            <span class="featured-icon">🔍</span>
-            <h4>正则表达式入门与实战</h4>
-            <p>从基础元字符到实战应用，掌握正则表达式的核心用法，附常用正则模板速查。</p>
-            <span class="featured-meta">8分钟阅读 · 入门到实战</span>
-          </a>
-          <a href="./guides/image-compress-guide.html" class="featured-card">
-            <span class="featured-icon">🖼️</span>
-            <h4>图片压缩完全指南</h4>
-            <p>学习有损与无损压缩的区别，掌握 JPEG/PNG/WebP 格式选择策略，优化网页加载速度。</p>
-            <span class="featured-meta">6分钟阅读 · 性能优化</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 常见问题 -->
-    <section class="faq-section">
-      <div class="faq-wrap">
-        <h2>❓ 常见问题</h2>
-        <div class="faq-list">
-          <div class="faq-item">
-            <h4>这些工具真的完全免费吗？</h4>
-            <p>是的，所有工具完全免费使用，无需注册账户，没有使用次数限制。我们通过展示广告来维持网站运营。</p>
-          </div>
-          <div class="faq-item">
-            <h4>我的数据安全吗？</h4>
-            <p>绝对安全。所有数据处理都在你的浏览器本地完成，数据不会上传到我们的服务器。关闭页面后，所有输入数据将被清除。</p>
-          </div>
-          <div class="faq-item">
-            <h4>支持哪些浏览器？</h4>
-            <p>支持所有现代浏览器，包括 Chrome、Firefox、Safari、Edge 等。建议使用最新版本以获得最佳体验。</p>
-          </div>
-          <div class="faq-item">
-            <h4>可以在手机上使用吗？</h4>
-            <p>可以。所有工具都针对移动端进行了优化，在手机和平板上同样可以流畅使用。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="tools-grid">
+<section id="all-tools" class="tools-grid" aria-label="全部工具">
 
       <!-- ═══ 格式 & 编码 ═══ -->
-      <h2 class="section-title">📂 格式 & 编码</h2>
+      <h2 id="format-encoding" class="section-title">📂 格式 & 编码</h2>
 
       <a href="./json-formatter" class="tool-card">
         <div class="tool-icon">{ }</div>
@@ -269,7 +191,7 @@
       </a>
 
       <!-- ═══ 图片 & 设计 ═══ -->
-      <h2 class="section-title">🖼️ 图片 & 设计</h2>
+      <h2 id="image-design" class="section-title">🖼️ 图片 & 设计</h2>
 
       <a href="./image-compressor" class="tool-card">
         <div class="tool-icon">🖼️</div>
@@ -303,7 +225,7 @@
       </a>
 
       <!-- ═══ 文本 & 安全 ═══ -->
-      <h2 class="section-title">📝 文本 & 安全</h2>
+      <h2 id="text-security" class="section-title">📝 文本 & 安全</h2>
 
       <a href="./regex-tester" class="tool-card">
         <div class="tool-icon">🔍</div>
@@ -332,7 +254,7 @@
       </a>
 
       <!-- ═══ 开发者工具 ═══ -->
-      <h2 class="section-title">💻 开发者工具</h2>
+      <h2 id="developer-tools" class="section-title">💻 开发者工具</h2>
 
       <a href="./uuid-generator" class="tool-card">
         <div class="tool-icon">🆔</div>
@@ -360,16 +282,139 @@
       </a>
       <a href="./agent-commands" class="tool-card">
         <div class="tool-icon">🤖</div>
-        <h3>Vibe Coding 命令集</h3>
-        <p>Hermes Agent、Claude Code、Codex CLI、Git、Vercel、OpenCLI、Playwright、npm 等 AI 编程工具安装与命令速查。</p>
-        <span class="tool-tag">AI</span><span class="tool-tag">Agent</span><span class="tool-arrow">→</span>
+        <h3>AI 编程命令集</h3>
+        <p>Hermes Agent、Claude Code、Codex CLI、Git、Vercel、OpenCLI、Playwright、npm 等 AI 编程工具安装与常用命令速查。</p>
+        <span class="tool-tag">AI 编程</span><span class="tool-tag">命令</span><span class="tool-arrow">→</span>
       </a>
 
     </section>
-<footer class="footer">
+
+<section class="site-extra">
+      <div class="extra-wrap">
+        <h2>为什么选择在线工具集？</h2>
+        <div class="extra-grid">
+          <div class="extra-item">
+            <strong>🔒 隐私优先</strong>
+            <p>所有工具完全在浏览器本地运行，你输入的任何数据都不会上传到服务器。关闭页面即清除所有记录。我们不收集、不存储、不分析任何用户数据。</p>
+          </div>
+          <div class="extra-item">
+            <strong>⚡ 无需安装</strong>
+            <p>打开浏览器即可使用，无需下载任何软件或注册账户。适合在公用电脑、公司网络等受限环境中使用。支持 Chrome、Firefox、Safari、Edge 等主流浏览器。</p>
+          </div>
+          <div class="extra-item">
+            <strong>📱 全平台适配</strong>
+            <p>桌面端和移动端均可流畅使用。响应式设计确保在手机、平板和电脑上都有良好的操作体验。随时随地处理工作需求。</p>
+          </div>
+          <div class="extra-item">
+            <strong>🎯 持续更新</strong>
+            <p>根据用户反馈持续增加新工具和优化现有功能。每月发布更新，不断改进用户体验。如果你有工具需求，欢迎提出建议。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="guide-section">
+      <div class="guide-wrap">
+        <h2>📚 工具使用指南</h2>
+        <div class="guide-grid">
+          <div class="guide-card">
+            <h3>JSON 格式化工具</h3>
+            <p>JSON（JavaScript Object Notation）是一种轻量级的数据交换格式。我们的 JSON 格式化工具可以帮助你：</p>
+            <ul>
+              <li>美化混乱的 JSON 代码，使其易于阅读</li>
+              <li>压缩 JSON 数据，减小文件体积</li>
+              <li>验证 JSON 语法是否正确</li>
+              <li>支持转义和反转义特殊字符</li>
+            </ul>
+            <p>适用场景：API 开发调试、数据处理、配置文件编辑等。</p>
+          </div>
+          <div class="guide-card">
+            <h3>正则表达式测试器</h3>
+            <p>正则表达式（Regular Expression）是处理文本的强大工具。使用我们的测试器可以：</p>
+            <ul>
+              <li>实时预览匹配结果，高亮显示匹配内容</li>
+              <li>支持全局、忽略大小写、多行等多种模式</li>
+              <li>内置常用正则模板：邮箱、手机号、URL 等</li>
+              <li>学习和调试复杂的正则表达式</li>
+            </ul>
+            <p>适用场景：数据验证、文本提取、批量替换、爬虫开发等。</p>
+          </div>
+          <div class="guide-card">
+            <h3>Hash 计算器</h3>
+            <p>哈希算法用于生成数据的唯一指纹。我们的 Hash 计算器支持：</p>
+            <ul>
+              <li>MD5、SHA-1、SHA-256、SHA-512 多种算法</li>
+              <li>文本和文件的哈希计算</li>
+              <li>文件完整性校验和比对</li>
+              <li>密码存储和数字签名验证</li>
+            </ul>
+            <p>适用场景：文件校验、安全验证、数据完整性检查等。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="featured-guides">
+      <div class="featured-wrap">
+        <h2>📝 精选指南文章</h2>
+        <p class="featured-sub">原创教程，助你更好地使用在线工具</p>
+        <div class="featured-grid">
+          <a href="./guides/password-guide" class="featured-card">
+            <span class="featured-icon">🔐</span>
+            <h3>密码安全最佳实践</h3>
+            <p>学习如何创建和管理强密码，了解密码短语（Passphrase）方法、双因素认证（2FA）和密码管理器的使用。</p>
+            <span class="featured-meta">5分钟阅读 · 安全指南</span>
+          </a>
+          <a href="./guides/json-formatter-guide" class="featured-card">
+            <span class="featured-icon">📋</span>
+            <h3>JSON格式化完全指南</h3>
+            <p>从基础语法到高级技巧，掌握 JSON 美化、压缩、校验的核心用法，提升 API 调试效率。</p>
+            <span class="featured-meta">5分钟阅读 · 基础到进阶</span>
+          </a>
+          <a href="./guides/regex-guide" class="featured-card">
+            <span class="featured-icon">🔍</span>
+            <h3>正则表达式入门与实战</h3>
+            <p>从基础元字符到实战应用，掌握正则表达式的核心用法，附常用正则模板速查。</p>
+            <span class="featured-meta">8分钟阅读 · 入门到实战</span>
+          </a>
+          <a href="./guides/image-compress-guide" class="featured-card">
+            <span class="featured-icon">🖼️</span>
+            <h3>图片压缩完全指南</h3>
+            <p>学习有损与无损压缩的区别，掌握 JPEG/PNG/WebP 格式选择策略，优化网页加载速度。</p>
+            <span class="featured-meta">6分钟阅读 · 性能优化</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+<section class="faq-section">
+      <div class="faq-wrap">
+        <h2>❓ 常见问题</h2>
+        <div class="faq-list">
+          <div class="faq-item">
+            <h3>这些工具真的完全免费吗？</h3>
+            <p>是的，所有工具完全免费使用，无需注册账户，没有使用次数限制。我们通过展示广告来维持网站运营。</p>
+          </div>
+          <div class="faq-item">
+            <h3>我的数据安全吗？</h3>
+            <p>绝对安全。所有数据处理都在你的浏览器本地完成，数据不会上传到我们的服务器。关闭页面后，所有输入数据将被清除。</p>
+          </div>
+          <div class="faq-item">
+            <h3>支持哪些浏览器？</h3>
+            <p>支持所有现代浏览器，包括 Chrome、Firefox、Safari、Edge 等。建议使用最新版本以获得最佳体验。</p>
+          </div>
+          <div class="faq-item">
+            <h3>可以在手机上使用吗？</h3>
+            <p>可以。所有工具都针对移动端进行了优化，在手机和平板上同样可以流畅使用。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
       <p>© 2026 在线工具集 · 全部工具在浏览器本地运行，数据不上传服务器</p>
       <div class="footer-links">
-        <a href="./guides/">工具指南</a>
+        <a href="./guides">工具指南</a>
         <a href="./about">关于我们</a>
         <a href="./privacy">隐私政策</a>
         <a href="./ad-disclosure">广告声明</a>
@@ -378,8 +423,42 @@
       </div>
     </footer>
   </main>
-<!-- Cookie Consent -->
-  <script>!function(){"use strict";if("accepted"===localStorage.getItem("cookie_consent"))return;var e=document.createElement("div");e.id="cookie-consent-banner";var t=window.location.pathname.includes("/guides/")?"..":".";e.innerHTML='<div class="cc-inner"><div class="cc-text">🍪 本网站使用 Cookie 和 Google AdSense 来展示个性化广告。继续使用即表示您同意我们的 <a href="'+t+'/privacy">隐私政策</a> 和 <a href="'+t+'/ad-disclosure">广告声明</a>。您可以在 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 广告设置</a> 中管理偏好。</div><div class="cc-actions"><button class="cc-btn cc-btn-settings" id="cc-settings-btn">管理设置</button><button class="cc-btn cc-btn-accept" id="cc-accept-btn">接受</button></div></div>',document.body.appendChild(e),setTimeout(function(){e.classList.add("cc-visible")},200),document.getElementById("cc-accept-btn").addEventListener("click",function(){localStorage.setItem("cookie_consent","accepted"),e.classList.remove("cc-visible"),setTimeout(function(){e.remove()},300)}),document.getElementById("cc-settings-btn").addEventListener("click",function(){window.location.href=t+"/ad-disclosure"})}();</script>
+  <script>
+    (function () {
+      var input = document.getElementById('tool-search');
+      var empty = document.getElementById('tools-empty');
+      if (!input) return;
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.tool-card'));
+      var headings = Array.prototype.slice.call(document.querySelectorAll('.tools-grid .section-title'));
+      function updateHeadings(hasQuery) {
+        headings.forEach(function (heading) {
+          var anyVisible = false;
+          var node = heading.nextElementSibling;
+          while (node && !node.classList.contains('section-title')) {
+            if (node.classList.contains('tool-card') && !node.hidden) anyVisible = true;
+            node = node.nextElementSibling;
+          }
+          heading.hidden = hasQuery && !anyVisible;
+        });
+      }
+      function filterTools() {
+        var query = input.value.trim().toLowerCase();
+        var visibleCount = 0;
+        cards.forEach(function (card) {
+          var text = card.textContent.toLowerCase();
+          var visible = !query || text.indexOf(query) !== -1;
+          card.hidden = !visible;
+          if (visible) visibleCount += 1;
+        });
+        updateHeadings(Boolean(query));
+        if (empty) empty.hidden = visibleCount !== 0;
+      }
+      input.addEventListener('input', filterTools);
+      var params = new URLSearchParams(window.location.search);
+      var initial = params.get('q');
+      if (initial) { input.value = initial; filterTools(); }
+    })();
+  </script>
+  <script src="./cookie-consent.js" defer></script>
 </body>
 </html>
-

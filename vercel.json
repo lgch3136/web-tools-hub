@@ -3,43 +3,273 @@
   "outputDirectory": "dist",
   "framework": "parcel",
   "redirects": [
-    { "source": "/image-watermark-remover", "destination": "/image-privacy-cleaner", "permanent": true },
-    { "source": "/image-watermark-remover.html", "destination": "/image-privacy-cleaner", "permanent": true }
+    {
+      "source": "/image-watermark-remover",
+      "destination": "/image-privacy-cleaner",
+      "permanent": true
+    },
+    {
+      "source": "/image-watermark-remover.html",
+      "destination": "/image-privacy-cleaner",
+      "permanent": true
+    },
+    {
+      "source": "/json-formatter-guide",
+      "destination": "/guides/json-formatter-guide",
+      "permanent": true
+    },
+    {
+      "source": "/json-formatter-guide.html",
+      "destination": "/guides/json-formatter-guide",
+      "permanent": true
+    },
+    {
+      "source": "/regex-guide",
+      "destination": "/guides/regex-guide",
+      "permanent": true
+    },
+    {
+      "source": "/regex-guide.html",
+      "destination": "/guides/regex-guide",
+      "permanent": true
+    },
+    {
+      "source": "/base64-guide",
+      "destination": "/guides/base64-guide",
+      "permanent": true
+    },
+    {
+      "source": "/base64-guide.html",
+      "destination": "/guides/base64-guide",
+      "permanent": true
+    },
+    {
+      "source": "/markdown-guide",
+      "destination": "/guides/markdown-guide",
+      "permanent": true
+    },
+    {
+      "source": "/markdown-guide.html",
+      "destination": "/guides/markdown-guide",
+      "permanent": true
+    },
+    {
+      "source": "/timestamp-guide",
+      "destination": "/guides/timestamp-guide",
+      "permanent": true
+    },
+    {
+      "source": "/timestamp-guide.html",
+      "destination": "/guides/timestamp-guide",
+      "permanent": true
+    },
+    {
+      "source": "/url-encoding-guide",
+      "destination": "/guides/url-encoding-guide",
+      "permanent": true
+    },
+    {
+      "source": "/url-encoding-guide.html",
+      "destination": "/guides/url-encoding-guide",
+      "permanent": true
+    },
+    {
+      "source": "/hash-guide",
+      "destination": "/guides/hash-guide",
+      "permanent": true
+    },
+    {
+      "source": "/hash-guide.html",
+      "destination": "/guides/hash-guide",
+      "permanent": true
+    },
+    {
+      "source": "/password-guide",
+      "destination": "/guides/password-guide",
+      "permanent": true
+    },
+    {
+      "source": "/password-guide.html",
+      "destination": "/guides/password-guide",
+      "permanent": true
+    },
+    {
+      "source": "/image-compress-guide",
+      "destination": "/guides/image-compress-guide",
+      "permanent": true
+    },
+    {
+      "source": "/image-compress-guide.html",
+      "destination": "/guides/image-compress-guide",
+      "permanent": true
+    },
+    {
+      "source": "/text-diff-guide",
+      "destination": "/guides/text-diff-guide",
+      "permanent": true
+    },
+    {
+      "source": "/text-diff-guide.html",
+      "destination": "/guides/text-diff-guide",
+      "permanent": true
+    },
+    {
+      "source": "/git-workflow-guide",
+      "destination": "/guides/git-workflow-guide",
+      "permanent": true
+    },
+    {
+      "source": "/git-workflow-guide.html",
+      "destination": "/guides/git-workflow-guide",
+      "permanent": true
+    },
+    {
+      "source": "/qr-code-guide",
+      "destination": "/guides/qr-code-guide",
+      "permanent": true
+    },
+    {
+      "source": "/qr-code-guide.html",
+      "destination": "/guides/qr-code-guide",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/index", "destination": "/index.html" },
-    { "source": "/image-compressor", "destination": "/image-compressor.html" },
-    { "source": "/json-formatter", "destination": "/json-formatter.html" },
-    { "source": "/md-html", "destination": "/md-html.html" },
-    { "source": "/exchange-rate", "destination": "/exchange-rate.html" },
-    { "source": "/password-generator", "destination": "/password-generator.html" },
-    { "source": "/timestamp-converter", "destination": "/timestamp-converter.html" },
-    { "source": "/base64-encoder", "destination": "/base64-encoder.html" },
-    { "source": "/qr-generator", "destination": "/qr-generator.html" },
-    { "source": "/color-converter", "destination": "/color-converter.html" },
-    { "source": "/text-diff", "destination": "/text-diff.html" },
-    { "source": "/agent-commands", "destination": "/agent-commands.html" },
-    { "source": "/dev-commands", "destination": "/dev-commands.html" },
-    { "source": "/dev-links", "destination": "/dev-links.html" },
-    { "source": "/regex-tester", "destination": "/regex-tester.html" },
-    { "source": "/hash-calculator", "destination": "/hash-calculator.html" },
-    { "source": "/url-encoder", "destination": "/url-encoder.html" },
-    { "source": "/uuid-generator", "destination": "/uuid-generator.html" },
-    { "source": "/word-counter", "destination": "/word-counter.html" },
-    { "source": "/base-converter", "destination": "/base-converter.html" },
-    { "source": "/image-privacy-cleaner", "destination": "/image-privacy-cleaner.html" },
-    { "source": "/about", "destination": "/about.html" },
-    { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/terms", "destination": "/terms.html" },
-    { "source": "/contact", "destination": "/contact.html" },
-    { "source": "/ad-disclosure", "destination": "/ad-disclosure.html" },
-    { "source": "/guides", "destination": "/guides/index.html" },
-    { "source": "/guides/base64-guide", "destination": "/guides/base64-guide.html" },
-    { "source": "/guides/markdown-guide", "destination": "/guides/markdown-guide.html" },
-    { "source": "/guides/timestamp-guide", "destination": "/guides/timestamp-guide.html" },
-    { "source": "/guides/git-workflow-guide", "destination": "/guides/git-workflow-guide.html" },
-    { "source": "/guides/url-encoding-guide", "destination": "/guides/url-encoding-guide.html" },
-    { "source": "/guides/:path*", "destination": "/guides/:path*.html" }
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/index",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/image-compressor",
+      "destination": "/image-compressor.html"
+    },
+    {
+      "source": "/json-formatter",
+      "destination": "/json-formatter.html"
+    },
+    {
+      "source": "/md-html",
+      "destination": "/md-html.html"
+    },
+    {
+      "source": "/exchange-rate",
+      "destination": "/exchange-rate.html"
+    },
+    {
+      "source": "/password-generator",
+      "destination": "/password-generator.html"
+    },
+    {
+      "source": "/timestamp-converter",
+      "destination": "/timestamp-converter.html"
+    },
+    {
+      "source": "/base64-encoder",
+      "destination": "/base64-encoder.html"
+    },
+    {
+      "source": "/qr-generator",
+      "destination": "/qr-generator.html"
+    },
+    {
+      "source": "/color-converter",
+      "destination": "/color-converter.html"
+    },
+    {
+      "source": "/text-diff",
+      "destination": "/text-diff.html"
+    },
+    {
+      "source": "/agent-commands",
+      "destination": "/agent-commands.html"
+    },
+    {
+      "source": "/dev-commands",
+      "destination": "/dev-commands.html"
+    },
+    {
+      "source": "/dev-links",
+      "destination": "/dev-links.html"
+    },
+    {
+      "source": "/regex-tester",
+      "destination": "/regex-tester.html"
+    },
+    {
+      "source": "/hash-calculator",
+      "destination": "/hash-calculator.html"
+    },
+    {
+      "source": "/url-encoder",
+      "destination": "/url-encoder.html"
+    },
+    {
+      "source": "/uuid-generator",
+      "destination": "/uuid-generator.html"
+    },
+    {
+      "source": "/word-counter",
+      "destination": "/word-counter.html"
+    },
+    {
+      "source": "/base-converter",
+      "destination": "/base-converter.html"
+    },
+    {
+      "source": "/image-privacy-cleaner",
+      "destination": "/image-privacy-cleaner.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/ad-disclosure",
+      "destination": "/ad-disclosure.html"
+    },
+    {
+      "source": "/guides",
+      "destination": "/guides/index.html"
+    },
+    {
+      "source": "/guides/base64-guide",
+      "destination": "/guides/base64-guide.html"
+    },
+    {
+      "source": "/guides/markdown-guide",
+      "destination": "/guides/markdown-guide.html"
+    },
+    {
+      "source": "/guides/timestamp-guide",
+      "destination": "/guides/timestamp-guide.html"
+    },
+    {
+      "source": "/guides/git-workflow-guide",
+      "destination": "/guides/git-workflow-guide.html"
+    },
+    {
+      "source": "/guides/url-encoding-guide",
+      "destination": "/guides/url-encoding-guide.html"
+    },
+    {
+      "source": "/guides/:path*",
+      "destination": "/guides/:path*.html"
+    }
   ]
 }

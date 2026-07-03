@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>时间戳完全指南 - 在线工具集</title>
+  <meta name="description" content="Unix 时间戳完全指南：理解时间戳原理、常见问题（2038问题）、各编程语言处理方式，以及在线转换工具的使用技巧。">
+  <meta name="keywords" content="Unix时间戳,时间戳转换,timestamp,2038问题,时间处理,编程时间,epoch">
+  <link rel="canonical" href="https://web-tools-hub-three.vercel.app/guides/timestamp-guide">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <meta name="author" content="在线工具集团队">
+  <link rel="stylesheet" href="../style.css">
+  <meta property="og:title" content="时间戳完全指南 - 在线工具集">
+  <meta property="og:description" content="理解 Unix 时间戳的原理、常见问题和各语言处理方式">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/guides/timestamp-guide">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Unix 时间戳完全指南",
+  "description": "理解时间戳原理、常见问题（2038问题）和各编程语言处理方式",
+  "author": {"@type": "Organization", "name": "在线工具集"},
+  "datePublished": "2026-06-18",
+  "dateModified": "2026-06-26"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">📖 工具指南</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <article class="static-content">
+      <h1>Unix 时间戳完全指南</h1>
+      <p><em>发布日期：2026年6月18日 | 阅读时间：6分钟</em></p>
+
+      <p>时间戳是编程世界中最基础也最容易出错的概念之一。从数据库存储到 API 设计，从日志记录到缓存过期，时间戳无处不在。本文将深入浅出地讲解时间戳的一切。</p>
+
+      <h2>什么是 Unix 时间戳？</h2>
+      <p>Unix 时间戳是一个整数，表示从 <strong>1970年1月1日 00:00:00 UTC</strong>（Unix 纪元，Epoch）到某个时间点的<strong>总秒数</strong>。例如：</p>
+      <ul>
+        <li>0 → 1970-01-01 00:00:00 UTC</li>
+        <li>3600 → 1970-01-01 01:00:00 UTC</li>
+        <li>1719417600 → 2026-06-26 00:00:00 UTC</li>
+      </ul>
+      <p>选择 1970 年作为起点并非随意——Unix 操作系统正是在 1969-1971 年间开发的，这个日期成为了事实标准。</p>
+
+      <h2>秒 vs 毫秒：最常见的坑</h2>
+      <p>这是开发中最容易搞混的问题。时间戳有两种常见精度：</p>
+      <table>
+        <tr><th>精度</th><th>长度</th><th>示例</th><th>使用场景</th></tr>
+        <tr><td>秒级</td><td>10 位数字</td><td>1719417600</td><td>Unix 原生、MySQL TIMESTAMP、大部分 API</td></tr>
+        <tr><td>毫秒级</td><td>13 位数字</td><td>1719417600000</td><td>JavaScript Date.now()、Java System.currentTimeMillis()</td></tr>
+      </table>
+
+      <p><strong>典型案例</strong>：当你从 JavaScript 获取 `Date.now()` 得到 1719417600000，直接传给一个期望秒级时间戳的 API，结果就会变成公元 56452 年的日期！所以在使用前一定要确认对方期望的是秒还是毫秒。</p>
+
+      <h2>各编程语言中的时间戳处理</h2>
+
+      <h3>JavaScript</h3>
+      <pre><code>// 获取当前时间戳（毫秒）
+const ms = Date.now();          // 1719417600000
+const s = Math.floor(ms / 1000); // 1719417600
+
+// 时间戳 → 日期对象
+const date = new Date(ms);
+console.log(date.toISOString()); // "2026-06-26T00:00:00.000Z"
+
+// 日期 → 时间戳
+const ts = new Date("2026-06-26").getTime();</code></pre>
+
+      <h3>Python</h3>
+      <pre><code>import time
+from datetime import datetime
+
+# 获取当前时间戳（秒，浮点数）
+ts = time.time()  # 1719417600.123456
+
+# 秒级整数
+ts_int = int(ts)
+
+# 时间戳 → datetime
+dt = datetime.fromtimestamp(ts_int)
+print(dt.strftime("%Y-%m-%d %H:%M:%S"))</code></pre>
+
+      <h3>Go</h3>
+      <pre><code>import "time"
+
+// 获取当前时间戳
+sec := time.Now().Unix()      // 秒
+msec := time.Now().UnixMilli() // 毫秒
+
+// 时间戳 → Time
+t := time.Unix(1719417600, 0)</code></pre>
+
+      <h3>MySQL</h3>
+      <pre><code>-- 当前时间戳
+SELECT UNIX_TIMESTAMP();
+
+-- 时间戳 → 日期
+SELECT FROM_UNIXTIME(1719417600);
+-- 结果: 2026-06-26 00:00:00
+
+-- 日期 → 时间戳
+SELECT UNIX_TIMESTAMP('2026-06-26 00:00:00');</code></pre>
+
+      <h2>著名的"2038 年问题"</h2>
+      <p>这是一个真实存在的技术问题，和"千年虫"类似。在很多 32 位系统中，时间戳用<strong>有符号 32 位整数</strong>存储，最大值是 2^31 - 1 = 2147483647。这个值对应的时间是 <strong>2038年1月19日 03:14:07 UTC</strong>。</p>
+      <p>超过这个时间点，32 位时间戳会溢出变成负数，相当于回到了 1901 年！这就是著名的 Year 2038 Problem（简称 Y2K38）。</p>
+      <p>解决方案：</p>
+      <ul>
+        <li>使用 64 位整数（绝大多数现代系统已支持）</li>
+        <li>使用字符串存储日期（如 ISO 8601 格式）</li>
+        <li>升级老旧 32 位嵌入式系统</li>
+      </ul>
+      <p>好消息是 64 位时间戳的有效范围大约是 2920 亿年，远超宇宙的年龄，我们不需要再担心溢出问题。</p>
+
+      <h2>ISO 8601：时间戳的可读替代方案</h2>
+      <p>虽然时间戳在计算机之间传输很方便，但在 API 响应、日志文件、配置文件中，使用人类可读的时间格式更好：</p>
+      <pre><code>// ❌ 不友好：这是什么时间？
+"created_at": 1719417600
+
+// ✅ 推荐：一眼就能看懂
+"created_at": "2026-06-26T00:00:00Z"
+"created_at": "2026-06-26T08:00:00+08:00"  // 带时区</code></pre>
+      <p>ISO 8601 是全球标准的时间格式，建议在 JSON API 中使用。</p>
+
+      <h2>实战：常见时间戳场景</h2>
+
+      <h3>1. API 接口中的时间格式选择</h3>
+      <ul>
+        <li><strong>面向机器的接口</strong>（内部微服务）：使用秒级时间戳，处理最快</li>
+        <li><strong>面向第三方的接口</strong>（Public API）：使用 ISO 8601 字符串，易于调试</li>
+        <li><strong>移动端接口</strong>：使用毫秒时间戳，和移动端 SDK 对齐</li>
+      </ul>
+
+      <h3>2. 数据库时间存储</h3>
+      <ul>
+        <li><strong>MySQL</strong>：TIMESTAMP 类型自动处理时区，范围到 2038 年；DATETIME 无时区概念，范围更大</li>
+        <li><strong>PostgreSQL</strong>：TIMESTAMPTZ 推荐使用，自动处理时区</li>
+        <li><strong>MongoDB</strong>：使用 ISODate 格式，底层是 64 位毫秒时间戳</li>
+      </ul>
+
+      <h3>3. 日志系统</h3>
+      <p>日志中混用时间格式会严重影响问题排查。建议统一使用 ISO 8601 格式，并始终包含时区信息：</p>
+      <pre><code>[2026-06-26T08:00:00+08:00] INFO  Request processed in 42ms
+[2026-06-26T08:00:01+08:00] ERROR Database connection timeout</code></pre>
+
+      <h2>使用我们的时间戳转换工具</h2>
+      <p>在线时间戳转换器支持：</p>
+      <ul>
+        <li>秒级和毫秒级时间戳互转</li>
+        <li>多种日期格式输出</li>
+        <li>实时显示当前时间戳</li>
+        <li>完全在浏览器本地计算，无需与服务端通信</li>
+      </ul>
+
+      <div class="guide-cta">
+        <p><strong>立即体验</strong>：<a href="../timestamp-converter">使用时间戳转换器</a></p>
+      </div>
+
+      <p class="last-updated">本文最后更新于 2026年6月26日</p>
+    </article>
+<footer class="footer">
+      <p>© 2026 在线工具集 · 全部工具在浏览器本地运行，数据不上传服务器</p>
+      <div class="footer-links">
+        <a href="./">工具指南</a>
+        <a href="../about">关于我们</a>
+        <a href="../privacy">隐私政策</a>
+        <a href="../ad-disclosure">广告声明</a>
+        <a href="../terms">使用条款</a>
+        <a href="../contact">联系我们</a>
+      </div>
+    </footer>
+  </main>
+<!-- Cookie Consent -->
+  <script>!function(){"use strict";if("accepted"===localStorage.getItem("cookie_consent"))return;var e=document.createElement("div");e.id="cookie-consent-banner";var t=window.location.pathname.includes("/guides/")?"..":".";e.innerHTML='<div class="cc-inner"><div class="cc-text">🍪 本网站使用 Cookie 和 Google AdSense 来展示个性化广告。继续使用即表示您同意我们的 <a href="'+t+'/privacy">隐私政策</a> 和 <a href="'+t+'/ad-disclosure">广告声明</a>。您可以在 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 广告设置</a> 中管理偏好。</div><div class="cc-actions"><button class="cc-btn cc-btn-settings" id="cc-settings-btn">管理设置</button><button class="cc-btn cc-btn-accept" id="cc-accept-btn">接受</button></div></div>',document.body.appendChild(e),setTimeout(function(){e.classList.add("cc-visible")},200),document.getElementById("cc-accept-btn").addEventListener("click",function(){localStorage.setItem("cookie_consent","accepted"),e.classList.remove("cc-visible"),setTimeout(function(){e.remove()},300)}),document.getElementById("cc-settings-btn").addEventListener("click",function(){window.location.href=t+"/ad-disclosure"})}();</script>
+</body>
+</html>

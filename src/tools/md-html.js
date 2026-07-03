@@ -538,10 +538,4 @@ export function render(container) {
 const appEl = document.getElementById('app');
 if (appEl) {
   render(appEl);
-  // 广告初始化
-  setTimeout(() => {
-    if (window.adsbygoogle && typeof window.adsbygoogle.push === 'function') {
-      window.adsbygoogle.push({});
-    }
-  }, 200);
 }

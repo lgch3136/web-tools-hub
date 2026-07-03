@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL 编码完全指南 - 在线工具集</title>
+  <meta name="description" content="URL 编码完全指南：理解百分号编码原理、encodeURI vs encodeURIComponent 的区别、常见编码问题和解决方案。">
+  <meta name="keywords" content="URL编码,URL解码,百分号编码,encodeURIComponent,URL参数,前端编码,percent encoding">
+  <link rel="canonical" href="https://web-tools-hub-three.vercel.app/guides/url-encoding-guide">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <meta name="author" content="在线工具集团队">
+  <link rel="stylesheet" href="../style.css">
+  <meta property="og:title" content="URL 编码完全指南 - 在线工具集">
+  <meta property="og:description" content="理解百分号编码原理和 JavaScript URL 编码的正确用法">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/guides/url-encoding-guide">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "URL 编码（百分号编码）完全指南",
+  "description": "理解 URL 编码原理，区分 encodeURI vs encodeURIComponent，解决常见编码问题",
+  "author": {"@type": "Organization", "name": "在线工具集"},
+  "datePublished": "2026-06-22",
+  "dateModified": "2026-06-26"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">📖 工具指南</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <article class="static-content">
+      <h1>URL 编码（百分号编码）完全指南</h1>
+      <p><em>发布日期：2026年6月22日 | 阅读时间：7分钟</em></p>
+
+      <p>你是否遇到过这样的情况：URL 中的中文参数变成了看不懂的乱码，或者精心构造的 API 请求因为特殊字符而失败？这些问题的根源都在于 URL 编码。本文将彻底讲清楚 URL 编码的一切。</p>
+
+      <h2>为什么需要 URL 编码？</h2>
+      <p>URL（统一资源定位符）在设计之初只允许使用 ASCII 字符集中的部分字符。具体来说，URL 只能安全地包含：</p>
+      <ul>
+        <li>英文字母：A-Z, a-z</li>
+        <li>数字：0-9</li>
+        <li>少数特殊字符：- _ . ~</li>
+      </ul>
+      <p>任何超出这个范围的字符——包括中文、空格、&、=、# 等——都必须经过编码才能安全地放入 URL 中。这个编码过程就是 URL 编码，也叫<strong>百分号编码</strong>（Percent Encoding）。</p>
+
+      <h2>URL 编码的原理</h2>
+      <p>URL 编码的规则非常简单：将每个需要编码的字符转换为它的 UTF-8 字节序列，然后将每个字节表示为 <code>%XX</code> 的格式，其中 XX 是字节的十六进制值。</p>
+
+      <h3>示例：空格</h3>
+      <pre><code>原始字符: 空格
+ASCII 码:  32
+十六进制:  20
+URL 编码:  %20（传统形式）或 +（表单编码形式）</code></pre>
+
+      <h3>示例：中文字符</h3>
+      <pre><code>原始字符: 你
+UTF-8 编码: E4 BD A0（3个字节）
+URL 编码:  %E4%BD%A0</code></pre>
+      <p>这就是为什么中文 URL 会变成一长串 % 开头的东西——每个中文字符在 UTF-8 中占 3 个字节，编码后就变成了 3 个 %XX。</p>
+
+      <h2>JavaScript 中的 URL 编码</h2>
+      <p>JavaScript 提供了三个编码函数，它们的行为有微妙但重要的差异：</p>
+
+      <h3>encodeURIComponent()：编码一切</h3>
+      <p>编码除了字母、数字和 <code>- _ . ! ~ * ' ( )</code> 之外的所有字符。这是<strong>编码 URL 参数值</strong>的正确选择：</p>
+      <pre><code>encodeURIComponent("你好 world!")
+// → "%E4%BD%A0%E5%A5%BD%20world!"
+// 空格→%20，中文→UTF-8字节的%形式，! 被保留</code></pre>
+
+      <h3>encodeURI()：保留 URL 结构</h3>
+      <p>与 encodeURIComponent 类似，但会保留 URL 中的特殊字符（如 / ? & = #）。适合编码<strong>完整的 URL</strong>而非单个参数：</p>
+      <pre><code>encodeURI("https://example.com/搜索?q=你好")
+// → "https://example.com/%E6%90%9C%E7%B4%A2?q=%E4%BD%A0%E5%A5%BD"
+// / ? = 等 URL 结构字符被保留，中文路径被编码</code></pre>
+
+      <h3>escape()：已废弃，不要用</h3>
+      <p>旧的编码函数，不处理 + @ / 等字符，且编码方式与现代标准不同。绝对不要在新代码中使用。</p>
+
+      <h3>速查表</h3>
+      <table>
+        <tr><th>场景</th><th>使用</th><th>示例</th></tr>
+        <tr><td>编码 URL 参数值</td><td>encodeURIComponent()</td><td><code>?q=你好</code></td></tr>
+        <tr><td>编码完整 URL</td><td>encodeURI()</td><td><code>https://...</code></td></tr>
+        <tr><td>编码路径段</td><td>encodeURIComponent + 手动替换%2F</td><td><code>/users/张三</code></td></tr>
+      </table>
+
+      <h2>最常见的 URL 编码错误</h2>
+
+      <h3>错误 1：用 encodeURI 编码参数值</h3>
+      <pre><code>// ❌ 错误：& 和 = 不会被编码
+const url = "https://api.com/search?q=" + encodeURI("a=1&b=2");
+// 结果: https://api.com/search?q=a=1&b=2
+// 服务器会解析成两个参数：q=a 和 b=2
+
+// ✅ 正确
+const url = "https://api.com/search?q=" + encodeURIComponent("a=1&b=2");
+// 结果: https://api.com/search?q=a%3D1%26b%3D2</code></pre>
+
+      <h3>错误 2：重复编码</h3>
+      <pre><code>// ❌ 对已经编码的值再次编码
+const encoded = encodeURIComponent("你好");  // %E4%BD%A0%E5%A5%BD
+const doubleEncoded = encodeURIComponent(encoded); // %25E4%25BD...
+// % 被编码成了 %25！
+
+// ✅ 解码前先检查是否已被编码
+function safeDecode(str) {
+  try {
+    return decodeURIComponent(str);
+  } catch {
+    return str; // 已经不是合法的编码格式
+  }
+}</code></pre>
+
+      <h3>错误 3：混淆 application/x-www-form-urlencoded 和 URL 编码</h3>
+      <p>表单数据的编码格式和 URL 的编码格式<strong>不是同一回事</strong>：</p>
+      <ul>
+        <li><strong>URL 编码</strong>：空格编码为 %20</li>
+        <li><strong>表单编码</strong>：空格编码为 +（历史原因）</li>
+      </ul>
+      <p>如果你的后端期望 x-www-form-urlencoded 格式，你需要确保空格被编码为 + 而非 %20。</p>
+
+      <h2>实战场景</h2>
+
+      <h3>1. 构建带查询参数的 API URL</h3>
+      <pre><code>function buildURL(base, params) {
+  const query = Object.entries(params)
+    .map(([k, v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v))
+    .join('&');
+  return base + '?' + query;
+}
+
+buildURL("https://api.com/search", {
+  q: "Vue.js 教程",     // → q=Vue.js%20%E6%95%99%E7%A8%8B
+  page: 1,
+  sort: "created_at"
+});</code></pre>
+
+      <h3>2. RESTful API 中的中文路径</h3>
+      <pre><code>// ❌ 直接拼接，可能产生非法 URL
+fetch(`/users/${username}`);  // username = "张三"
+
+// ✅ 对路径段编码
+fetch(`/users/${encodeURIComponent(username)}`);
+// → /users/%E5%BC%A0%E4%B8%89</code></pre>
+
+      <h3>3. 在 HTML 属性中使用 URL</h3>
+      <pre><code>// href 中的 & 必须转义为 &amp;
+&lt;a href="/search?q=vue&amp;page=2"&gt;Next&lt;/a&gt;
+
+// 但 JavaScript 中不需要
+element.href = "/search?q=vue&page=2";  // ✅ 正确</code></pre>
+
+      <h2>HTML 实体编码 vs URL 编码</h2>
+      <p>这是两种完全不同的编码，千万别搞混：</p>
+      <ul>
+        <li><strong>URL 编码</strong>：用于 URL 参数，使用 %XX 格式</li>
+        <li><strong>HTML 实体编码</strong>：用于 HTML 文档，使用 &amp;name; 或 &#number; 格式。目的是防止 XSS 攻击和在 HTML 中正确显示特殊字符</li>
+      </ul>
+      <p>在 HTML 的 href 属性中，这两种编码可能会同时出现，理解它们的区别至关重要。</p>
+
+      <h2>使用我们的 URL 编解码工具</h2>
+      <p>在线 URL 编解码器支持：</p>
+      <ul>
+        <li>URL 百分号编码和解码</li>
+        <li>Unicode 转义序列处理</li>
+        <li>HTML 实体编解码</li>
+        <li>完全在浏览器本地运行</li>
+      </ul>
+
+      <div class="guide-cta">
+        <p><strong>立即体验</strong>：<a href="../url-encoder">使用 URL 编解码器</a></p>
+      </div>
+
+      <h2>总结</h2>
+      <ul>
+        <li>URL 编码（百分号编码）将非 ASCII 和特殊字符转为 %XX 格式</li>
+        <li>编码参数值用 encodeURIComponent，编码完整 URL 用 encodeURI</li>
+        <li>最常见的坑是重复编码和用错函数</li>
+        <li>URL 编码和 HTML 实体编码是两回事，不要混淆</li>
+      </ul>
+
+      <p class="last-updated">本文最后更新于 2026年6月26日</p>
+    </article>
+<footer class="footer">
+      <p>© 2026 在线工具集 · 全部工具在浏览器本地运行，数据不上传服务器</p>
+      <div class="footer-links">
+        <a href="./">工具指南</a>
+        <a href="../about">关于我们</a>
+        <a href="../privacy">隐私政策</a>
+        <a href="../ad-disclosure">广告声明</a>
+        <a href="../terms">使用条款</a>
+        <a href="../contact">联系我们</a>
+      </div>
+    </footer>
+  </main>
+<!-- Cookie Consent -->
+  <script>!function(){"use strict";if("accepted"===localStorage.getItem("cookie_consent"))return;var e=document.createElement("div");e.id="cookie-consent-banner";var t=window.location.pathname.includes("/guides/")?"..":".";e.innerHTML='<div class="cc-inner"><div class="cc-text">🍪 本网站使用 Cookie 和 Google AdSense 来展示个性化广告。继续使用即表示您同意我们的 <a href="'+t+'/privacy">隐私政策</a> 和 <a href="'+t+'/ad-disclosure">广告声明</a>。您可以在 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 广告设置</a> 中管理偏好。</div><div class="cc-actions"><button class="cc-btn cc-btn-settings" id="cc-settings-btn">管理设置</button><button class="cc-btn cc-btn-accept" id="cc-accept-btn">接受</button></div></div>',document.body.appendChild(e),setTimeout(function(){e.classList.add("cc-visible")},200),document.getElementById("cc-accept-btn").addEventListener("click",function(){localStorage.setItem("cookie_consent","accepted"),e.classList.remove("cc-visible"),setTimeout(function(){e.remove()},300)}),document.getElementById("cc-settings-btn").addEventListener("click",function(){window.location.href=t+"/ad-disclosure"})}();</script>
+</body>
+</html>

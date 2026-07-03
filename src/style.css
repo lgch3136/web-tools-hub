@@ -422,6 +422,70 @@ main.page-tool{
   font-weight:bold;
 }
 
+/* ===== Featured Guides Section ===== */
+.featured-guides{
+  padding:40px 20px 20px;
+  background:#0d1117;
+}
+.featured-wrap{
+  max-width:960px;
+  margin:0 auto;
+}
+.featured-wrap h2{
+  text-align:center;
+  font-size:1.6rem;
+  color:#f0f6fc;
+  margin-bottom:8px;
+}
+.featured-sub{
+  text-align:center;
+  color:#484f58;
+  font-size:.85rem;
+  margin-bottom:24px;
+}
+.featured-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.featured-card{
+  display:block;
+  background:#161b22;
+  border:1px solid #21262d;
+  border-radius:12px;
+  padding:24px;
+  text-decoration:none;
+  transition:all .2s;
+}
+.featured-card:hover{
+  border-color:#58a6ff;
+  background:#1c2333;
+  transform:translateY(-2px);
+}
+.featured-icon{
+  font-size:2rem;
+  display:block;
+  margin-bottom:12px;
+}
+.featured-card h4{
+  color:#58a6ff;
+  font-size:1.05rem;
+  margin-bottom:8px;
+}
+.featured-card p{
+  color:#8b949e;
+  font-size:.88rem;
+  line-height:1.6;
+  margin-bottom:12px;
+}
+.featured-meta{
+  color:#484f58;
+  font-size:.75rem;
+}
+@media(max-width:640px){
+  .featured-grid{grid-template-columns:1fr}
+}
+
 /* ===== FAQ Section ===== */
 .faq-section{
   padding:40px 20px;
@@ -547,4 +611,79 @@ main.page-tool{
   .guide-grid{grid-template-columns:1fr}
   .static-content{padding:24px 16px}
   .static-content h1{font-size:1.5rem}
+}
+
+/* ===== Cookie Consent Banner ===== */
+#cookie-consent-banner{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:9999;
+  background:#161b22;
+  border-top:2px solid #30363d;
+  box-shadow:0 -4px 24px rgba(0,0,0,.5);
+  transform:translateY(100%);
+  transition:transform .35s ease;
+  padding:20px 24px;
+}
+#cookie-consent-banner.cc-visible{
+  transform:translateY(0);
+}
+.cc-inner{
+  max-width:960px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.cc-text{
+  flex:1;
+  min-width:240px;
+  font-size:.85rem;
+  color:#8b949e;
+  line-height:1.6;
+}
+.cc-text a{
+  color:#58a6ff;
+  text-decoration:none;
+}
+.cc-text a:hover{
+  text-decoration:underline;
+}
+.cc-actions{
+  display:flex;
+  gap:10px;
+  flex-shrink:0;
+}
+.cc-btn{
+  padding:10px 22px;
+  border-radius:8px;
+  font-size:.82rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .15s;
+  border:none;
+}
+.cc-btn-accept{
+  background:#238636;
+  color:#fff;
+}
+.cc-btn-accept:hover{
+  background:#2ea043;
+}
+.cc-btn-settings{
+  background:transparent;
+  border:1px solid #30363d;
+  color:#8b949e;
+}
+.cc-btn-settings:hover{
+  border-color:#58a6ff;
+  color:#58a6ff;
+}
+@media(max-width:640px){
+  .cc-inner{flex-direction:column;align-items:stretch;text-align:center}
+  .cc-actions{justify-content:center}
+  #cookie-consent-banner{padding:16px 16px 24px}
 }

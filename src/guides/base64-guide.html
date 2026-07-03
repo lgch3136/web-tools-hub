@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base64 编码完全指南 - 在线工具集</title>
+  <meta name="description" content="Base64 编码完全指南：从原理到实战，学习 Base64 的工作机制、常见场景、安全性分析和性能优化技巧。">
+  <meta name="keywords" content="Base64,Base64编码,Base64解码,Base64原理,编码指南,数据传输,图片Base64,Data URL">
+  <link rel="canonical" href="https://web-tools-hub-three.vercel.app/guides/base64-guide">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <meta name="author" content="在线工具集团队">
+  <link rel="stylesheet" href="../style.css">
+  <meta property="og:title" content="Base64 编码完全指南 - 在线工具集">
+  <meta property="og:description" content="Base64 编码完全指南：从原理到实战">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/guides/base64-guide">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Base64 编码完全指南",
+  "description": "从原理到实战，学习 Base64 的工作机制、常见场景、安全性分析",
+  "author": {"@type": "Organization", "name": "在线工具集"},
+  "datePublished": "2026-06-15",
+  "dateModified": "2026-06-26"
+}
+</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index" class="topbar-home">← 返回首页</a>
+    <span class="topbar-title">📖 工具指南</span>
+    <button class="lang-switch" style="visibility:hidden">EN</button>
+  </header>
+  <main class="page page-tool">
+    <article class="static-content">
+      <h1>Base64 编码完全指南：从原理到实战</h1>
+      <p><em>发布日期：2026年6月15日 | 阅读时间：7分钟</em></p>
+
+      <p>Base64 是开发者日常工作中最常遇到的编码方式之一。无论是在 JSON Web Token 中传输数据、在 HTML 中嵌入图片、还是在邮件附件中传输二进制文件，Base64 都扮演着关键角色。本文将带你从零开始，深入理解 Base64 编码的原理和最佳实践。</p>
+
+      <h2>Base64 是什么？</h2>
+      <p>Base64 是一种用 64 个可打印字符（A-Z、a-z、0-9、+、/）来表示任意二进制数据的编码方法。它的核心思想是：将二进制数据每 6 个 bit 映射为一个可打印字符，使得原本不可见的二进制数据变成可以在文本协议中传输的字符串。</p>
+      <p>为什么是 64？因为 2^6 = 64。换句话说，每一个 Base64 字符正好代表 6 位二进制数据。这 64 个字符包括：</p>
+      <ul>
+        <li>26个大写字母：A-Z（索引 0-25）</li>
+        <li>26个小写字母：a-z（索引 26-51）</li>
+        <li>10个数字：0-9（索引 52-61）</li>
+        <li>2个特殊符号：+ 和 /（索引 62-63）</li>
+        <li>填充字符：= 用于补位（不是64个字符的一部分，但用于补齐）</li>
+      </ul>
+
+      <h2>Base64 编码的工作原理</h2>
+      <p>理解 Base64 编码过程是掌握它的关键。我们以编码单词 "Man" 为例：</p>
+
+      <h3>第一步：将文本转为二进制</h3>
+      <p>"Man" 三个字符对应的 ASCII 码分别是 77、97、110，转换为 8 位二进制：</p>
+      <pre><code>M → 77  → 01001101
+a → 97  → 01100001
+n → 110 → 01101110</code></pre>
+
+      <h3>第二步：合并并重新分组</h3>
+      <p>将 3 个字节（共 24 bit）连接起来，然后按 6 bit 一组重新分组：</p>
+      <pre><code>原始: 01001101 01100001 01101110
+重组: 010011 010110 000101 101110</code></pre>
+
+      <h3>第三步：映射到 Base64 字符表</h3>
+      <pre><code>010011 → 19 → T
+010110 → 22 → W
+000101 → 5  → F
+101110 → 46 → u</code></pre>
+      <p>所以 "Man" 的 Base64 编码结果是 "TWFu"。</p>
+
+      <h3>字节数不是 3 的倍数时怎么办？</h3>
+      <p>Base64 算法每 3 个字节为一组进行处理。如果数据长度不是 3 的倍数，就需要填充：</p>
+      <ul>
+        <li><strong>剩余 1 个字节</strong>：补 4 个 0 位，编码后用两个 = 填充</li>
+        <li><strong>剩余 2 个字节</strong>：补 2 个 0 位，编码后用一个 = 填充</li>
+      </ul>
+      <p>这就是为什么你经常看到 Base64 字符串末尾有 = 或 == 的原因。</p>
+
+      <h2>Base64 的实际应用场景</h2>
+
+      <h3>1. Data URL：在 HTML/CSS 中嵌入图片</h3>
+      <p>最常见的用法之一是将小图标或图片直接嵌入到 HTML 或 CSS 中，减少 HTTP 请求：</p>
+      <pre><code>&lt;img src="data:image/png;base64,iVBORw0KGgo..." /&gt;</code></pre>
+      <p>优点：减少请求数。缺点：Base64 编码后体积增大约 33%，不适合大图。</p>
+
+      <h3>2. JSON Web Token (JWT)</h3>
+      <p>JWT 的三个部分（Header、Payload、Signature）都是 Base64URL 编码的。这是现代 Web 认证中最广泛使用的方案。</p>
+
+      <h3>3. 电子邮件附件（MIME）</h3>
+      <p>SMTP 协议最初只支持 7 位 ASCII 字符。Base64 编码使得二进制附件（图片、PDF 等）可以通过邮件传输。</p>
+
+      <h3>4. API 数据传输</h3>
+      <p>当需要通过 JSON 传输二进制数据时，Base64 是最常用的方案。例如：</p>
+      <pre><code>{
+  "filename": "report.pdf",
+  "content": "JVBERi0xLjQKJeLjz9MK..."  // 文件的Base64编码
+}</code></pre>
+
+      <h3>5. 前端文件上传预览</h3>
+      <p>使用 FileReader API 将用户选择的文件转为 Base64 Data URL，实现上传前的即时预览：</p>
+      <pre><code>const reader = new FileReader();
+reader.onload = (e) => {
+  imgElement.src = e.target.result; // data:image/jpeg;base64,...
+};
+reader.readAsDataURL(file);</code></pre>
+
+      <h2>Base64 vs Base64URL</h2>
+      <p>标准 Base64 使用 +、/ 和 =，但这些字符在 URL 中有特殊含义。Base64URL 是 Base64 的安全变体，专门用于 URL 和文件名：</p>
+      <ul>
+        <li>+ 替换为 -</li>
+        <li>/ 替换为 _</li>
+        <li>处理末尾的 = 填充</li>
+      </ul>
+      <p>JWT 使用的就是 Base64URL 编码。</p>
+
+      <h2>Base64 的安全性</h2>
+      <p><strong>重要提示：Base64 不是加密！</strong>这是初学者最容易犯的误解。Base64 只是编码，不是加密。任何人都可以轻松解码。如果你的 Base64 字符串包含敏感信息（如密码、API Key），必须额外使用真正的加密算法（如 AES）进行保护。</p>
+      <p>Base64 的常见误用包括：</p>
+      <ul>
+        <li>❌ 用 Base64 "加密"密码存储——应用 bcrypt/argon2 代替</li>
+        <li>❌ 在 URL 参数中直接传输 Base64 编码的敏感数据</li>
+        <li>✅ Base64 编码公开数据用于传输——这是正确的用法</li>
+      </ul>
+
+      <h2>性能考虑</h2>
+      <p>Base64 编码会使数据体积增大约 33%（因为每 3 个字节变成 4 个字符）。对于大型文件，这个开销非常明显。以下是优化建议：</p>
+      <ul>
+        <li><strong>小图标</strong>（< 1KB）：使用 Base64 Data URL 可以减少请求，利大于弊</li>
+        <li><strong>大图片</strong>（> 10KB）：使用独立的图片文件，利用浏览器缓存</li>
+        <li><strong>API 传输</strong>：如果二进制数据较大，考虑使用 multipart/form-data 而非 Base64</li>
+      </ul>
+
+      <h2>使用我们的 Base64 工具</h2>
+      <p>我们的在线 Base64 编解码器支持：</p>
+      <ul>
+        <li>文本和图片的 Base64 编解码</li>
+        <li>文件拖拽直接生成 Base64</li>
+        <li>实时编解码，一键复制结果</li>
+        <li>完全在浏览器本地运行，数据不上传服务器</li>
+      </ul>
+
+      <div class="guide-cta">
+        <p><strong>立即体验</strong>：<a href="../base64-encoder">使用 Base64 编解码器</a></p>
+      </div>
+
+      <h2>总结</h2>
+      <ul>
+        <li>Base64 是一种将二进制数据转为文本的编码方式，不是加密</li>
+        <li>编码后体积增大约 33%，适合小数据量场景</li>
+        <li>广泛应用于 Data URL、JWT、邮件附件、API 数据传输等场景</li>
+        <li>Base64URL 是 URL 安全版本，用于 JWT 等场景</li>
+        <li>编码和解码都可以在浏览器本地完成，无需服务端参与</li>
+      </ul>
+
+      <p class="last-updated">本文最后更新于 2026年6月26日</p>
+    </article>
+<footer class="footer">
+      <p>© 2026 在线工具集 · 全部工具在浏览器本地运行，数据不上传服务器</p>
+      <div class="footer-links">
+        <a href="./">工具指南</a>
+        <a href="../about">关于我们</a>
+        <a href="../privacy">隐私政策</a>
+        <a href="../ad-disclosure">广告声明</a>
+        <a href="../terms">使用条款</a>
+        <a href="../contact">联系我们</a>
+      </div>
+    </footer>
+  </main>
+<!-- Cookie Consent -->
+  <script>!function(){"use strict";if("accepted"===localStorage.getItem("cookie_consent"))return;var e=document.createElement("div");e.id="cookie-consent-banner";var t=window.location.pathname.includes("/guides/")?"..":".";e.innerHTML='<div class="cc-inner"><div class="cc-text">🍪 本网站使用 Cookie 和 Google AdSense 来展示个性化广告。继续使用即表示您同意我们的 <a href="'+t+'/privacy">隐私政策</a> 和 <a href="'+t+'/ad-disclosure">广告声明</a>。您可以在 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 广告设置</a> 中管理偏好。</div><div class="cc-actions"><button class="cc-btn cc-btn-settings" id="cc-settings-btn">管理设置</button><button class="cc-btn cc-btn-accept" id="cc-accept-btn">接受</button></div></div>',document.body.appendChild(e),setTimeout(function(){e.classList.add("cc-visible")},200),document.getElementById("cc-accept-btn").addEventListener("click",function(){localStorage.setItem("cookie_consent","accepted"),e.classList.remove("cc-visible"),setTimeout(function(){e.remove()},300)}),document.getElementById("cc-settings-btn").addEventListener("click",function(){window.location.href=t+"/ad-disclosure"})}();</script>
+</body>
+</html>

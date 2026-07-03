@@ -6,127 +6,127 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/md-html.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/md-html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/json-formatter.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/json-formatter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/base64-encoder.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/base64-encoder</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/text-diff.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/text-diff</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/timestamp-converter.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/timestamp-converter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/qr-generator.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/qr-generator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/exchange-rate.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/exchange-rate</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/image-compressor.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/image-compressor</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/color-converter.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/color-converter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/password-generator.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/password-generator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/dev-commands.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/dev-commands</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/dev-links.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/dev-links</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/agent-commands.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/agent-commands</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/regex-tester.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/regex-tester</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/hash-calculator.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/hash-calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/url-encoder.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/url-encoder</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/uuid-generator.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/uuid-generator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/word-counter.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/word-counter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/base-converter.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/base-converter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/image-watermark-remover.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/image-privacy-cleaner</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/about.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/privacy.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/privacy</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/terms.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/terms</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/contact.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/ad-disclosure.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/ad-disclosure</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -136,37 +136,62 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/guides/json-formatter-guide.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/guides/json-formatter-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/guides/regex-guide.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/guides/regex-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/guides/hash-guide.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/guides/hash-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/guides/image-compress-guide.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/guides/image-compress-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/guides/password-guide.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/guides/password-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/guides/text-diff-guide.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/guides/text-diff-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://web-tools-hub-three.vercel.app/guides/qr-code-guide.html</loc>
+    <loc>https://web-tools-hub-three.vercel.app/guides/qr-code-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://web-tools-hub-three.vercel.app/guides/base64-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://web-tools-hub-three.vercel.app/guides/markdown-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://web-tools-hub-three.vercel.app/guides/timestamp-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://web-tools-hub-three.vercel.app/guides/git-workflow-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://web-tools-hub-three.vercel.app/guides/url-encoding-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <link rel="canonical" href="https://web-tools-hub-three.vercel.app/image-watermark-remover.html">
+  <link rel="canonical" href="https://web-tools-hub-three.vercel.app/image-privacy-cleaner">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>图片去水印/EXIF清除 - 在线工具集</title>
-  <meta name="description" content="免费在线图片去水印工具，去除AI生成图片角落水印，清除EXIF隐私信息（GPS、设备型号等），保护隐私安全。">
-  <meta name="keywords" content="图片去水印,EXIF清除,去除水印,AI图片水印,隐私保护,图片处理,在线工具">
+  <title>图片隐私清理/EXIF清除 - 在线工具集</title>
+  <meta name="description" content="免费在线图片隐私清理工具，处理自有图片角落标识，清除EXIF隐私信息（GPS、设备型号等），保护隐私安全。">
+  <meta name="keywords" content="图片隐私清理,EXIF清除,处理角落标识,AI图片标识,隐私保护,图片处理,在线工具">
+  <meta name="author" content="在线工具集团队">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./style.css">
   <style>
@@ -61,34 +62,34 @@
     .wm-corner-br{bottom:0;right:0}
     @media(max-width:600px){.wm-card{padding:16px}.wm-preview-area{flex-direction:column}.wm-upload{padding:24px 16px}}
   </style>
-  <meta property="og:title" content="图片去水印/EXIF清除 - 在线工具集">
-  <meta property="og:description" content="去除AI图片角落水印，清除EXIF隐私信息，保护隐私。">
+  <meta property="og:title" content="图片隐私清理/EXIF清除 - 在线工具集">
+  <meta property="og:description" content="处理自有图片角落标识，清除EXIF隐私信息，保护隐私。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/image-watermark-remover.html">
+  <meta property="og:url" content="https://web-tools-hub-three.vercel.app/image-privacy-cleaner">
   <meta name="twitter:card" content="summary">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "图片去水印/EXIF清除",
-  "url": "https://web-tools-hub-three.vercel.app/image-watermark-remover.html",
+  "name": "图片隐私清理/EXIF清除",
+  "url": "https://web-tools-hub-three.vercel.app/image-privacy-cleaner",
   "applicationCategory": "MultimediaApplication",
   "operatingSystem": "All",
-  "description": "免费在线图片去水印工具，去除AI生成图片角落水印，清除EXIF隐私信息。"
+  "description": "免费在线图片隐私清理工具，处理自有图片角落标识，清除EXIF隐私信息。"
 }
 </script>
 </head>
 <body>
   <header class="topbar">
     <a href="./index" class="topbar-home">← 返回首页</a>
-    <span class="topbar-title">🧹 图片去水印/EXIF清除</span>
+    <span class="topbar-title">🧹 图片隐私清理/EXIF清除</span>
     <button class="lang-switch" style="visibility:hidden">EN</button>
   </header>
   <main class="page page-tool">
     <div class="wm-container">
       <div class="wm-card">
-        <h2>🧹 图片去水印 / EXIF 清除</h2>
-        <p class="wm-desc">去除AI生成图片角落水印 · 清除EXIF隐私信息 · 保护隐私安全</p>
+        <h2>🧹 图片隐私清理 / EXIF 清除</h2>
+        <p class="wm-desc">处理自有图片角落标识 · 清除EXIF隐私信息 · 保护隐私安全</p>
 
         <div class="wm-upload" id="uploadZone">
           <div class="wm-upload-icon">📁</div>
@@ -100,9 +101,9 @@
         <div id="optionsArea" style="display:none">
           <div class="wm-options">
             <div class="wm-opt-group">
-              <h4>🖼️ 水印去除</h4>
+              <h4>🖼️ 角落标识处理</h4>
               <div class="wm-opt-row">
-                <label><input type="checkbox" id="optRemoveCorner" checked> 去除角落水印（适用于豆包/Midjourney等AI图片）</label>
+                <label><input type="checkbox" id="optRemoveCorner" checked> 处理角落标识（仅限自有或已获授权图片）</label>
               </div>
               <div class="wm-opt-row">
                 <label>角落裁切比例</label>
@@ -123,7 +124,7 @@
                 <label><input type="radio" name="cornerMode" value="blur"> 模糊</label>
               </div>
               <div class="wm-opt-row" style="color:#8b949e;font-size:.75rem">
-                裁切：去除角落，图片变小；智能填充：用周围颜色渐变覆盖，保留尺寸；模糊：模糊处理角落
+                裁切：处理角落，图片变小；智能填充：用周围颜色渐变覆盖，保留尺寸；模糊：模糊处理角落
               </div>
             </div>
             <div class="wm-opt-group">
@@ -171,13 +172,20 @@
     <section class="tool-about">
       <div class="about-wrap">
         <h3>📖 关于此工具</h3>
-        <p><strong>图片去水印/EXIF清除</strong> 支持三种角落处理模式：① <strong>裁切</strong>：直接去除角落区域，图片尺寸变小；② <strong>智能填充</strong>：用边缘颜色渐变覆盖角落水印，保留原始尺寸，效果更自然；③ <strong>模糊</strong>：模糊处理角落区域。支持去除豆包、Midjourney、Stable Diffusion 等AI生成图片的角标水印。同时可 <strong>清除EXIF隐私信息</strong>（GPS位置、设备型号、时间戳等）。所有处理在浏览器本地 Canvas 完成，<strong>图片数据不会上传</strong>到任何服务器。</p>
+        <p><strong>图片隐私清理/EXIF清除</strong> 支持三种角落处理模式：① <strong>裁切</strong>：处理指定角落区域，图片尺寸变小；② <strong>智能填充</strong>：用边缘颜色渐变覆盖角落标识，保留原始尺寸，效果更自然；③ <strong>模糊</strong>：模糊处理角落区域。此工具仅用于处理您自己拥有或已获得授权的图片，例如清理自有 AI 生成图片中的角落标识、截图中的个人信息，或分享照片前清除 <strong>EXIF隐私信息</strong>（GPS位置、设备型号、时间戳等）。所有处理在浏览器本地 Canvas 完成，<strong>图片数据不会上传</strong>到任何服务器。</p>
+
+        <h4>⚖️ 使用规范</h4>
+        <ul>
+          <li>请仅处理您自己拥有版权、已获得授权，或明确允许编辑的图片。</li>
+          <li>不要用本工具移除第三方版权声明、品牌标识、摄影署名或其他权利信息。</li>
+          <li>如果图片来自他人作品，请先确认授权范围，再进行编辑和发布。</li>
+        </ul>
 
         <h4>🔧 核心功能</h4>
         <ul>
-          <li><strong>裁切模式</strong>：直接裁掉包含水印的角落区域，干净彻底但会改变尺寸</li>
-          <li><strong>智能填充模式</strong>：使用边缘颜色渐变覆盖水印区域，保留原始尺寸，适合小幅水印</li>
-          <li><strong>模糊模式</strong>：模糊处理角落区域，使水印不可读但不改变图片尺寸</li>
+          <li><strong>裁切模式</strong>：直接裁掉指定的角落区域，干净彻底但会改变尺寸</li>
+          <li><strong>智能填充模式</strong>：使用边缘颜色渐变覆盖标识区域，保留原始尺寸，适合小范围角落标识</li>
+          <li><strong>模糊模式</strong>：模糊处理角落区域，降低角落标识可见度但不改变图片尺寸</li>
           <li><strong>EXIF 清除</strong>：一键删除图片中的 GPS 坐标、拍摄设备型号、拍摄时间、光圈快门等隐私信息</li>
           <li><strong>多角位支持</strong>：可单独处理左上、右上、左下、右下四个角落</li>
           <li><strong>实时预览</strong>：处理效果即时预览，支持拖拽上传</li>
@@ -185,26 +193,24 @@
 
         <h4>📋 使用场景</h4>
         <ul>
-          <li><strong>AI 生成图片处理</strong>：去除豆包、Midjourney、DALL-E、Stable Diffusion 等 AI 工具生成的角标水印</li>
+          <li><strong>AI 生成图片处理</strong>：处理自有或已获授权 AI 图片中的角落标识</li>
           <li><strong>隐私保护</strong>：分享照片前清除 EXIF 中的 GPS 位置、设备型号等敏感信息</li>
-          <li><strong>截图处理</strong>：去除截图中不想要的角落标识或敏感信息</li>
-          <li><strong>图片美化</strong>：清除图片中不必要的角标、Logo 或文字</li>
+          <li><strong>截图处理</strong>：处理截图中不想要的角落标识或敏感信息</li>
+          <li><strong>图片美化</strong>：处理图片中不必要的角落标识或敏感文字</li>
         </ul>
 
         <h4>💡 使用技巧</h4>
         <ul>
-          <li>单色背景的角标水印使用<strong>智能填充</strong>效果最佳</li>
-          <li>复杂背景的角标建议使用<strong>裁切模式</strong>或<strong>模糊模式</strong></li>
+          <li>单色背景的角落标识使用<strong>智能填充</strong>效果最佳</li>
+          <li>复杂背景的角落标识建议使用<strong>裁切模式</strong>或<strong>模糊模式</strong></li>
           <li>分享照片前务必<strong>清除 EXIF 信息</strong>，防止泄露家庭住址和日常行踪</li>
           <li>所有处理在浏览器本地 Canvas 完成，<strong>图片数据不会上传到任何服务器</strong></li>
         </ul>
       </div>
     </section>
-    <div class="ad-container ad-tool-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
-    <footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p><div class="footer-links"><a href="./guides/">工具指南</a><a href="./about">关于我们</a><a href="./privacy">隐私政策</a><a href="./terms">使用条款</a><a href="./contact">联系我们</a></div></footer>
+<footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p><div class="footer-links"><a href="./guides/">工具指南</a><a href="./about">关于我们</a><a href="./privacy">隐私政策</a><a href="./terms">使用条款</a><a href="./contact">联系我们</a></div></footer>
   </main>
   <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
 
     let originalImage = null;
     let originalFile = null;
@@ -449,7 +455,7 @@
             const sw = w - sx - (corners.tr || corners.br ? cw : 0);
             const sh = h - sy - (corners.bl || corners.br ? ch : 0);
             ctx.drawImage(img, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
-            status.textContent = '✅ 已裁切去除角落水印 (减少 ' + (pct * 100).toFixed(0) + '%)';
+            status.textContent = '✅ 已裁切处理角落标识 (减少 ' + (pct * 100).toFixed(0) + '%)';
           } else if (removeCorner && mode === 'fill') {
             canvas.width = w;
             canvas.height = h;
@@ -460,7 +466,7 @@
             if (corners.tr) smartFill(ctx, w - cw, 0, cw, ch, 'tr', w, h);
             if (corners.bl) smartFill(ctx, 0, h - ch, cw, ch, 'bl', w, h);
             if (corners.br) smartFill(ctx, w - cw, h - ch, cw, ch, 'br', w, h);
-            status.textContent = '✅ 已用智能填充覆盖角落水印';
+            status.textContent = '✅ 已用智能填充覆盖角落标识';
           } else if (removeCorner && mode === 'blur') {
             canvas.width = w;
             canvas.height = h;
@@ -472,7 +478,7 @@
             if (corners.tr) applyBlur(ctx, w - cw, 0, cw, ch, blurAmount);
             if (corners.bl) applyBlur(ctx, 0, h - ch, cw, ch, blurAmount);
             if (corners.br) applyBlur(ctx, w - cw, h - ch, cw, ch, blurAmount);
-            status.textContent = '✅ 已模糊角落水印区域';
+            status.textContent = '✅ 已模糊角落标识区域';
           } else {
             canvas.width = w;
             canvas.height = h;
@@ -529,7 +535,7 @@
     }
 
     function smartFill(ctx, x, y, w, h, corner, imgW, imgH) {
-      // 从区域外部边缘采样，然后用渐变填充覆盖水印
+      // 从区域外部边缘采样，然后用渐变填充覆盖标识
       const imageData = ctx.getImageData(x, y, w, h);
       const data = imageData.data;
       const tempData = new Uint8ClampedArray(data);
@@ -628,5 +634,8 @@
       document.getElementById('statusText').textContent = '';
     }
   </script>
+
+  <!-- Cookie Consent -->
+  <script>!function(){"use strict";if("accepted"===localStorage.getItem("cookie_consent"))return;var e=document.createElement("div");e.id="cookie-consent-banner";var t=window.location.pathname.includes("/guides/")?"..":".";e.innerHTML='<div class="cc-inner"><div class="cc-text">🍪 本网站使用 Cookie 和 Google AdSense 来展示个性化广告。继续使用即表示您同意我们的 <a href="'+t+'/privacy">隐私政策</a> 和 <a href="'+t+'/ad-disclosure">广告声明</a>。您可以在 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 广告设置</a> 中管理偏好。</div><div class="cc-actions"><button class="cc-btn cc-btn-settings" id="cc-settings-btn">管理设置</button><button class="cc-btn cc-btn-accept" id="cc-accept-btn">接受</button></div></div>',document.body.appendChild(e),setTimeout(function(){e.classList.add("cc-visible")},200),document.getElementById("cc-accept-btn").addEventListener("click",function(){localStorage.setItem("cookie_consent","accepted"),e.classList.remove("cc-visible"),setTimeout(function(){e.remove()},300)}),document.getElementById("cc-settings-btn").addEventListener("click",function(){window.location.href=t+"/ad-disclosure"})}();</script>
 </body>
 </html>

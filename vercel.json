@@ -2,6 +2,10 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "parcel",
+  "redirects": [
+    { "source": "/image-watermark-remover", "destination": "/image-privacy-cleaner", "permanent": true },
+    { "source": "/image-watermark-remover.html", "destination": "/image-privacy-cleaner", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/index", "destination": "/index.html" },
@@ -24,13 +28,18 @@
     { "source": "/uuid-generator", "destination": "/uuid-generator.html" },
     { "source": "/word-counter", "destination": "/word-counter.html" },
     { "source": "/base-converter", "destination": "/base-converter.html" },
-    { "source": "/image-watermark-remover", "destination": "/image-watermark-remover.html" },
+    { "source": "/image-privacy-cleaner", "destination": "/image-privacy-cleaner.html" },
     { "source": "/about", "destination": "/about.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/ad-disclosure", "destination": "/ad-disclosure.html" },
     { "source": "/guides", "destination": "/guides/index.html" },
+    { "source": "/guides/base64-guide", "destination": "/guides/base64-guide.html" },
+    { "source": "/guides/markdown-guide", "destination": "/guides/markdown-guide.html" },
+    { "source": "/guides/timestamp-guide", "destination": "/guides/timestamp-guide.html" },
+    { "source": "/guides/git-workflow-guide", "destination": "/guides/git-workflow-guide.html" },
+    { "source": "/guides/url-encoding-guide", "destination": "/guides/url-encoding-guide.html" },
     { "source": "/guides/:path*", "destination": "/guides/:path*.html" }
   ]
 }

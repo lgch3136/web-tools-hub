@@ -104,10 +104,6 @@ export function render(container) {
         <p style="margin-top:4px;">${t('rate.credit')}</p>
       </div>
     </div>
-
-    <div class="ad-container ad-tool-bottom" style="margin-top:20px;">
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7632558285398569" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    </div>
   `;
 
   container.innerHTML = html;
@@ -263,9 +259,4 @@ export function render(container) {
 const appEl = document.getElementById('app');
 if (appEl) {
   render(appEl);
-  setTimeout(() => {
-    if (window.adsbygoogle && typeof window.adsbygoogle.push === 'function') {
-      window.adsbygoogle.push({});
-    }
-  }, 200);
 }

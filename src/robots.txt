@@ -1,5 +1,11 @@
-# Allow all crawlers
+# Allow search and AdSense crawlers
 User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Mediapartners-Google
 Allow: /
 
 # Sitemap

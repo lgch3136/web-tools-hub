@@ -1,437 +1,176 @@
-/**
- * md2html 模板系统 — 为 web-tools-hub 的 md-html 导出提供多模板方案
- * 10 套模板：TechDocs / PRD / Blog / APIDocs / Report / KnowledgeBase / 小红书 / 公众号 / 知乎 / 今日头条
- */
+import { escapeHtml, slugify } from './markdown-studio-core.mjs';
 
-const TOC_CSS = `
-.md-toc{font-size:0.85em;line-height:2}
-.md-toc a{display:block;padding:2px 8px;border-radius:4px;transition:background 0.15s}
-.md-toc .toc-h1{font-weight:600;padding-left:8px}
-.md-toc .toc-h2{padding-left:20px}
-.md-toc .toc-h3{padding-left:32px}
-.md-toc .toc-h4{padding-left:44px}
-.md-toc a.active{font-weight:600}
+const BASE_EXPORT_CSS = `
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--page-bg)}
+body{margin:0;background:var(--page-bg);color:var(--text);font-family:var(--document-font);font-size:var(--document-size);line-height:var(--document-leading);-webkit-font-smoothing:antialiased}
+.export-page{width:min(calc(100% - 32px),var(--document-width));min-height:100vh;margin:0 auto;padding:64px 0 96px}
+.export-header{margin:0 0 44px;padding:0 0 24px;border-bottom:1px solid var(--border)}
+.export-kicker{margin:0 0 8px;color:var(--accent);font:700 12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}
+.export-header h1{margin:0;color:var(--heading);font-size:clamp(32px,7vw,52px);line-height:1.08;letter-spacing:-.04em;text-wrap:balance}
+.export-meta{margin:12px 0 0;color:var(--muted);font-size:.82em}
+.md-content{overflow-wrap:anywhere}
+.md-content h1,.md-content h2,.md-content h3,.md-content h4,.md-content h5,.md-content h6{color:var(--heading);line-height:1.28;text-wrap:balance;scroll-margin-top:24px}
+.md-content h1{margin:2em 0 .65em;font-size:2em;letter-spacing:-.03em}
+.md-content h2{margin:1.8em 0 .65em;font-size:1.5em;letter-spacing:-.02em}
+.md-content h3{margin:1.6em 0 .55em;font-size:1.2em}
+.md-content h4,.md-content h5,.md-content h6{margin:1.45em 0 .5em;font-size:1em}
+.md-content p{margin:0 0 1em}
+.md-content a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+.md-content strong{color:var(--heading);font-weight:700}
+.md-content ul,.md-content ol{margin:.75em 0 1.15em;padding-left:1.5em}
+.md-content li{margin:.35em 0;padding-left:.15em}
+.md-content li.task-list-item{list-style:none;margin-left:-1.25em}
+.md-content input[type=checkbox]{margin:0 .55em 0 0;accent-color:var(--accent)}
+.md-content blockquote{margin:1.4em 0;padding:.9em 1.1em;border-left:4px solid var(--accent);background:var(--quote-bg);color:var(--muted)}
+.md-content blockquote p:last-child{margin-bottom:0}
+.md-content hr{height:1px;margin:2.25em 0;border:0;background:var(--border)}
+.md-content img{display:block;max-width:100%;height:auto;margin:1.4em auto;border-radius:10px}
+.md-content table{display:table;width:100%;margin:1.4em 0;border-collapse:collapse;font-size:.9em}
+.md-content th,.md-content td{padding:.68em .8em;border:1px solid var(--border);text-align:left;vertical-align:top}
+.md-content th{background:var(--table-head);color:var(--heading);font-weight:700}
+.md-content code{padding:.15em .38em;border-radius:4px;background:var(--inline-code-bg);color:var(--inline-code);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em}
+.md-content pre{position:relative;margin:1.4em 0;padding:18px 20px;overflow:auto;border:1px solid var(--code-border);border-radius:10px;background:var(--code-bg);color:var(--code-text);line-height:1.62;tab-size:2}
+.md-content pre code{padding:0;background:transparent;color:inherit;font-size:.82em;white-space:pre}
+.md-toc{margin:1.35em 0;padding:18px 20px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.md-toc-title{margin:0 0 8px;color:var(--heading);font-weight:700}
+.md-toc a{display:block;padding:3px 0;color:var(--muted);text-decoration:none}
+.md-toc a:hover{color:var(--accent)}
+.md-toc .toc-level-2{padding-left:1em}.md-toc .toc-level-3{padding-left:2em}.md-toc .toc-level-4{padding-left:3em}
+.footnote-ref{margin-left:2px;font-size:.72em;vertical-align:super}.link-footnotes{margin-top:3em;padding-top:1.2em;border-top:1px solid var(--border);font-size:.82em;color:var(--muted)}
+.studio-diagram{margin:1.5em 0;padding:14px;overflow:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.studio-diagram svg{display:block;min-width:520px;max-width:100%;height:auto;margin:auto}.diagram-node{fill:var(--surface);stroke:var(--accent);stroke-width:2}.diagram-edge{stroke:var(--muted);stroke-width:1.5}.diagram-label{fill:var(--heading);font:500 13px var(--document-font)}
+.math-expression{font-family:'Times New Roman','Songti SC',serif;letter-spacing:.015em}.math-display{display:block;margin:1.3em 0;padding:.75em 1em;overflow:auto;text-align:center}.math-fraction{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1}.math-fraction>span:first-child{padding:0 .2em .1em;border-bottom:1px solid currentColor}.math-fraction>span:last-child{padding:.1em .2em 0}
+.tok-comment{color:#77818f;font-style:italic}.tok-string{color:#a7d7a2}.tok-number{color:#efb57a}.tok-keyword{color:#89b9f8;font-weight:600}.tok-literal{color:#cf9cf2}.tok-tag{color:#7bdff2}.tok-attr{color:#f3cf7a}
+.enhancement-fallback{margin:1.25em 0;border:1px solid var(--border);border-radius:10px;overflow:hidden}.enhancement-fallback strong{display:block;padding:9px 12px;background:var(--table-head);color:var(--heading);font-size:.78em}.enhancement-fallback pre{margin:0;border:0;border-radius:0}
+.export-footer{margin-top:64px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted);font-size:12px}
+@media(max-width:680px){.export-page{width:min(calc(100% - 28px),var(--document-width));padding:36px 0 64px}.export-header{margin-bottom:32px}.md-content table{display:block;overflow-x:auto}.md-content pre{padding:15px}}
+@media print{@page{margin:16mm 15mm}.export-page{width:100%;max-width:none;padding:0}.export-footer{display:none}.md-content a{color:inherit}.md-content pre,.md-content blockquote,.md-content table,.studio-diagram{break-inside:avoid}html,body{background:#fff!important}}
 `;
 
-const BASE_CSS = `
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
-a{text-decoration:none;color:inherit}
-a:hover{text-decoration:underline}
-img,video{max-width:100%;border-radius:6px}
-pre code{background:none!important;padding:0!important;border-radius:0!important}
-p{margin:0 0 1em}
-ul,ol{margin:0 0 1em;padding-left:1.5em}
-li{margin:0.25em 0}
-blockquote{margin:1em 0;border-left:4px solid;padding:0.5em 1em;background:rgba(128,128,128,0.06)}
-blockquote p:last-child{margin:0}
-h1{font-size:2em;font-weight:700;margin:1.5em 0 0.5em;line-height:1.3}
-h2{font-size:1.5em;font-weight:600;margin:1.4em 0 0.4em}
-h3{font-size:1.2em;font-weight:600;margin:1.3em 0 0.3em}
-h4{font-size:1em;font-weight:600;margin:1.2em 0 0.3em}
-hr{margin:2em 0;border:none;border-top:1px solid;opacity:0.2}
-table{width:100%;border-collapse:collapse;margin:1em 0;font-size:0.9em}
-th,td{text-align:left;padding:8px 12px;border:1px solid}
-th{font-weight:600}
-pre{overflow-x:auto;border-radius:8px;margin:1em 0;font-size:0.85em;line-height:1.6;position:relative}
-code{padding:2px 6px;border-radius:4px;font-size:0.9em;font-family:'SF Mono','JetBrains Mono','Fira Code',monospace}
-pre code{padding:0}
-p>code,li>code{font-size:0.85em}
-.admonition{margin:1.2em 0;border-radius:8px;overflow:hidden;border-left:4px solid}
-.admonition-head{display:flex;align-items:center;gap:6px;padding:8px 14px;font-weight:600;font-size:0.85em;text-transform:uppercase;letter-spacing:0.02em}
-.admonition-body{padding:10px 14px}
-.admonition-body p:last-child{margin:0}
-.admonition.note .admonition-head{color:#0969da}
-.admonition.tip .admonition-head{color:#1a7f37}
-.admonition.warning .admonition-head{color:#9a6700}
-.admonition.danger .admonition-head{color:#cf222e}
-.admonition.info .admonition-head{color:#8250df}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:1.2em 0}
-.card{border-radius:10px;padding:20px;transition:transform 0.2s,box-shadow 0.2s}
-.card:hover{transform:translateY(-2px)}
-.card-title{font-weight:600;font-size:1.05em;margin-bottom:8px}
-.card-desc{font-size:0.9em;line-height:1.6;opacity:0.85}
-.card-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.75em;margin-bottom:8px}
-.timeline{position:relative;margin:1.5em 0;padding-left:28px}
-.timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:currentColor;opacity:0.2}
-.timeline-item{position:relative;margin-bottom:1.2em;padding-left:16px}
-.timeline-item::before{content:'';position:absolute;left:-24px;top:6px;width:12px;height:12px;border-radius:50%;border:2px solid;background:#fff}
-.timeline-date{font-size:0.82em;opacity:0.7;margin-bottom:2px}
-.timeline-title{font-weight:600;font-size:1em;margin-bottom:4px}
-.timeline-body{font-size:0.9em;opacity:0.9}
-.code-header{display:flex;justify-content:space-between;align-items:center;padding:6px 14px;font-size:0.78em;border-radius:8px 8px 0 0;letter-spacing:0.01em}
-.code-header + pre{margin-top:0;border-radius:0 0 8px 8px}
-${TOC_CSS}
-`;
+export const TEMPLATES = [
+  {
+    id: 'clean',
+    name: 'Clean',
+    desc: '清晰、中性的通用发布版式',
+    css: `
+:root{--page-bg:#eef2f5;--surface:#fff;--text:#374151;--heading:#101827;--muted:#667085;--border:#dce3e9;--quote-bg:#f2f8fa;--table-head:#f5f7f9;--inline-code-bg:#edf2f5;--inline-code:#155e75;--code-bg:#172033;--code-border:#26334a;--code-text:#e7edf7}
+.export-page{max-width:calc(var(--document-width) + 96px);padding:64px 48px 96px;background:#fff;box-shadow:0 22px 70px rgba(30,48,72,.11)}
+.export-header{border-bottom-width:2px;border-bottom-color:var(--accent)}
+`,
+  },
+  {
+    id: 'wechat',
+    name: 'WeChat',
+    desc: '适合公众号富文本粘贴的舒展中文排版',
+    css: `
+:root{--page-bg:#f3f4f5;--surface:#fff;--text:#3f3f3f;--heading:#171717;--muted:#7a7a7a;--border:#e7e7e7;--quote-bg:#f4faf7;--table-head:#f5f5f5;--inline-code-bg:#f3f5f7;--inline-code:#45536a;--code-bg:#f6f8fa;--code-border:#e4e8ec;--code-text:#263243}
+.export-page{max-width:640px;padding:46px 32px 80px;background:#fff;box-shadow:0 16px 60px rgba(17,24,39,.07)}
+.export-header{text-align:center}.export-kicker{color:var(--muted)}.export-header h1{font-size:36px;letter-spacing:-.025em}
+.md-content{line-height:2}.md-content h2{padding-left:12px;border-left:4px solid var(--accent)}.md-content h1{text-align:center}.md-content h1::after{display:block;width:42px;height:3px;margin:12px auto 0;background:var(--accent);content:''}
+.md-content p{text-align:justify}.md-content img{border-radius:4px}
+`,
+  },
+  {
+    id: 'toutiao',
+    name: 'Toutiao',
+    desc: '标题醒目、正文紧凑的资讯文章版式',
+    css: `
+:root{--page-bg:#f4f5f6;--surface:#fff;--text:#333;--heading:#161616;--muted:#777;--border:#e8e8e8;--quote-bg:#fff6f6;--table-head:#f5f6f7;--inline-code-bg:#f5f6f7;--inline-code:#3f4550;--code-bg:#f7f8fa;--code-border:#e8e9eb;--code-text:#2d3748}
+.export-page{max-width:700px;padding:42px 34px 78px;background:#fff;box-shadow:0 12px 40px rgba(31,41,55,.06)}
+.export-header{border-bottom:0}.export-header h1{font-size:40px;font-weight:800}.export-kicker{color:var(--accent)}
+.md-content h1,.md-content h2{position:relative;padding-left:14px}.md-content h1::before,.md-content h2::before{position:absolute;top:.12em;bottom:.12em;left:0;width:4px;border-radius:2px;background:var(--accent);content:''}
+.md-content p{text-align:justify}.md-content blockquote{border-radius:0 8px 8px 0}
+`,
+  },
+  {
+    id: 'developer',
+    name: 'Developer',
+    desc: '代码、表格和技术文档优先的开发者主题',
+    css: `
+:root{--page-bg:#e9eef3;--surface:#fff;--text:#334155;--heading:#0f172a;--muted:#64748b;--border:#cfd9e4;--quote-bg:#edf8fa;--table-head:#eef3f7;--inline-code-bg:#e5edf3;--inline-code:#0e7490;--code-bg:#0b1320;--code-border:#233248;--code-text:#dce7f4}
+.export-page{max-width:calc(var(--document-width) + 100px);padding:64px 50px 96px;background:#fff;box-shadow:0 22px 70px rgba(30,48,72,.12)}.export-header{border-bottom-color:var(--accent)}
+.export-header h1,.md-content h1,.md-content h2{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.md-content h2::before{color:var(--accent);content:'## ';font-weight:500}.md-content h3::before{color:var(--accent);content:'### ';font-weight:500}
+.md-content img{border:1px solid var(--border)}
+`,
+  },
+  {
+    id: 'notebook',
+    name: 'Notebook',
+    desc: '温暖纸张感，适合随笔、读书笔记和长文',
+    css: `
+:root{--page-bg:#ece8df;--surface:#fffdf7;--text:#443f38;--heading:#25211d;--muted:#746d64;--border:#ddd5c6;--quote-bg:#f5f0e5;--table-head:#f3ede1;--inline-code-bg:#eee7da;--inline-code:#7c4a25;--code-bg:#292722;--code-border:#3b3831;--code-text:#eee8dc}
+.export-page{max-width:calc(var(--document-width) + 112px);padding:68px 56px 104px;background:#fffdf7;box-shadow:0 24px 70px rgba(68,54,37,.13)}
+.export-header h1,.md-content h1,.md-content h2,.md-content h3{font-family:Georgia,'Songti SC','STSong',serif}.export-kicker{color:var(--accent)}
+.md-content{font-family:Georgia,'Songti SC','STSong',serif}.md-content h2{padding-bottom:.35em;border-bottom:1px solid var(--border)}
+`,
+  },
+];
 
-function renderTOC(html) {
-  const headings = [];
-  const re = /<h([1-4])\s+id="([^"]+)"[^>]*>(.*?)<\/h[1-4]>/gi;
-  let m;
-  while ((m = re.exec(html)) !== null) {
-    headings.push({ level: parseInt(m[1]), id: m[2], text: m[3].replace(/<[^>]+>/g, '') });
-  }
-  if (headings.length < 2) return '';
-  let toc = '<nav class="md-toc">';
-  for (const h of headings) {
-    toc += `<a href="#${h.id}" class="toc-h${h.level}">${h.text}</a>`;
-  }
-  toc += '</nav>';
-  return toc;
+export function getTemplate(templateId = 'clean') {
+  return TEMPLATES.find(template => template.id === templateId) || TEMPLATES[0];
 }
 
-function groupBlocks(html) {
-  return html
-    .replace(/((?:<div class="card">[\s\S]*?<\/div>\s*)+)/g, '<div class="card-grid">$1</div>')
-    .replace(/((?:<div class="timeline-item">[\s\S]*?<\/div>\s*)+)/g, '<div class="timeline">$1</div>');
-}
-
-function slugify(text) {
-  return text.toLowerCase().replace(/[^\w\u4e00-\u9fff]+/g, '-').replace(/^-+|-+$/g, '') || 'heading';
-}
-
-function addIds(html) {
-  const counter = {};
-  return html.replace(/<h([1-6])([^>]*)>(.*?)<\/h\1>/gi, (match, level, attrs, text) => {
-    if (/id="/i.test(attrs)) return match;
-    const raw = text.replace(/<[^>]+>/g, '');
-    let id = slugify(raw);
-    counter[id] = (counter[id] || 0) + 1;
-    if (counter[id] > 1) id += '-' + (counter[id] - 1);
-    return `<h${level} id="${id}"${attrs}>${text}</h${level}>`;
+export function addIds(html = '') {
+  const counters = new Map();
+  return String(html).replace(/<h([1-6])([^>]*)>([\s\S]*?)<\/h\1>/gi, (match, level, attributes, innerHtml) => {
+    if (/\sid\s*=\s*["']/i.test(attributes)) return match;
+    const text = innerHtml.replace(/<[^>]+>/g, '');
+    const base = slugify(text);
+    const count = (counters.get(base) || 0) + 1;
+    counters.set(base, count);
+    const id = count === 1 ? base : `${base}-${count}`;
+    return `<h${level}${attributes} id="${escapeHtml(id)}">${innerHtml}</h${level}>`;
   });
 }
 
-// ─── 6 套模板 ───
-
-const TEMPLATES = [
-  {
-    id: 'techdocs', name: '① 技术文档 TechDocs', desc: '双栏侧边栏，深色顶栏+靛蓝主题。适合技术手册、架构说明',
-    css: `
-:root{--bg:#f6f8fa;--bg-card:#fff;--text:#24292f;--text-muted:#57606a;--border:#d0d7de;--accent:#0969da;--accent-light:#ddf4ff;--accent-dark:#0550ae;--bg-code:#1e1e2e;--text-code:#cdd6f4;--bg-sidebar:#f6f8fa;--sidebar-width:280px}
-body{background:var(--bg);color:var(--text)}
-.page-wrap{display:flex;min-height:100vh}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-width);background:var(--bg-sidebar);border-right:1px solid var(--border);overflow-y:auto;z-index:10;padding:0}
-.sidebar-header{padding:20px 20px 12px;border-bottom:1px solid var(--border)}
-.sidebar-header h2{font-size:1em;font-weight:700;margin:0;color:var(--text)}
-.sidebar-header p{font-size:0.78em;color:var(--text-muted);margin:2px 0 0}
-.sidebar-toc{padding:12px 16px}
-.main-wrap{flex:1;margin-left:var(--sidebar-width);max-width:960px}
-.topbar{position:sticky;top:0;z-index:20;background:var(--accent);color:#fff;padding:10px 32px;font-size:0.85em;display:flex;align-items:center;gap:8px;justify-content:space-between}
-.content{padding:32px 48px 80px}
-.content table{background:var(--bg-card)}
-.content th{background:var(--accent-light);color:var(--accent-dark);border-color:var(--border)}
-.content td{border-color:var(--border)}
-.content pre{background:var(--bg-code);color:var(--text-code);padding:16px}
-.content code{background:var(--accent-light);color:var(--accent-dark)}
-.content pre code{color:var(--text-code)}
-.content blockquote{border-left-color:var(--accent)}
-.content hr{border-color:var(--border)}
-.card{background:var(--bg-card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,0.06)}
-.card:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(9,105,218,0.12)}
-.md-toc a{color:var(--text-muted)}
-.md-toc a:hover,.md-toc a.active{color:var(--accent);background:var(--accent-light);text-decoration:none}
-`
-  },
-  {
-    id: 'prd', name: '② 产品需求 PRD', desc: '单栏居中，暖白橙色，浮动 TOC 按钮。适合 PRD、会议纪要',
-    css: `
-:root{--bg:#faf8f5;--bg-card:#fff;--text:#332e2a;--text-muted:#8b7f75;--border:#e6ddd4;--accent:#e8590c;--accent-light:#fff4e6;--accent-dark:#c74500;--bg-code:#292524;--text-code:#e7e5e4;--max-width:780px}
-body{background:var(--bg);color:var(--text)}
-.page-wrap{max-width:var(--max-width);margin:0 auto;padding:60px 24px 120px;position:relative}
-.doc-header{margin-bottom:40px;padding-bottom:24px;border-bottom:2px solid var(--accent)}
-.doc-header h1{font-size:2.2em;margin:0 0 8px;color:var(--accent-dark)}
-.doc-header .meta{font-size:0.85em;color:var(--text-muted);display:flex;gap:20px;flex-wrap:wrap}
-.content table{background:var(--bg-card)}
-.content th{background:var(--accent-light);color:var(--accent-dark);border-color:var(--border)}
-.content td{border-color:var(--border)}
-.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px}
-.content code{background:var(--accent-light);color:var(--accent-dark)}
-.content pre code{color:var(--text-code)}
-.content blockquote{border-left-color:var(--accent);background:var(--accent-light)}
-.card{background:var(--bg-card);border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.04)}
-.card:hover{border-color:var(--accent);box-shadow:0 4px 16px rgba(232,89,12,0.10)}
-.floating-toc-btn{position:fixed;right:24px;bottom:24px;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:1.2em;box-shadow:0 2px 12px rgba(0,0,0,0.15);z-index:100}
-.floating-toc{position:fixed;right:80px;bottom:24px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 16px;max-width:260px;max-height:60vh;overflow-y:auto;box-shadow:0 4px 20px rgba(0,0,0,0.12);z-index:100;display:none}
-.floating-toc.show{display:block}
-`
-  },
-  {
-    id: 'blog', name: '③ 博客文章 Blog', desc: '单栏沉浸式，米白衬线字体+阅读进度条。适合博客、教程',
-    css: `
-:root{--bg:#fcfbf9;--bg-card:#fff;--text:#1a1a1a;--text-muted:#7a7a7a;--border:#e8e4db;--accent:#b45309;--accent-light:#fff7ed;--accent-dark:#9a3412;--bg-code:#1c1917;--text-code:#e7e5e4;--max-width:720px}
-body{background:var(--bg);color:var(--text);font-family:Georgia,'Noto Serif SC','Source Han Serif SC',serif}
-.page-wrap{max-width:var(--max-width);margin:0 auto;padding:40px 20px 120px}
-.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),#d97706);z-index:999;transition:width 0.1s}
-.doc-header{text-align:center;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
-.doc-header h1{font-size:2.4em;margin:0 0 12px;color:var(--text)}
-.content{font-size:1.05em;line-height:2}
-.content a{color:var(--accent)}
-.content table{background:var(--bg-card)}
-.content th{background:var(--accent-light);color:var(--accent-dark);border-color:var(--border)}
-.content td{border-color:var(--border)}
-.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px}
-.content code{background:var(--accent-light);color:var(--accent-dark)}
-.content pre code{color:var(--text-code)}
-.content blockquote{border-left-color:var(--accent);color:var(--text-muted);font-style:italic}
-`
-  },
-  {
-    id: 'apidocs', name: '④ API 接口文档', desc: '三栏布局，GitHub Dark 风格。适合 API 参考',
-    css: `
-:root{--bg:#0d1117;--bg-card:#161b22;--text:#e6edf3;--text-muted:#8b949e;--border:#30363d;--accent:#58a6ff;--accent-light:#0c2d6b;--bg-code:#161b22;--text-code:#e6edf3;--sidebar-width:260px}
-body{background:var(--bg);color:var(--text)}
-.page-wrap{display:flex;min-height:100vh}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-width);background:var(--bg-card);border-right:1px solid var(--border);overflow-y:auto;z-index:10}
-.sidebar-header{padding:20px 20px 12px;border-bottom:1px solid var(--border)}
-.sidebar-header h2{font-size:0.95em;font-weight:700;margin:0;color:var(--accent)}
-.sidebar-header p{font-size:0.78em;color:var(--text-muted)}
-.sidebar-toc{padding:12px 16px}
-.main-wrap{flex:1;margin-left:var(--sidebar-width);max-width:960px}
-.topbar{position:sticky;top:0;z-index:20;background:var(--bg-card);border-bottom:1px solid var(--border);padding:10px 32px;font-size:0.85em;display:flex;align-items:center;gap:8px;color:var(--text-muted)}
-.topbar a{color:var(--accent)}
-.content h1{color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:8px}
-.content h2{color:var(--accent)}
-.content a{color:var(--accent)}
-.content th{background:var(--accent-light);color:var(--accent);border-color:var(--border)}
-.content td{border-color:var(--border)}
-.content pre{background:#1f2937;border:1px solid var(--border);padding:14px 16px}
-.content blockquote{border-left-color:var(--accent)}
-.card{background:var(--bg-card);border:1px solid var(--border)}
-.md-toc a{color:var(--text-muted)}
-.md-toc a:hover,.md-toc a.active{color:var(--accent);background:rgba(88,166,255,0.08)}
-`
-  },
-  {
-    id: 'report', name: '⑤ 项目报告 Report', desc: 'A4 纸排版，深蓝暗金，适合周报、项目总结',
-    css: `
-:root{--bg:#f8f7f4;--bg-card:#fff;--text:#1e293b;--text-muted:#64748b;--border:#e2e8f0;--accent:#1e3a5f;--accent-light:#eef2f6;--accent-dark:#0f172a;--gold:#b8860b;--bg-code:#1e293b;--text-code:#e2e8f0;--max-width:860px}
-body{background:var(--bg);color:var(--text)}
-.page-wrap{max-width:var(--max-width);margin:0 auto;padding:40px 40px 80px;background:var(--bg-card);min-height:100vh;box-shadow:0 0 40px rgba(0,0,0,0.04)}
-.doc-header{position:relative;margin-bottom:40px;padding-bottom:24px;border-bottom:2px solid var(--accent);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
-.doc-header:after{content:'';position:absolute;bottom:-2px;left:0;width:80px;height:2px;background:var(--gold)}
-.doc-header h1{font-size:1.8em;margin:0;color:var(--accent)}
-.doc-header .meta{text-align:right;font-size:0.82em;color:var(--text-muted);line-height:1.6}
-.content h1{color:var(--accent);padding-bottom:6px;border-bottom:1px solid var(--border)}
-.content h2{color:var(--accent-dark)}
-.content th{background:var(--accent-light);color:var(--accent);border-color:var(--border)}
-.content td{border-color:var(--border)}
-.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px}
-.content code{background:var(--accent-light);color:var(--accent)}
-.content pre code{color:var(--text-code)}
-.content blockquote{border-left-color:var(--gold);background:var(--gold-light)}
-.card{background:var(--bg-card);border:1px solid var(--border)}
-.card:hover{border-color:var(--gold);box-shadow:0 4px 12px rgba(184,134,11,0.08)}
-`
-  },
-  {
-    id: 'knowledgebase', name: '⑥ 知识笔记 KB', desc: '双栏+标签云，紫白配色。适合知识库、个人wiki',
-    css: `
-:root{--bg:#fafafe;--bg-card:#fff;--text:#1e1b4b;--text-muted:#6b6080;--border:#e4dff0;--accent:#7c3aed;--accent-light:#f5f3ff;--accent-dark:#5b21b6;--pink:#ec4899;--bg-code:#1e1b4b;--text-code:#e9e0f0;--sidebar-width:280px}
-body{background:var(--bg);color:var(--text)}
-.page-wrap{display:flex;min-height:100vh}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-width);background:linear-gradient(180deg,#f5f3ff 0%,#fafafe 100%);border-right:1px solid var(--border);overflow-y:auto;z-index:10}
-.sidebar-header{padding:24px 20px 12px;border-bottom:1px solid var(--border)}
-.sidebar-header h2{font-size:1em;font-weight:700;margin:0;color:var(--accent)}
-.sidebar-header p{font-size:0.78em;color:var(--text-muted)}
-.sidebar-toc{padding:8px 16px 16px}
-.main-wrap{flex:1;margin-left:var(--sidebar-width);max-width:960px}
-.topbar{position:sticky;top:0;z-index:20;background:rgba(250,250,254,0.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:12px 32px;font-size:0.85em}
-.topbar span{font-weight:600;color:var(--accent)}
-.content h1{color:var(--accent);background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;border-bottom:1px solid var(--border);padding-bottom:8px}
-.content h2{color:var(--accent-dark)}
-.content a{color:var(--accent)}
-.content th{background:var(--accent-light);color:var(--accent-dark);border-color:var(--border)}
-.content td{border-color:var(--border)}
-.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px}
-.content code{background:var(--accent-light);color:var(--accent-dark)}
-.content pre code{color:var(--text-code);background:none}
-.content blockquote{border-left-color:var(--pink);background:var(--accent-light)}
-.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px}
-.card:hover{border-color:var(--accent);box-shadow:0 4px 16px rgba(124,58,237,0.08)}
-.md-toc a{color:var(--text-muted);padding:3px 8px}
-.md-toc a:hover,.md-toc a.active{color:var(--accent);background:var(--accent-light);border-radius:6px}
-`
-  },
-  {
-    id: 'xiaohongshu', name: '⑦ 小红书风格 RED', desc: '暖色渐变，圆角卡片，emoji 装饰。适合小红书笔记排版',
-    css: `
-:root{--bg:#fff5f5;--bg-card:#fff;--text:#333;--text-muted:#999;--border:#ffe0e0;--accent:#ff4757;--accent-light:#fff0f0;--accent-dark:#e8364a;--pink:#ff6b81;--orange:#ff7f50;--bg-code:#2d2d2d;--text-code:#f8f8f2;--max-width:640px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif}
-.page-wrap{max-width:var(--max-width);margin:0 auto;padding:20px 16px 60px}
-.doc-header{text-align:center;margin-bottom:24px;padding:24px 20px;background:linear-gradient(135deg,#ff6b81 0%,#ff4757 50%,#ff7f50 100%);border-radius:16px;color:#fff}
-.doc-header h1{font-size:1.5em;margin:0 0 8px;line-height:1.4;font-weight:800}
-.doc-header p{font-size:0.82em;opacity:0.9;margin:0}
-.content{background:var(--bg-card);border-radius:16px;padding:24px 20px;box-shadow:0 2px 20px rgba(255,71,87,0.08);line-height:1.9;font-size:0.95em}
-.content h1{font-size:1.4em;font-weight:800;color:var(--accent);margin:1.2em 0 0.5em;padding-left:12px;border-left:4px solid var(--accent)}
-.content h2{font-size:1.2em;font-weight:700;color:var(--accent-dark);margin:1.2em 0 0.4em;padding:4px 12px;background:var(--accent-light);border-radius:8px;display:inline-block}
-.content h3{font-size:1.05em;font-weight:700;color:var(--accent);margin:1em 0 0.3em}
-.content p{margin:0 0 0.8em}
-.content a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent)}
-.content strong{color:var(--accent-dark)}
-.content em{color:var(--pink);font-style:normal}
-.content code{background:var(--accent-light);color:var(--accent-dark);padding:2px 8px;border-radius:6px;font-size:0.88em}
-.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px;border-radius:12px;overflow-x:auto;margin:0.8em 0;font-size:0.82em;line-height:1.6}
-.content pre code{background:none;color:var(--text-code);padding:0}
-.content blockquote{margin:0.8em 0;padding:12px 16px;background:var(--accent-light);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;color:var(--accent-dark)}
-.content blockquote p:last-child{margin:0}
-.content ul,.content ol{margin:0.5em 0;padding-left:1.5em}
-.content li{margin:0.3em 0}
-.content table{width:100%;border-collapse:collapse;margin:0.8em 0;border-radius:8px;overflow:hidden}
-.content th{background:var(--accent);color:#fff;padding:8px 12px;font-size:0.85em;font-weight:600}
-.content td{padding:8px 12px;border-bottom:1px solid var(--border);font-size:0.88em}
-.content tr:nth-child(even){background:var(--accent-light)}
-.content img{border-radius:12px;margin:8px 0;max-width:100%}
-.content hr{border:none;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:1.5em 0}
-.footer-note{text-align:center;margin-top:20px;font-size:0.75em;color:var(--text-muted)}
-`
-  },
-  {
-    id: 'wechat', name: '⑧ 公众号风格 WeChat', desc: '经典公众号排版，居中标题，优雅间距。适合微信公众号文章',
-    css: `
-:root{--bg:#fff;--bg-card:#fff;--text:#3f3f3f;--text-muted:#888;--border:#e5e5e5;--accent:#07c160;--accent-light:#e8f8ef;--accent-dark:#06ad56;--header-accent:#fa5151;--bg-code:#f6f8fa;--text-code:#24292e;--max-width:578px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#f7f7f7;color:var(--text);font-family:-apple-system,'PingFang SC','Helvetica Neue','Microsoft YaHei',sans-serif}
-.page-wrap{max-width:var(--max-width);margin:0 auto;padding:0;background:var(--bg);min-height:100vh;box-shadow:0 0 30px rgba(0,0,0,0.06)}
-.doc-header{text-align:center;padding:32px 24px 24px;border-bottom:1px solid var(--border)}
-.doc-header h1{font-size:1.6em;font-weight:700;color:#000;line-height:1.5;margin:0 0 12px;letter-spacing:0.5px}
-.doc-header .meta{font-size:0.78em;color:var(--text-muted);display:flex;justify-content:center;gap:16px}
-.content{padding:20px 24px 40px;line-height:2;font-size:0.95em;color:var(--text)}
-.content h1{font-size:1.3em;font-weight:700;color:#000;text-align:center;margin:2em 0 0.8em;position:relative;padding-bottom:10px}
-.content h1:after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:40px;height:3px;background:var(--header-accent);border-radius:2px}
-.content h2{font-size:1.15em;font-weight:700;color:#000;margin:1.8em 0 0.6em;padding-left:12px;border-left:4px solid var(--header-accent)}
-.content h3{font-size:1.05em;font-weight:700;color:#333;margin:1.4em 0 0.4em}
-.content p{margin:0 0 1em;text-align:justify}
-.content a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent)}
-.content strong{color:#000}
-.content code{background:var(--bg-code);color:var(--text-code);padding:2px 6px;border-radius:3px;font-size:0.88em}
-.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px;border-radius:6px;overflow-x:auto;margin:1em 0;font-size:0.82em;line-height:1.6;border:1px solid #eaecef}
-.content pre code{background:none;color:var(--text-code);padding:0}
-.content blockquote{margin:1em 0;padding:12px 16px;background:var(--accent-light);border-left:3px solid var(--accent);color:#333;font-size:0.92em}
-.content blockquote p:last-child{margin:0}
-.content ul,.content ol{margin:0.5em 0;padding-left:1.8em}
-.content li{margin:0.3em 0}
-.content table{width:100%;border-collapse:collapse;margin:1em 0;font-size:0.88em}
-.content th{background:#f2f2f2;color:#333;padding:8px 12px;border:1px solid var(--border);font-weight:600}
-.content td{padding:8px 12px;border:1px solid var(--border)}
-.content img{max-width:100%;border-radius:4px;margin:8px auto;display:block}
-.content hr{border:none;height:1px;background:var(--border);margin:2em 20%}
-.footer-note{text-align:center;padding:16px 24px;font-size:0.72em;color:var(--text-muted);border-top:1px solid var(--border)}
-`
-  },
-  {
-    id: 'zhihu', name: '⑨ 知乎风格 Zhihu', desc: '简洁学术风，衬线标题，代码高亮。适合知乎回答/专栏文章',
-    css: `
-:root{--bg:#fff;--bg-card:#fff;--text:#1a1a1a;--text-muted:#999;--border:#ebebeb;--accent:#0066ff;--accent-light:#f0f7ff;--accent-dark:#0052cc;--bg-code:#f6f8fa;--text-code:#24292e;--max-width:700px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#f6f6f6;color:var(--text);font-family:-apple-system,'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif}
-.page-wrap{max-width:var(--max-width);margin:0 auto;padding:0;background:var(--bg);min-height:100vh;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
-.doc-header{padding:28px 32px 20px;border-bottom:1px solid var(--border)}
-.doc-header h1{font-size:1.7em;font-weight:700;color:#1a1a1a;line-height:1.45;margin:0 0 8px}
-.doc-header .meta{font-size:0.82em;color:var(--text-muted);display:flex;gap:12px}
-.content{padding:20px 32px 60px;line-height:1.85;font-size:0.95em}
-.content h1{font-size:1.35em;font-weight:700;color:#1a1a1a;margin:2em 0 0.6em}
-.content h2{font-size:1.18em;font-weight:700;color:#1a1a1a;margin:1.8em 0 0.5em;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.content h3{font-size:1.05em;font-weight:700;color:#333;margin:1.4em 0 0.4em}
-.content p{margin:0 0 0.9em;text-align:justify}
-.content a{color:var(--accent);text-decoration:none}
-.content a:hover{text-decoration:underline}
-.content strong{color:#1a1a1a;font-weight:700}
-.content code{background:var(--bg-code);color:var(--text-code);padding:2px 6px;border-radius:3px;font-size:0.88em;font-family:'SF Mono','Menlo',monospace}
-.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px;border-radius:6px;overflow-x:auto;margin:1em 0;font-size:0.82em;line-height:1.6;border:1px solid #eaecef}
-.content pre code{background:none;color:var(--text-code);padding:0}
-.content blockquote{margin:1em 0;padding:12px 16px;background:var(--accent-light);border-left:3px solid var(--accent);color:#555}
-.content blockquote p:last-child{margin:0}
-.content ul,.content ol{margin:0.5em 0;padding-left:1.8em}
-.content li{margin:0.3em 0}
-.content table{width:100%;border-collapse:collapse;margin:1em 0;font-size:0.88em}
-.content th{background:#f7f8fa;color:#333;padding:8px 12px;border:1px solid var(--border);font-weight:600;text-align:left}
-.content td{padding:8px 12px;border:1px solid var(--border)}
-.content img{max-width:100%;border-radius:4px;margin:8px 0}
-.content hr{border:none;height:1px;background:var(--border);margin:2em 0}
-.footer-note{text-align:center;padding:20px 32px;font-size:0.75em;color:var(--text-muted);border-top:1px solid var(--border)}
-`
-  },
-  {
-    id: 'toutiao', name: '⑩ 今日头条 Toutiao', desc: '头条号文章风格，大标题醒目，正文易读。适合今日头条/头条号发布',
-    css: `
-:root{--bg:#fff;--bg-card:#fff;--text:#222;--text-muted:#999;--border:#e8e8e8;--accent:#ff0000;--accent-light:#fff5f5;--accent-dark:#d40000;--blue:#1e80ff;--bg-code:#f7f8fa;--text-code:#333;--max-width:640px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#f4f5f6;color:var(--text);font-family:-apple-system,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif}
-.page-wrap{max-width:var(--max-width);margin:0 auto;background:var(--bg);min-height:100vh;box-shadow:0 0 20px rgba(0,0,0,0.05)}
-.doc-header{padding:24px 20px 20px;border-bottom:1px solid var(--border)}
-.doc-header h1{font-size:1.6em;font-weight:800;color:#1a1a1a;line-height:1.4;margin:0 0 12px;letter-spacing:0.3px}
-.doc-header .meta{font-size:0.78em;color:var(--text-muted);display:flex;gap:12px;align-items:center}
-.doc-header .meta .tag{display:inline-block;padding:2px 8px;background:var(--accent-light);color:var(--accent);border-radius:4px;font-size:0.85em;font-weight:500}
-.content{padding:20px 20px 40px;line-height:1.9;font-size:0.95em;color:#333}
-.content h1{font-size:1.4em;font-weight:800;color:#1a1a1a;margin:1.8em 0 0.6em;padding-left:10px;border-left:4px solid var(--accent)}
-.content h2{font-size:1.2em;font-weight:700;color:#1a1a1a;margin:1.6em 0 0.5em;position:relative;padding-left:14px}
-.content h2:before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:18px;background:var(--accent);border-radius:2px}
-.content h3{font-size:1.05em;font-weight:700;color:#333;margin:1.2em 0 0.4em}
-.content p{margin:0 0 0.9em;text-align:justify}
-.content a{color:var(--blue);text-decoration:none}
-.content a:hover{text-decoration:underline}
-.content strong{color:#1a1a1a;font-weight:700}
-.content code{background:var(--bg-code);color:var(--text-code);padding:2px 6px;border-radius:3px;font-size:0.88em;font-family:'Menlo',monospace}
-.content pre{background:var(--bg-code);color:var(--text-code);padding:14px 16px;border-radius:6px;overflow-x:auto;margin:1em 0;font-size:0.82em;line-height:1.6;border:1px solid #eee}
-.content pre code{background:none;color:var(--text-code);padding:0}
-.content blockquote{margin:1em 0;padding:12px 16px;background:var(--accent-light);border-left:3px solid var(--accent);color:#555;border-radius:0 4px 4px 0}
-.content blockquote p:last-child{margin:0}
-.content ul,.content ol{margin:0.5em 0;padding-left:1.8em}
-.content li{margin:0.3em 0}
-.content table{width:100%;border-collapse:collapse;margin:1em 0;font-size:0.88em}
-.content th{background:#f5f6f7;color:#333;padding:10px 12px;border:1px solid var(--border);font-weight:600;text-align:left}
-.content td{padding:10px 12px;border:1px solid var(--border)}
-.content img{max-width:100%;border-radius:4px;margin:8px 0}
-.content hr{border:none;height:1px;background:var(--border);margin:2em 0}
-.card{background:#fafafa;border:1px solid var(--border);border-radius:8px;padding:16px;margin:0.8em 0}
-.card:hover{border-color:#ddd}
-.footer-note{text-align:center;padding:20px;font-size:0.75em;color:var(--text-muted);border-top:1px solid var(--border)}
-`
-  }
-];
-
-function wrapTemplate(body, tmplId, title) {
-  const tpl = TEMPLATES.find(t => t.id === tmplId) || TEMPLATES[0];
-  const toc = renderTOC(body);
-  const safeTitle = title || '文档';
-
-  // 每个模板不同的包裹函数
-  const layouts = {
-    techdocs: `<div class="page-wrap"><aside class="sidebar"><div class="sidebar-header"><h2>${safeTitle}</h2><p>技术文档</p></div><div class="sidebar-toc">${toc || ''}</div></aside><div class="main-wrap"><div class="topbar"><span>📄 ${safeTitle}</span></div><main class="content md-content">${body}</main></div></div><script>
-document.querySelectorAll('.md-toc a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('href').slice(1),el=document.getElementById(id);if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-20,behavior:'smooth'})};document.querySelectorAll('.md-toc a.active').forEach(function(x){x.classList.remove('active')});a.classList.add('active')})});
-window.addEventListener('scroll',function(){var c='';document.querySelectorAll('h1[id],h2[id],h3[id],h4[id]').forEach(function(h){if(h.getBoundingClientRect().top<=120)c='#'+h.id});document.querySelectorAll('.md-toc a').forEach(function(a){a.classList.toggle('active',a.getAttribute('href')===c)})});
-</script>`,
-
-    prd: `<div class="page-wrap"><header class="doc-header"><h1>${safeTitle}</h1></header><main class="content md-content">${body}</main></div>${toc ? '<button class="floating-toc-btn" id="tocBtn">☰</button><div class="floating-toc" id="tocPanel">'+toc+'</div><script>var btn=document.getElementById("tocBtn"),panel=document.getElementById("tocPanel");btn.addEventListener("click",function(){panel.classList.toggle("show")});document.addEventListener("click",function(e){if(!btn.contains(e.target)&&!panel.contains(e.target))panel.classList.remove("show")});document.querySelectorAll(".floating-toc a").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var id=a.getAttribute("href").slice(1),el=document.getElementById(id);if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-20,behavior:"smooth"})};panel.classList.remove("show")})});window.addEventListener("scroll",function(){var c="";document.querySelectorAll("h1[id],h2[id],h3[id],h4[id]").forEach(function(h){if(h.getBoundingClientRect().top<=140)c="#"+h.id});document.querySelectorAll(".floating-toc a").forEach(function(a){a.classList.toggle("active",a.getAttribute("href")===c)})});</script>' : ''}`,
-
-    blog: `<div class="progress-bar" id="progressBar"></div><div class="page-wrap"><header class="doc-header"><h1>${safeTitle}</h1></header><main class="content md-content">${body}</main></div><script>window.addEventListener("scroll",function(){var h=document.documentElement.scrollHeight-window.innerHeight;document.getElementById("progressBar").style.width=(window.scrollY/h*100)+"%"})</script>`,
-
-    apidocs: `<div class="page-wrap"><aside class="sidebar"><div class="sidebar-header"><h2>📡 ${safeTitle}</h2><p>API 参考文档</p></div><div class="sidebar-toc">${toc || ''}</div></aside><div class="main-wrap"><div class="topbar"><span>API 文档</span></div><main class="content md-content">${body}</main></div></div><script>
-document.querySelectorAll('.md-toc a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('href').slice(1),el=document.getElementById(id);if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-20,behavior:'smooth'})};document.querySelectorAll('.md-toc a.active').forEach(function(x){x.classList.remove('active')});a.classList.add('active')})});
-window.addEventListener('scroll',function(){var c='';document.querySelectorAll('h1[id],h2[id],h3[id],h4[id]').forEach(function(h){if(h.getBoundingClientRect().top<=120)c='#'+h.id});document.querySelectorAll('.md-toc a').forEach(function(a){a.classList.toggle('active',a.getAttribute('href')===c)})});
-</script>`,
-
-    report: `<div class="page-wrap"><header class="doc-header"><h1>${safeTitle}</h1><div class="meta"><div>${new Date().toLocaleDateString('zh-CN')}</div></div></header><main class="content md-content">${body}</main><div style="margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:0.78em;color:var(--text-muted);text-align:center">Generated by md2html</div></div>`,
-
-    knowledgebase: `<div class="page-wrap"><aside class="sidebar"><div class="sidebar-header"><h2>📚 ${safeTitle}</h2></div><div class="sidebar-toc">${toc || ''}</div></aside><div class="main-wrap"><div class="topbar"><span>${safeTitle}</span></div><main class="content md-content">${body}</main></div></div><script>
-document.querySelectorAll('.md-toc a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var id=a.getAttribute('href').slice(1),el=document.getElementById(id);if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-20,behavior:'smooth'})};document.querySelectorAll('.md-toc a.active').forEach(function(x){x.classList.remove('active')});a.classList.add('active')})});
-window.addEventListener('scroll',function(){var c='';document.querySelectorAll('h1[id],h2[id],h3[id],h4[id]').forEach(function(h){if(h.getBoundingClientRect().top<=120)c='#'+h.id});document.querySelectorAll('.md-toc a').forEach(function(a){a.classList.toggle('active',a.getAttribute('href')===c)})});
-</script>`,
-
-    xiaohongshu: `<div class="page-wrap"><header class="doc-header"><h1>📌 ${safeTitle}</h1><p>✨ 收藏 + 关注，获取更多干货 ✨</p></header><main class="content md-content">${body}</main><div class="footer-note">❤️ 觉得有用就点个赞吧！关注我获取更多内容～</div></div>`,
-
-    wechat: `<div class="page-wrap"><header class="doc-header"><h1>${safeTitle}</h1><div class="meta"><span>📝 原创</span><span>📅 ${new Date().toLocaleDateString('zh-CN')}</span></div></header><main class="content md-content">${body}</main><div class="footer-note">— END —<br>觉得不错？点个「在看」支持一下 👇</div></div>`,
-
-    zhihu: `<div class="page-wrap"><header class="doc-header"><h1>${safeTitle}</h1><div class="meta"><span>✍️ 作者</span><span>📅 ${new Date().toLocaleDateString('zh-CN')}</span><span>💬 0 评论</span></div></header><main class="content md-content">${body}</main><div class="footer-note">如果觉得有帮助，欢迎点赞和收藏 ❤️</div></div>`,
-
-    toutiao: `<div class="page-wrap"><header class="doc-header"><h1>${safeTitle}</h1><div class="meta"><span class="tag">原创</span><span>📅 ${new Date().toLocaleDateString('zh-CN')}</span><span>👁️ 0 阅读</span></div></header><main class="content md-content">${body}</main><div class="footer-note">— 全文完 —<br>关注我，获取更多精彩内容 👆</div></div>`
-  };
-
-  const layout = layouts[tpl.id] || layouts.techdocs;
-  return `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${safeTitle}</title><style>${BASE_CSS}${tpl.css}</style></head><body>${layout}</body></html>`;
+export function groupBlocks(html = '') {
+  return String(html);
 }
 
-export { TEMPLATES, wrapTemplate, groupBlocks, addIds };
+function normalizeOptions(options = {}) {
+  const fontMap = {
+    system: "-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif",
+    sans: "'Avenir Next','PingFang SC','Microsoft YaHei',sans-serif",
+    serif: "Georgia,'Songti SC','STSong',serif",
+    mono: "ui-monospace,SFMono-Regular,Menlo,Consolas,'PingFang SC',monospace",
+  };
+  const widthMap = { narrow: 620, standard: 760, wide: 980 };
+  const fontSize = Math.min(24, Math.max(13, Number(options.fontSize) || 16));
+  const lineHeight = Math.min(2.4, Math.max(1.35, Number(options.lineHeight) || 1.8));
+  const accent = /^#[0-9a-f]{6}$/i.test(options.accent || '') ? options.accent : '#0f6575';
+  const width = widthMap[options.width] || widthMap.standard;
+  return { font: fontMap[options.font] || fontMap.system, fontSize, lineHeight, accent, width };
+}
+
+export function wrapTemplate(body, templateId = 'clean', title = '未命名文档', options = {}) {
+  const template = getTemplate(templateId);
+  const settings = normalizeOptions(options);
+  const safeTitle = escapeHtml(title || '未命名文档');
+  const exportedAt = options.exportedAt || new Date().toLocaleDateString('zh-CN');
+  const titleBlock = options.includeTitle === false
+    ? ''
+    : `<header class="export-header"><p class="export-kicker">Markdown document</p><h1>${safeTitle}</h1><p class="export-meta">导出于 ${escapeHtml(exportedAt)}</p></header>`;
+
+  return `<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>${safeTitle}</title>
+  <style>
+    :root{--accent:${settings.accent};--document-font:${settings.font};--document-size:${settings.fontSize}px;--document-leading:${settings.lineHeight};--document-width:${settings.width}px}
+    ${BASE_EXPORT_CSS}
+    ${template.css}
+  </style>
+</head>
+<body>
+  <main class="export-page">
+    ${titleBlock}
+    <article class="md-content">${body}</article>
+    <footer class="export-footer">由 Practical Tools Markdown 发布工作室导出</footer>
+  </main>
+</body>
+</html>`;
+}

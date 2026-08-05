@@ -4,116 +4,94 @@
   <link rel="canonical" href="https://practicaltools.xyz/privacy">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>隐私政策 - 在线工具集</title>
-  <meta name="description" content="在线工具集隐私政策 - 了解我们如何保护您的隐私和数据安全。">
-  <meta name="keywords" content="隐私政策,数据保护,隐私安全">
-  <meta name="author" content="在线工具集团队">
+  <title>隐私政策 - Practical Tools</title>
+  <meta name="description" content="Practical Tools 隐私政策：说明浏览器本地处理、本地草稿、第三方网络请求、广告与 Cookie 的实际边界。">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Practical Tools">
   <link rel="stylesheet" href="./style.css">
-  <meta property="og:title" content="隐私政策 - 在线工具集">
-  <meta property="og:description" content="在线工具集隐私政策">
+  <meta property="og:title" content="隐私政策 - Practical Tools">
+  <meta property="og:description" content="浏览器本地处理、本地草稿、第三方请求、广告与 Cookie 的实际边界。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://practicaltools.xyz/privacy">
   <meta name="twitter:card" content="summary">
 </head>
 <body>
   <header class="topbar">
-    <a href="./index" class="topbar-home">← 返回首页</a>
-    <span class="topbar-title">🔒 隐私政策</span>
-    <button class="lang-switch" style="visibility:hidden">EN</button>
+    <a href="./index" class="topbar-home">Practical Tools</a>
+    <nav class="topbar-nav" aria-label="页面导航">
+      <a href="./about">关于</a>
+      <a href="./ad-disclosure">广告声明</a>
+      <a href="./contact">联系</a>
+    </nav>
+    <span class="topbar-title">隐私政策</span>
   </header>
+
   <main class="page page-tool">
-    <div class="static-content">
+    <article class="static-content">
       <h1>隐私政策</h1>
-      <p><strong>最后更新日期：2026年5月30日</strong></p>
-      
-      <p>欢迎使用在线工具集（以下简称"本网站"）。我们非常重视您的隐私保护。本隐私政策旨在说明我们如何收集、使用和保护您的个人信息。</p>
-      
-      <h2>1. 信息收集</h2>
-      <p><strong>我们不收集任何个人信息。</strong>这是本网站最核心的隐私承诺：</p>
+      <p><strong>生效及最后更新日期：2026年8月4日</strong></p>
+      <p>本政策说明 Practical Tools（以下简称“本站”）在你访问网站、使用工具和阅读指南时，数据会在哪里处理、哪些信息可能被第三方接收，以及你可以怎样清理本地数据。</p>
+
+      <h2>1. 本站直接提供的账户与数据库</h2>
+      <p>本站目前不提供注册或登录功能，也没有由本站运营的用户内容数据库。你无需提交姓名、电话号码或付款信息即可使用工具。</p>
+
+      <h2>2. 浏览器本地处理</h2>
+      <p>多数工具的输入和结果只在当前浏览器标签页中计算，例如 JSON 格式化、编码转换、密码生成、Hash、字数统计和图片压缩。本站服务器不会收到这些输入内容。</p>
+      <p>仍需注意以下边界：</p>
       <ul>
-        <li>所有工具的输入数据均在您的浏览器本地处理，不会上传到我们的服务器</li>
-        <li>我们不使用 Cookie 追踪您的行为</li>
-        <li>我们不收集您的 IP 地址、设备信息或浏览历史</li>
-        <li>我们不要求用户注册账户或提供任何个人信息</li>
-      </ul>
-      
-      <h2>2. 数据处理</h2>
-      <p>所有数据处理均在您的浏览器本地完成：</p>
-      <ul>
-        <li>JSON 格式化、正则测试等文本处理工具完全在本地运行</li>
-        <li>图片压缩、图片隐私清理等图片处理工具使用浏览器 Canvas API</li>
-        <li>Hash 计算使用浏览器内置的 Web Crypto API</li>
-        <li>关闭浏览器标签页后，所有输入数据将被自动清除</li>
-      </ul>
-      
-      <h2>3. 广告与 Cookie</h2>
-      <p>本网站使用 <strong>Google AdSense</strong> 展示广告。请注意以下重要信息：</p>
-      <ul>
-        <li>Google AdSense 可能会使用 Cookie 或类似技术来展示个性化广告</li>
-        <li>这些 Cookie 可能会收集您的浏览行为信息，用于展示相关广告</li>
-        <li>您可以访问 <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google 广告设置</a> 来管理广告偏好</li>
-        <li>您也可以访问 <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener">DAA</a> 或 <a href="https://www.youronlinechoices.eu/" target="_blank" rel="noopener">EDAA</a> 来选择退出个性化广告</li>
+        <li><strong>Markdown 编辑器：</strong>为了恢复草稿，会把文稿、标题和排版偏好保存到当前浏览器的 localStorage。关闭标签页不会自动删除这些草稿；请使用编辑器里的删除功能，或清理该站点的浏览器数据。</li>
+        <li><strong>汇率工具：</strong>会向 Frankfurter 或 ExchangeRate-API 请求公开汇率数据。金额换算主要在浏览器内完成，但第三方服务可看到常规网络请求信息，例如 IP 地址和 User-Agent。</li>
+        <li><strong>公共前端库：</strong>二维码和文件差异工具的部分脚本可能从 jsDelivr、cdnjs 或 SheetJS CDN 加载。CDN 可获得常规访问日志，但工具选择的本地文件不会由本站代码主动上传给这些 CDN。</li>
+        <li><strong>外部链接和图片：</strong>当文稿引用远程图片，或你主动打开外部链接时，目标服务器会收到相应网络请求。</li>
       </ul>
 
-      <h3>我们使用的 Cookie 类型：</h3>
+      <h2>3. 本地存储与 Cookie</h2>
+      <p>本站可能在浏览器中保存以下数据：</p>
       <ul>
-        <li><strong>必要 Cookie</strong>：网站正常运行所需</li>
-        <li><strong>广告 Cookie</strong>：由 Google AdSense 用于展示和衡量广告</li>
-        <li><strong>分析 Cookie</strong>：用于了解网站使用情况（如 Google Analytics，如启用）</li>
+        <li>Markdown 本地草稿、编辑器视图和排版偏好；</li>
+        <li>语言或界面偏好；</li>
+        <li>Cookie/广告提示的选择记录。</li>
+      </ul>
+      <p>这些数据位于你的设备上。你可以在浏览器的“网站数据”或“隐私与安全”设置中删除 practicaltools.xyz 的本地存储和 Cookie。删除后，本地草稿可能无法恢复。</p>
+
+      <h2>4. 托管与基础访问日志</h2>
+      <p>本站静态页面托管在 Vercel。为传输页面、保障安全和排查故障，托管及网络服务可能处理 IP 地址、请求时间、访问路径、User-Agent 和错误信息等常规日志。相关处理由服务商的政策约束，本站不使用这些日志建立用户账户画像。</p>
+
+      <h2>5. Google AdSense</h2>
+      <p>首页和工具指南等内容页面提供 Google AdSense 入口；首次访问时广告服务保持未加载状态，只有选择“同意广告 Cookie”后才会请求 Google 广告。实际是否展示广告取决于审核、地区和广告库存。纯工具操作页不包含广告入口。</p>
+      <ul>
+        <li>Google 及其合作方可能使用 Cookie、本地存储或设备标识来投放、限制频次和衡量广告；</li>
+        <li>Google 可能处理 IP 地址、浏览器信息、页面 URL 和广告互动数据；</li>
+        <li>你可以通过 <a href="https://adssettings.google.com/" target="_blank" rel="noopener">Google 广告设置</a> 管理个性化广告，并在浏览器中限制或删除第三方 Cookie；</li>
+        <li>更多说明见本站的 <a href="./ad-disclosure">广告声明</a> 和 <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">Google 广告技术政策</a>。</li>
       </ul>
 
-      <h2>4. 第三方服务</h2>
-      <p>本网站使用以下第三方服务：</p>
-      <ul>
-        <li><strong>Google AdSense</strong>：广告服务平台，遵守 <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">Google 广告政策</a></li>
-        <li><strong>Vercel</strong>：网站托管服务，可能会收集基本访问日志</li>
-      </ul>
-      <p>这些第三方服务有自己的隐私政策，建议您查阅相关条款。</p>
-
-      <h2>5. 数据安全</h2>
-      <p>虽然我们不收集您的数据，但我们仍然采取以下措施确保网站安全：</p>
-      <ul>
-        <li>使用 HTTPS 加密传输</li>
-        <li>定期更新网站代码以修复安全漏洞</li>
-        <li>不存储任何用户数据，从根本上杜绝数据泄露风险</li>
-      </ul>
-      
-      <h2>6. 您的权利</h2>
-      <p>如果您位于欧洲经济区 (EEA)，您享有以下数据保护权利：</p>
-      <ul>
-        <li><strong>访问权</strong>：了解我们是否处理您的个人数据</li>
-        <li><strong>删除权</strong>：请求删除您的个人数据</li>
-        <li><strong>反对权</strong>：反对处理您的个人数据</li>
-        <li><strong>数据可携带权</strong>：以结构化格式获取您的数据</li>
-      </ul>
-      <p>由于本网站不收集用户数据，上述权利主要适用于第三方 Cookie。您可以通过浏览器设置管理 Cookie。</p>
+      <h2>6. 数据安全与使用建议</h2>
+      <p>本站通过 HTTPS 提供页面，并尽量让敏感任务在浏览器本地完成，但任何在线页面和浏览器扩展都不能被描述为“绝对安全”。请不要把私钥、账户恢复词、未脱敏身份证件或其他高敏感信息粘贴到不必要的网页中。处理重要文件前，建议保留原始副本并核对导出结果。</p>
 
       <h2>7. 儿童隐私</h2>
-      <p>本网站不面向 13 岁以下儿童，也不会故意收集儿童的个人信息。如果我们发现无意中收集了儿童的个人信息，将会立即删除。</p>
+      <p>本站不是专门面向 13 岁以下儿童的服务，也不要求儿童提供个人资料。如果你认为本站的实现导致了不当的数据处理，请通过下方联系方式告知。</p>
 
-      <h2>8. 隐私政策更新</h2>
-      <p>我们可能会不时更新本隐私政策。更新后的政策将在本页面发布，并更新"最后更新日期"。重大变更时，我们会在网站首页通知。</p>
+      <h2>8. 政策变更</h2>
+      <p>当工具的数据流、第三方服务或广告实现发生实质变化时，我们会更新本页并修改日期。历史变更可以通过公开 GitHub 仓库的提交记录查看。</p>
 
-      <h2>9. 同意条款</h2>
-      <p>使用本网站即表示您同意本隐私政策。如果您不同意本政策，请停止使用本网站。</p>
-
-      <h2>10. 联系我们</h2>
-      <p>如果您对本隐私政策有任何疑问，请通过以下方式联系我们：</p>
+      <h2>9. 联系方式</h2>
       <ul>
-        <li>GitHub：<a href="https://github.com/lgch3136/web-tools-hub" target="_blank">web-tools-hub</a></li>
-        <li>邮箱：lgch3136@gmail.com</li>
+        <li>GitHub：<a href="https://github.com/lgch3136/web-tools-hub" target="_blank" rel="noopener">lgch3136/web-tools-hub</a></li>
+        <li>邮箱：<a href="mailto:lgch3136@gmail.com">lgch3136@gmail.com</a></li>
       </ul>
-      
-      <p class="last-updated">本隐私政策最后更新于 2026年5月30日</p>
-    </div>
+
+      <p class="last-updated">本政策最后更新于 2026年8月4日</p>
+    </article>
+
     <footer class="footer">
-      <p>© 2026 在线工具集 · 全部工具在浏览器本地运行，数据不上传服务器</p>
+      <p>© 2026 Practical Tools</p>
       <div class="footer-links">
-        <a href="./about">关于我们</a>
+        <a href="./about">关于</a>
         <a href="./privacy">隐私政策</a>
         <a href="./ad-disclosure">广告声明</a>
         <a href="./terms">使用条款</a>
-        <a href="./contact">联系我们</a>
+        <a href="./contact">联系</a>
       </div>
     </footer>
   </main>

@@ -4,14 +4,14 @@
 const translations = {
 
   // ===== 通用 =====
-  'site.title':            { zh: '在线工具集 - Markdown转换 | 汇率换算', en: 'Web Tools - Markdown Converter | Exchange Rate' },
-  'site.name':             { zh: '🔧 在线工具集', en: '🔧 Web Tools' },
+  'site.title':            { zh: 'Practical Tools - Markdown转换 | 汇率换算', en: 'Practical Tools - Markdown Converter | Exchange Rate' },
+  'site.name':             { zh: '🔧 Practical Tools', en: '🔧 Practical Tools' },
   'back.home':             { zh: '← 返回首页', en: '← Back Home' },
   'loading':               { zh: '加载中...', en: 'Loading...' },
   'load.error':            { zh: '加载失败: ', en: 'Load failed: ' },
 
   // ===== 首页 Hero =====
-  'hero.title':            { zh: '🛠️ 在线工具集', en: '🛠️ Web Tools' },
+  'hero.title':            { zh: '🛠️ Practical Tools', en: '🛠️ Practical Tools' },
   'hero.desc':             { zh: '实用开发与办公工具 · 免费 · 无需安装 · 即开即用', en: 'Practical dev & office tools · Free · No install · Ready to use' },
   'hero.stat1':            { zh: '🔒 数据本地处理', en: '🔒 Local processing' },
   'hero.stat2':            { zh: '⚡ 实时响应', en: '⚡ Real-time' },
@@ -32,7 +32,7 @@ const translations = {
   'tool.coming.desc':      { zh: '时间戳转换、JSON 格式化、Base64 编解码、颜色转换、二维码生成…', en: 'Timestamp converter, JSON formatter, Base64, color converter, QR code…' },
   'tool.coming.tag':       { zh: '敬请期待', en: 'Coming soon' },
 
-  'footer.text':           { zh: '© 2026 在线工具集 · 数据仅本地处理，不上传服务器', en: '© 2026 Web Tools · All data processed locally, never uploaded' },
+  'footer.text':           { zh: '© 2026 Practical Tools · 多数处理在浏览器本地完成，具体网络请求见隐私政策', en: '© 2026 Practical Tools · Most processing stays in your browser; see Privacy for network requests' },
 
   // ===== MD-HTML 工具 =====
   'mdhtml.import':         { zh: '📥 导入', en: '📥 Import' },

@@ -1,198 +1,225 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  <link rel="canonical" href="https://practicaltools.xyz/guides/markdown-guide">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Markdown 写作完全指南 - 在线工具集</title>
-  <meta name="description" content="Markdown 写作完全指南：从基础语法到高级技巧，掌握 Markdown 在不同平台的写作方法，提升文档编写效率。">
-  <meta name="keywords" content="Markdown教程,Markdown语法,Markdown写作,MD转HTML,技术写作,README编写">
-  <link rel="canonical" href="https://practicaltools.xyz/guides/markdown-guide">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
-  <meta name="author" content="在线工具集团队">
+  <title>Markdown 从草稿到公众号与头条发布：可复现工作流 | Practical Tools</title>
+  <meta name="description" content="一套可复现的 Markdown 发布工作流：本地草稿、实时预览、目录、公式与图表、公众号/头条主题、富文本复制、HTML/DOCX/PDF 导出，以及粘贴失败排查。">
+  <meta name="author" content="Practical Tools">
   <link rel="stylesheet" href="../style.css">
-  <meta property="og:title" content="Markdown 写作完全指南 - 在线工具集">
-  <meta property="og:description" content="从基础语法到高级技巧，掌握 Markdown 在不同场景的写作方法">
+  <meta property="og:title" content="Markdown 从草稿到公众号与头条发布">
+  <meta property="og:description" content="不是语法清单，而是一套从本地草稿到多平台发布的可复现操作流程。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://practicaltools.xyz/guides/markdown-guide">
+  <meta property="article:modified_time" content="2026-08-04">
   <meta name="twitter:card" content="summary">
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Markdown 写作完全指南",
-  "description": "从基础语法到高级技巧，掌握 Markdown 写作方法，提升文档效率",
-  "author": {"@type": "Organization", "name": "在线工具集"},
-  "datePublished": "2026-06-16",
-  "dateModified": "2026-06-26"
-}
-</script>
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Markdown 从草稿到公众号与头条发布：可复现工作流",
+    "description": "使用 Practical Tools Markdown 发布工作室完成本地写作、排版预览、富文本复制和多格式导出。",
+    "datePublished": "2026-08-04",
+    "dateModified": "2026-08-04",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": "https://practicaltools.xyz/guides/markdown-guide",
+    "author": {"@type": "Organization", "name": "Practical Tools"},
+    "publisher": {"@type": "Organization", "name": "Practical Tools", "url": "https://practicaltools.xyz/"}
+  }
+  </script>
+  <script src="../consent-default.js"></script>
+  <template data-ad-client-script="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></template>
 </head>
 <body>
   <header class="topbar">
-    <a href="../index" class="topbar-home">← 返回首页</a>
-    <span class="topbar-title">📖 工具指南</span>
-    <button class="lang-switch" style="visibility:hidden">EN</button>
+    <a href="../index" class="topbar-home">Practical Tools</a>
+    <span class="topbar-title">Markdown 发布手册</span>
   </header>
+
   <main class="page page-tool">
     <article class="static-content">
-      <h1>Markdown 写作完全指南：从入门到高效输出</h1>
-      <p><em>发布日期：2026年6月16日 | 阅读时间：8分钟</em></p>
-
-      <p>Markdown 已经成为现代技术写作的事实标准。从 GitHub README 到技术博客，从项目文档到个人笔记，Markdown 的简洁语法让写作者可以专注于内容本身。本文将从基础语法到高级技巧，全面讲解 Markdown 的写作方法。</p>
-
-      <h2>为什么选择 Markdown？</h2>
-      <p>Markdown 由 John Gruber 于 2004 年创建，核心理念是"易读易写"。相比 Word 或 HTML，Markdown 有以下优势：</p>
-      <ul>
-        <li><strong>纯文本格式</strong>：任何文本编辑器都能打开，不会出现格式兼容问题</li>
-        <li><strong>学习成本低</strong>：基础语法只需 10 分钟就能掌握</li>
-        <li><strong>版本控制友好</strong>：纯文本格式完美适配 Git，方便查看历史和协作</li>
-        <li><strong>跨平台转换</strong>：可以轻松转换为 HTML、PDF、Word 等多种格式</li>
-        <li><strong>社区生态丰富</strong>：几乎所有开发平台都原生支持 Markdown</li>
-      </ul>
-
-      <h2>基础语法速查</h2>
-
-      <h3>标题</h3>
-      <pre><code># 一级标题
-## 二级标题
-### 三级标题
-#### 四级标题
-##### 五级标题
-###### 六级标题</code></pre>
-
-      <h3>文本样式</h3>
-      <pre><code>**粗体文字**
-*斜体文字*
-~~删除线~~
-`行内代码`
-> 引用块</code></pre>
-
-      <h3>链接与图片</h3>
-      <pre><code>[链接文字](https://example.com)
-![图片替代文字](image-url.png)</code></pre>
-
-      <h3>列表</h3>
-      <pre><code>- 无序列表项 1
-- 无序列表项 2
-  - 嵌套子项
-
-1. 有序列表项 1
-2. 有序列表项 2</code></pre>
-
-      <h3>代码块</h3>
-      <pre><code>```javascript
-function hello() {
-  console.log("Hello, Markdown!");
-}
-```</code></pre>
-
-      <h2>进阶技巧</h2>
-
-      <h3>1. 表格</h3>
-      <p>Markdown 支持简洁的表格语法：</p>
-      <pre><code>| 功能 | 快捷键 | 说明 |
-|------|--------|------|
-| 保存 | Ctrl+S | 保存当前文件 |
-| 复制 | Ctrl+C | 复制选中内容 |
-| 粘贴 | Ctrl+V | 粘贴剪贴板内容 |</code></pre>
-
-      <h3>2. 任务列表（GitHub 扩展）</h3>
-      <pre><code>- [x] 完成需求分析
-- [x] 编写技术方案
-- [ ] 代码实现
-- [ ] 单元测试</code></pre>
-
-      <h3>3. 脚注</h3>
-      <pre><code>这是一个带有脚注的句子[^1]。
-
-[^1]: 这是脚注的内容。</code></pre>
-
-      <h3>4. Emoji（GitHub 风格）</h3>
-      <pre><code>:smile: :rocket: :tada: :warning:</code></pre>
-
-      <h2>不同平台的 Markdown 差异</h2>
-      <p>虽然 Markdown 有 CommonMark 标准，但不同平台仍有各自的"方言"。了解这些差异可以避免格式问题：</p>
-
-      <table>
-        <tr><th>平台</th><th>特点</th><th>注意事项</th></tr>
-        <tr><td>GitHub</td><td>GFM (GitHub Flavored Markdown)，功能最丰富</td><td>支持任务列表、表格、数学公式、Mermaid 图表</td></tr>
-        <tr><td>微信公众号</td><td>支持有限，需特殊工具转换</td><td>不支持 HTML，需要处理代码块样式</td></tr>
-        <tr><td>知乎</td><td>支持基本语法，有富文本编辑器</td><td>表格支持不完美，建议使用截图</td></tr>
-        <tr><td>Notion</td><td>丰富的块编辑器，Markdown 快捷键</td><td>不完全兼容标准 Markdown</td></tr>
-      </table>
-
-      <h2>Markdown 写作最佳实践</h2>
-
-      <h3>1. 结构化思维</h3>
-      <p>在开始写作之前，先用大纲规划文章结构。好的 Markdown 文章应该像一棵树：标题是树干，各级子标题是树枝，内容是树叶。</p>
-
-      <h3>2. 善用代码块的语言标注</h3>
-      <p>代码块一定要标注语言，这样可以获得正确的语法高亮：</p>
-      <pre><code>```python    ← 正确：有语言标注
-def hello():
-    print("Hello")
-```
-```
-def hello():    ← 错误：没有语言标注，无语法高亮
-    print("Hello")
-```</code></pre>
-
-      <h3>3. 图片管理策略</h3>
-      <p>图片是 Markdown 文档的常见痛点。推荐方案：</p>
-      <ul>
-        <li><strong>本地文档</strong>：使用相对路径，图片和文档放在同一仓库</li>
-        <li><strong>公开博客</strong>：使用图床服务或 CDN</li>
-        <li><strong>项目文档</strong>：在项目内创建 assets/images 目录统一管理</li>
-        <li><strong>跨平台发布</strong>：将关键图片转为 Base64 内嵌</li>
-      </ul>
-
-      <h3>4. README 编写技巧</h3>
-      <p>一个好的 GitHub README 应该包含：</p>
-      <ol>
-        <li>项目名称和一句话描述</li>
-        <li>徽章（Badge）：构建状态、版本、协议等</li>
-        <li>功能特性列表</li>
-        <li>快速开始指南（安装、运行）</li>
-        <li>使用示例和 API 文档</li>
-        <li>贡献指南</li>
-        <li>许可证信息</li>
-      </ol>
-
-      <h2>Markdown 转其他格式</h2>
-      <p>Markdown 的一个重要价值是可以转换为多种格式。我们的在线工具支持以下转换：</p>
-      <ul>
-        <li><strong>MD → HTML</strong>：用 Markdown 编写内容，导出为完整的 HTML 页面</li>
-        <li><strong>MD → PDF</strong>：适合打印和正式文档分发</li>
-        <li><strong>MD → Word (.docx)</strong>：兼容 Microsoft Office</li>
-        <li><strong>模板导出</strong>：内置小红书、公众号、知乎等平台的排版模板</li>
-      </ul>
+      <p class="guide-meta">实操手册 · 2026-08-04 更新 · 对应工具版本以当前页面为准</p>
+      <h1>一篇 Markdown 如何进入公众号、头条和网页</h1>
+      <p>Markdown 最省时间的地方不是少打几个符号，而是把<strong>内容</strong>与<strong>发布样式</strong>分开：同一份源稿可以预览为公众号长文、头条资讯或技术文档，不必为每个平台重新改一遍正文。</p>
+      <p>这篇指南不从“<code>#</code> 是一级标题”开始背语法，而是完成一个可检查的任务：创建本地草稿，整理结构，加入图片、公式和图表，选择主题，复制到发布后台，再保留一份可继续编辑的源文件。</p>
 
       <div class="guide-cta">
-        <p><strong>立即体验</strong>：<a href="../md-html">使用 MD ↔ HTML 转换器</a></p>
+        <p><strong>先打开工作台：</strong> <a href="../md-html">Markdown 发布工作室</a>。下文中的“草稿”“主题”“富文本复制”等名称均指这个页面里的真实操作。</p>
       </div>
 
-      <h2>常见问题</h2>
-      <h3>Markdown 中如何换行？</h3>
-      <p>在行末加两个空格再回车，或者直接空一行。</p>
-      <h3>为什么我的 Markdown 表格不显示？</h3>
-      <p>检查表头分隔线是否完整，管道符 | 前后是否有空格。</p>
-      <h3>Markdown 支持 HTML 标签吗？</h3>
-      <p>大多数 Markdown 解析器支持内嵌 HTML，但某些平台可能过滤。</p>
+      <h2>先理解工作台的一个原则：Markdown 是唯一源稿</h2>
+      <p>编辑器以 Markdown 文本为准，预览、富文本、HTML、DOCX 和打印结果都从它生成。这样做比同时编辑左右两块富文本更可靠，因为不会出现“预览改了，但源稿没有同步”的分叉。</p>
+      <ul>
+        <li><strong>可恢复：</strong>草稿自动保存在当前浏览器的本地存储中。</li>
+        <li><strong>可迁移：</strong>随时下载 <code>.md</code>，不被某个网页或专有格式锁定。</li>
+        <li><strong>可复用：</strong>正文不变，只切换主题和排版参数。</li>
+        <li><strong>可核对：</strong>复制前先看预览；发布后再与预览逐项比对。</li>
+      </ul>
+      <blockquote>本地草稿不是云备份。换浏览器、清理网站数据或使用无痕窗口，都可能看不到原来的草稿。重要文章请同时下载 Markdown 文件。</blockquote>
 
-      <h2>总结</h2>
-      <p>Markdown 的哲学是"让写作回归内容本身"。掌握基础语法只需 10 分钟，但要写出优雅的 Markdown 文档，还需要在实践中不断积累。记住核心原则：结构清晰、内容优先、格式辅助。</p>
+      <h2>完整发布流程</h2>
 
-      <p class="last-updated">本文最后更新于 2026年6月26日</p>
+      <h3>步骤一：建立可识别的本地草稿</h3>
+      <ol>
+        <li>在左侧草稿栏选择“新建”，给文档一个可辨识的名称，例如“8月产品复盘”。</li>
+        <li>第一行写一级标题；正文中只保留一个一级标题，章节从二级标题开始。</li>
+        <li>观察保存状态从“正在保存”变为“已保存”。它表示内容已写入当前浏览器，不表示已经上传到服务器。</li>
+        <li>长文开始前先下载一次 <code>.md</code> 作为外部备份。</li>
+      </ol>
+      <p>同一篇稿件需要多个版本时，使用“复制草稿”比在正文里反复撤销更稳妥。例如保留“长文版”和“头条精简版”，两份都能继续修改。</p>
+
+      <h3>步骤二：用结构表达含义，不用空格模拟排版</h3>
+      <table>
+        <thead><tr><th>目的</th><th>推荐写法</th><th>不要这样做</th></tr></thead>
+        <tbody>
+          <tr><td>文章标题</td><td><code># 标题</code></td><td>连续输入很多空格居中</td></tr>
+          <tr><td>章节</td><td><code>## 章节</code>、<code>### 小节</code></td><td>只把文字加粗当标题</td></tr>
+          <tr><td>强调</td><td><code>**关键结论**</code></td><td>整段全部加粗</td></tr>
+          <tr><td>步骤</td><td>有顺序用编号，无顺序用项目符号</td><td>手工输入“1、2、3”后混用空格</td></tr>
+          <tr><td>待办</td><td><code>- [ ] 待处理</code></td><td>使用不统一的方框字符</td></tr>
+          <tr><td>数据</td><td>Markdown 表格</td><td>用制表符拼列</td></tr>
+          <tr><td>引用</td><td><code>&gt; 引用内容</code></td><td>用双引号包住多段文字</td></tr>
+        </tbody>
+      </table>
+      <p>工具栏会在光标或选中文本处插入规范语法。常用快捷键是 <kbd>⌘/Ctrl+B</kbd> 加粗、<kbd>⌘/Ctrl+I</kbd> 斜体、<kbd>⌘/Ctrl+K</kbd> 插入链接、<kbd>⌘/Ctrl+S</kbd> 立即保存。</p>
+
+      <h3>步骤三：插入目录、图片、代码、公式和图表</h3>
+      <h4>目录</h4>
+      <p>在希望出现目录的位置输入 <code>[TOC]</code>。目录来自二级及以下标题；改标题后会随预览更新。标题相同时，工作台会生成不同的锚点，避免点击目录时跳错位置。</p>
+
+      <h4>图片</h4>
+      <p>可以粘贴或拖入本地图片。工作台会在浏览器里缩放、压缩并以数据地址插入 Markdown。这个方式适合草稿和离线 HTML，但有两个边界：</p>
+      <ul>
+        <li>数据地址会显著增大草稿体积，浏览器本地存储有容量上限。</li>
+        <li>部分内容平台会过滤数据地址图片。正式发布前，应确认目标平台已经接管图片；否则先上传到自己的图床，再使用 HTTPS 图片地址。</li>
+      </ul>
+      <p>外部图片地址会由浏览器直接请求图片服务器；该服务器可能看到你的 IP、User-Agent 和来源信息。敏感截图应先清理元数据并决定是否适合联网加载。</p>
+
+      <h4>代码块</h4>
+      <pre><code>```javascript
+const result = items.filter(item =&gt; item.ready);
+console.log(result);
+```</code></pre>
+      <p>语言名决定语法高亮。高亮失败时仍会显示安全的纯文本代码，不会为了“高亮”执行代码。</p>
+
+      <h4>数学公式</h4>
+      <pre><code>行内公式：$E = mc^2$
+
+块级公式：
+$$
+\frac{a}{b} + \sqrt{x}
+$$</code></pre>
+      <p>公式使用 KaTeX 渲染。遇到不支持的命令时，应先缩小到最短公式，再对照 <a href="https://katex.org/docs/supported" rel="noopener noreferrer">KaTeX 支持列表</a>；不要把渲染失败的源代码当成已经发布成功。</p>
+
+      <h4>Mermaid 图表</h4>
+      <pre><code>```mermaid
+flowchart LR
+  A[草稿] --&gt; B[预览]
+  B --&gt; C[富文本复制]
+  B --&gt; D[HTML / PDF / DOCX]
+```</code></pre>
+      <p>图表在预览中按需渲染。复杂图表建议先参考 <a href="https://mermaid.js.org/intro/syntax-reference.html" rel="noopener noreferrer">Mermaid 语法参考</a>。复制到第三方编辑器时还要确认 SVG 是否被保留；如果平台删除 SVG，可先导出 HTML 或将图表转成图片后再发布。</p>
+
+      <h3>步骤四：选择发布主题，再微调参数</h3>
+      <table>
+        <thead><tr><th>主题</th><th>适合内容</th><th>核对重点</th></tr></thead>
+        <tbody>
+          <tr><td>Clean</td><td>网页文章、通用文档</td><td>标题层级与表格宽度</td></tr>
+          <tr><td>WeChat</td><td>公众号长文</td><td>段落间距、引用和图片是否被后台保留</td></tr>
+          <tr><td>Toutiao</td><td>头条资讯、观点文</td><td>标题不要过长，移动端行宽是否舒适</td></tr>
+          <tr><td>Developer</td><td>技术教程、API 说明</td><td>代码横向滚动与深色背景</td></tr>
+          <tr><td>Notebook</td><td>读书笔记、随笔</td><td>衬线字体在目标设备上的替代效果</td></tr>
+        </tbody>
+      </table>
+      <p>主题解决整体版式，字体、字号、行高、强调色和宽度解决局部适配。推荐顺序是：先选主题，再调行宽和字号，最后改强调色。一次改太多参数，会让你难以判断究竟哪一项改善了阅读体验。</p>
+      <p>点击“手机预览”只是在桌面上模拟窄画布，不等同于目标平台的真实渲染。发布前仍要在手机端打开草稿预览。</p>
+
+      <h3>步骤五：复制到公众号或头条后台</h3>
+      <ol>
+        <li>先保存源稿并检查预览。</li>
+        <li>点击主操作“复制富文本”。工作台会把关键样式写入各个 HTML 元素，尽量减少目标编辑器丢失外部 CSS 的问题。</li>
+        <li>切换到目标平台编辑器，使用普通粘贴，不要先粘贴到纯文本软件。</li>
+        <li>逐项核对：标题、列表编号、引用、表格、链接、代码、图片、公式或图表。</li>
+        <li>发现某个平台大量删除样式时，尝试“复制 HTML”或导出 HTML，而不是反复修改 Markdown 源稿。</li>
+      </ol>
+      <p>浏览器只有在 HTTPS 页面并获得剪贴板权限时，才能稳定写入富文本。若主操作失败，工作台会尝试兼容回退并给出状态提示。剪贴板能力与限制可参阅 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Clipboard_API" rel="noopener noreferrer">MDN Clipboard API</a>。</p>
+
+      <h3>步骤六：保存可继续编辑、可交付和可打印的版本</h3>
+      <ul>
+        <li><strong>Markdown：</strong>最重要的源文件，便于继续编辑和版本管理。</li>
+        <li><strong>独立 HTML：</strong>包含当前主题样式，适合归档、浏览器打开或放到静态站点。</li>
+        <li><strong>纯文本：</strong>适合只需要文字的投稿系统，但会失去层级和样式。</li>
+        <li><strong>DOCX：</strong>方便交给习惯 Word 的协作者；复杂代码、图表和数学排版可能与网页预览不同。</li>
+        <li><strong>打印 / 保存 PDF：</strong>由浏览器打印引擎生成。打印前检查纸张尺寸、边距、分页和背景图形选项。</li>
+      </ul>
+
+      <h2>发布前的五分钟验收</h2>
+      <ol>
+        <li><strong>源稿：</strong>下载的 <code>.md</code> 能重新导入，标题和正文完整。</li>
+        <li><strong>结构：</strong>页面大纲与正文标题一致，没有从二级标题突然跳到五级标题。</li>
+        <li><strong>链接：</strong>至少点击一个内部目录链接和一个外链；启用外链脚注时检查编号与原链接对应。</li>
+        <li><strong>富媒体：</strong>逐个查看图片、代码、表格、公式和 Mermaid 图表的错误提示。</li>
+        <li><strong>目标平台：</strong>粘贴后在桌面预览和手机预览各检查一次，不以工作台预览代替平台预览。</li>
+      </ol>
+
+      <h2>常见问题与定位方法</h2>
+      <table>
+        <thead><tr><th>现象</th><th>常见原因</th><th>处理顺序</th></tr></thead>
+        <tbody>
+          <tr><td>公众号粘贴后样式变少</td><td>平台过滤标签或 CSS 属性</td><td>使用“复制富文本”→重新粘贴→改用更简单主题→必要时复制 HTML</td></tr>
+          <tr><td>图片在预览中有，发布后没有</td><td>平台拒绝数据地址或外链防盗链</td><td>把图片直接上传到平台或可信图床，再替换地址</td></tr>
+          <tr><td>草稿突然消失</td><td>换浏览器、无痕模式或清理了网站数据</td><td>检查当前浏览器配置；从已下载的 Markdown 重新导入</td></tr>
+          <tr><td>保存提示容量不足</td><td>大量数据地址图片占满本地存储</td><td>立即下载 Markdown；移除大图；改用 HTTPS 图片地址；删除不用的草稿</td></tr>
+          <tr><td>DOCX 与预览不完全相同</td><td>网页 CSS 与 Word 文档模型不同</td><td>把 DOCX 当作可编辑交付版；要保留视觉版式时使用 HTML 或 PDF</td></tr>
+          <tr><td>公式或图表显示源码</td><td>语法错误、浏览器加载增强模块失败</td><td>保留原文→检查最小示例→刷新→按安全回退提示处理</td></tr>
+        </tbody>
+      </table>
+
+      <h2>数据边界：哪些留在本机，哪些会联网</h2>
+      <ul>
+        <li>Markdown 正文、导入文件解析、草稿和排版设置在浏览器本地处理。</li>
+        <li>导入 DOCX 使用浏览器中的解析库，不需要上传文档到 Practical Tools 服务器。</li>
+        <li>工作台页面不主动加载广告脚本；本指南属于内容页，可能加载 Google 广告服务。</li>
+        <li>外部图片、外链、浏览器扩展以及你打开的第三方平台有各自的数据处理规则。</li>
+        <li>清除草稿只影响当前浏览器本地副本；已经下载、复制或发布到其他平台的版本不会一并删除。</li>
+      </ul>
+      <p>更完整的网络与存储说明见 <a href="../privacy">隐私政策</a>。发现工具行为与本文不一致，可在 <a href="../contact">联系页面</a>提供浏览器、操作步骤和错误信息。</p>
+
+      <h2>语法标准与兼容范围</h2>
+      <p>基础语法以 <a href="https://spec.commonmark.org/" rel="noopener noreferrer">CommonMark</a> 为参考；表格、任务列表和删除线等扩展遵循常见的 <a href="https://github.github.com/gfm/" rel="noopener noreferrer">GitHub Flavored Markdown</a> 行为。不同平台并不保证接受同一套 HTML，因此“Markdown 渲染正确”和“第三方编辑器完整保留样式”是两个需要分别验收的环节。</p>
+
+      <h2>FAQ</h2>
+      <h3>关闭页面后草稿还在吗？</h3>
+      <p>通常还在，因为草稿保存在当前浏览器的本地存储。清除网站数据、无痕模式结束、浏览器策略或存储损坏都可能使它消失，因此重要稿件必须另外下载 Markdown。</p>
+
+      <h3>能直接把公众号文章导回 Markdown 吗？</h3>
+      <p>可以先把可访问的 HTML 保存为文件再导入，但平台生成的复杂样式、组件和图片地址会在转换时简化。转换结果应作为可编辑草稿，而不是原页面的像素级复制品。</p>
+
+      <h3>富文本复制为什么需要 HTTPS？</h3>
+      <p>浏览器将剪贴板视为敏感能力，通常只在安全上下文和用户主动点击后开放。Practical Tools 线上站点使用 HTTPS；本地开发时建议使用 <code>localhost</code>。</p>
+
+      <h3>工作台会执行 Markdown 里的 HTML 或脚本吗？</h3>
+      <p>不会。预览会清理不安全标签、事件属性和危险 URL。代码块只作为文本展示。这样可能牺牲少量自定义 HTML 能力，但可以避免把粘贴来的内容当成网页程序执行。</p>
+
+      <h3>什么时候选 HTML，什么时候选 PDF？</h3>
+      <p>需要继续发布、检索或适配不同屏幕时选 HTML；需要固定版面、发送审核稿或打印时选 PDF。仍需继续写作时，Markdown 才是首选源文件。</p>
+
+      <div class="guide-cta">
+        <p><strong>现在完成一次真实发布：</strong>打开 <a href="../md-html">Markdown 发布工作室</a>，从示例草稿开始，依次检查预览、富文本复制和 Markdown 下载。</p>
+      </div>
+
+      <p class="last-updated">最后修订：2026-08-04 · 页面步骤以当前工作台实际功能为准</p>
     </article>
-<footer class="footer">
-      <p>© 2026 在线工具集 · 全部工具在浏览器本地运行，数据不上传服务器</p>
+
+    <footer class="footer">
+      <p>© 2026 Practical Tools · 可复现的浏览器工具与操作手册</p>
       <div class="footer-links">
-        <a href="./">工具指南</a>
-        <a href="../about">关于我们</a>
+        <a href="./index">全部指南</a>
+        <a href="../about">关于</a>
         <a href="../privacy">隐私政策</a>
-        <a href="../ad-disclosure">广告声明</a>
         <a href="../terms">使用条款</a>
-        <a href="../contact">联系我们</a>
+        <a href="../contact">联系</a>
       </div>
     </footer>
   </main>

@@ -4,11 +4,11 @@
   <link rel="canonical" href="https://practicaltools.xyz/base64-encoder">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Base64 编解码器 - 在线工具集</title>
+  <title>Base64 编解码器 - Practical Tools</title>
   <meta name="description" content="免费在线 Base64 编解码工具，文本/图片 Base64 互转，支持拖拽文件，一键复制。">
   <meta name="keywords" content="Base64,Base64编码,Base64解码,图片转Base64,在线工具">
-  <meta name="author" content="在线工具集团队">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
+  <meta name="author" content="Practical Tools">
+
   <link rel="stylesheet" href="./style.css">
   <style>
     .b64-container{max-width:750px;margin:20px auto;padding:0 20px;width:100%;flex:1;display:flex;flex-direction:column;min-height:0}
@@ -51,7 +51,7 @@
     }
   </style>
 
-  <meta property="og:title" content="Base64 编解码器 - 在线工具集">
+  <meta property="og:title" content="Base64 编解码器 - Practical Tools">
   <meta property="og:description" content="免费在线 Base64 编解码工具，文本/图片 Base64 互转，支持拖拽文件，一键复制。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://practicaltools.xyz/base64-encoder">
@@ -70,14 +70,14 @@
 </head>
 <body>
   <header class="topbar">
-    <a href="./index" class="topbar-home">← 返回首页</a>
+    <a href="./index" class="topbar-home">Practical Tools</a>
     <span class="topbar-title">🔤 Base64 编解码器</span>
     <button class="lang-switch" style="visibility:hidden">EN</button>
   </header>
   <main class="page page-tool">
     <div class="b64-container">
       <div class="b64-card">
-        <h2>🔤 Base64 编解码器</h2>
+        <h1>🔤 Base64 编解码器</h1>
         <p class="b64-desc">文本 Base64 编码/解码，图片转 Base64</p>
         <div class="b64-tabs">
           <span class="b64-tab active" data-tab="text">📝 文本</span>
@@ -88,7 +88,7 @@
             <button class="b64-mode active" data-mode="encode" onclick="setTextMode('encode')">📤 编码</button>
             <button class="b64-mode" data-mode="decode" onclick="setTextMode('decode')">📥 解码</button>
           </div>
-          <textarea class="b64-textarea" id="b64Input" placeholder="输入要编码的文本…" spellcheck="false">Hello, 在线工具集!</textarea>
+          <textarea class="b64-textarea" id="b64Input" placeholder="输入要编码的文本…" spellcheck="false">Hello, Practical Tools!</textarea>
           <div class="b64-toolbar">
             <button class="b64-btn primary" onclick="runText()">🔄 转换</button>
             <button class="b64-btn" onclick="copyResult()">📋 复制结果</button>
@@ -150,7 +150,7 @@
       </ul>
     </div>
   </section>
-<footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p><div class="footer-links"><a href="./guides">工具指南</a><a href="./about">关于我们</a><a href="./privacy">隐私政策</a><a href="./terms">使用条款</a><a href="./contact">联系我们</a></div></footer>
+<footer class="footer"><p>© 2026 Practical Tools · 多数处理在浏览器本地完成，具体网络请求见隐私政策</p><div class="footer-links"><a href="./guides">工具指南</a><a href="./about">关于我们</a><a href="./privacy">隐私政策</a><a href="./terms">使用条款</a><a href="./contact">联系我们</a></div></footer>
   <script>
     let encodeMode = true;
     document.querySelectorAll('.b64-tab').forEach(tab => { tab.addEventListener('click', () => { document.querySelectorAll('.b64-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.b64-pane').forEach(p => p.classList.remove('active')); tab.classList.add('active'); document.getElementById('pane' + tab.dataset.tab.charAt(0).toUpperCase() + tab.dataset.tab.slice(1)).classList.add('active'); }); });

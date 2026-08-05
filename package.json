@@ -1,28 +1,44 @@
 {
-  "name": "web-tools-hub",
-  "version": "1.0.0",
+  "name": "practical-tools",
+  "version": "2.0.0",
   "private": true,
-  "description": "在线工具集 - Markdown转换、汇率换算等实用工具",
+  "description": "Practical Tools - Markdown publishing studio and focused browser utilities",
   "scripts": {
-    "start": "parcel src/index.html src/md-html.html src/exchange-rate.html src/password-generator.html src/timestamp-converter.html src/json-formatter.html src/base64-encoder.html src/qr-generator.html src/color-converter.html src/text-diff.html src/agent-commands.html src/image-compressor.html src/dev-commands.html src/dev-links.html src/regex-tester.html src/hash-calculator.html src/url-encoder.html src/uuid-generator.html src/word-counter.html src/base-converter.html src/image-privacy-cleaner.html src/about.html src/privacy.html src/terms.html src/contact.html src/ad-disclosure.html src/guides/index.html src/guides/json-formatter-guide.html src/guides/regex-guide.html src/guides/hash-guide.html src/guides/image-compress-guide.html src/guides/password-guide.html src/guides/text-diff-guide.html src/guides/qr-code-guide.html src/guides/base64-guide.html src/guides/markdown-guide.html src/guides/timestamp-guide.html src/guides/git-workflow-guide.html src/guides/url-encoding-guide.html --port 3000 --open",
-    "build": "parcel build src/index.html src/md-html.html src/exchange-rate.html src/password-generator.html src/timestamp-converter.html src/json-formatter.html src/base64-encoder.html src/qr-generator.html src/color-converter.html src/text-diff.html src/agent-commands.html src/image-compressor.html src/dev-commands.html src/dev-links.html src/regex-tester.html src/hash-calculator.html src/url-encoder.html src/uuid-generator.html src/word-counter.html src/base-converter.html src/image-privacy-cleaner.html src/about.html src/privacy.html src/terms.html src/contact.html src/ad-disclosure.html src/guides/index.html src/guides/json-formatter-guide.html src/guides/regex-guide.html src/guides/hash-guide.html src/guides/image-compress-guide.html src/guides/password-guide.html src/guides/text-diff-guide.html src/guides/qr-code-guide.html src/guides/base64-guide.html src/guides/markdown-guide.html src/guides/timestamp-guide.html src/guides/git-workflow-guide.html src/guides/url-encoding-guide.html --dist-dir dist --public-url ./ && cp src/sitemap.xml src/robots.txt src/ads.txt src/google6b3f4d8534bf7a70.html src/favicon.ico src/favicon.svg dist/"
+    "test": "node --test test/markdown-studio-core.test.mjs",
+    "test:browser": "node test/browser-smoke.mjs",
+    "test:site": "node test/site-browser-crawl.mjs",
+    "start": "npm run build && node scripts/serve-dist.mjs",
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && env -u HERMES_WEB_DIST parcel build src/index.html src/md-html.html src/exchange-rate.html src/password-generator.html src/timestamp-converter.html src/json-formatter.html src/base64-encoder.html src/qr-generator.html src/color-converter.html src/text-diff.html src/agent-commands.html src/image-compressor.html src/dev-commands.html src/dev-links.html src/regex-tester.html src/hash-calculator.html src/url-encoder.html src/uuid-generator.html src/word-counter.html src/base-converter.html src/image-privacy-cleaner.html src/about.html src/privacy.html src/terms.html src/contact.html src/ad-disclosure.html src/guides/index.html src/guides/json-formatter-guide.html src/guides/regex-guide.html src/guides/hash-guide.html src/guides/image-compress-guide.html src/guides/password-guide.html src/guides/text-diff-guide.html src/guides/qr-code-guide.html src/guides/base64-guide.html src/guides/markdown-guide.html src/guides/timestamp-guide.html src/guides/git-workflow-guide.html src/guides/url-encoding-guide.html --dist-dir dist --public-url / && cp src/sitemap.xml src/robots.txt src/ads.txt src/google6b3f4d8534bf7a70.html src/favicon.ico src/favicon.svg dist/ && mkdir -p dist/vendor && cp node_modules/mermaid/dist/mermaid.min.js dist/vendor/mermaid.min.js && mkdir -p dist/vendor/katex/fonts && cp node_modules/katex/dist/katex.min.css dist/vendor/katex/ && cp node_modules/katex/dist/fonts/* dist/vendor/katex/fonts/"
+  },
+  "engines": {
+    "node": ">=22 <23"
+  },
+  "@parcel/resolver-default": {
+    "packageExports": true
   },
   "dependencies": {
     "docx": "^8.5.0",
+    "dompurify": "3.4.13",
+    "highlight.js": "11.11.1",
+    "katex": "0.16.47",
     "mammoth": "^1.12.0",
     "marked": "^15.0.0",
+    "mermaid": "11.16.0",
     "turndown": "^7.2.0"
   },
   "devDependencies": {
     "@parcel/packager-raw-url": "^2.16.4",
     "@parcel/transformer-jsonld": "^2.16.4",
     "buffer": "^6.0.3",
-    "parcel": "^2.12.0",
+    "parcel": "^2.16.4",
+    "playwright-core": "^1.62.1",
     "process": "^0.11.10"
   },
   "targets": {
     "default": {
-      "distDir": "./dist"
+      "context": "browser",
+      "distDir": "./dist",
+      "includeNodeModules": true
     }
   }
 }

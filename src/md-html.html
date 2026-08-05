@@ -1,74 +1,417 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <link rel="canonical" href="https://practicaltools.xyz/md-html">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MD ↔ HTML 转换器 - 在线工具集</title>
-  <meta name="description" content="免费在线 Markdown ↔ HTML 双向转换工具，支持富媒体编辑，导出PDF/Word/HTML/MD/TXT。">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7632558285398569" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101b2b">
+  <meta name="color-scheme" content="dark light">
+  <link rel="canonical" href="https://practicaltools.xyz/md-html">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <title>Markdown 发布工作室｜实时预览、公众号排版与多格式导出 - Practical Tools</title>
+  <meta name="description" content="在浏览器本地编写和管理 Markdown 草稿，实时预览 Clean、WeChat、Toutiao、Developer、Notebook 主题，并复制富文本或导出 Markdown、HTML、TXT、DOCX 和 PDF。">
 
-  <meta property="og:title" content="MD ↔ HTML 转换器 - 在线工具集">
-  <meta property="og:description" content="免费在线 Markdown ↔ HTML 双向转换工具，支持富媒体编辑，导出PDF/Word/HTML/MD/TXT。">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="Practical Tools">
+  <meta property="og:title" content="Markdown 发布工作室 - Practical Tools">
+  <meta property="og:description" content="本地草稿、GFM 实时预览、发布主题、富文本复制与多格式导出。">
   <meta property="og:url" content="https://practicaltools.xyz/md-html">
   <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Markdown 发布工作室 - Practical Tools">
+  <meta name="twitter:description" content="在浏览器本地完成 Markdown 写作、排版、复制和导出。">
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./markdown-studio.css">
+
   <script type="application/ld+json">
-{
+  {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "MD ↔ HTML 转换器",
+    "name": "Practical Tools Markdown 发布工作室",
     "url": "https://practicaltools.xyz/md-html",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "All",
-    "description": "免费在线 Markdown ↔ HTML 双向转换工具，支持富媒体编辑，导出PDF/Word/HTML/MD/TXT。"
-}
-</script>
+    "description": "在浏览器本地编写 Markdown、管理草稿、实时预览发布主题并导出常用文档格式。",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript and a modern browser with localStorage support",
+    "inLanguage": "zh-CN",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Markdown and GFM live preview",
+      "Browser-local named drafts",
+      "Rich text clipboard copy",
+      "Markdown, HTML, text and DOCX export",
+      "Print and Save PDF workflow"
+    ]
+  }
+  </script>
 </head>
-<body>
-  <header class="topbar">
-    <a href="./index" class="topbar-home">← 返回首页</a>
-    <span class="topbar-title">📄 MD ↔ HTML 转换器</span>
-    <button class="lang-switch" style="visibility:hidden">EN</button>
+<body class="markdown-studio-page">
+  <a class="studio-skip-link" href="#markdownSource">跳到 Markdown 编辑器</a>
+
+  <header class="studio-site-header">
+    <a class="studio-brand" href="./index" aria-label="返回 Practical Tools 首页">
+      <svg aria-hidden="true" viewBox="0 0 32 32" width="30" height="30">
+        <path d="M7 5.5h18a2 2 0 0 1 2 2v17a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-17a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M10 21V11l4.2 5 4.2-5v10M21 17l2.4 2.5L26 17" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+      </svg>
+      <span>Practical Tools</span>
+    </a>
+    <div class="studio-product-title">
+      <h1>Markdown 发布工作室</h1>
+      <p>写作、排版、复制与导出，都在当前浏览器完成</p>
+    </div>
+    <nav class="studio-page-nav" aria-label="页面导航">
+      <a href="#workflow-guide">工作流指南</a>
+      <a href="./guides/markdown-guide">Markdown 指南</a>
+    </nav>
   </header>
-  <main id="app" class="page page-tool" style="min-height:calc(100vh - 45px)">
-</main>
-  <section class="tool-about">
-    <div class="about-wrap">
-      <h3>📖 关于此工具</h3>
-      <p><strong>MD ↔ HTML 转换器</strong> 支持 Markdown 和 HTML 格式的<strong>双向转换</strong>。你可以直接编辑 Markdown 源码或可视化编辑 HTML，实时预览效果。支持图片粘贴、表格插入、代码块高亮等功能。转换结果可导出为 PDF、Word (.docx)、HTML、Markdown 和纯文本格式，满足文档编写、内容发布、技术写作等多种场景需求。</p>
 
-      <h4>🔧 核心功能</h4>
-      <ul>
-        <li><strong>Markdown→HTML</strong>：在左侧编写 Markdown，右侧实时渲染为 HTML 预览</li>
-        <li><strong>HTML→Markdown</strong>：粘贴 HTML 代码，自动转换为 Markdown 格式</li>
-        <li><strong>多模板支持</strong>：内置小红书、公众号、知乎、技术文档、简历、GitHub README 等 9 套排版模板</li>
-        <li><strong>富文本编辑</strong>：支持可视化编辑，插入图片、表格、链接、代码块等</li>
-        <li><strong>多格式导出</strong>：结果可导出为 PDF、Word (.docx)、HTML、Markdown、纯文本</li>
-        <li><strong>代码高亮</strong>：支持多种编程语言的代码块语法高亮</li>
-      </ul>
+  <main id="app" class="markdown-studio" data-view="split" data-mobile-view="editor">
+    <div class="studio-command-bar" aria-label="文档命令栏">
+      <div class="studio-command-group studio-command-start">
+        <button class="studio-icon-button studio-sidebar-toggle" id="sidebarToggle" type="button" aria-controls="documentsPanel" aria-expanded="false" aria-label="打开文档与大纲">
+          <span aria-hidden="true">≡</span>
+        </button>
+        <button class="studio-button" id="importButton" type="button">
+          <span>导入</span>
+        </button>
+        <input id="documentImportInput" type="file" accept=".md,.markdown,.txt,.html,.htm,.docx" hidden>
 
-      <h4>📋 使用场景</h4>
-      <ul>
-        <li><strong>技术写作</strong>：编写技术博客、项目 README、API 文档</li>
-        <li><strong>内容发布</strong>：使用模板快速生成适合各平台（公众号/知乎/小红书）排版的文章</li>
-        <li><strong>文档导出</strong>：将 Markdown 文档导出为 PDF 或 Word 格式，方便打印和分享</li>
-        <li><strong>网页制作</strong>：用 Markdown 快速生成 HTML 页面内容</li>
-        <li><strong>个人简历</strong>：用 Markdown 编写简历，通过模板美化排版后导出 PDF</li>
-      </ul>
+        <details class="studio-menu" id="exportMenu">
+          <summary class="studio-button"><span>导出</span></summary>
+          <div class="studio-menu-panel studio-menu-panel-start" role="menu" aria-label="导出格式">
+            <button type="button" role="menuitem" data-export="markdown"><strong>Markdown</strong><span>.md 源文件</span></button>
+            <button type="button" role="menuitem" data-export="html"><strong>独立 HTML</strong><span>包含当前主题样式</span></button>
+            <button type="button" role="menuitem" data-export="text"><strong>纯文本</strong><span>.txt 阅读文本</span></button>
+            <button type="button" role="menuitem" data-export="docx"><strong>Word 文档</strong><span>.docx 基础结构</span></button>
+            <button type="button" role="menuitem" data-export="print"><strong>打印 / 保存 PDF</strong><span>打开系统打印面板</span></button>
+          </div>
+        </details>
+      </div>
 
-      <h4>💡 使用技巧</h4>
-      <ul>
-        <li>选择合适的模板可大幅提升文章排版效果，公众号推荐"公众号"模板</li>
-        <li>使用 Ctrl+B/I 等快捷键可快速插入粗体/斜体等格式</li>
-        <li>粘贴图片时自动转为 Base64 内嵌，无需外部图床</li>
-        <li>所有编辑和转换在浏览器本地完成，<strong>内容不会上传服务器</strong></li>
-      </ul>
+      <div class="studio-document-identity">
+        <label class="visually-hidden" for="documentTitle">当前文档名称</label>
+        <input id="documentTitle" type="text" maxlength="80" autocomplete="off" value="未命名文档">
+        <span id="saveStatus" class="studio-save-status" role="status" aria-live="polite">正在载入…</span>
+      </div>
+
+      <div class="studio-command-group studio-command-end">
+        <div class="studio-view-switcher" role="group" aria-label="编辑器视图">
+          <button type="button" data-view-mode="editor" aria-pressed="false">编辑</button>
+          <button type="button" data-view-mode="split" aria-pressed="true">分栏</button>
+          <button type="button" data-view-mode="preview" aria-pressed="false">预览</button>
+        </div>
+        <button class="studio-button studio-primary-action" id="richCopyButton" type="button">
+          <span>复制富文本</span>
+        </button>
+        <details class="studio-menu studio-copy-menu" id="copyMenu">
+          <summary class="studio-icon-button" aria-label="更多复制选项">•••</summary>
+          <div class="studio-menu-panel studio-menu-panel-end" role="menu" aria-label="复制选项">
+            <button type="button" role="menuitem" data-copy="markdown"><strong>复制 Markdown</strong><span>原始源文本</span></button>
+            <button type="button" role="menuitem" data-copy="html"><strong>复制 HTML</strong><span>安全渲染后的正文</span></button>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="studio-mobile-tabs" role="tablist" aria-label="移动端编辑与预览">
+      <button id="mobileEditTab" type="button" role="tab" aria-selected="true" aria-controls="editorPanel" data-mobile-tab="editor">编辑</button>
+      <button id="mobilePreviewTab" type="button" role="tab" aria-selected="false" aria-controls="previewPanel" data-mobile-tab="preview">预览</button>
+    </div>
+
+    <div class="studio-workspace">
+      <button class="studio-drawer-scrim" id="drawerScrim" type="button" aria-label="关闭文档抽屉" tabindex="-1"></button>
+
+      <aside class="studio-documents-panel" id="documentsPanel" aria-label="本地文档与文章大纲">
+        <div class="studio-sidebar-heading">
+          <div>
+            <p class="studio-eyebrow">Browser workspace</p>
+            <h2>本地文档</h2>
+          </div>
+          <button class="studio-icon-button" id="newDocumentButton" type="button" aria-label="新建文档" title="新建文档">＋</button>
+        </div>
+        <p class="studio-local-note"><strong>只保存在这个浏览器。</strong>不会同步到其他设备；清除站点数据会删除这些草稿。请为重要内容定期导出 Markdown。</p>
+        <p class="studio-storage-warning" id="storageWarning" role="alert" hidden>浏览器未能保存最新修改。请先导出 Markdown；内嵌图片可能已超出本地存储额度。</p>
+
+        <div class="studio-document-list" id="documentList" role="listbox" aria-label="本地文档"></div>
+
+        <div class="studio-document-actions" role="group" aria-label="当前文档操作">
+          <button id="renameDocumentButton" type="button">重命名</button>
+          <button id="duplicateDocumentButton" type="button">创建副本</button>
+          <button id="deleteDocumentButton" class="danger" type="button">删除</button>
+        </div>
+
+        <section class="studio-outline-section" aria-labelledby="outlineTitle">
+          <div class="studio-outline-heading">
+            <h2 id="outlineTitle">文章大纲</h2>
+            <span id="outlineCount">0 项</span>
+          </div>
+          <nav id="outlineList" class="studio-outline" aria-label="文章标题大纲">
+            <p class="studio-empty-state">添加标题后会在这里生成大纲。</p>
+          </nav>
+        </section>
+      </aside>
+
+      <section class="studio-editor-panel" id="editorPanel" aria-labelledby="editorPanelTitle">
+        <header class="studio-panel-header studio-editor-header">
+          <div>
+            <p class="studio-eyebrow">Source</p>
+            <h2 id="editorPanelTitle">Markdown</h2>
+          </div>
+          <span class="studio-shortcut-hint"><kbd>⌘/Ctrl</kbd> + B · I · K · S</span>
+        </header>
+
+        <div class="studio-format-toolbar" id="formatToolbar" role="toolbar" aria-label="Markdown 格式工具栏">
+          <div class="studio-toolbar-group" role="group" aria-label="标题">
+            <button type="button" data-action="heading-1" aria-label="H1 一级标题" title="一级标题">H1</button>
+            <button type="button" data-action="heading-2" aria-label="H2 二级标题" title="二级标题">H2</button>
+            <button type="button" data-action="heading-3" aria-label="H3 三级标题" title="三级标题">H3</button>
+          </div>
+          <div class="studio-toolbar-group" role="group" aria-label="文字格式">
+            <button type="button" data-action="bold" aria-label="加粗" aria-keyshortcuts="Control+B Meta+B" title="加粗（⌘/Ctrl+B）"><strong>B</strong></button>
+            <button type="button" data-action="italic" aria-label="斜体" aria-keyshortcuts="Control+I Meta+I" title="斜体（⌘/Ctrl+I）"><em>I</em></button>
+            <button type="button" data-action="strike" aria-label="删除线" aria-keyshortcuts="Control+Shift+S Meta+Shift+S" title="删除线（⌘/Ctrl+Shift+S）"><s>S</s></button>
+            <button type="button" data-action="inline-code" aria-label="行内代码" title="行内代码"><span aria-hidden="true">&lt;/&gt;</span></button>
+          </div>
+          <div class="studio-toolbar-group" role="group" aria-label="块级格式">
+            <button type="button" data-action="quote" aria-label="引用" title="引用">引用</button>
+            <button type="button" data-action="code-block" aria-label="代码块" title="代码块">代码块</button>
+            <button type="button" data-action="horizontal-rule" aria-label="分隔线" title="分隔线">分隔线</button>
+            <button type="button" data-action="toc" aria-label="TOC 目录标记" title="插入 [TOC]">TOC</button>
+          </div>
+          <div class="studio-toolbar-group" role="group" aria-label="链接与图片">
+            <button type="button" data-action="link" aria-label="插入链接" aria-keyshortcuts="Control+K Meta+K" title="链接（⌘/Ctrl+K）">链接</button>
+            <button type="button" data-action="image" aria-label="图片 URL：插入图片网址" title="插入图片网址">图片 URL</button>
+            <button type="button" data-action="local-image" aria-label="插入本地图片" title="插入本地图片">本地图片</button>
+            <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+          </div>
+          <div class="studio-toolbar-group" role="group" aria-label="列表与表格">
+            <button type="button" data-action="unordered-list" aria-label="无序列表" title="无序列表">无序列表</button>
+            <button type="button" data-action="ordered-list" aria-label="1. 列表：有序列表" title="有序列表">1. 列表</button>
+            <button type="button" data-action="task-list" aria-label="任务列表" title="任务列表">任务列表</button>
+            <button type="button" data-action="table" aria-label="插入表格" title="插入表格">表格</button>
+          </div>
+        </div>
+
+        <div class="studio-editor-wrap" id="editorDropZone">
+          <label class="visually-hidden" for="markdownSource">Markdown 源码</label>
+          <textarea id="markdownSource" name="markdown" spellcheck="true" autocapitalize="sentences" placeholder="开始写作，或把 Markdown、HTML、DOCX 文件拖到这里…"></textarea>
+          <div class="studio-drop-overlay" aria-hidden="true"><strong>松开即可导入</strong><span>支持文档与本地图片</span></div>
+        </div>
+
+        <footer class="studio-editor-status" aria-label="文档统计">
+          <span id="characterStat">0 字符</span>
+          <span id="wordStat">0 字词</span>
+          <span id="paragraphStat">0 段</span>
+          <span id="readingStat">0 分钟</span>
+          <span class="studio-status-spacer"></span>
+          <label class="studio-inline-toggle" for="scrollSyncToggle">
+            <input id="scrollSyncToggle" type="checkbox" checked>
+            <span>同步滚动</span>
+          </label>
+          <span id="cursorStat">行 1，列 1</span>
+        </footer>
+      </section>
+
+      <section class="studio-preview-panel" id="previewPanel" aria-labelledby="previewPanelTitle">
+        <header class="studio-panel-header studio-preview-header">
+          <div>
+            <p class="studio-eyebrow">Live canvas</p>
+            <h2 id="previewPanelTitle">发布预览</h2>
+          </div>
+          <div class="studio-preview-tools">
+            <span id="enhancementStatus" class="studio-enhancement-status" role="status">安全渲染</span>
+            <details class="studio-settings" id="settingsPanel">
+              <summary class="studio-button">排版设置</summary>
+              <div class="studio-settings-panel">
+                <label>主题
+                  <select id="themeSelect" aria-label="预览主题"></select>
+                </label>
+                <label>字体
+                  <select id="fontSelect">
+                    <option value="system">系统字体</option>
+                    <option value="sans">现代无衬线</option>
+                    <option value="serif">中文衬线</option>
+                    <option value="mono">等宽字体</option>
+                  </select>
+                </label>
+                <label>字号
+                  <select id="fontSizeSelect">
+                    <option value="14">14 px</option>
+                    <option value="16" selected>16 px</option>
+                    <option value="18">18 px</option>
+                    <option value="20">20 px</option>
+                    <option value="22">22 px</option>
+                  </select>
+                </label>
+                <label>行高
+                  <select id="lineHeightSelect">
+                    <option value="1.55">1.55</option>
+                    <option value="1.7">1.70</option>
+                    <option value="1.85" selected>1.85</option>
+                    <option value="2">2.00</option>
+                    <option value="2.15">2.15</option>
+                  </select>
+                </label>
+                <label>强调色
+                  <span class="studio-color-control"><input id="accentInput" type="color" value="#0f6575"><output id="accentOutput">#0f6575</output></span>
+                </label>
+                <label>正文宽度
+                  <select id="widthSelect">
+                    <option value="narrow">窄 · 620 px</option>
+                    <option value="standard" selected>标准 · 760 px</option>
+                    <option value="wide">宽 · 980 px</option>
+                  </select>
+                </label>
+                <label class="studio-setting-toggle"><input id="mobilePreviewToggle" type="checkbox"><span>模拟手机宽度</span></label>
+                <label class="studio-setting-toggle"><input id="footnoteToggle" type="checkbox"><span>外链转脚注</span></label>
+              </div>
+            </details>
+          </div>
+        </header>
+
+        <div class="studio-preview-stage" id="previewScroller">
+          <article id="previewDocument" class="studio-preview-document markdown-body" data-theme="clean" tabindex="0" aria-label="Markdown 渲染预览"></article>
+        </div>
+      </section>
+    </div>
+
+    <div class="studio-toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+    <dialog class="studio-dialog" id="documentDialog" aria-labelledby="documentDialogTitle">
+      <form method="dialog" id="documentDialogForm">
+        <h2 id="documentDialogTitle">文档名称</h2>
+        <p id="documentDialogDescription">为文档输入一个容易识别的名称。</p>
+        <label for="documentNameInput">名称</label>
+        <input id="documentNameInput" type="text" maxlength="80" required autocomplete="off">
+        <div class="studio-dialog-actions">
+          <button class="studio-button" type="button" value="cancel" data-dialog-cancel>取消</button>
+          <button class="studio-button studio-primary-action" type="submit" value="confirm">保存</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="studio-dialog" id="linkDialog" aria-labelledby="linkDialogTitle">
+      <form method="dialog" id="linkDialogForm">
+        <h2 id="linkDialogTitle">插入链接</h2>
+        <label for="linkTextInput">显示文字</label>
+        <input id="linkTextInput" type="text" maxlength="200" required autocomplete="off">
+        <label for="linkUrlInput">链接地址</label>
+        <input id="linkUrlInput" type="text" maxlength="2000" required value="https://" inputmode="url" autocapitalize="off" spellcheck="false">
+        <p class="studio-field-help">只接受 http、https、mailto、tel 和页面内锚点。</p>
+        <div class="studio-dialog-actions">
+          <button class="studio-button" type="button" value="cancel" data-dialog-cancel>取消</button>
+          <button class="studio-button studio-primary-action" type="submit" value="confirm">插入</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="studio-dialog" id="imageDialog" aria-labelledby="imageDialogTitle">
+      <form method="dialog" id="imageDialogForm">
+        <h2 id="imageDialogTitle">插入图片网址</h2>
+        <label for="imageAltInput">替代文字</label>
+        <input id="imageAltInput" type="text" maxlength="200" required autocomplete="off" value="图片说明">
+        <label for="imageUrlInput">图片网址</label>
+        <input id="imageUrlInput" type="url" maxlength="2000" required value="https://" inputmode="url">
+        <p class="studio-field-help">只接受 http 或 https 图片地址。本地图片可用工具栏按钮、粘贴或拖放插入。</p>
+        <div class="studio-dialog-actions">
+          <button class="studio-button" type="button" value="cancel" data-dialog-cancel>取消</button>
+          <button class="studio-button studio-primary-action" type="submit" value="confirm">插入</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="studio-dialog studio-confirm-dialog" id="confirmDialog" aria-labelledby="confirmDialogTitle">
+      <form method="dialog" id="confirmDialogForm">
+        <h2 id="confirmDialogTitle">删除文档？</h2>
+        <p id="confirmDialogMessage">删除后无法从本工具恢复。建议先导出 Markdown 备份。</p>
+        <div class="studio-dialog-actions">
+          <button class="studio-button" type="button" value="cancel" data-dialog-cancel>取消</button>
+          <button class="studio-button studio-danger-action" id="confirmDeleteButton" type="submit" value="confirm">删除文档</button>
+        </div>
+      </form>
+    </dialog>
+  </main>
+
+  <section class="studio-content-section" id="workflow-guide" aria-labelledby="workflowTitle">
+    <div class="studio-content-wrap">
+      <header class="studio-section-intro">
+        <p class="studio-eyebrow">Practical workflow</p>
+        <h2 id="workflowTitle">从草稿到发布，一条可复查的流程</h2>
+        <p>这个工作室把“写 Markdown”和“给发布平台排版”放在同一页，但始终以 Markdown 源文档为准。这样修改、备份和迁移都更容易。</p>
+      </header>
+
+      <ol class="studio-workflow-list">
+        <li><span>01</span><div><h3>先保存可迁移的源稿</h3><p>新建一个命名文档后直接写作。自动保存只负责当前浏览器的恢复；重要文章应定期导出 <code>.md</code> 文件。</p></div></li>
+        <li><span>02</span><div><h3>用结构而不是空格排版</h3><p>使用标题、列表、引用、表格和 <code>[TOC]</code>。这些结构能稳定转换为 HTML、Word 和富文本，手工空格在不同平台通常会丢失。</p></div></li>
+        <li><span>03</span><div><h3>按目标平台检查预览</h3><p>WeChat 和 Toutiao 主题强调中文阅读节奏；Developer 适合代码；Notebook 适合长文。字号、行高、强调色和正文宽度会一并用于富文本复制与 HTML 导出。</p></div></li>
+        <li><span>04</span><div><h3>发布前做一次目标编辑器粘贴测试</h3><p>优先使用“复制富文本”，粘贴到公众号或其他编辑器后检查图片、表格和代码块。平台可能二次清理 CSS，所以最终结果应以目标编辑器为准。</p></div></li>
+      </ol>
     </div>
   </section>
-<script type="module" src="./tools/md-html.js"></script>
-<footer class="footer"><p>© 2026 在线工具集 · 所有工具在浏览器本地运行，数据不上传服务器</p><div class="footer-links"><a href="./guides">工具指南</a><a href="./about">关于我们</a><a href="./privacy">隐私政策</a><a href="./terms">使用条款</a><a href="./contact">联系我们</a></div></footer>
-  <script src="./cookie-consent.js" defer></script>
+
+  <section class="studio-content-section studio-feature-section" aria-labelledby="featuresTitle">
+    <div class="studio-content-wrap studio-feature-layout">
+      <header class="studio-section-intro">
+        <p class="studio-eyebrow">What is exact</p>
+        <h2 id="featuresTitle">功能边界写清楚，导出时才不会意外</h2>
+      </header>
+      <dl class="studio-feature-list">
+        <div><dt>Markdown 渲染</dt><dd>支持 marked 提供的 GFM 表格、任务列表、删除线和围栏代码。原始 HTML 会作为文本处理，不会在预览中执行。</dd></div>
+        <div><dt>代码、图表与数学</dt><dd>常见语言使用本地语法高亮；Mermaid 图表与 KaTeX 公式仅在文档需要时加载。增强模块无法载入或源码无法解析时，预览会保留可读源码并显示明确提示。</dd></div>
+        <div><dt>导入</dt><dd><code>.md</code>、<code>.markdown</code>、<code>.txt</code> 直接读取；HTML 清理后转为 Markdown；DOCX 通过 Mammoth 提取结构，复杂页眉、浮动对象和精确版式不会保留。</dd></div>
+        <div><dt>导出</dt><dd>Markdown 和 TXT 适合长期备份；独立 HTML 包含当前主题；DOCX 保留常见标题、段落、列表、链接、代码和表格；PDF 使用浏览器的打印 / 另存为 PDF。</dd></div>
+        <div><dt>图片</dt><dd>粘贴或拖入的 JPEG、PNG、WebP 会在尺寸较大时压缩并以内嵌数据保存；GIF 保持原文件。大量内嵌图片可能超过浏览器存储额度。</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="studio-content-section studio-privacy-section" aria-labelledby="privacyTitle">
+    <div class="studio-content-wrap studio-privacy-layout">
+      <div>
+        <p class="studio-eyebrow">Privacy & limitations</p>
+        <h2 id="privacyTitle">本地处理不等于永久备份</h2>
+      </div>
+      <div class="studio-prose">
+        <p>草稿、偏好和粘贴的本地图片保存在浏览器的 <code>localStorage</code> 中，本工具没有账号同步。无痕窗口、浏览器清理、设备更换或站点数据重置都可能让草稿消失。</p>
+        <p>文档中的远程图片链接仍会由浏览器向图片所在网站发起请求。若内容敏感，请删除远程资源或改用本地图片。DOCX 导入和所有导出在页面内完成；本页不包含广告脚本。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="studio-content-section studio-faq-section" aria-labelledby="faqTitle">
+    <div class="studio-content-wrap">
+      <header class="studio-section-intro">
+        <p class="studio-eyebrow">FAQ</p>
+        <h2 id="faqTitle">发布前常见问题</h2>
+      </header>
+      <div class="studio-faq-grid">
+        <article><h3>为什么粘贴到公众号后略有变化？</h3><p>发布平台会过滤它不接受的样式。富文本复制已把关键计算样式写入元素，但平台仍可能调整字体、外边距或代码块背景。</p></article>
+        <article><h3>怎样得到 PDF？</h3><p>选择“导出 → 打印 / 保存 PDF”，在系统打印面板中选择“另存为 PDF”。这种方式比画布截图更能保留文字清晰度和分页能力。</p></article>
+        <article><h3>HTML 导入安全吗？</h3><p>导入内容先经过标签、属性和 URL 协议白名单，再转换成 Markdown。脚本、事件属性、嵌入页面和表单控件不会进入预览。</p></article>
+        <article><h3>可以在另一台设备继续吗？</h3><p>不会自动同步。请下载 Markdown 文件，在另一台设备上重新导入；这也是最稳妥的长期备份方式。</p></article>
+        <article><h3>DOCX 为什么与原稿不完全一样？</h3><p>Markdown 没有 Word 的分页、文本框和浮动排版概念。工具保留可映射的内容结构，不承诺复刻原 Word 页面。</p></article>
+        <article><h3>能直接写 HTML 吗？</h3><p>可以把 HTML 文件导入并转成 Markdown，但编辑器不会执行 Markdown 中的原始 HTML。这样能避免脚本或危险属性进入发布预览。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="studio-footer">
+    <p>© 2026 Practical Tools · 内容处理与草稿保存均在当前浏览器内完成</p>
+    <nav aria-label="页脚导航">
+      <a href="./guides">工具指南</a>
+      <a href="./about">关于我们</a>
+      <a href="./privacy">隐私政策</a>
+      <a href="./terms">使用条款</a>
+      <a href="./contact">联系我们</a>
+    </nav>
+  </footer>
+
+  <script type="module" src="./tools/md-html.js"></script>
 </body>
 </html>
